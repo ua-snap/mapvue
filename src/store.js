@@ -13,13 +13,15 @@ export default new Vuex.Store({
   },
   mutations: {
     setLayers (state, layers) {
-      state.layers = layers
+      var restructuredlayers = {}
+      _.each(layers, layer => {
+        layer.visible = false
+        restructuredlayers[layer.name] = layer
+      })
+      state.layers = restructuredlayers
     },
     toggleLayerVisibility (state, payload) {
-      // state.layers[payload.layer].visible = !state.layers[payload.layer].visibile
-      console.log(state.layers)
-      console.log(payload)
-      // console.log(state.layers[payload.layer].visible)
+      state.layers[payload.layer].visible = !(state.layers[payload.layer].visible)
     }
   }
 })
