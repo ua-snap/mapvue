@@ -21,7 +21,13 @@ export default new Vuex.Store({
       state.layers = restructuredlayers
     },
     toggleLayerVisibility (state, payload) {
-      state.layers[payload.layer].visible = !(state.layers[payload.layer].visible)
+      state.layers[payload.layer].visible = !state.layers[payload.layer].visible
+    }
+  },
+  // Some getters here are just used for watching global state changes.
+  getters: {
+    getLayers: function (state) {
+      return state.layers
     }
   }
 })

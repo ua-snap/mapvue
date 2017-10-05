@@ -1,9 +1,62 @@
 <template></template>
 <script>
+/* eslint new-cap: "off" */
 export default {
   name: 'SNAP_RCP6',
+  computed: {
+    crs () {
+      // We need to modify the default pan-Arctic
+      // projection to avoid a bug.
+      var proj = new this.$L.Proj.CRS('EPSG:3572',
+        '+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs',
+        {
+          resolutions: [4096, 2048, 1024, 512, 256, 128, 64],
+          origin: [-4234288.146966308, -4234288.146966307]
+        }
+      )
+
+      // trust me.
+      // Without this (= pi/2), proj4js returns an undefined
+      // value for tiles requested at the North Pole and
+      // it causes a runtime exception.
+      proj.projection._proj.oProj.phi0 = 1.5708
+      return proj
+    },
+    baseLayer () {
+      // Base layer configuration for pan-Arctic map.
+      var baseConfiguration = {
+        layers: ['arctic_osm_3572'],
+        transparent: true,
+        srs: 'EPSG:3572',
+        format: 'image/png',
+        version: '1.3',
+        continuousWorld: true, // needed for non-3857 projs
+        zIndex: 0
+      }
+      return new this.$L.tileLayer.wms(window.geoserverWmsUrl, baseConfiguration)
+    },
+    placeLayer () {
+      // Place names layer configuration for pan-Arctic map.
+      var placeConfiguration = {
+        layers: ['arctic_places_osm_3572'],
+        transparent: true,
+        srs: 'EPSG:3572',
+        format: 'image/png',
+        version: '1.3',
+        continuousWorld: true, // needed for non-3857 projs
+        zIndex: 100
+      }
+      return new this.$L.tileLayer.wms(window.geoserverWmsUrl, placeConfiguration)
+    }
+  },
   data () {
     return {
+      mapOptions: {
+        zoom: 0,
+        minZoom: 0,
+        maxZoom: 5,
+        center: [64, -165]
+      },
       layers: [
         {
           'abstract': 'This layer shows the decadal average length of growing season in the 2090s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n[Read more about this data set](http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-2km-cmip5-ar5), including the algorithms used to generate this data layer.',

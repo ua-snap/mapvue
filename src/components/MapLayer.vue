@@ -56,11 +56,10 @@ export default {
     }
   },
   methods: {
-    toggleLayer: function (layer, animal) {
+    toggleLayer: function (layer) {
       this.$store.commit('toggleLayerVisibility', {
         layer: layer
       })
-      // this.$emit('toggleLayer', event)
     }
   }
 }
