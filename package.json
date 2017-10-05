@@ -14,10 +14,11 @@
   },
   "dependencies": {
     "leaflet": "0.7.7",
-    "proj4leaflet": "0.7.2",
     "lodash": "^4.17.4",
+    "proj4leaflet": "0.7.2",
     "vue": "^2.4.2",
     "vue-router": "^2.7.0",
+    "vuedraggable": "^2.14.1",
     "vuex": "^2.4.1"
   },
   "devDependencies": {

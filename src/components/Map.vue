@@ -90,7 +90,8 @@ export default {
   },
   mounted () {
     // Throughout the below, you'll see `this.$refs.component`.
-    // That's how we access the child map component.
+    // That's how we access the child map component, i.e.
+    // the specific map that is being rendered.
     // See: https://vuejs.org/v2/api/#ref
 
     // These need to be separate instances because we listen for events differently on each.
@@ -111,13 +112,6 @@ export default {
       scrollWheelZoom: true
     }, this.$refs.component.mapOptions)
 
-/*
-    var secondMapOptions = angular.extend({
-      layers: secondLayers
-    },
-    $scope.mapDefaults);
-    $scope.secondMapObj = L.map('secondmap', secondMapOptions);
-*/
     this.mapObj = this.$L.map('snapmapapp', this.firstMapOptions)
 
     // Add all layers
@@ -131,6 +125,7 @@ export default {
         version: '1.3'
       }, this.$refs.component.layerOptions)
 
+      // TODO: 2nd map, "special" layers (ones handled by the map component itself, not GeoServer)
       _.each(this.layers, (layer) => {
         let layerConfiguration = _.extend(wmsLayerOptions,
           {
@@ -138,27 +133,6 @@ export default {
           })
         this.layerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
       })
-      /*
-      _.each(this.map.layers, function(layer) {
-        layer.name = layer.name.replace('geonode:','');
-        $scope.layers[layer.name] = {};
-
-        if (true !== layer.local) {
-          angular.extend(wmsLayerOptions, {
-            layers: 'geonode:' + layer.name,
-            name: layer.name
-          });
-
-          $scope.layers[layer.name].obj = L.tileLayer.wms(GEOSERVER_WMS_URL, wmsLayerOptions);
-          $scope.layers[layer.name].secondObj = L.tileLayer.wms(GEOSERVER_WMS_URL, wmsLayerOptions);
-        } else {
-          // Flag this as nonlocal layer so other code can handle it
-          $scope.layers[layer.name].local = true;
-          $scope.layers[layer.name].obj = layer.getObject();
-          $scope.layers[layer.name].secondObj = layer.getObject();
-        }
-
-      }); */
     }
     addLayers()
   },
@@ -174,6 +148,7 @@ export default {
     this.$store.commit('setLayers', mapObjectMapper[this.mapComponentName].data().layers)
   },
   watch: {
+    // When layer visibility or order changes, re-render
     getLayers: {
       deep: true,
       handler (layers) {
