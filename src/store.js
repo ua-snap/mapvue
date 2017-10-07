@@ -9,7 +9,9 @@ export default new Vuex.Store({
   state: {
     maps: maps,
     currentMap: undefined,
-    layers: undefined
+    layers: undefined,
+    sidebarVisibility: false,
+    sidebarContent: undefined
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -41,12 +43,28 @@ export default new Vuex.Store({
     },
     reorderLayers (state, layers) {
       state.layers = layers
+    },
+    // Set the sidebar contents, and open the sidebar
+    showSidebar (state, payload) {
+      state.sidebarVisibility = true
+      let targetLayer = _.find(
+        state.layers,
+        layer => layer.name === payload.layer
+      )
+      state.sidebarContent = targetLayer.abstract
+    },
+    hideSidebar (state) {
+      state.sidebarVisibility = false
+      state.sidebarContent = undefined
     }
   },
   // Some getters here are just used for watching global state changes.
   getters: {
     getLayers: function (state) {
       return state.layers
+    },
+    sidebarVisibility (state) {
+      return state.sidebarVisibility
     }
   }
 })

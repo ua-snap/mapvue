@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import L from 'leaflet'
 import p4l from 'proj4leaflet' // eslint-disable-line
+import leaflet_sidebar from 'leaflet-sidebar' // eslint-disable-line
 
 /* Hacks section */
 // https://vuejsdevelopers.com/2017/04/22/vue-js-libraries-plugins/

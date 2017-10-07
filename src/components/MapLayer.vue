@@ -37,7 +37,7 @@
   <!-- Information about layer button -->
   <label
     class="btn btn-primary info"
-    v-on:click="showLayerInformation(layer.name)"
+    @click="showLayerInformation(name)"
   >
     <span class="glyphicon glyphicon-info-sign"></span>
   </label>
@@ -56,8 +56,13 @@ export default {
     }
   },
   methods: {
-    toggleLayer: function (layer) {
+    toggleLayer (layer) {
       this.$store.commit('toggleLayerVisibility', {
+        layer: layer
+      })
+    },
+    showLayerInformation (layer) {
+      this.$store.commit('showSidebar', {
         layer: layer
       })
     }

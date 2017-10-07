@@ -7,7 +7,7 @@
   <map-loading-indicator></map-loading-indicator>
 -->
 
-  <div id="info-sidebar"></div>
+  <leaflet-sidebar :mapObj="mapObj"></leaflet-sidebar>
 
   <div id="mapsWrapper">
     <div id="snapmapapp" :class="{'half': dualMaps}"></div>
@@ -31,10 +31,11 @@ This whole hoo-haw should be redone, it's not easily extensible
 or easy to understand the right factorization here, but this isn't
 good.
 */
-import MvIam from './Maps/IAM.vue'
-import MvAkFires from './Maps/AK_Fires.vue'
-import MvSnapRcp6 from './Maps/SNAP_RCP6.vue'
+import MvIam from './Maps/IAM'
+import MvAkFires from './Maps/AK_Fires'
+import MvSnapRcp6 from './Maps/SNAP_RCP6'
 import _ from 'lodash'
+import LeafletSidebar from './LeafletSidebar'
 
 var mapSlugs = {
   'snap-rcp-6.0': 'MvSnapRcp6',
@@ -58,6 +59,9 @@ export default {
       // for each map, will it?
       firstMapOptions: undefined,
 
+      // reference to leaflet-sidebar
+      sidebar: undefined,
+
       // Leaflet map object
       mapObj: undefined,
 
@@ -70,6 +74,7 @@ export default {
       abstract: undefined,
       mapComponentName: undefined, // name of current map component
       mapComponent: undefined // contains reference to current map component object
+
     }
   },
   computed: {
@@ -86,6 +91,7 @@ export default {
   components: {
     'layer-menu': LayerMenu,
     'mv-footer': Footer,
+    'leaflet-sidebar': LeafletSidebar,
     ...mapObjectMapper
   },
   mounted () {
@@ -139,7 +145,7 @@ export default {
   created () {
     // This populates the overview info for the map
     this.title = this.$store.state.maps[this.slug].title
-    this.abstract = this.$store.state.maps[this.slug].title
+    this.abstract = this.$store.state.maps[this.slug].abstract
 
     // This references the component implementing this map!
     this.mapComponentName = mapSlugs[this.slug]
@@ -152,11 +158,18 @@ export default {
     getLayers: {
       deep: true,
       handler (layers) {
-        _.each(layers, layer => {
-          if (layer.visible && !this.mapObj.hasLayer(this.layerObjs[layer.name])) {
-            this.mapObj.addLayer(this.layerObjs[layer.name])
-          } else if (!layer.visible && this.mapObj.hasLayer(this.layerObjs[layer.name])) {
-            this.mapObj.removeLayer(this.layerObjs[layer.name])
+        _.each(layers, (layer, index) => {
+          let layerObj = this.layerObjs[layer.name]
+
+          // Explicitly order the list so that topmost layer
+          // has the highest z-index
+          layerObj.setZIndex(100 - index)
+
+          // Add or remove the layer from the map
+          if (layer.visible && !this.mapObj.hasLayer(layerObj)) {
+            this.mapObj.addLayer(layerObj)
+          } else if (!layer.visible && this.mapObj.hasLayer(layerObj)) {
+            this.mapObj.removeLayer(layerObj)
           }
         })
       }

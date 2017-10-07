@@ -43,7 +43,7 @@ export default {
 
 <style lang="scss" scoped>
 .list-complete-item {
-  transition: all 1s;
+  transition: all .35s;
 }
 
 .list-complete-enter, .list-complete-leave-active {
