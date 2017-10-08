@@ -7,6 +7,7 @@
         :title="layer.title"
         :abstract="layer.abstract"
         :visible="layer.visible"
+        :secondVisible="layer.secondVisible"
       ></map-layer>
     </div>
   </transition-group>

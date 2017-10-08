@@ -20,7 +20,7 @@
   <!-- Buttons for second map -->
   <label
     class="btn btn-success visibility"
-    v-if="dualMaps && layer.secondvisible"
+    v-if="dualMaps && secondVisible"
     @click.prevent="toggleLayer(name, 'second')"
   >
     <span class="glyphicon glyphicon-check"></span>
@@ -28,7 +28,7 @@
   </label>
   <label
     class="btn btn-primary visibility"
-    v-if="dualMaps && layer.secondvisible"
+    v-if="dualMaps && !secondVisible"
     @click.prevent="toggleLayer(name, 'second')"
   >
     <span class="glyphicon glyphicon-unchecked"></span>
@@ -49,16 +49,17 @@
 
 export default {
   name: 'MapLayer',
-  props: ['name', 'title', 'abstract', 'visible'],
+  props: ['name', 'title', 'abstract', 'visible', 'secondVisible'],
   computed: {
     dualMaps () {
       return this.$store.state.dualMaps
     }
   },
   methods: {
-    toggleLayer (layer) {
+    toggleLayer (layerName, mapPane) {
       this.$store.commit('toggleLayerVisibility', {
-        layer: layer
+        layer: layerName,
+        mapPane: mapPane
       })
     },
     showLayerInformation (layer) {

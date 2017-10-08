@@ -1,17 +1,15 @@
 <template>
 <div id="outer-map-wrapper">
-  <h1 id="mapTitle">{{ title }}</h1>
+  <h1>{{ title }}</h1>
   <layer-menu></layer-menu>
-<!--
-  <map-splash-screen></map-splash-screen>
-  <map-loading-indicator></map-loading-indicator>
--->
+  <splash-screen
+    :abstract="abstract"></splash-screen>
 
-  <leaflet-sidebar :mapObj="mapObj"></leaflet-sidebar>
+  <sidebar :mapObj="mapObj"></sidebar>
 
   <div id="mapsWrapper">
-    <div id="snapmapapp" :class="{'half': dualMaps}"></div>
-    <div id="secondmap" :class="{'half': dualMaps}"></div>
+    <div id="snapmapapp" v-bind:class="{ half: dualMaps }"></div>
+    <div id="secondmap"></div>
   </div>
 
   <component ref="component" v-bind:is="mapComponentName">
@@ -35,7 +33,8 @@ import MvIam from './Maps/IAM'
 import MvAkFires from './Maps/AK_Fires'
 import MvSnapRcp6 from './Maps/SNAP_RCP6'
 import _ from 'lodash'
-import LeafletSidebar from './LeafletSidebar'
+import Sidebar from './Sidebar'
+import SplashScreen from './SplashScreen'
 
 var mapSlugs = {
   'snap-rcp-6.0': 'MvSnapRcp6',
@@ -55,10 +54,6 @@ export default {
   props: ['slug'],
   data () {
     return {
-      // TODO: rename to mapOptions, it won't be different
-      // for each map, will it?
-      firstMapOptions: undefined,
-
       // reference to leaflet-sidebar
       sidebar: undefined,
 
@@ -91,7 +86,8 @@ export default {
   components: {
     'layer-menu': LayerMenu,
     'mv-footer': Footer,
-    'leaflet-sidebar': LeafletSidebar,
+    'sidebar': Sidebar,
+    'splash-screen': SplashScreen,
     ...mapObjectMapper
   },
   mounted () {
@@ -102,23 +98,24 @@ export default {
 
     // These need to be separate instances because we listen for events differently on each.
     var baseLayer = this.$refs.component.baseLayer
-    // var secondBaseLayer = this.mapComponent.getBaseLayer()
     var placeLayer = this.$refs.component.placeLayer
-    // var secondPlaceLayer = this.mapComponent.getPlaceLayer()
 
     // Don't add the place layer if not defined
     var layers = placeLayer ? [baseLayer, placeLayer] : [baseLayer]
-    // var secondLayers = secondPlaceLayer ? [secondBaseLayer, secondPlaceLayer] : [secondBaseLayer];
 
     // Mix together some defaults with map-specific configuration.
-    this.firstMapOptions = _.extend({
-      layers: layers,
+    var mapOptions = _.extend({
       crs: this.$refs.component.crs,
       zoomControl: false,
       scrollWheelZoom: true
     }, this.$refs.component.mapOptions)
 
-    this.mapObj = this.$L.map('snapmapapp', this.firstMapOptions)
+    this.mapObj = this.$L.map('snapmapapp', _.extend(mapOptions, {
+      layers: layers
+    }))
+    this.secondMapObj = this.$L.map('secondmap', _.extend(mapOptions, {
+      layers: _.cloneDeep(layers)
+    }))
 
     // Add all layers
     // TODO refactor away to module or whatever
@@ -160,7 +157,6 @@ export default {
       handler (layers) {
         _.each(layers, (layer, index) => {
           let layerObj = this.layerObjs[layer.name]
-
           // Explicitly order the list so that topmost layer
           // has the highest z-index
           layerObj.setZIndex(100 - index)
@@ -179,7 +175,7 @@ export default {
 </script>
 
 <style type="scss" scoped>
-#mapTitle {
+h1 {
   position: absolute;
   top: 0; left: 0;
   z-index: 100;
@@ -207,12 +203,13 @@ export default {
 }
 
 #secondmap {
+  display: none;
   position: absolute;
   left: 50%;
   width: 50%;
   height: 100%;
   border: 0;
-  z-index: -1;
+  z-index: -10;
 }
 
 #secondmap.half {

@@ -44,7 +44,7 @@ export default {
         format: 'image/png',
         version: '1.3',
         continuousWorld: true, // needed for non-3857 projs
-        zIndex: 100
+        zIndex: 1000
       }
       return new this.$L.tileLayer.wms(window.geoserverWmsUrl, placeConfiguration)
     }

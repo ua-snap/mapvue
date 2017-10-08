@@ -2,7 +2,7 @@
 <div class="layer-menu" ng-hide="minimized || loadingData">
   <layer-list></layer-list>
     <div ng-hide="loadingData" class="mapTools form-inline">
-      <label id="showMapInformation" class="btn btn-primary info" ng-click="showMapInformation(map.id)">
+      <label class="btn btn-primary info" @click="showSplash()">
         <span class="glyphicon glyphicon-question-sign"></span>
         &nbsp;
         About this map&hellip;
@@ -12,14 +12,16 @@
         &nbsp;
         Download data
       </a> -->
-      <label id="showDualMaps" class="mobile-hidden btn btn-primary info" ng-click="toggleDualMaps()">
-        <span ng-hide="dualMaps" class="glyphicon glyphicon-unchecked"></span>
-        <span ng-hide="dualMaps">|</span>
+      <label id="showDualMaps" class="mobile-hidden btn btn-primary info" @click="toggleDualMaps()">
+        <span v-show="!dualMaps">
+          <span v-show="!dualMaps" class="glyphicon glyphicon-unchecked"></span>
+          |
+        </span>
         <span class="glyphicon glyphicon-unchecked"></span>
         &nbsp;
         Split / single map
       </label>
-      <label id="syncDualMaps" class="mobile-hidden btn btn-primary info" ng-class="{'btn-success': syncMaps}" ng-show="dualMaps" ng-click="toggleSynchronizeMaps()">
+      <label id="syncDualMaps" class="mobile-hidden btn btn-primary info" ng-class="{'btn-success': syncMaps}" v-show="dualMaps" @click="toggleSynchronizeMaps()">
         <span class="glyphicon glyphicon-flash"></span>
         &nbsp;
         Synchronize maps
@@ -29,7 +31,7 @@
         &nbsp;
         {{ graphButtonText }}&hellip;
       </label> -->
-      <label class="mobile-hidden btn btn-primary" ng-click="startTour()">
+      <label class="mobile-hidden btn btn-primary" @click="startTour()">
         <span class="glyphicon glyphicon-question-sign"></span>
         &nbsp;
         Take a tour of this map&hellip;
@@ -52,6 +54,17 @@ export default {
     }
   },
   created () {
+  },
+  methods: {
+    showSplash () {
+      this.$store.commit('showSplash')
+    },
+    startTour () {
+      this.$store.commit('startTour')
+    },
+    toggleDualMaps () {
+      this.$store.commit('toggleDualMaps')
+    }
   }
 }
 </script>

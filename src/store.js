@@ -7,23 +7,67 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    // List of all maps in the application
     maps: maps,
+
+    // TODO figure this one out???
     currentMap: undefined,
+
+    // Layers of the current map
     layers: undefined,
+
+    // Should the sidebar be shown?
     sidebarVisibility: false,
-    sidebarContent: undefined
+
+    // SidebarContent is set to the layer object
+    // when shown, then returned to `undefined` when hidden.
+    sidebarContent: undefined,
+
+    // Whether the splash/intro screen for a map is visible or not
+    showSplash: true,
+
+    // True if the app knows that there are still outstanding
+    // data requests (used on map splash screen)
+    pendingHttpRequests: 0,
+
+    // Are dual maps being shown?
+    dualMaps: false,
+
+    // Should the dual maps be kept in sync?
+    syncDualMaps: false,
+
+    // True if tour is active
+    tourIsActive: false
   },
   mutations: {
     // This function is used to initialize the layers in the store.
     setLayers (state, layers) {
       var restructuredlayers = []
+
+      // Set some defaults for state/instance-based properties
       _.each(layers, layer => {
+        // Default visibility on left/right maps to off
         layer.visible = false
+        layer.secondVisible = false
+
         restructuredlayers.push(layer)
       })
       state.layers = restructuredlayers
     },
     toggleLayerVisibility (state, payload) {
+      // Helper function to toggle visiblity properties on the
+      // store for either left or right map pane
+      var swapVisibility = (targetLayer, propName) => {
+        targetLayer[propName] = !targetLayer[propName]
+
+        // If the layer is being turned on,
+        // pull it to the top of the list
+        if (targetLayer[propName] === true) {
+          state.layers.splice(targetLayerIndex, 1)
+          state.layers.unshift(targetLayer)
+        }
+      }
+
       // Identify the layer in the array
       let targetLayerIndex = _.findIndex(
         state.layers,
@@ -31,14 +75,11 @@ export default new Vuex.Store({
       )
       let targetLayer = state.layers[targetLayerIndex]
 
-      // Swap visibility flag
-      targetLayer.visible = !targetLayer.visible
-
-      // If the layer is being turned on,
-      // pull it to the top of the list
-      if (targetLayer.visible === true) {
-        state.layers.splice(targetLayerIndex, 1)
-        state.layers.unshift(targetLayer)
+      if (payload.mapPane !== 'second') {
+        // Swap visibility flag
+        swapVisibility(targetLayer, 'visible')
+      } else {
+        swapVisibility(targetLayer, 'secondVisible')
       }
     },
     reorderLayers (state, layers) {
@@ -51,20 +92,39 @@ export default new Vuex.Store({
         state.layers,
         layer => layer.name === payload.layer
       )
-      state.sidebarContent = targetLayer.abstract
+      state.sidebarContent = targetLayer
     },
     hideSidebar (state) {
       state.sidebarVisibility = false
       state.sidebarContent = undefined
+    },
+    showSplash (state) {
+      state.showSplash = true
+    },
+    hideSplash (state) {
+      state.showSplash = false
+    },
+    startTour (state) {
+      state.tourIsActive = true
+    },
+    endTour (state) {
+      state.tourIsActive = false
+    },
+    toggleDualMaps (state) {
+      state.dualMaps = !state.dualMaps
     }
   },
   // Some getters here are just used for watching global state changes.
   getters: {
-    getLayers: function (state) {
+    getLayers (state) {
       return state.layers
     },
     sidebarVisibility (state) {
       return state.sidebarVisibility
+    },
+    // Returns true if there are pending HTTP requests
+    loadingData (state) {
+      return state.pendingHttpRequests > 0
     }
   }
 })
