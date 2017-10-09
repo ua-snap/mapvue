@@ -7,10 +7,8 @@
 
   <sidebar :mapObj="mapObj"></sidebar>
 
-  <div id="mapsWrapper">
-    <div id="snapmapapp" v-bind:class="{ half: dualMaps }"></div>
-    <div id="secondmap"></div>
-  </div>
+  <div id="snapmapapp" v-bind:class="{ half: dualMaps }"></div>
+  <div id="secondmap" v-bind:class="{ half: dualMaps }"></div>
 
   <component ref="component" v-bind:is="mapComponentName">
     <!-- Map-specific HTML & Tour will be rendered here -->
@@ -57,8 +55,9 @@ export default {
       // reference to leaflet-sidebar
       sidebar: undefined,
 
-      // Leaflet map object
+      // Leaflet map objects
       mapObj: undefined,
+      secondMapObj: undefined,
 
       // Array of layer Leaflet objects, keyed by layer name.
       layerObjs: {},
@@ -81,6 +80,9 @@ export default {
     },
     getLayers () {
       return this.$store.getters.getLayers
+    },
+    tourIsActive () {
+      return this.$store.getters.tourIsActive
     }
   },
   components: {
@@ -110,9 +112,11 @@ export default {
       scrollWheelZoom: true
     }, this.$refs.component.mapOptions)
 
+    // Instantiate map objects
     this.mapObj = this.$L.map('snapmapapp', _.extend(mapOptions, {
       layers: layers
     }))
+
     this.secondMapObj = this.$L.map('secondmap', _.extend(mapOptions, {
       layers: _.cloneDeep(layers)
     }))
@@ -142,6 +146,10 @@ export default {
   created () {
     // This populates the overview info for the map
     this.title = this.$store.state.maps[this.slug].title
+
+    // TODO Make the Abstract pull from some other source
+    // than the list of maps (i.e. equiv to the getAbstract function
+    // in the prior version)
     this.abstract = this.$store.state.maps[this.slug].abstract
 
     // This references the component implementing this map!
@@ -151,6 +159,10 @@ export default {
     this.$store.commit('setLayers', mapObjectMapper[this.mapComponentName].data().layers)
   },
   watch: {
+    // Start/stop the tour
+    tourIsActive () {
+      console.log('Totally going to do something here')
+    },
     // When layer visibility or order changes, re-render
     getLayers: {
       deep: true,
@@ -174,7 +186,8 @@ export default {
 }
 </script>
 
-<style type="scss" scoped>
+<style type="scss">
+
 h1 {
   position: absolute;
   top: 0; left: 0;
@@ -184,40 +197,50 @@ h1 {
   padding: .5ex;
 }
 
+.leaflet-right {
+  margin-right: 10px;
+  margin-top: 60px;
+}
+
 #snapmapapp {
   position: absolute;
   width: 100%;
   height: 100%;
+  left: 0;
+  top: 0;
 }
 
 #snapmapapp.half {
-  position: absolute;
   width: 50%;
   right: 50%;
   border-right: 2px solid rgba(0, 0, 0, .5);
-
-  .leaflet-right {
-    margin-right: 10px;
-    margin-top: 60px;
-  }
+  border: 2px solid red;
 }
 
 #secondmap {
-  display: none;
   position: absolute;
   left: 50%;
   width: 50%;
   height: 100%;
   border: 0;
-  z-index: -10;
+  z-index: -1;
 }
 
 #secondmap.half {
   z-index: 0;
-
-  .leaflet-right {
-    margin-right: 10px;
-    margin-top: 60px;
-  }
+  border: 2px solid blue;
 }
+
+.leaflet-top, .leaflet-bottom {
+  z-index: 499;
+}
+
+.leaflet-container {
+  background-color: #fff;
+}
+
+.leaflet-sidebar {
+  z-index: 4500;
+}
+
 </style>

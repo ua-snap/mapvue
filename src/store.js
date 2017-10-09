@@ -125,6 +125,9 @@ export default new Vuex.Store({
     // Returns true if there are pending HTTP requests
     loadingData (state) {
       return state.pendingHttpRequests > 0
+    },
+    tourIsActive (state) {
+      return state.tourIsActive
     }
   }
 })

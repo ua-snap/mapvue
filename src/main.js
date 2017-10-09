@@ -7,12 +7,14 @@ import store from './store'
 import L from 'leaflet'
 import p4l from 'proj4leaflet' // eslint-disable-line
 import leaflet_sidebar from 'leaflet-sidebar' // eslint-disable-line
+import tour from 'bootstrap-tour' // eslint-disable-line
 import axios from 'axios'
 
 // Attach 3rd party libraries to Vue instance objects
 // https://vuejsdevelopers.com/2017/04/22/vue-js-libraries-plugins/
 Object.defineProperty(Vue.prototype, '$L', { value: L })
 Object.defineProperty(Vue.prototype, '$axios', { value: axios })
+Object.defineProperty(Vue.prototype, '$tour', { value: tour })
 
 /* Hacks section */
 // TODO move these into another appropriate spot!
@@ -22,6 +24,7 @@ window.pendingRequests = 0
 
 // Oddly, this is the correct thing to do here.
 require('../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss')
+require('../node_modules/bootstrap-tour/build/css/bootstrap-tour.css')
 
 Vue.config.productionTip = false
 
