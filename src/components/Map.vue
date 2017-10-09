@@ -160,7 +160,9 @@ export default {
   },
   watch: {
     // Start/stop the tour
-    tourIsActive () {
+    tourIsActive (state) {
+      this.$refs.component.tour.start()
+      console.log(state)
       console.log('Totally going to do something here')
     },
     // When layer visibility or order changes, re-render
@@ -186,7 +188,7 @@ export default {
 }
 </script>
 
-<style type="scss">
+<style type="scss" scoped>
 
 h1 {
   position: absolute;

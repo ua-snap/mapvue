@@ -7,7 +7,7 @@ import store from './store'
 import L from 'leaflet'
 import p4l from 'proj4leaflet' // eslint-disable-line
 import leaflet_sidebar from 'leaflet-sidebar' // eslint-disable-line
-import tour from 'bootstrap-tour' // eslint-disable-line
+import tour from 'bootstrap-tour'
 import axios from 'axios'
 
 // Attach 3rd party libraries to Vue instance objects
