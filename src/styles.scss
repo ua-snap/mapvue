@@ -36,3 +36,17 @@ body {
   background: transparent url("./assets/grid.png") repeat;
   background-screen-mode: darken;
 }
+
+// Needs to be in global scope because the Shepherd
+// library writes the DOM outside of the scope of the
+// Map component.
+h3.shepherd-title {
+  color: #fff;
+}
+.shepherd-text p {
+  font-weight: 300;
+}
+.tour-wide {
+  color: red !important;
+  min-width: 40em !important;
+}

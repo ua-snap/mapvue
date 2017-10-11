@@ -19,6 +19,7 @@
 </template>
 
 <script>
+  /* eslint-disable */
 import LayerMenu from './LayerMenu'
 import Footer from './Footer'
 
@@ -160,10 +161,15 @@ export default {
   },
   watch: {
     // Start/stop the tour
-    tourIsActive (state) {
-      this.$refs.component.tour.start()
-      console.log(state)
-      console.log('Totally going to do something here')
+    tourIsActive (tourIsActive) {
+      if (tourIsActive === true) {
+        // Tour started.  Clean up the app state and start tour.
+        this.$store.commit('hideSplash')
+        this.$store.commit('hideSidebar')
+        this.$refs.component.tour.start()
+      } else {
+        // ...
+      }
     },
     // When layer visibility or order changes, re-render
     getLayers: {
@@ -186,10 +192,10 @@ export default {
     }
   }
 }
+
 </script>
 
 <style type="scss" scoped>
-
 h1 {
   position: absolute;
   top: 0; left: 0;
