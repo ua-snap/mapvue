@@ -21,7 +21,7 @@ export default {
     baseLayer () {
       return new this.$L.tileLayer.wms( // eslint-disable-line new-cap
         window.geoserverWmsUrl,
-        _.extend(this.baselayerOptions, {
+        _.extend(this.baseLayerOptions, {
           layers: 'alaska_osm'
         })
       )
@@ -29,7 +29,7 @@ export default {
     placeLayer () {
       return new this.$L.tileLayer.wms( // eslint-disable-line new-cap
         window.geoserverWmsUrl,
-        _.extend(this.baselayerOptions, {
+        _.extend(this.baseLayerOptions, {
           zIndex: 100,
           layers: 'alaska_places_osm_3338'
         })
@@ -38,13 +38,24 @@ export default {
   },
   data () {
     return {
+      abstract: `
+<h1>It’s important to study wildland fire and its relationship to humans and the ecosystems we share. Use this map to see locations and sizes of wildfires in context of long-term fire history, land cover types, and more.</h1>
+ <div class="abstractWrapper">
+   <p>For the most current fire management information, visit:</p>
+   <ul>
+     <li><a href="https://fire.ak.blm.gov" target="_blank">Alaska Interagency Coordination Center (AICC)</a></li>
+     <li><a href="http://fire.ak.blm.gov/content/aicc/sitreport/current.pdf" target="_blank">Current AICC Situation Report</a></li>
+     <li><a href="https://akfireinfo.com/" target="_blank">Alaska Wildland Fire Information</a></li>
+   </ul>
+   <p>We thank the Alaska Fire Service, State of Alaska, and the Alaska Interagency Coordination Center for their hard work fighting fires and maintaining the data.</p>
+ </div>`,
       mapOptions: {
         zoom: 1,
         minZoom: 0,
         maxZoom: 6,
         center: [65, -152.5]
       },
-      baselayerOptions: {
+      baseLayerOptions: {
         transparent: true,
         srs: 'EPSG:3338',
         format: 'image/png',

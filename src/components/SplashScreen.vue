@@ -2,7 +2,7 @@
 <transition name="fade">
   <div v-show="showSplash" class="splash-screen">
     <div class="billboard">
-      <div class="abstract">{{ abstract }}</div>
+      <div class="abstract" v-html="abstract"></div>
       <div v-show="loadingData" class="loading-data">
         <img src="../assets/safari-spinner.svg" />
         <p style="display: inline-block">

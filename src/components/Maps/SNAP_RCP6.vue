@@ -1,6 +1,7 @@
 <template></template>
 <script>
 /* eslint new-cap: "off" */
+import _ from 'lodash'
 export default {
   name: 'SNAP_RCP6',
   computed: {
@@ -23,31 +24,21 @@ export default {
       return proj
     },
     baseLayer () {
-      alert('being called in SNAP_RCP6')
-      // Base layer configuration for pan-Arctic map.
-      var baseConfiguration = {
-        layers: ['arctic_osm_3572'],
-        transparent: true,
-        srs: 'EPSG:3572',
-        format: 'image/png',
-        version: '1.3',
-        continuousWorld: true, // needed for non-3857 projs
-        zIndex: 0
-      }
-      return new this.$L.tileLayer.wms(window.geoserverWmsUrl, baseConfiguration)
+      return new this.$L.tileLayer.wms(
+        window.geoserverWmsUrl,
+        _.extend(this.baseLayerOptions, {
+          layers: ['arctic_osm_3572']
+        })
+      )
     },
     placeLayer () {
-      // Place names layer configuration for pan-Arctic map.
-      var placeConfiguration = {
-        layers: ['arctic_places_osm_3572'],
-        transparent: true,
-        srs: 'EPSG:3572',
-        format: 'image/png',
-        version: '1.3',
-        continuousWorld: true, // needed for non-3857 projs
-        zIndex: 1000
-      }
-      return new this.$L.tileLayer.wms(window.geoserverWmsUrl, placeConfiguration)
+      return new this.$L.tileLayer.wms(
+        window.geoserverWmsUrl,
+        _.extend(this.baseLayerOptions, {
+          layers: ['arctic_places_osm_3572'],
+          zIndex: 1000
+        })
+      )
     },
     tour () {
       let tour = new this.$shepherd.Tour({
@@ -102,6 +93,13 @@ export default {
         minZoom: 0,
         maxZoom: 5,
         center: [64, -165]
+      },
+      baseLayerOptions: {
+        transparent: true,
+        srs: 'EPSG:3572',
+        format: 'image/png',
+        version: '1.3',
+        continuousWorld: true // needed for non-3857 projs
       },
       layers: [
         {

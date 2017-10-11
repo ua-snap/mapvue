@@ -98,6 +98,7 @@ export default {
     // That's how we access the child map component, i.e.
     // the specific map that is being rendered.
     // See: https://vuejs.org/v2/api/#ref
+    this.abstract = this.$refs.component.abstract
 
     // These need to be separate instances because we listen for events differently on each.
     var baseLayer = this.$refs.component.baseLayer
@@ -147,11 +148,6 @@ export default {
   created () {
     // This populates the overview info for the map
     this.title = this.$store.state.maps[this.slug].title
-
-    // TODO Make the Abstract pull from some other source
-    // than the list of maps (i.e. equiv to the getAbstract function
-    // in the prior version)
-    this.abstract = this.$store.state.maps[this.slug].abstract
 
     // This references the component implementing this map!
     this.mapComponentName = mapSlugs[this.slug]
