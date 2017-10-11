@@ -19,6 +19,7 @@
 </template>
 
 <script>
+  /* eslint-disable */
 import LayerMenu from './LayerMenu'
 import Footer from './Footer'
 
@@ -97,6 +98,7 @@ export default {
     // That's how we access the child map component, i.e.
     // the specific map that is being rendered.
     // See: https://vuejs.org/v2/api/#ref
+    this.abstract = this.$refs.component.abstract
 
     // These need to be separate instances because we listen for events differently on each.
     var baseLayer = this.$refs.component.baseLayer
@@ -147,11 +149,6 @@ export default {
     // This populates the overview info for the map
     this.title = this.$store.state.maps[this.slug].title
 
-    // TODO Make the Abstract pull from some other source
-    // than the list of maps (i.e. equiv to the getAbstract function
-    // in the prior version)
-    this.abstract = this.$store.state.maps[this.slug].abstract
-
     // This references the component implementing this map!
     this.mapComponentName = mapSlugs[this.slug]
 
@@ -160,10 +157,15 @@ export default {
   },
   watch: {
     // Start/stop the tour
-    tourIsActive (state) {
-      this.$refs.component.tour.start()
-      console.log(state)
-      console.log('Totally going to do something here')
+    tourIsActive (tourIsActive) {
+      if (tourIsActive === true) {
+        // Tour started.  Clean up the app state and start tour.
+        this.$store.commit('hideSplash')
+        this.$store.commit('hideSidebar')
+        this.$refs.component.tour.start()
+      } else {
+        // ...
+      }
     },
     // When layer visibility or order changes, re-render
     getLayers: {
@@ -186,10 +188,10 @@ export default {
     }
   }
 }
+
 </script>
 
 <style type="scss" scoped>
-
 h1 {
   position: absolute;
   top: 0; left: 0;
