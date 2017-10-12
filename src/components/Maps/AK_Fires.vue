@@ -1,6 +1,9 @@
 <template></template>
 <script>
+// For Leaflet, whose constructors are often lowercase
+/* eslint new-cap: "off" */
 import _ from 'lodash'
+
 export default {
   name: 'AK_Fires',
   computed: {
@@ -19,7 +22,7 @@ export default {
       )
     },
     baseLayer () {
-      return new this.$L.tileLayer.wms( // eslint-disable-line new-cap
+      return new this.$L.tileLayer.wms(
         window.geoserverWmsUrl,
         _.extend(this.baseLayerOptions, {
           layers: 'alaska_osm'
@@ -27,13 +30,16 @@ export default {
       )
     },
     placeLayer () {
-      return new this.$L.tileLayer.wms( // eslint-disable-line new-cap
+      return new this.$L.tileLayer.wms(
         window.geoserverWmsUrl,
         _.extend(this.baseLayerOptions, {
           zIndex: 100,
           layers: 'alaska_places_osm_3338'
         })
       )
+    },
+    localLayers () {
+
     }
   },
   data () {
@@ -72,13 +78,251 @@ export default {
           'abstract': 'This layer shows historical fire perimeters from 1940-2016.  _More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?_\n\nTo access and learn more about this dataset, visit the [AICC](https://fire.ak.blm.gov).\n',
           'name': 'geonode:fireareahistory',
           'title': 'Historical extent, 1940-2016'
+        },
+        {
+          'name': 'fires_2017',
+          'title': 'All fires, 2017',
+          'local': true,
+          'legend': false,
+          'abstract': '<img src="images/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="externa">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
         }
-      ]
+      ],
+      // Will initialize these in the created() method
+      activeFireIcon: undefined,
+      inactiveFireIcon: undefined,
+      firePolygons: undefined,
+      fireMarkers: undefined,
+      secondFirePolygons: undefined,
+      secondFireMarkers: undefined,
+      fireLayerGroup: undefined,
+      secondFireLayerGroup: undefined
+    }
+  },
+  created () {
+    let FireIcon = this.$L.Icon.extend({
+      options: {
+        iconUrl: '/static/active_fire.png',
+        iconSize: [30, 35],
+        shadowSize: [0, 0], // no shadow!
+        iconAnchor: [16, 34], // point of the icon which will correspond to marker's location
+        shadowAnchor: [0, 0],  // the same for the shadow
+        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
+      }
+    })
+
+    this.activeFireIcon = new FireIcon()
+    this.inactiveFireIcon = new FireIcon({
+      iconUrl: '/static/inactive_fire.png'
+    })
+
+    // This will be the container for the fire markers & popups.
+    this.fireLayerGroup = this.$L.layerGroup()
+    this.secondFireLayerGroup = this.$L.layerGroup()
+
+    this.fetchFireData()
+  },
+  methods: {
+    getLocalLayers (layer) {
+      return {
+        first: this.fireLayerGroup,
+        second: this.secondFireLayerGroup
+      }
+    },
+    fetchFireData () {
+      return new Promise((resolve, reject) => {
+        if (this.firePolygons === undefined) {
+          this.$axios.get(window.fireFeaturesUrl)
+            .then(res => {
+              if (res) {
+                this.firePolygons = this.getGeoJsonLayer(res.data)
+                this.fireMarkers = this.getFireMarkers(res.data)
+                this.secondFirePolygons = this.getGeoJsonLayer(res.data)
+                this.secondFireMarkers = this.getFireMarkers(res.data)
+
+                // Add layers to the LayerGroup we're using here.
+                this.fireLayerGroup
+                  .addLayer(this.firePolygons)
+                  .addLayer(this.fireMarkers)
+                this.secondFireLayerGroup
+                  .addLayer(this.secondFirePolygons)
+                  .addLayer(this.secondFireMarkers)
+                resolve()
+              }
+            },
+            err => {
+              console.error(err)
+              reject()
+            })
+        } else {
+          resolve()
+        }
+      })
+    },
+    // For any polygon features, return a marker with a bound popup.
+    getFireMarkers (geoJson) {
+      var fireMarkers = []
+      var popupOptions = {
+        maxWidth: 200
+      }
+      _.each(geoJson.features, feature => {
+        if (feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon') {
+          // If this is a MultiPolygon, we need to "flatten" the
+          // array of polygons into a single polygon before we can
+          // calculatethe centroid.  The use of `[].concat.apply`
+          // accomplishes this flattening by concatenating the
+          // array of polygons.
+          var polygonCoordinates = (feature.geometry.type === 'MultiPolygon')
+            ? [].concat.apply([], feature.geometry.coordinates[0])
+            : feature.geometry.coordinates[0]
+
+          // Reverse order from what we need
+          var coords = this.getCentroid2(polygonCoordinates)
+          var icon = this.isFireActive(feature.properties)
+            ? this.activeFireIcon : this.inactiveFireIcon
+
+          fireMarkers.push(
+            this.$L.marker(new this.$L.latLng([coords[1], coords[0]]), {icon: icon}).bindPopup(this.getFireMarkerPopupContents(
+              {
+                title: feature.properties.NAME,
+                acres: feature.properties.acres,
+                cause: feature.properties.GENERALCAUSE,
+                updated: feature.properties.updated,
+                outdate: feature.properties.OUTDATE,
+                discovered: feature.properties.discovered
+              }, popupOptions))
+          )
+        }
+      })
+      return this.$L.layerGroup(fireMarkers)
+    },
+    getGeoJsonLayer (geoJson) {
+      return this.$L.geoJson(geoJson, {
+        style: this.styleFirePolygons,
+        pointToLayer: this.firePointFeatureHandler
+      })
+    },
+    styleFirePolygons (feature) {
+      if (this.isFireActive(feature.properties)) {
+        return {
+          color: '#ff0000',
+          fillColor: '#E83C18',
+          opacity: 0.8,
+          weight: 2,
+          fillOpacity: 0.3
+        }
+      } else {
+        return {
+          color: '#888888',
+          fillColor: '#888888',
+          opacity: 0.8,
+          weight: 3,
+          fillOpacity: 1
+        }
+      }
+    },
+    // There's a few places in the code that are making this check,
+    // and we've needed to swap it more than once to account
+    // for differing upstream data.  This function implements
+    // the logic to determine if a fire is active or not.
+    isFireActive (fireFeatures) {
+      return fireFeatures.active
+    },
+    // This handler is only used for point features (no polygon).
+    // It returns a Leaflet divIcon marker with classes
+    // for active/inactive, and if the size of the fire is
+    // less than an acre, the class 'small' is attached.
+    firePointFeatureHandler (geoJson, latLng) {
+      var isActive
+      var zIndex
+      var popupOptions = {
+        maxWidth: 200
+      }
+      if (this.isFireActive(geoJson.properties)) {
+        isActive = 'active'
+        zIndex = 1000
+      } else {
+        isActive = 'inactive'
+        zIndex = 300
+      }
+      var acres = parseFloat(geoJson.properties.acres).toFixed(1)
+      if (acres <= 1) {
+        isActive += ' small'
+        acres = ' '
+      }
+      var icon = this.$L.divIcon({
+        className: isActive,
+        html: '<span class="' + isActive + '">' + acres + '</span'
+      })
+      return this.$L.marker(latLng, {
+        icon: icon,
+        zIndexOffset: zIndex
+      }).bindPopup(this.getFireMarkerPopupContents(
+        {
+          title: geoJson.properties.NAME,
+          acres: geoJson.properties.acres,
+          cause: geoJson.properties.GENERALCAUSE,
+          updated: geoJson.properties.updated,
+          outdate: geoJson.properties.OUTDATE,
+          discovered: geoJson.properties.discovered
+        }, popupOptions))
+    },
+    // For this method, fireInfo must contain properties
+    // title, acres, cause, updated, outdate
+    getFireMarkerPopupContents (fireInfo) {
+      // Convert updated to "days ago" format; not all fires have
+      // updated info, in which case, leave that blank.
+      var updated = ''
+      if (fireInfo.updated) {
+        updated = '<p class="updated">Updated ' + this.$moment(fireInfo.updated, 'MMMM DD, h:m a').fromNow() + '.</p>'
+      }
+      var acres = fireInfo.acres + ' acres'
+      var out = fireInfo.outdate ? '<p class="out">Out date: ' + this.$moment.utc(this.$moment.unix(fireInfo.outdate / 1000)).format('MMMM Do, h:mm a') + '</p>' : ''
+      var cause = fireInfo.cause ? '<h3>Cause: ' + fireInfo.cause + '</h3>' : ''
+      var discovered = fireInfo.discovered ? '<h3 class="discovered">Discovered ' + fireInfo.discovered + '</h3>' : ''
+
+      return _.template(`
+  <h1><%= title %></h1>
+  <h2><%= acres %></h2>
+  <%= discovered %>
+  <%= cause %>
+  <%= out %>
+  <%= updated %>`)(
+        {
+          title: fireInfo.title,
+          acres: acres,
+          cause: cause,
+          updated: updated,
+          out: out,
+          discovered: discovered
+        }
+      )
+    },
+    // Helper function to place markers at the centroid
+    // of their polygon.
+    // http://stackoverflow.com/questions/22796520/finding-the-center-of-leaflet-polygon
+    getCentroid2 (arr) {
+      var twoTimesSignedArea = 0
+      var cxTimes6SignedArea = 0
+      var cyTimes6SignedArea = 0
+
+      var length = arr.length
+
+      var x = (i) => { return arr[i % length][0] }
+      var y = (i) => { return arr[i % length][1] }
+
+      for (let i = 0; i < arr.length; i++) {
+        var twoSA = x(i) * y(i + 1) - x(i + 1) * y(i)
+        twoTimesSignedArea += twoSA
+        cxTimes6SignedArea += (x(i) + x(i + 1)) * twoSA
+        cyTimes6SignedArea += (y(i) + y(i + 1)) * twoSA
+      }
+      var sixSignedArea = 3 * twoTimesSignedArea
+      return [cxTimes6SignedArea / sixSignedArea, cyTimes6SignedArea / sixSignedArea]
     }
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .leaflet-popup-content {
   z-index: 1000;
 
@@ -159,7 +403,7 @@ div.leaflet-marker-icon span {
   max-width: 930px;
   margin: 5em auto;
   padding: 1ex;
-  background: url("~/assets/scott-fire-fade.jpg") white bottom left / cover no-repeat;
+  background: url("~@/assets/scott-fire-fade.jpg") white bottom left / cover no-repeat;
   h1 {
     width: 75%;
     font-size: 20pt;

@@ -9,12 +9,14 @@ import p4l from 'proj4leaflet' // eslint-disable-line
 import leaflet_sidebar from 'leaflet-sidebar' // eslint-disable-line
 import axios from 'axios'
 import shepherd from 'tether-shepherd'
+import moment from 'moment'
 
 // Attach 3rd party libraries to Vue instance objects
 // https://vuejsdevelopers.com/2017/04/22/vue-js-libraries-plugins/
 Object.defineProperty(Vue.prototype, '$L', { value: L })
 Object.defineProperty(Vue.prototype, '$axios', { value: axios })
 Object.defineProperty(Vue.prototype, '$shepherd', { value: shepherd })
+Object.defineProperty(Vue.prototype, '$moment', { value: moment })
 
 /* Hacks section */
 // TODO move these into another appropriate spot!
