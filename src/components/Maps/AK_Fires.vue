@@ -3,6 +3,7 @@
 // For Leaflet, whose constructors are often lowercase
 /* eslint new-cap: "off" */
 import _ from 'lodash'
+
 export default {
   name: 'AK_Fires',
   computed: {
@@ -106,7 +107,7 @@ export default {
   created () {
     let FireIcon = this.$L.Icon.extend({
       options: {
-        iconUrl: '~/assets/active_fire.png',
+        iconUrl: '/static/active_fire.png',
         iconSize: [30, 35],
         shadowSize: [0, 0], // no shadow!
         iconAnchor: [16, 34], // point of the icon which will correspond to marker's location
@@ -117,7 +118,7 @@ export default {
 
     this.activeFireIcon = new FireIcon()
     this.inactiveFireIcon = new FireIcon({
-      iconUrl: '~/assets/inactive_fire.png'
+      iconUrl: '/static/inactive_fire.png'
     })
 
     // This will be the container for the fire markers & popups.
@@ -410,7 +411,7 @@ div.leaflet-marker-icon span {
   max-width: 930px;
   margin: 5em auto;
   padding: 1ex;
-  background: url("~/assets/scott-fire-fade.jpg") white bottom left / cover no-repeat;
+  background: url("~@/assets/scott-fire-fade.jpg") white bottom left / cover no-repeat;
   h1 {
     width: 75%;
     font-size: 20pt;
