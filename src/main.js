@@ -16,12 +16,9 @@ Object.defineProperty(Vue.prototype, '$L', { value: L })
 Object.defineProperty(Vue.prototype, '$axios', { value: axios })
 Object.defineProperty(Vue.prototype, '$shepherd', { value: shepherd })
 
-/* Hacks section */
-// TODO move these into another appropriate spot!
-window.geoserverWmsUrl = 'http://54.70.10.93:8080/geoserver/wms'
-window.fireFeaturesUrl = 'http://aicc-fire-api.openshift.snap.uaf.edu/'
+window.geoserverWmsUrl = process.env.GEOSERVER_WMS_URL || 'http://54.70.10.93:8080/geoserver/wms'
+window.fireFeaturesUrl = process.env.FIRE_FEATURES_URL || 'http://aicc-fire-api.openshift.snap.uaf.edu/'
 window.pendingRequests = 0
-/* End ghoulish hacks */
 
 // Include styles for some libraries here.
 require('../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss')
