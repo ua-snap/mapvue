@@ -82,12 +82,6 @@ export default {
         {
           'name': 'fires_2017',
           'title': 'All fires, 2017',
-          'object': () => {
-            console.log('in object thing, this: ', this)
-            console.log('in object thing, this.fireLayerGroup: ', this.fireLayerGroup)
-            return this.fireLayerGroup
-          },
-          'secondObject': () => { return this.secondFireLayerGroup },
           'local': true,
           'legend': false,
           'abstract': '<img src="images/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="externa">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
@@ -136,7 +130,7 @@ export default {
     },
     fetchFireData () {
       return new Promise((resolve, reject) => {
-        if (this.firePolygons == null) {
+        if (this.firePolygons === undefined) {
           this.$axios.get(window.fireFeaturesUrl)
             .then(res => {
               if (res) {
@@ -156,9 +150,7 @@ export default {
               }
             },
             err => {
-              // TODO: handle this error with a popup warning
-              this.fireInfoPopup = false
-              console.log(err)
+              console.error(err)
               reject()
             })
         } else {
