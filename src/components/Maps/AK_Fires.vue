@@ -329,7 +329,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .leaflet-popup-content {
   z-index: 1000;
 
