@@ -62,6 +62,7 @@ export default {
 
       // Array of layer Leaflet objects, keyed by layer name.
       layerObjs: {},
+      secondLayerObjs: {},
 
       // Map info (title, abstract, etc??)
       map: undefined,
@@ -123,27 +124,7 @@ export default {
       layers: _.cloneDeep(layers)
     }))
 
-    // Add all layers
-    // TODO refactor away to module or whatever
-    var addLayers = () => {
-      var wmsLayerOptions = _.extend({
-        continuousWorld: true,
-        transparent: true,
-        tiled: 'true',
-        format: 'image/png',
-        version: '1.3'
-      }, this.$refs.component.layerOptions)
-
-      // TODO: 2nd map, "special" layers (ones handled by the map component itself, not GeoServer)
-      _.each(this.layers, (layer) => {
-        let layerConfiguration = _.extend(wmsLayerOptions,
-          {
-            layers: [layer.name]
-          })
-        this.layerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
-      })
-    }
-    addLayers()
+    this.addLayers()
   },
   created () {
     // This populates the overview info for the map
@@ -185,6 +166,33 @@ export default {
           }
         })
       }
+    }
+  },
+  methods: {
+    addLayers () {
+      var wmsLayerOptions = _.extend({
+        continuousWorld: true,
+        transparent: true,
+        tiled: 'true',
+        format: 'image/png',
+        version: '1.3'
+      }, this.$refs.component.layerOptions)
+
+      // TODO: "special" layers (ones handled by the map component itself, not GeoServer)
+      _.each(this.layers, (layer) => {
+        if (layer.local !== true) {
+          let layerConfiguration = _.extend(wmsLayerOptions,
+            {
+              layers: [layer.name]
+            })
+          this.layerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
+          this.secondLayerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
+        } else {
+          var localLayers = this.$refs.component.getLocalLayers(layer)
+          this.layerObjs[layer.name] = localLayers.first
+          this.secondLayerObjs[layer.name] = localLayers.second
+        }
+      })
     }
   }
 }

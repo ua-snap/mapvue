@@ -57,6 +57,7 @@ export default {
   },
   methods: {
     toggleLayer (layerName, mapPane) {
+      console.log(layerName, mapPane)
       this.$store.commit('toggleLayerVisibility', {
         layer: layerName,
         mapPane: mapPane
