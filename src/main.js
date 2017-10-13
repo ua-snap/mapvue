@@ -16,8 +16,6 @@ Object.defineProperty(Vue.prototype, '$L', { value: L })
 Object.defineProperty(Vue.prototype, '$axios', { value: axios })
 Object.defineProperty(Vue.prototype, '$shepherd', { value: shepherd })
 
-window.geoserverWmsUrl = process.env.GEOSERVER_WMS_URL || 'http://54.70.10.93:8080/geoserver/wms'
-window.fireFeaturesUrl = process.env.FIRE_FEATURES_URL || 'http://aicc-fire-api.openshift.snap.uaf.edu/'
 window.pendingRequests = 0
 
 // Include styles for some libraries here.

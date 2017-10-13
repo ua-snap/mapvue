@@ -1,5 +1,5 @@
 module.exports = {
   NODE_ENV: '"production"',
-  GEOSERVER_WMS_URL: "'" + process.env.GEOSERVER_WMS_URL + "'",
-  FIRE_FEATURES_URL: "'" + process.env.FIRE_FEATURES_URL + "'"
+  GEOSERVER_WMS_URL: '"http://54.70.10.93:8080/geoserver/wms"',
+  FIRE_FEATURES_URL: '"http://aicc-fire-api.openshift.snap.uaf.edu/"'
 }

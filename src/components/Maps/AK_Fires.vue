@@ -20,7 +20,7 @@ export default {
     },
     baseLayer () {
       return new this.$L.tileLayer.wms( // eslint-disable-line new-cap
-        window.geoserverWmsUrl,
+        process.env.GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
           layers: 'alaska_osm'
         })
@@ -28,7 +28,7 @@ export default {
     },
     placeLayer () {
       return new this.$L.tileLayer.wms( // eslint-disable-line new-cap
-        window.geoserverWmsUrl,
+        process.env.GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
           zIndex: 100,
           layers: 'alaska_places_osm_3338'
