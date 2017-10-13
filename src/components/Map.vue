@@ -7,8 +7,7 @@
 
   <sidebar :mapObj="mapObj"></sidebar>
 
-  <div id="snapmapapp" v-bind:class="{ half: dualMaps }"></div>
-  <div id="secondmap" v-bind:class="{ half: dualMaps }"></div>
+  <div id="snapmapapp"></div>
 
   <component ref="component" v-bind:is="mapComponentName">
     <!-- Map-specific HTML & Tour will be rendered here -->
@@ -58,7 +57,6 @@ export default {
 
       // Leaflet map objects
       mapObj: undefined,
-      secondMapObj: undefined,
 
       // Array of layer Leaflet objects, keyed by layer name.
       layerObjs: {},
@@ -118,10 +116,6 @@ export default {
     // Instantiate map objects
     this.mapObj = this.$L.map('snapmapapp', _.extend(mapOptions, {
       layers: layers
-    }))
-
-    this.secondMapObj = this.$L.map('secondmap', _.extend(mapOptions, {
-      layers: _.cloneDeep(layers)
     }))
 
     this.addLayers()
