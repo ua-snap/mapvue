@@ -1,0 +1,160 @@
+<template>
+<div class="graph-screen" v-show="visible">
+  <div>
+    <div class="graph-content">
+      <button type="button" @click="hideGraph()" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div ref="plotly"></div>
+      <p>This graph compares 2017 to all of the years when more than 1 million acres burned since daily tally records began in 2004. <br/>Source: <a target="_blank" href="https://fire.ak.blm.gov/">Alaska Interagency Coordination Center (AICC)</a>.</p>
+    </div>
+  </div>
+</div>
+
+</template>
+<script>
+// Used to make the store values reactive in this component
+import { mapGetters } from 'vuex'
+import moment from 'moment'
+
+// This is imported a little oddly to bypass a bug, see:
+// https://www.reddit.com/r/vuejs/comments/6psu78/a_simple_vuejs_example_with_plolyjs/
+import Plotly from 'plotly.js/dist/plotly' // eslint-disable-line
+
+// We declare the static properties of the graph outside the Vue
+// object because they don't need to be reactive
+var graphLayout = {
+  title: 'Cumulative Acres Burned',
+  titlefont: {
+    size: 20
+  },
+  font: {
+    family: 'Lato'
+  },
+  margin: {
+    l: 120,
+    r: 120
+  },
+  xaxis: {
+    type: 'category',
+    ticks: 'array',
+    tickvals: [
+      'May 1',
+      'June 1',
+      'July 1',
+      'August 1',
+      'September 1'
+    ],
+    ticktext: [
+      'May',
+      'June',
+      'July',
+      'August',
+      'September'
+    ]
+  },
+  yaxis: {
+    title: 'Cumulative Acres Burned',
+    titlefont: {
+      size: 18
+    }
+  }
+}
+
+var graphOptions = {
+  showLink: false,
+  displayLogo: false,
+  modeBarButtonsToRemove: [
+    'sendDataToCloud',
+    'select2d',
+    'lasso2d',
+    'resetScale2d'
+  ]
+}
+
+var graphData = []
+
+export default {
+  name: 'AK_Fires_Graph',
+  computed: {
+    ...mapGetters({
+      visible: 'fireGraphIsVisible'
+    })
+  },
+  mounted () {
+
+  },
+  created () {
+    this.$axios.get(window.fireTimeSeriesUrl)
+      .then(
+        res => {
+          let timeSeries = res.data
+          for (let year in timeSeries) {
+            if (timeSeries.hasOwnProperty(year)) {
+              var yearData = {
+                name: year,
+                x: timeSeries[year].dates,
+                y: timeSeries[year].acres
+              }
+
+              if (year === moment().format('YYYY')) {
+                yearData.mode = 'lines+markers'
+              } else {
+                yearData.mode = 'lines'
+              }
+
+              graphData.push(yearData)
+            }
+          }
+          this.drawGraph()
+        },
+      err => {
+        console.error(err)
+      }
+    )
+  },
+  methods: {
+    hideGraph () {
+      this.$store.commit('hideFireGraph')
+    },
+    drawGraph () {
+      Plotly.plot(
+        this.$refs.plotly,
+        graphData,
+        graphLayout,
+        graphOptions
+      )
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.graph-screen {
+  position: fixed;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(150, 168, 48, 0.8);
+  z-index: 3000;
+  > div {
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, .8);
+    width: 80%;
+    margin: 4rem auto;
+    box-shadow: 0px 10px 40px 0px rgba(0,0,0,0.75);
+
+    .graph-content {
+      background-color: rgba(255, 255, 255, 1.0);
+      padding: 1em 2em;
+    }
+
+    button {
+      position: relative;
+      top: -1.5em;
+      right: -1.75em;
+      font-size: 25pt;
+    }
+  }
+}
+</style>

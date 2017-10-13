@@ -22,6 +22,7 @@ Object.defineProperty(Vue.prototype, '$moment', { value: moment })
 // TODO move these into another appropriate spot!
 window.geoserverWmsUrl = 'http://54.70.10.93:8080/geoserver/wms'
 window.fireFeaturesUrl = 'http://aicc-fire-api.openshift.snap.uaf.edu/'
+window.fireTimeSeriesUrl = 'http://aicc-fire-api.openshift.snap.uaf.edu/fire-time-series'
 window.pendingRequests = 0
 /* End ghoulish hacks */
 

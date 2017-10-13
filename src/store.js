@@ -37,7 +37,10 @@ export default new Vuex.Store({
     syncDualMaps: false,
 
     // True if tour is active
-    tourIsActive: false
+    tourIsActive: false,
+
+    // True if the fire graph is visible
+    fireGraphVisible: false
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -112,6 +115,12 @@ export default new Vuex.Store({
     },
     toggleDualMaps (state) {
       state.dualMaps = !state.dualMaps
+    },
+    showFireGraph (state) {
+      state.fireGraphVisible = true
+    },
+    hideFireGraph (state) {
+      state.fireGraphVisible = false
     }
   },
   // Some getters here are just used for watching global state changes.
@@ -121,6 +130,9 @@ export default new Vuex.Store({
     },
     sidebarVisibility (state) {
       return state.sidebarVisibility
+    },
+    fireGraphIsVisible (state) {
+      return state.fireGraphVisible
     },
     // Returns true if there are pending HTTP requests
     loadingData (state) {
