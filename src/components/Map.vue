@@ -7,8 +7,7 @@
 
   <sidebar :mapObj="mapObj"></sidebar>
 
-  <div id="snapmapapp" v-bind:class="{ half: dualMaps }"></div>
-  <div id="secondmap" v-bind:class="{ half: dualMaps }"></div>
+  <div id="snapmapapp"></div>
 
   <component ref="component" v-bind:is="mapComponentName">
     <!-- Map-specific HTML & Tour will be rendered here -->
@@ -58,10 +57,10 @@ export default {
 
       // Leaflet map objects
       mapObj: undefined,
-      secondMapObj: undefined,
 
       // Array of layer Leaflet objects, keyed by layer name.
       layerObjs: {},
+      secondLayerObjs: {},
 
       // Map info (title, abstract, etc??)
       map: undefined,
@@ -119,31 +118,7 @@ export default {
       layers: layers
     }))
 
-    this.secondMapObj = this.$L.map('secondmap', _.extend(mapOptions, {
-      layers: _.cloneDeep(layers)
-    }))
-
-    // Add all layers
-    // TODO refactor away to module or whatever
-    var addLayers = () => {
-      var wmsLayerOptions = _.extend({
-        continuousWorld: true,
-        transparent: true,
-        tiled: 'true',
-        format: 'image/png',
-        version: '1.3'
-      }, this.$refs.component.layerOptions)
-
-      // TODO: 2nd map, "special" layers (ones handled by the map component itself, not GeoServer)
-      _.each(this.layers, (layer) => {
-        let layerConfiguration = _.extend(wmsLayerOptions,
-          {
-            layers: [layer.name]
-          })
-        this.layerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
-      })
-    }
-    addLayers()
+    this.addLayers()
   },
   created () {
     // This populates the overview info for the map
@@ -185,6 +160,33 @@ export default {
           }
         })
       }
+    }
+  },
+  methods: {
+    addLayers () {
+      var wmsLayerOptions = _.extend({
+        continuousWorld: true,
+        transparent: true,
+        tiled: 'true',
+        format: 'image/png',
+        version: '1.3'
+      }, this.$refs.component.layerOptions)
+
+      // TODO: "special" layers (ones handled by the map component itself, not GeoServer)
+      _.each(this.layers, (layer) => {
+        if (layer.local !== true) {
+          let layerConfiguration = _.extend(wmsLayerOptions,
+            {
+              layers: [layer.name]
+            })
+          this.layerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
+          this.secondLayerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
+        } else {
+          var localLayers = this.$refs.component.getLocalLayers(layer)
+          this.layerObjs[layer.name] = localLayers.first
+          this.secondLayerObjs[layer.name] = localLayers.second
+        }
+      })
     }
   }
 }
