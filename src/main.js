@@ -18,6 +18,8 @@ Object.defineProperty(Vue.prototype, '$shepherd', { value: shepherd })
 
 window.pendingRequests = 0
 
+console.log(process.env.MV_GOOGLE_ANALYTICS_TOKEN)
+
 // Include styles for some libraries here.
 require('../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss')
 
