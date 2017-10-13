@@ -23,7 +23,7 @@ export default {
     },
     baseLayer () {
       return new this.$L.tileLayer.wms(
-        window.geoserverWmsUrl,
+        process.env.GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
           layers: 'alaska_osm'
         })
@@ -31,7 +31,7 @@ export default {
     },
     placeLayer () {
       return new this.$L.tileLayer.wms(
-        window.geoserverWmsUrl,
+        process.env.GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
           zIndex: 100,
           layers: 'alaska_places_osm_3338'
@@ -131,7 +131,7 @@ export default {
     fetchFireData () {
       return new Promise((resolve, reject) => {
         if (this.firePolygons === undefined) {
-          this.$axios.get(window.fireFeaturesUrl)
+          this.$axios.get(process.env.FIRE_FEATURES_URL)
             .then(res => {
               if (res) {
                 this.firePolygons = this.getGeoJsonLayer(res.data)
