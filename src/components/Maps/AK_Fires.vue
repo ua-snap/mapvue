@@ -131,7 +131,7 @@ export default {
     fetchFireData () {
       return new Promise((resolve, reject) => {
         if (this.firePolygons === undefined) {
-          this.$axios.get(window.fireFeaturesUrl)
+          this.$axios.get(process.env.FIRE_FEATURES_URL)
             .then(res => {
               if (res) {
                 this.firePolygons = this.getGeoJsonLayer(res.data)
