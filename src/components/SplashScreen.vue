@@ -73,7 +73,7 @@ export default {
   .billboard {
     padding: 2rem;
     background-color: rgba(0, 0, 0, .8);
-    color: rgba(235, 235, 255, 1);
+    color: rgba(0, 0, 0, 1);
     width: 80%;
     margin: 4rem auto;
 
