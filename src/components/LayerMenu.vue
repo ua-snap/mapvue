@@ -7,11 +7,7 @@
         &nbsp;
         About this map&hellip;
       </label>
-      <!-- <a ng-show="map.distribution_url" id="downloadMap" class="mobile-hidden btn btn-primary info" :ng-href="map.distribution_url">
-        <span class="glyphicon glyphicon-download-alt"></span>
-        &nbsp;
-        Download data
-      </a> -->
+
       <label id="showDualMaps" class="mobile-hidden btn btn-primary info" @click="toggleDualMaps()">
         <span v-show="!dualMaps">
           <span v-show="!dualMaps" class="glyphicon glyphicon-unchecked"></span>
@@ -21,20 +17,28 @@
         &nbsp;
         Split / single map
       </label>
+
       <label id="syncDualMaps" class="mobile-hidden btn btn-primary info" ng-class="{'btn-success': syncMaps}" v-show="dualMaps" @click="toggleSynchronizeMaps()">
         <span class="glyphicon glyphicon-flash"></span>
         &nbsp;
         Synchronize maps
       </label>
-      <!-- <label id="showGraph" class="mobile-hidden btn btn-primary" ng-click="showGraph()" ng-show="graphButtonText">
-        <span class="glyphicon glyphicon-signal"></span>
-        &nbsp;
-        {{ graphButtonText }}&hellip;
-      </label> -->
+
       <label class="mobile-hidden btn btn-primary" @click="startTour()">
         <span class="glyphicon glyphicon-question-sign"></span>
         &nbsp;
         Take a tour of this map&hellip;
+      </label>
+        <!-- <a ng-show="map.distribution_url" id="downloadMap" class="mobile-hidden btn btn-primary info" :ng-href="map.distribution_url">
+        <span class="glyphicon glyphicon-download-alt"></span>
+        &nbsp;
+        Download data
+        </a> -->
+
+      <label class="mobile-hidden btn btn-primary" @click="showFireGraph()">
+        <span class="glyphicon glyphicon-signal"></span>
+        &nbsp;
+        Graph large fire seasons&hellip;
       </label>
     </div>
 </div>
@@ -64,6 +68,9 @@ export default {
     },
     toggleDualMaps () {
       this.$store.commit('toggleDualMaps')
+    },
+    showFireGraph () {
+      this.$store.commit('showFireGraph')
     }
   }
 }

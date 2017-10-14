@@ -1,11 +1,17 @@
-<template></template>
+<template>
+  <graph></graph>
+</template>
 <script>
 // For Leaflet, whose constructors are often lowercase
 /* eslint new-cap: "off" */
 import _ from 'lodash'
+import AKFiresGraph from './AK_Fires_Graph'
 
 export default {
   name: 'AK_Fires',
+  components: {
+    'graph': AKFiresGraph
+  },
   computed: {
     crs () {
       return new this.$L.Proj.CRS('EPSG:3338',
@@ -122,6 +128,8 @@ export default {
     this.fetchFireData()
   },
   methods: {
+    // Returns the list of "local" layers (ones that will)
+    // be directly managed on the client side, not via WMS/WFS
     getLocalLayers (layer) {
       return {
         first: this.fireLayerGroup,
