@@ -85,7 +85,7 @@ export default {
 
   },
   created () {
-    this.$axios.get(window.fireTimeSeriesUrl)
+    this.$axios.get(process.env.FIRE_TIME_SERIES_URL)
       .then(
         res => {
           let timeSeries = res.data

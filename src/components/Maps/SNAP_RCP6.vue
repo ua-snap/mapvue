@@ -25,7 +25,7 @@ export default {
     },
     baseLayer () {
       return new this.$L.tileLayer.wms(
-        window.geoserverWmsUrl,
+        process.env.GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
           layers: ['arctic_osm_3572']
         })
@@ -33,7 +33,7 @@ export default {
     },
     placeLayer () {
       return new this.$L.tileLayer.wms(
-        window.geoserverWmsUrl,
+        process.env.GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
           layers: ['arctic_places_osm_3572'],
           zIndex: 1000
