@@ -7,10 +7,9 @@
 
   <sidebar :mapObj="mapObj"></sidebar>
 
-  <div id="snapmapapp"></div>
-
+  <div map id="snapmapapp" class="leaflet-container" v-bind:class="{fullmap: !dualMaps, halfmap: dualMaps}"></div>
   <component ref="component" v-bind:is="mapComponentName">
-    <!-- Map-specific HTML & Tour will be rendered here -->
+    <!-- Map-specific HTML & Tour will be rendered her -->
   </component>
 
   <mv-footer></mv-footer>
@@ -57,6 +56,7 @@ export default {
 
       // Leaflet map objects
       mapObj: undefined,
+      secondMapObj: undefined,
 
       // Array of layer Leaflet objects, keyed by layer name.
       layerObjs: {},
@@ -114,11 +114,31 @@ export default {
     }, this.$refs.component.mapOptions)
 
     // Instantiate map objects
-    this.mapObj = this.$L.map('snapmapapp', _.extend(mapOptions, {
+    this.mapObj = L.map('snapmapapp', _.extend(mapOptions, {
       layers: layers
     }))
 
-    this.addLayers()
+    // Add all layers
+    // TODO refactor away to module or whatever
+    var addLayers = () => {
+      var wmsLayerOptions = _.extend({
+        continuousWorld: true,
+        transparent: true,
+        tiled: 'true',
+        format: 'image/png',
+        version: '1.3'
+      }, this.$refs.component.layerOptions)
+
+      // TODO: 2nd map, "special" layers (ones handled by the map component itself, not GeoServer)
+      _.each(this.layers, (layer) => {
+        let layerConfiguration = _.extend(wmsLayerOptions,
+          {
+            layers: [layer.name]
+          })
+        this.layerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
+      })
+    }
+    addLayers()
   },
   created () {
     // This populates the overview info for the map
@@ -131,6 +151,11 @@ export default {
     this.$store.commit('setLayers', mapObjectMapper[this.mapComponentName].data().layers)
   },
   watch: {
+    dualMaps (dualMaps) {
+      setTimeout(function() {
+        this.mapObj.invalidateSize()
+      }.bind(this), 25)
+    },
     // Start/stop the tour
     tourIsActive (tourIsActive) {
       if (tourIsActive === true) {
@@ -161,33 +186,6 @@ export default {
         })
       }
     }
-  },
-  methods: {
-    addLayers () {
-      var wmsLayerOptions = _.extend({
-        continuousWorld: true,
-        transparent: true,
-        tiled: 'true',
-        format: 'image/png',
-        version: '1.3'
-      }, this.$refs.component.layerOptions)
-
-      // TODO: "special" layers (ones handled by the map component itself, not GeoServer)
-      _.each(this.layers, (layer) => {
-        if (layer.local !== true) {
-          let layerConfiguration = _.extend(wmsLayerOptions,
-            {
-              layers: [layer.name]
-            })
-          this.layerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
-          this.secondLayerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
-        } else {
-          var localLayers = this.$refs.component.getLocalLayers(layer)
-          this.layerObjs[layer.name] = localLayers.first
-          this.secondLayerObjs[layer.name] = localLayers.second
-        }
-      })
-    }
   }
 }
 
@@ -208,7 +206,8 @@ h1 {
   margin-top: 60px;
 }
 
-#snapmapapp {
+.fullmap {
+  display: block;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -216,25 +215,23 @@ h1 {
   top: 0;
 }
 
-#snapmapapp.half {
-  width: 50%;
-  right: 50%;
-  border-right: 2px solid rgba(0, 0, 0, .5);
-  border: 2px solid red;
-}
-
-#secondmap {
+.halfmap {
+  display: block;
   position: absolute;
-  left: 50%;
   width: 50%;
   height: 100%;
-  border: 0;
-  z-index: -1;
+  left: 0;
+  top: 0;
+  border-right: 2px solid black;
 }
 
-#secondmap.half {
+.secondmap {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 50%;
+  top: 0;
   z-index: 0;
-  border: 2px solid blue;
 }
 
 .leaflet-top, .leaflet-bottom {
