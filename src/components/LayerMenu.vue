@@ -1,7 +1,10 @@
 <template>
-<div class="layer-menu" ng-hide="minimized || loadingData">
+<div class="layer-menu">
+  <label v-bind:class="{hide: !layerMenuVisibility}" class="btn btn-secondary" @click="hideLayerMenu()">Hide Layer Menu</label>
+  <label v-bind:class="{hide: layerMenuVisibility}" class="btn btn-secondary" @click="showLayerMenu()">Show Layer Menu</label>
+  <div v-bind:class="{hide: !layerMenuVisibility}">
   <layer-list></layer-list>
-    <div ng-hide="loadingData" class="mapTools form-inline">
+    <div class="mapTools form-inline">
       <label class="btn btn-primary info" @click="showSplash()">
         <span class="glyphicon glyphicon-question-sign"></span>
         &nbsp;
@@ -41,6 +44,7 @@
         Graph large fire seasons&hellip;
       </label>
     </div>
+  </div>
 </div>
 </template>
 
@@ -55,11 +59,21 @@ export default {
   computed: {
     dualMaps () {
       return this.$store.state.dualMaps
+    },
+    layerMenuVisibility () {
+      return this.$store.getters.layerMenuVisibility
     }
   },
   created () {
   },
   methods: {
+    hideLayerMenu () {
+      this.$store.commit('hideLayerMenu')
+    },
+    showLayerMenu () {
+      this.$store.commit('showLayerMenu')
+      console.log(this.layerMenuVisibility)
+    },
     showSplash () {
       this.$store.commit('showSplash')
     },
@@ -82,7 +96,7 @@ export default {
   background-color: rgba(255, 255, 255, .75);
   position: absolute;
   top: 4em;
-  padding: 3em 1em 1em 1em;
+  padding: 1em 1em 1em 1em;
 
   .mapTools {
     margin: 1em 0;
@@ -99,5 +113,9 @@ export default {
       }
     }
   }
+}
+
+.hide {
+  display: none;
 }
 </style>
