@@ -8,6 +8,8 @@
   <sidebar :mapObj="mapObj"></sidebar>
 
   <div map id="snapmapapp" class="leaflet-container" v-bind:class="{fullmap: !dualMaps, halfmap: dualMaps}"></div>
+  <div map id="secondmap" class="leaflet-container" v-bind:class="{hide: !dualMaps, show: dualMaps}"></div>
+
   <component ref="component" v-bind:is="mapComponentName">
     <!-- Map-specific HTML & Tour will be rendered her -->
   </component>
@@ -103,19 +105,28 @@ export default {
     var baseLayer = this.$refs.component.baseLayer
     var placeLayer = this.$refs.component.placeLayer
 
+    var secondBaseLayer = this.$refs.component.secondBaseLayer
+    var secondPlaceLayer = this.$refs.component.secondPlaceLayer
+
     // Don't add the place layer if not defined
     var layers = placeLayer ? [baseLayer, placeLayer] : [baseLayer]
+    var secondLayers = secondPlaceLayer  ? [secondBaseLayer, secondPlaceLayer] : [secondBaseLayer]
 
     // Mix together some defaults with map-specific configuration.
     var mapOptions = _.extend({
       crs: this.$refs.component.crs,
       zoomControl: false,
-      scrollWheelZoom: true
+      scrollWheelZoom: true,
+      attributionControl: false
     }, this.$refs.component.mapOptions)
 
     // Instantiate map objects
     this.mapObj = L.map('snapmapapp', _.extend(mapOptions, {
       layers: layers
+    }))
+
+    this.secondMapObj = L.map('secondmap', _.extend(mapOptions, {
+      layers: secondLayers
     }))
 
     // Add all layers
@@ -154,6 +165,7 @@ export default {
     dualMaps (dualMaps) {
       setTimeout(function() {
         this.mapObj.invalidateSize()
+        this.secondMapObj.invalidateSize()
       }.bind(this), 25)
     },
     // Start/stop the tour
@@ -225,13 +237,20 @@ h1 {
   border-right: 2px solid black;
 }
 
-.secondmap {
+#secondmap {
   position: absolute;
   width: 50%;
   height: 100%;
   left: 50%;
   top: 0;
-  z-index: 0;
+}
+
+#secondmap.hide {
+  z-index: -1
+}
+
+#secondmap.show {
+  z-index: 0
 }
 
 .leaflet-top, .leaflet-bottom {
