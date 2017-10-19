@@ -7,8 +7,8 @@
 
   <sidebar :mapObj="mapObj"></sidebar>
 
-  <div map id="snapmapapp" class="leaflet-container" v-bind:class="{fullmap: !dualMaps, halfmap: dualMaps}"></div>
-  <div map id="secondmap" class="leaflet-container" v-bind:class="{hide: !dualMaps, show: dualMaps}"></div>
+  <div map id="map-1" class="leaflet-container" v-bind:class="{fullmap: !dualMaps, halfmap: dualMaps}"></div>
+  <div map id="map-2" class="leaflet-container" v-bind:class="{hide: !dualMaps, show: dualMaps}"></div>
 
   <component ref="component" v-bind:is="mapComponentName">
     <!-- Map-specific HTML & Tour will be rendered her -->
@@ -234,10 +234,10 @@ h1 {
   height: 100%;
   left: 0;
   top: 0;
-  border-right: 2px solid black;
+  border-right: 2px solid rgba(0, 0, 0, .5);
 }
 
-#secondmap {
+#map-2 {
   position: absolute;
   width: 50%;
   height: 100%;
@@ -245,11 +245,11 @@ h1 {
   top: 0;
 }
 
-#secondmap.hide {
+#map-2.hide {
   z-index: -1
 }
 
-#secondmap.show {
+#map-2.show {
   z-index: 0
 }
 
