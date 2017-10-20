@@ -49,7 +49,7 @@ export default {
         if (this.sidebarContent.legend !== false) {
           content = content.concat(
             '<img id="legend" src="' +
-            window.geoserverWmsUrl +
+            process.env.GEOSERVER_WMS_URL +
             '?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=' +
             this.sidebarContent.name +
             '" onerror="this.style.display=\'none\'" />'
