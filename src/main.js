@@ -7,6 +7,7 @@ import store from './store'
 import L from 'leaflet'
 import p4l from 'proj4leaflet' // eslint-disable-line
 import leaflet_sidebar from 'leaflet-sidebar' // eslint-disable-line
+import leaflet_sync from '../node_modules/leaflet.sync/L.Map.Sync.js' // eslint-disable-line
 import axios from 'axios'
 import shepherd from 'tether-shepherd'
 import moment from 'moment'

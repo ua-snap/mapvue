@@ -5,7 +5,7 @@
   <splash-screen
     :abstract="abstract"></splash-screen>
 
-  <sidebar :mapObj="mapObj"></sidebar>
+  <sidebar :mapObj="primaryMapObject"></sidebar>
 
   <div map id="map-1" class="leaflet-container" v-bind:class="{fullmap: !dualMaps, halfmap: dualMaps}"></div>
   <div map id="map-2" class="leaflet-container" v-bind:class="{hide: !dualMaps, show: dualMaps}"></div>
@@ -48,6 +48,14 @@ var mapObjectMapper = {
 }
 /* End hoo-haw. */
 
+// Will contain an array of Leaflet Map objects
+var mapObjs = []
+
+// consts for our two maps, primary (left) and
+// secondary (right)
+const PRIMARY_MAP = 0
+const SECONDARY_MAP = 1
+
 export default {
   name: 'map',
   props: ['slug'],
@@ -55,10 +63,6 @@ export default {
     return {
       // reference to leaflet-sidebar
       sidebar: undefined,
-
-      // Leaflet map objects
-      mapObj: undefined,
-      secondMapObj: undefined,
 
       // Array of layer Leaflet objects, keyed by layer name.
       layerObjs: {},
@@ -80,11 +84,21 @@ export default {
     dualMaps () {
       return this.$store.state.dualMaps
     },
+    syncMaps () {
+      return this.$store.state.syncMaps
+    },
     getLayers () {
       return this.$store.getters.getLayers
     },
     tourIsActive () {
       return this.$store.getters.tourIsActive
+    },
+    // This wrapper allows access to the primary (left) map
+    // object so it can be provided to other components, but
+    // the object remains outside the scope of Vue and thus
+    // won't get decorated with accessors, etc.
+    primaryMapObject () {
+      return mapObjs[0]
     }
   },
   components: {
@@ -101,33 +115,9 @@ export default {
     // See: https://vuejs.org/v2/api/#ref
     this.abstract = this.$refs.component.abstract
 
-    // These need to be separate instances because we listen for events differently on each.
-    var baseLayer = this.$refs.component.baseLayer
-    var placeLayer = this.$refs.component.placeLayer
-
-    var secondBaseLayer = this.$refs.component.secondBaseLayer
-    var secondPlaceLayer = this.$refs.component.secondPlaceLayer
-
-    // Don't add the place layer if not defined
-    var layers = placeLayer ? [baseLayer, placeLayer] : [baseLayer]
-    var secondLayers = secondPlaceLayer  ? [secondBaseLayer, secondPlaceLayer] : [secondBaseLayer]
-
-    // Mix together some defaults with map-specific configuration.
-    var mapOptions = _.extend({
-      crs: this.$refs.component.crs,
-      zoomControl: false,
-      scrollWheelZoom: true,
-      attributionControl: false
-    }, this.$refs.component.mapOptions)
-
     // Instantiate map objects
-    this.mapObj = L.map('snapmapapp', _.extend(mapOptions, {
-      layers: layers
-    }))
-
-    this.secondMapObj = L.map('secondmap', _.extend(mapOptions, {
-      layers: secondLayers
-    }))
+    mapObjs[PRIMARY_MAP] = L.map('map-1', this.getBaseMapAndLayers())
+    mapObjs[SECONDARY_MAP] = L.map('map-2', this.getBaseMapAndLayers())
 
     // Add all layers
     // TODO refactor away to module or whatever
@@ -162,11 +152,21 @@ export default {
     this.$store.commit('setLayers', mapObjectMapper[this.mapComponentName].data().layers)
   },
   watch: {
-    dualMaps (dualMaps) {
-      setTimeout(function() {
-        this.mapObj.invalidateSize()
-        this.secondMapObj.invalidateSize()
-      }.bind(this), 25)
+    dualMaps () {
+      this.$nextTick(function () {
+        mapObjs[PRIMARY_MAP].invalidateSize()
+        mapObjs[SECONDARY_MAP].invalidateSize()
+      })
+    },
+    syncMaps (syncMaps) {
+      console.log(syncMaps)
+      if (syncMaps) {
+        mapObjs[PRIMARY_MAP].sync(mapObjs[SECONDARY_MAP])
+        mapObjs[SECONDARY_MAP].sync(mapObjs[PRIMARY_MAP])
+      } else {
+        mapObjs[PRIMARY_MAP].unsync(mapObjs[SECONDARY_MAP])
+        mapObjs[SECONDARY_MAP].unsync(mapObjs[PRIMARY_MAP])
+      }
     },
     // Start/stop the tour
     tourIsActive (tourIsActive) {
@@ -190,13 +190,35 @@ export default {
           layerObj.setZIndex(100 - index)
 
           // Add or remove the layer from the map
-          if (layer.visible && !this.mapObj.hasLayer(layerObj)) {
-            this.mapObj.addLayer(layerObj)
-          } else if (!layer.visible && this.mapObj.hasLayer(layerObj)) {
-            this.mapObj.removeLayer(layerObj)
+          if (layer.visible && !mapObjs[PRIMARY_MAP].hasLayer(layerObj)) {
+            mapObjs[PRIMARY_MAP].addLayer(layerObj)
+          } else if (!layer.visible && mapObjs[PRIMARY_MAP].hasLayer(layerObj)) {
+            mapObjs[PRIMARY_MAP].removeLayer(layerObj)
           }
         })
       }
+    }
+  },
+  methods: {
+    getBaseMapAndLayers () {
+
+      // The _.cloneDeep is to ensure we aren't recycling
+      // the Leaflet layers (breaks map)
+      var baseLayer = _.cloneDeep(this.$refs.component.baseLayer)
+      var placeLayer = _.cloneDeep(this.$refs.component.placeLayer)
+
+      // Don't add the place layer if not defined
+      var layers = placeLayer ? [baseLayer, placeLayer] : [baseLayer]
+
+      var defaultMapProperties = _.extend({
+        crs: this.$refs.component.crs,
+        zoomControl: false,
+        scrollWheelZoom: true,
+        attributionControl: false
+      }, this.$refs.component.mapOptions)
+
+      // Mix together some defaults with map-specific configuration.
+      return _.extend(defaultMapProperties, { layers: layers })
     }
   }
 }

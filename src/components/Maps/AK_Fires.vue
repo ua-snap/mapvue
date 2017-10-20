@@ -44,23 +44,6 @@ export default {
         })
       )
     },
-    secondBaseLayer () {
-      return new this.$L.tileLayer.wms(
-        process.env.GEOSERVER_WMS_URL,
-        _.extend(this.baseLayerOptions, {
-          layers: 'alaska_osm'
-        })
-      )
-    },
-    secondPlaceLayer () {
-      return new this.$L.tileLayer.wms(
-        process.env.GEOSERVER_WMS_URL,
-        _.extend(this.baseLayerOptions, {
-          zIndex: 101,
-          layers: 'alaska_places_osm_3338'
-        })
-      )
-    },
     localLayers () {
 
     }
