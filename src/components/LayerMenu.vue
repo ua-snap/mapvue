@@ -72,7 +72,6 @@ export default {
     },
     showLayerMenu () {
       this.$store.commit('showLayerMenu')
-      console.log(this.layerMenuVisibility)
     },
     showSplash () {
       this.$store.commit('showSplash')
