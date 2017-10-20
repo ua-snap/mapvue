@@ -13,8 +13,9 @@ export default new Vuex.Store({
     // TODO figure this one out???
     currentMap: undefined,
 
-    // Layers of the current map
-    layers: undefined,
+    // Layers is an array of objects which
+    // define the layers and visibility for each layer
+    layers: [],
 
     // Should the sidebar be shown?
     sidebarVisibility: false,
@@ -37,7 +38,7 @@ export default new Vuex.Store({
     dualMaps: false,
 
     // Should the dual maps be kept in sync?
-    syncDualMaps: false,
+    syncMaps: false,
 
     // True if tour is active
     tourIsActive: false,
@@ -124,6 +125,9 @@ export default new Vuex.Store({
     },
     toggleDualMaps (state) {
       state.dualMaps = !state.dualMaps
+    },
+    toggleSyncMaps (state) {
+      state.syncMaps = !state.syncMaps
     },
     showFireGraph (state) {
       state.fireGraphVisible = true

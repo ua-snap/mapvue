@@ -5,12 +5,13 @@
   <splash-screen
     :abstract="abstract"></splash-screen>
 
-  <sidebar :mapObj="mapObj"></sidebar>
+  <sidebar :mapObj="primaryMapObject"></sidebar>
 
-  <div id="snapmapapp"></div>
+  <div map id="map-1" class="leaflet-container" v-bind:class="{fullmap: !dualMaps, halfmap: dualMaps}"></div>
+  <div map id="map-2" class="leaflet-container" v-bind:class="{hide: !dualMaps, show: dualMaps}"></div>
 
   <component ref="component" v-bind:is="mapComponentName">
-    <!-- Map-specific HTML & Tour will be rendered here -->
+    <!-- Map-specific HTML & Tour will be rendered her -->
   </component>
 
   <mv-footer></mv-footer>
@@ -47,6 +48,19 @@ var mapObjectMapper = {
 }
 /* End hoo-haw. */
 
+// This data structure will hold all the Leaflet
+// objects for both maps & layers
+var maps = {
+  left: {
+    map: undefined, // leaflet object
+    layers: [] // array of leaflet layer objects
+  },
+  right: {
+    map: undefined, // leaflet object
+    layers: [] // array of leaflet layer objects
+  }
+}
+
 export default {
   name: 'map',
   props: ['slug'],
@@ -54,13 +68,6 @@ export default {
     return {
       // reference to leaflet-sidebar
       sidebar: undefined,
-
-      // Leaflet map objects
-      mapObj: undefined,
-
-      // Array of layer Leaflet objects, keyed by layer name.
-      layerObjs: {},
-      secondLayerObjs: {},
 
       // Map info (title, abstract, etc??)
       map: undefined,
@@ -78,11 +85,21 @@ export default {
     dualMaps () {
       return this.$store.state.dualMaps
     },
+    syncMaps () {
+      return this.$store.state.syncMaps
+    },
     getLayers () {
       return this.$store.getters.getLayers
     },
     tourIsActive () {
       return this.$store.getters.tourIsActive
+    },
+    // This wrapper allows access to the primary (left) map
+    // object so it can be provided to other components, but
+    // the object remains outside the scope of Vue and thus
+    // won't get decorated with accessors, etc.
+    primaryMapObject () {
+      return maps.left.map
     }
   },
   components: {
@@ -99,25 +116,9 @@ export default {
     // See: https://vuejs.org/v2/api/#ref
     this.abstract = this.$refs.component.abstract
 
-    // These need to be separate instances because we listen for events differently on each.
-    var baseLayer = this.$refs.component.baseLayer
-    var placeLayer = this.$refs.component.placeLayer
-
-    // Don't add the place layer if not defined
-    var layers = placeLayer ? [baseLayer, placeLayer] : [baseLayer]
-
-    // Mix together some defaults with map-specific configuration.
-    var mapOptions = _.extend({
-      crs: this.$refs.component.crs,
-      zoomControl: false,
-      scrollWheelZoom: true
-    }, this.$refs.component.mapOptions)
-
     // Instantiate map objects
-    this.mapObj = this.$L.map('snapmapapp', _.extend(mapOptions, {
-      layers: layers
-    }))
-
+    maps.left.map = L.map('map-1', this.getBaseMapAndLayers())
+    maps.right.map = L.map('map-2', this.getBaseMapAndLayers())
     this.addLayers()
   },
   created () {
@@ -131,6 +132,21 @@ export default {
     this.$store.commit('setLayers', mapObjectMapper[this.mapComponentName].data().layers)
   },
   watch: {
+    dualMaps () {
+      this.$nextTick(function () {
+        maps.left.map.invalidateSize()
+        maps.right.map.invalidateSize()
+      })
+    },
+    syncMaps (syncMaps) {
+      if (syncMaps) {
+        maps.left.map.sync(maps.right.map)
+        maps.right.map.sync(maps.left.map)
+      } else {
+        maps.left.map.unsync(maps.right.map)
+        maps.right.map.unsync(maps.left.map)
+      }
+    },
     // Start/stop the tour
     tourIsActive (tourIsActive) {
       if (tourIsActive === true) {
@@ -146,23 +162,31 @@ export default {
     getLayers: {
       deep: true,
       handler (layers) {
-        _.each(layers, (layer, index) => {
-          let layerObj = this.layerObjs[layer.name]
-          // Explicitly order the list so that topmost layer
-          // has the highest z-index
-          layerObj.setZIndex(100 - index)
-
-          // Add or remove the layer from the map
-          if (layer.visible && !this.mapObj.hasLayer(layerObj)) {
-            this.mapObj.addLayer(layerObj)
-          } else if (!layer.visible && this.mapObj.hasLayer(layerObj)) {
-            this.mapObj.removeLayer(layerObj)
+        // Helper function to toggle layers
+        var toggleLayerVisibility = (visible, map, layer) => {
+          if (visible && !map.hasLayer(layer)) {
+            map.addLayer(layer)
+          } else if (!visible && map.hasLayer(layer)) {
+            map.removeLayer(layer)
           }
+        }
+        _.each(layers, (layer, index) => {
+          let leftLayerObj = maps.left.layers[layer.name]
+          let rightLayerObj = maps.right.layers[layer.name]
+
+          // Explicitly order the list so that topmost layers
+          // have the highest z-index
+          leftLayerObj.setZIndex(100 - index)
+          rightLayerObj.setZIndex(100 - index)
+
+          toggleLayerVisibility(layer.visible, maps.left.map, leftLayerObj)
+          toggleLayerVisibility(layer.secondVisible, maps.right.map, rightLayerObj)
         })
       }
     }
   },
   methods: {
+    // Instantiate the Leaflet layer objects
     addLayers () {
       var wmsLayerOptions = _.extend({
         continuousWorld: true,
@@ -174,19 +198,33 @@ export default {
 
       // TODO: "special" layers (ones handled by the map component itself, not GeoServer)
       _.each(this.layers, (layer) => {
-        if (layer.local !== true) {
-          let layerConfiguration = _.extend(wmsLayerOptions,
-            {
-              layers: [layer.name]
-            })
-          this.layerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
-          this.secondLayerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
-        } else {
-          var localLayers = this.$refs.component.getLocalLayers(layer)
-          this.layerObjs[layer.name] = localLayers.first
-          this.secondLayerObjs[layer.name] = localLayers.second
-        }
+        let layerConfiguration = _.extend(wmsLayerOptions,
+          {
+            layers: [layer.name]
+          })
+        maps.left.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
+        maps.right.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
       })
+    },
+    getBaseMapAndLayers () {
+
+      // The _.cloneDeep is to ensure we aren't recycling
+      // the Leaflet layers (breaks map)
+      var baseLayer = _.cloneDeep(this.$refs.component.baseLayer)
+      var placeLayer = _.cloneDeep(this.$refs.component.placeLayer)
+
+      // Don't add the place layer if not defined
+      var layers = placeLayer ? [baseLayer, placeLayer] : [baseLayer]
+
+      var defaultMapProperties = _.extend({
+        crs: this.$refs.component.crs,
+        zoomControl: false,
+        scrollWheelZoom: true,
+        attributionControl: false
+      }, this.$refs.component.mapOptions)
+
+      // Mix together some defaults with map-specific configuration.
+      return _.extend(defaultMapProperties, { layers: layers })
     }
   }
 }
@@ -208,7 +246,8 @@ h1 {
   margin-top: 60px;
 }
 
-#snapmapapp {
+.fullmap {
+  display: block;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -216,25 +255,30 @@ h1 {
   top: 0;
 }
 
-#snapmapapp.half {
-  width: 50%;
-  right: 50%;
-  border-right: 2px solid rgba(0, 0, 0, .5);
-  border: 2px solid red;
-}
-
-#secondmap {
+.halfmap {
+  display: block;
   position: absolute;
-  left: 50%;
   width: 50%;
   height: 100%;
-  border: 0;
-  z-index: -1;
+  left: 0;
+  top: 0;
+  border-right: 2px solid rgba(0, 0, 0, .5);
 }
 
-#secondmap.half {
-  z-index: 0;
-  border: 2px solid blue;
+#map-2 {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 50%;
+  top: 0;
+}
+
+#map-2.hide {
+  z-index: -1
+}
+
+#map-2.show {
+  z-index: 0
 }
 
 .leaflet-top, .leaflet-bottom {

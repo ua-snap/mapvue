@@ -2,36 +2,23 @@
 <div class="layer" data-toggle="buttons">
   <!-- We need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
   <label
-    class="btn btn-success visibility"
-    v-if="visible"
-    @click.prevent="toggleLayer(name)"
-  >
-    <span class="glyphicon glyphicon-check" ></span>
-    <input type="checkbox" autocomplete="off">
-  </label>
-  <label
     class="btn btn-primary visibility"
-    v-if="!visible"
+    :class=" { 'btn-success': visible }"
     @click.prevent="toggleLayer(name)"
   >
-    <span class="glyphicon glyphicon-unchecked"></span>
+    <span v-if="visible" class="glyphicon glyphicon-check" ></span>
+    <span v-if="!visible" class="glyphicon glyphicon-unchecked"></span>
     <input type="checkbox" autocomplete="off">
   </label>
   <!-- Buttons for second map -->
   <label
-    class="btn btn-success visibility"
-    v-if="dualMaps && secondVisible"
-    @click.prevent="toggleLayer(name, 'second')"
-  >
-    <span class="glyphicon glyphicon-check"></span>
-    <input type="checkbox" autocomplete="off">
-  </label>
-  <label
     class="btn btn-primary visibility"
-    v-if="dualMaps && !secondVisible"
+    v-if="dualMaps"
+    :class=" { 'btn-success': secondVisible }"
     @click.prevent="toggleLayer(name, 'second')"
   >
-    <span class="glyphicon glyphicon-unchecked"></span>
+    <span v-if="secondVisible" class="glyphicon glyphicon-check"></span>
+    <span v-if="!secondVisible" class="glyphicon glyphicon-unchecked"></span>
     <input type="checkbox" autocomplete="off">
   </label>
   <!-- Information about layer button -->

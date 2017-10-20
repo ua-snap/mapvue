@@ -21,7 +21,7 @@
         Split / single map
       </label>
 
-      <label id="syncDualMaps" class="mobile-hidden btn btn-primary info" ng-class="{'btn-success': syncMaps}" v-show="dualMaps" @click="toggleSynchronizeMaps()">
+      <label id="syncDualMaps" class="mobile-hidden btn btn-primary info" :class="{ 'btn-success': syncMaps }" v-show="dualMaps" @click="toggleSyncMaps()">
         <span class="glyphicon glyphicon-flash"></span>
         &nbsp;
         Synchronize maps
@@ -60,11 +60,12 @@ export default {
     dualMaps () {
       return this.$store.state.dualMaps
     },
+    syncMaps () {
+      return this.$store.state.syncMaps
+    },
     layerMenuVisibility () {
       return this.$store.getters.layerMenuVisibility
     }
-  },
-  created () {
   },
   methods: {
     hideLayerMenu () {
@@ -81,6 +82,9 @@ export default {
     },
     toggleDualMaps () {
       this.$store.commit('toggleDualMaps')
+    },
+    toggleSyncMaps () {
+      this.$store.commit('toggleSyncMaps')
     },
     showFireGraph () {
       this.$store.commit('showFireGraph')

@@ -40,6 +40,23 @@ export default {
         })
       )
     },
+    secondBaseLayer () {
+      return new this.$L.tileLayer.wms(
+        process.env.GEOSERVER_WMS_URL,
+        _.extend(this.baseLayerOptions, {
+          layers: ['arctic_osm_3572']
+        })
+      )
+    },
+    secondPlaceLayer () {
+      return new this.$L.tileLayer.wms(
+        process.env.GEOSERVER_WMS_URL,
+        _.extend(this.baseLayerOptions, {
+          layers: ['arctic_places_osm_3572'],
+          zIndex: 1000
+        })
+      )
+    },
     tour () {
       let tour = new this.$shepherd.Tour({
         defaults: {

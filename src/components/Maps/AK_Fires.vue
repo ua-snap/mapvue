@@ -39,7 +39,7 @@ export default {
       return new this.$L.tileLayer.wms(
         process.env.GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
-          zIndex: 100,
+          zIndex: 101,
           layers: 'alaska_places_osm_3338'
         })
       )
