@@ -15,7 +15,8 @@
   "dependencies": {
     "axios": "^0.16.2",
     "leaflet": "0.7.7",
-    "leaflet-sidebar": "^0.2.0",
+    "leaflet-sidebar": "0.2.0",
+    "leaflet.sync": "0.0.5",
     "lodash": "^4.17.4",
     "moment": "^2.19.1",
     "plotly.js": "^1.31.0",
