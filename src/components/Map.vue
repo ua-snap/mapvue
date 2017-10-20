@@ -179,8 +179,8 @@ export default {
             {
               layers: [layer.name]
             })
-          this.layerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
-          this.secondLayerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
+          this.layerObjs[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
+          this.secondLayerObjs[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
         } else {
           var localLayers = this.$refs.component.getLocalLayers(layer)
           this.layerObjs[layer.name] = localLayers.first
