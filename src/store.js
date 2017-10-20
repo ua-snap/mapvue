@@ -23,6 +23,9 @@ export default new Vuex.Store({
     // when shown, then returned to `undefined` when hidden.
     sidebarContent: undefined,
 
+    // Should the layer menu be shown?
+    layerMenuVisibility: true,
+
     // Whether the splash/intro screen for a map is visible or not
     showSplash: true,
 
@@ -101,6 +104,12 @@ export default new Vuex.Store({
       state.sidebarVisibility = false
       state.sidebarContent = undefined
     },
+    showLayerMenu (state) {
+      state.layerMenuVisibility = true
+    },
+    hideLayerMenu (state) {
+      state.layerMenuVisibility = false
+    },
     showSplash (state) {
       state.showSplash = true
     },
@@ -130,6 +139,9 @@ export default new Vuex.Store({
     },
     sidebarVisibility (state) {
       return state.sidebarVisibility
+    },
+    layerMenuVisibility (state) {
+      return state.layerMenuVisibility
     },
     fireGraphIsVisible (state) {
       return state.fireGraphVisible
