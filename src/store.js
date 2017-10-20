@@ -13,8 +13,9 @@ export default new Vuex.Store({
     // TODO figure this one out???
     currentMap: undefined,
 
-    // Layers of the current map
-    layers: undefined,
+    // Layers is an array of objects which
+    // define the layers and visibility for each layer
+    layers: [],
 
     // Should the sidebar be shown?
     sidebarVisibility: false,

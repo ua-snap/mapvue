@@ -19,11 +19,13 @@ Object.defineProperty(Vue.prototype, '$axios', { value: axios })
 Object.defineProperty(Vue.prototype, '$shepherd', { value: shepherd })
 Object.defineProperty(Vue.prototype, '$moment', { value: moment })
 
+// TODO: use this to show loading spinners while resources load.
 window.pendingRequests = 0
 
 // Include styles for some libraries here.
 require('../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss')
 
+// Disable nag
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

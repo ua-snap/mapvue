@@ -48,13 +48,18 @@ var mapObjectMapper = {
 }
 /* End hoo-haw. */
 
-// Will contain an array of Leaflet Map objects
-var mapObjs = []
-
-// consts for our two maps, primary (left) and
-// secondary (right)
-const PRIMARY_MAP = 0
-const SECONDARY_MAP = 1
+// This data structure will hold all the Leaflet
+// objects for both maps & layers
+var maps = {
+  left: {
+    map: undefined, // leaflet object
+    layers: [] // array of leaflet layer objects
+  },
+  right: {
+    map: undefined, // leaflet object
+    layers: [] // array of leaflet layer objects
+  }
+}
 
 export default {
   name: 'map',
@@ -63,10 +68,6 @@ export default {
     return {
       // reference to leaflet-sidebar
       sidebar: undefined,
-
-      // Array of layer Leaflet objects, keyed by layer name.
-      layerObjs: {},
-      secondLayerObjs: {},
 
       // Map info (title, abstract, etc??)
       map: undefined,
@@ -98,7 +99,7 @@ export default {
     // the object remains outside the scope of Vue and thus
     // won't get decorated with accessors, etc.
     primaryMapObject () {
-      return mapObjs[0]
+      return maps.left.map
     }
   },
   components: {
@@ -116,30 +117,9 @@ export default {
     this.abstract = this.$refs.component.abstract
 
     // Instantiate map objects
-    mapObjs[PRIMARY_MAP] = L.map('map-1', this.getBaseMapAndLayers())
-    mapObjs[SECONDARY_MAP] = L.map('map-2', this.getBaseMapAndLayers())
-
-    // Add all layers
-    // TODO refactor away to module or whatever
-    var addLayers = () => {
-      var wmsLayerOptions = _.extend({
-        continuousWorld: true,
-        transparent: true,
-        tiled: 'true',
-        format: 'image/png',
-        version: '1.3'
-      }, this.$refs.component.layerOptions)
-
-      // TODO: 2nd map, "special" layers (ones handled by the map component itself, not GeoServer)
-      _.each(this.layers, (layer) => {
-        let layerConfiguration = _.extend(wmsLayerOptions,
-          {
-            layers: [layer.name]
-          })
-        this.layerObjs[layer.name] = this.$L.tileLayer.wms(window.geoserverWmsUrl, layerConfiguration)
-      })
-    }
-    addLayers()
+    maps.left.map = L.map('map-1', this.getBaseMapAndLayers())
+    maps.right.map = L.map('map-2', this.getBaseMapAndLayers())
+    this.addLayers()
   },
   created () {
     // This populates the overview info for the map
@@ -154,18 +134,17 @@ export default {
   watch: {
     dualMaps () {
       this.$nextTick(function () {
-        mapObjs[PRIMARY_MAP].invalidateSize()
-        mapObjs[SECONDARY_MAP].invalidateSize()
+        maps.left.map.invalidateSize()
+        maps.right.map.invalidateSize()
       })
     },
     syncMaps (syncMaps) {
-      console.log(syncMaps)
       if (syncMaps) {
-        mapObjs[PRIMARY_MAP].sync(mapObjs[SECONDARY_MAP])
-        mapObjs[SECONDARY_MAP].sync(mapObjs[PRIMARY_MAP])
+        maps.left.map.sync(maps.right.map)
+        maps.right.map.sync(maps.left.map)
       } else {
-        mapObjs[PRIMARY_MAP].unsync(mapObjs[SECONDARY_MAP])
-        mapObjs[SECONDARY_MAP].unsync(mapObjs[PRIMARY_MAP])
+        maps.left.map.unsync(maps.right.map)
+        maps.right.map.unsync(maps.left.map)
       }
     },
     // Start/stop the tour
@@ -183,23 +162,50 @@ export default {
     getLayers: {
       deep: true,
       handler (layers) {
-        _.each(layers, (layer, index) => {
-          let layerObj = this.layerObjs[layer.name]
-          // Explicitly order the list so that topmost layer
-          // has the highest z-index
-          layerObj.setZIndex(100 - index)
-
-          // Add or remove the layer from the map
-          if (layer.visible && !mapObjs[PRIMARY_MAP].hasLayer(layerObj)) {
-            mapObjs[PRIMARY_MAP].addLayer(layerObj)
-          } else if (!layer.visible && mapObjs[PRIMARY_MAP].hasLayer(layerObj)) {
-            mapObjs[PRIMARY_MAP].removeLayer(layerObj)
+        // Helper function to toggle layers
+        var toggleLayerVisibility = (visible, map, layer) => {
+          if (visible && !map.hasLayer(layer)) {
+            map.addLayer(layer)
+          } else if (!visible && map.hasLayer(layer)) {
+            map.removeLayer(layer)
           }
+        }
+        _.each(layers, (layer, index) => {
+          let leftLayerObj = maps.left.layers[layer.name]
+          let rightLayerObj = maps.right.layers[layer.name]
+
+          // Explicitly order the list so that topmost layers
+          // have the highest z-index
+          leftLayerObj.setZIndex(100 - index)
+          rightLayerObj.setZIndex(100 - index)
+
+          toggleLayerVisibility(layer.visible, maps.left.map, leftLayerObj)
+          toggleLayerVisibility(layer.secondVisible, maps.right.map, rightLayerObj)
         })
       }
     }
   },
   methods: {
+    // Instantiate the Leaflet layer objects
+    addLayers () {
+      var wmsLayerOptions = _.extend({
+        continuousWorld: true,
+        transparent: true,
+        tiled: 'true',
+        format: 'image/png',
+        version: '1.3'
+      }, this.$refs.component.layerOptions)
+
+      // TODO: "special" layers (ones handled by the map component itself, not GeoServer)
+      _.each(this.layers, (layer) => {
+        let layerConfiguration = _.extend(wmsLayerOptions,
+          {
+            layers: [layer.name]
+          })
+        maps.left.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
+        maps.right.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
+      })
+    },
     getBaseMapAndLayers () {
 
       // The _.cloneDeep is to ensure we aren't recycling
