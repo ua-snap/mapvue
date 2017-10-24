@@ -41,9 +41,6 @@ export default {
     syncMaps () {
       return this.$store.state.syncMaps
     },
-    getLayers () {
-      return this.$store.getters.getLayers
-    },
     // This wrapper allows access to the primary (left) map
     // object so it can be provided to other components, but
     // the object remains outside the scope of Vue and thus
@@ -75,7 +72,7 @@ export default {
       }
     },
     // When layer visibility or order changes, re-render
-    getLayers: {
+    layers: {
       deep: true,
       handler (layers) {
         // Helper function to toggle layers

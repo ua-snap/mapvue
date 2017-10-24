@@ -60,11 +60,23 @@ export default new Vuex.Store({
       var swapVisibility = (targetLayer, propName) => {
         targetLayer[propName] = !targetLayer[propName]
 
+        // Gotcha here: because we are replacing
+        // the property in an array element,
+        // we need to ensure that Vue is aware of the
+        // change.
+        //
+        // See: https://vuejs.org/v2/guide/list.html#Caveats
+        //
         // If the layer is being turned on,
         // pull it to the top of the list
         if (targetLayer[propName] === true) {
           state.layers.splice(targetLayerIndex, 1)
           state.layers.unshift(targetLayer)
+        } else {
+          // Otherwise, just replace it in-place to ensure
+          // that reactivity rules see the changes and
+          // propagate this change to watchers.
+          Vue.set(state.layers, targetLayerIndex, targetLayer)
         }
       }
 
@@ -131,9 +143,6 @@ export default new Vuex.Store({
   },
   // Some getters here are just used for watching global state changes.
   getters: {
-    getLayers (state) {
-      return state.layers
-    },
     sidebarVisibility (state) {
       return state.sidebarVisibility
     },
