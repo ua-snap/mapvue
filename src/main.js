@@ -19,8 +19,22 @@ Object.defineProperty(Vue.prototype, '$axios', { value: axios })
 Object.defineProperty(Vue.prototype, '$shepherd', { value: shepherd })
 Object.defineProperty(Vue.prototype, '$moment', { value: moment })
 
-// TODO: use this to show loading spinners while resources load.
-window.pendingRequests = 0
+// Wire in two listeners that will keep track of open
+// HTTP requests.
+Vue.prototype.$axios.interceptors.request.use(function (config) {
+  store.commit('incrementPendingHttpRequest')
+  return config
+}, function (error) {
+  return Promise.reject(error)
+})
+
+// Add a response interceptor
+Vue.prototype.$axios.interceptors.response.use(function (response) {
+  store.commit('decrementPendingHttpRequest')
+  return response
+}, function (error) {
+  return Promise.reject(error)
+})
 
 // Include styles for some libraries here.
 require('../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss')
