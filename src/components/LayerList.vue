@@ -24,9 +24,6 @@ export default {
     'map-layer': MapLayer,
     draggable
   },
-  data () {
-    return {}
-  },
   computed: {
     layers: {
       get () {
@@ -36,8 +33,6 @@ export default {
         this.$store.commit('reorderLayers', value)
       }
     }
-  },
-  mounted () {
   }
 }
 </script>

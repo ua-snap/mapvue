@@ -1,9 +1,46 @@
-<template></template>
+<template>
+<div>
+  <h1 class="map-title">{{ title }}</h1>
+  <layer-menu></layer-menu>
+  <splash-screen
+    :abstract="abstract"></splash-screen>
+  <mv-map
+    ref="map"
+    :baseLayerOptions="baseLayerOptions"
+    :baseLayer="baseLayer"
+    :placeLayer="placeLayer"
+    :crs="crs"
+    :mapOptions="mapOptions"
+  ></mv-map>
+  <sidebar :mapObj="primaryMapObject"></sidebar>
+  <mv-footer></mv-footer>
+</div>
+</template>
 <script>
+/* eslint new-cap: "off" */
+import _ from 'lodash'
+import MapInstance from '@/components/MapInstance'
+
 export default {
   name: 'IAM',
+  extends: MapInstance,
   data () {
     return {
+      title: 'Integrated Arctic Management',
+      abstract: '## What areas of the Arctic are &ldquo;important&rdquo;? One challenge that managers and policy makers often face is the conflict of interests among groups. This was evident when the [Scenarios Network for Alaska and Arctic Planning](https://www.snap.uaf.edu) was asked to identify specific geographic â€œareas of environmental, economic, and cultural importanceâ€ in Arctic Alaska for a 2013 report to the President of the United states on [Integrated Arctic Management (IAM)](https://www.afsc.noaa.gov/publications/misc_pdf/iamreport.pdf). While many groups have an answer to this question, the answer depends on the perspective and interests of the group. As a proof of concept, SNAP took an objective approach to identifying important areas by displaying existing geospatial datasets that fit into the environmental, economic, and cultural categories to see where they overlap. Based upon available data, this can illustrate the relative importance of those areas, identify potential areas of conflict, and highlight gaps in Arctic geospatial data.',
+      mapOptions: {
+        zoom: 0,
+        minZoom: 0,
+        maxZoom: 5,
+        center: [64, -165]
+      },
+      baseLayerOptions: {
+        transparent: true,
+        srs: 'EPSG:3572',
+        format: 'image/png',
+        version: '1.3',
+        continuousWorld: true // needed for non-3857 projs
+      },
       layers: [
         {
           'abstract': 'This layer shows cultural sites and buildings, as well as protected areas in the IAM area. Arctic Alaska has a long history of inhabitants, settlers, and traders since the earliest families crossed the Bering Land Bridge some 20,000 years ago. Cultural sites and structures are important artifacts. “Protected areas” are defined here as areas designated to preserve cultural and/or recreational features and activities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
@@ -46,6 +83,60 @@ export default {
           'title': 'Significant ecological areas'
         }
       ]
+    }
+  },
+  computed: {
+    crs () {
+      // We need to modify the default pan-Arctic
+      // projection to avoid a bug.
+      var proj = new this.$L.Proj.CRS('EPSG:3572',
+        '+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs',
+        {
+          resolutions: [4096, 2048, 1024, 512, 256, 128, 64],
+          origin: [-4234288.146966308, -4234288.146966307]
+        }
+      )
+
+      // trust me.
+      // Without this (= pi/2), proj4js returns an undefined
+      // value for tiles requested at the North Pole and
+      // it causes a runtime exception.
+      proj.projection._proj.oProj.phi0 = 1.5708
+      return proj
+    },
+    baseLayer () {
+      return new this.$L.tileLayer.wms(
+        process.env.GEOSERVER_WMS_URL,
+        _.extend(this.baseLayerOptions, {
+          layers: ['arctic_osm_3572']
+        })
+      )
+    },
+    placeLayer () {
+      return new this.$L.tileLayer.wms(
+        process.env.GEOSERVER_WMS_URL,
+        _.extend(this.baseLayerOptions, {
+          layers: ['arctic_places_osm_3572'],
+          zIndex: 1000
+        })
+      )
+    },
+    secondBaseLayer () {
+      return new this.$L.tileLayer.wms(
+        process.env.GEOSERVER_WMS_URL,
+        _.extend(this.baseLayerOptions, {
+          layers: ['arctic_osm_3572']
+        })
+      )
+    },
+    secondPlaceLayer () {
+      return new this.$L.tileLayer.wms(
+        process.env.GEOSERVER_WMS_URL,
+        _.extend(this.baseLayerOptions, {
+          layers: ['arctic_places_osm_3572'],
+          zIndex: 1000
+        })
+      )
     }
   }
 }

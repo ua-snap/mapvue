@@ -13,8 +13,6 @@
 
 </template>
 <script>
-// Used to make the store values reactive in this component
-import { mapGetters } from 'vuex'
 import moment from 'moment'
 
 // This is imported a little oddly to bypass a bug, see:
@@ -77,12 +75,9 @@ var graphData = []
 export default {
   name: 'AK_Fires_Graph',
   computed: {
-    ...mapGetters({
-      visible: 'fireGraphIsVisible'
-    })
-  },
-  mounted () {
-
+    visible () {
+      return this.$store.state.fireGraphVisible
+    }
   },
   created () {
     this.$axios.get(process.env.FIRE_TIME_SERIES_URL)

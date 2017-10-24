@@ -1,10 +1,12 @@
 <template>
 <div class="layer-menu">
-  <label v-bind:class="{hide: !layerMenuVisibility}" class="btn btn-secondary" @click="hideLayerMenu()">Hide Layer Menu</label>
-  <label v-bind:class="{hide: layerMenuVisibility}" class="btn btn-secondary" @click="showLayerMenu()">Show Layer Menu</label>
-  <div v-bind:class="{hide: !layerMenuVisibility}">
-  <layer-list></layer-list>
-    <div class="mapTools form-inline">
+  <label class="btn btn-primary" @click="toggleLayerMenu()">
+    <span v-show="layerMenuVisibility" class="glyphicon glyphicon-remove"></span>
+    <span v-show="!layerMenuVisibility" class="glyphicon glyphicon-menu-hamburger"></span>
+  </label>
+  <div v-show="layerMenuVisibility" class="menu-wrapper">
+    <layer-list></layer-list>
+    <div class="map-tools form-inline">
       <label class="btn btn-primary info" @click="showSplash()">
         <span class="glyphicon glyphicon-question-sign"></span>
         &nbsp;
@@ -64,15 +66,12 @@ export default {
       return this.$store.state.syncMaps
     },
     layerMenuVisibility () {
-      return this.$store.getters.layerMenuVisibility
+      return this.$store.state.layerMenuVisibility
     }
   },
   methods: {
-    hideLayerMenu () {
-      this.$store.commit('hideLayerMenu')
-    },
-    showLayerMenu () {
-      this.$store.commit('showLayerMenu')
+    toggleLayerMenu () {
+      this.$store.commit('toggleLayerMenu')
     },
     showSplash () {
       this.$store.commit('showSplash')
@@ -99,9 +98,9 @@ export default {
   background-color: rgba(255, 255, 255, .75);
   position: absolute;
   top: 4em;
-  padding: 1em 1em 1em 1em;
+  padding: 1em;
 
-  .mapTools {
+  .map-tools {
     margin: 1em 0;
     label, a {
       display: block;
@@ -116,9 +115,9 @@ export default {
       }
     }
   }
-}
 
-.hide {
-  display: none;
+  .menu-wrapper {
+    margin-top: 1em;
+  }
 }
 </style>
