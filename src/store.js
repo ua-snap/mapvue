@@ -110,11 +110,8 @@ export default new Vuex.Store({
       state.sidebarVisibility = false
       state.sidebarContent = undefined
     },
-    showLayerMenu (state) {
-      state.layerMenuVisibility = true
-    },
-    hideLayerMenu (state) {
-      state.layerMenuVisibility = false
+    toggleLayerMenu (state) {
+      state.layerMenuVisibility = !state.layerMenuVisibility
     },
     showSplash (state) {
       state.showSplash = true
@@ -141,23 +138,10 @@ export default new Vuex.Store({
       state.fireGraphVisible = false
     }
   },
-  // Some getters here are just used for watching global state changes.
   getters: {
-    sidebarVisibility (state) {
-      return state.sidebarVisibility
-    },
-    layerMenuVisibility (state) {
-      return state.layerMenuVisibility
-    },
-    fireGraphIsVisible (state) {
-      return state.fireGraphVisible
-    },
     // Returns true if there are pending HTTP requests
     loadingData (state) {
       return state.pendingHttpRequests > 0
-    },
-    tourIsActive (state) {
-      return state.tourIsActive
     }
   }
 })

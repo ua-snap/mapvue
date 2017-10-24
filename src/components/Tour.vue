@@ -5,7 +5,7 @@ export default {
   name: 'Tour',
   computed: {
     tourIsActive () {
-      return this.$store.getters.tourIsActive
+      return this.$store.state.tourIsActive
     }
   }, watch: {
     // Start/stop the tour

@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     showOrHideSidebar () {
-      return this.$store.getters.sidebarVisibility
+      return this.$store.state.sidebarVisibility
     },
     sidebarContent () {
       return this.$store.state.sidebarContent
