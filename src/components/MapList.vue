@@ -11,9 +11,9 @@
 <script>
 export default {
   name: 'map-list',
-  data () {
-    return {
-      maps: this.$store.state.maps
+  computed: {
+    maps () {
+      return this.$store.state.maps
     }
   }
 }

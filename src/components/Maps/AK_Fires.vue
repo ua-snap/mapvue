@@ -1,14 +1,33 @@
 <template>
+<div id="mv-ak-fires">
+  <h1 class="map-title">{{ title }}</h1>
+  <layer-menu></layer-menu>
+  <splash-screen
+    :abstract="abstract"></splash-screen>
+  <mv-map
+    ref="map"
+    :baseLayerOptions="baseLayerOptions"
+    :baseLayer="baseLayer"
+    :placeLayer="placeLayer"
+    :crs="crs"
+    :mapOptions="mapOptions"
+  ></mv-map>
+  <sidebar :mapObj="primaryMapObject"></sidebar>
   <graph></graph>
+  <mv-footer></mv-footer>
+</div>
 </template>
+
 <script>
 // For Leaflet, whose constructors are often lowercase
 /* eslint new-cap: "off" */
 import _ from 'lodash'
+import MapInstance from '@/components/MapInstance'
 import AKFiresGraph from './AK_Fires_Graph'
 
 export default {
   name: 'AK_Fires',
+  extends: MapInstance,
   components: {
     'graph': AKFiresGraph
   },
@@ -50,6 +69,7 @@ export default {
   },
   data () {
     return {
+      title: 'Alaska Wildfires: Past and Present',
       abstract: `
 <h1>It’s important to study wildland fire and its relationship to humans and the ecosystems we share. Use this map to see locations and sizes of wildfires in context of long-term fire history, land cover types, and more.</h1>
  <div class="abstractWrapper">
@@ -105,6 +125,9 @@ export default {
     }
   },
   created () {
+    // Initialize the store with the current component layers
+    this.$store.commit('setLayers', this.layers)
+
     let FireIcon = this.$L.Icon.extend({
       options: {
         iconUrl: '/static/active_fire.png',
