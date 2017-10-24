@@ -1,18 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import maps from './maps'
 import _ from 'lodash'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    // List of all maps in the application
-    maps: maps,
-
-    // TODO figure this one out???
-    currentMap: undefined,
-
     // Layers is an array of objects which
     // define the layers and visibility for each layer
     layers: [],

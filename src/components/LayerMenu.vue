@@ -3,7 +3,7 @@
   <label v-bind:class="{hide: !layerMenuVisibility}" class="btn btn-secondary" @click="hideLayerMenu()">Hide Layer Menu</label>
   <label v-bind:class="{hide: layerMenuVisibility}" class="btn btn-secondary" @click="showLayerMenu()">Show Layer Menu</label>
   <div v-bind:class="{hide: !layerMenuVisibility}">
-  <layer-list></layer-list>
+    <layer-list></layer-list>
     <div class="mapTools form-inline">
       <label class="btn btn-primary info" @click="showSplash()">
         <span class="glyphicon glyphicon-question-sign"></span>

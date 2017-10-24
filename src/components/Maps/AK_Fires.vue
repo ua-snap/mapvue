@@ -13,8 +13,8 @@
     :mapOptions="mapOptions"
   ></mv-map>
   <sidebar :mapObj="primaryMapObject"></sidebar>
-  <graph></graph>
   <mv-footer></mv-footer>
+  <graph></graph>
 </div>
 </template>
 
@@ -125,9 +125,6 @@ export default {
     }
   },
   created () {
-    // Initialize the store with the current component layers
-    this.$store.commit('setLayers', this.layers)
-
     let FireIcon = this.$L.Icon.extend({
       options: {
         iconUrl: '/static/active_fire.png',
