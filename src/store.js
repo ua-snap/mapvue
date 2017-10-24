@@ -136,6 +136,12 @@ export default new Vuex.Store({
     },
     hideFireGraph (state) {
       state.fireGraphVisible = false
+    },
+    incrementPendingHttpRequest (state) {
+      state.pendingHttpRequests++
+    },
+    decrementPendingHttpRequest (state) {
+      state.pendingHttpRequests--
     }
   },
   getters: {
