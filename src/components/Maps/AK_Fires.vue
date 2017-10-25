@@ -6,11 +6,12 @@
     :abstract="abstract"></splash-screen>
   <mv-map
     ref="map"
-    :baseLayerOptions="baseLayerOptions"
-    :baseLayer="baseLayer"
-    :placeLayer="placeLayer"
+    :base-layer-options="baseLayerOptions"
+    :base-layer="baseLayer"
+    :place-layer="placeLayer"
     :crs="crs"
-    :mapOptions="mapOptions"
+    :map-options="mapOptions"
+    :local-layers="localLayers"
   ></mv-map>
   <sidebar :mapObj="primaryMapObject"></sidebar>
   <mv-footer></mv-footer>
@@ -64,7 +65,12 @@ export default {
       )
     },
     localLayers () {
-
+      return {
+        'fires_2017': {
+          first: this.fireLayerGroup,
+          second: this.secondFireLayerGroup
+        }
+      }
     }
   },
   data () {
@@ -148,14 +154,6 @@ export default {
     this.fetchFireData()
   },
   methods: {
-    // Returns the list of "local" layers (ones that will)
-    // be directly managed on the client side, not via WMS/WFS
-    getLocalLayers (layer) {
-      return {
-        first: this.fireLayerGroup,
-        second: this.secondFireLayerGroup
-      }
-    },
     fetchFireData () {
       return new Promise((resolve, reject) => {
         if (this.firePolygons === undefined) {

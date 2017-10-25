@@ -29,7 +29,8 @@ export default {
     'baseLayer',
     'placeLayer',
     'crs',
-    'mapOptions'
+    'mapOptions',
+    'localLayers'
   ],
   computed: {
     layers () {
@@ -109,14 +110,24 @@ export default {
         version: '1.3'
       }, this.baseLayerOptions)
 
-      // TODO: "special" layers (ones handled by the map component itself, not GeoServer)
+      // Create or obtain actual Leaflet objects, and add them
+      // to the maps.
       _.each(this.layers, (layer) => {
-        let layerConfiguration = _.extend(wmsLayerOptions,
-          {
-            layers: [layer.name]
-          })
-        maps.left.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
-        maps.right.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
+        // If the layer is a normal GeoServer layer, create
+        // and add it here.
+        if (layer.local !== true) {
+          let layerConfiguration = _.extend(wmsLayerOptions,
+            {
+              layers: [layer.name]
+            })
+          maps.left.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
+          maps.right.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
+        } else {
+          // Otherwise, fetch the layer from the list
+          // of local layers maintained in this map.
+          maps.left.layers[layer.name] = this.localLayers[layer.name].first
+          maps.right.layers[layer.name] = this.localLayers[layer.name].second
+        }
       })
     },
     getBaseMapAndLayers () {
