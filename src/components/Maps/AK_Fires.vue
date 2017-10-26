@@ -71,6 +71,10 @@ export default {
           second: this.secondFireLayerGroup
         }
       }
+    },
+    fireJson: {
+      get () { return this.$localStorage.get('fireJson') },
+      set (value) { this.$localStorage.set('fireJson', value) }
     }
   },
   data () {
@@ -102,6 +106,14 @@ export default {
       },
       layers: [
         {
+          'name': 'fires_2017',
+          'title': 'All fires, 2017',
+          'local': true,
+          'legend': false,
+          'visible': true,
+          'abstract': '<img src="images/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="externa">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
+        },
+        {
           'abstract': 'This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types. \n\nThe dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010.  _What landcover burns the most?_\n\nTo access and learn more about this dataset, visit the [Commission for Environmental Cooperation](http://www.cec.org/tools-and-resources/map-files/land-cover-2010).\n',
           'name': 'geonode:alaska_landcover_2010',
           'title': 'Land cover, 2010'
@@ -110,13 +122,6 @@ export default {
           'abstract': 'This layer shows historical fire perimeters from 1940-2016.  _More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?_\n\nTo access and learn more about this dataset, visit the [AICC](https://fire.ak.blm.gov).\n',
           'name': 'geonode:fireareahistory',
           'title': 'Historical extent, 1940-2016'
-        },
-        {
-          'name': 'fires_2017',
-          'title': 'All fires, 2017',
-          'local': true,
-          'legend': false,
-          'abstract': '<img src="images/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="externa">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
         }
       ],
       // Will initialize these in the created() method
@@ -150,28 +155,38 @@ export default {
     // This will be the container for the fire markers & popups.
     this.fireLayerGroup = this.$L.layerGroup()
     this.secondFireLayerGroup = this.$L.layerGroup()
-
+  },
+  mounted () {
     this.fetchFireData()
   },
   methods: {
     fetchFireData () {
+      // Helper function to rebuild Leaflet objects
+      // from either localStorage or HTTP request
+      var processFireData = (data) => {
+        this.firePolygons = this.getGeoJsonLayer(data)
+        this.fireMarkers = this.getFireMarkers(data)
+        this.secondFirePolygons = this.getGeoJsonLayer(data)
+        this.secondFireMarkers = this.getFireMarkers(data)
+
+        // Add layers to the LayerGroup we're using here.
+        this.fireLayerGroup
+          .addLayer(this.firePolygons)
+          .addLayer(this.fireMarkers)
+        this.secondFireLayerGroup
+          .addLayer(this.secondFirePolygons)
+          .addLayer(this.secondFireMarkers)
+      }
+
       return new Promise((resolve, reject) => {
-        if (this.firePolygons === undefined) {
+        // Check if the data is in local storage
+        if (!this.fireJson) {
           this.$axios.get(process.env.FIRE_FEATURES_URL)
             .then(res => {
               if (res) {
-                this.firePolygons = this.getGeoJsonLayer(res.data)
-                this.fireMarkers = this.getFireMarkers(res.data)
-                this.secondFirePolygons = this.getGeoJsonLayer(res.data)
-                this.secondFireMarkers = this.getFireMarkers(res.data)
-
-                // Add layers to the LayerGroup we're using here.
-                this.fireLayerGroup
-                  .addLayer(this.firePolygons)
-                  .addLayer(this.fireMarkers)
-                this.secondFireLayerGroup
-                  .addLayer(this.secondFirePolygons)
-                  .addLayer(this.secondFireMarkers)
+                this.fireJson = res.data
+                processFireData(this.fireJson)
+                this.$refs.map.refreshLayers()
                 resolve()
               }
             },
@@ -180,6 +195,9 @@ export default {
               reject()
             })
         } else {
+          // Restoring from localStorage
+          processFireData(this.fireJson)
+          this.$refs.map.refreshLayers()
           resolve()
         }
       })

@@ -70,6 +70,9 @@ var graphOptions = {
   ]
 }
 
+// Local "private" variable to keep the
+// main data non-responsive (outside of scope
+// of Vue component)
 var graphData = []
 
 export default {
@@ -77,36 +80,54 @@ export default {
   computed: {
     visible () {
       return this.$store.state.fireGraphVisible
+    },
+    fireTimeSeries: {
+      get () { return this.$localStorage.get('fireTimeSeries') },
+      set (value) { return this.$localStorage.set('fireTimeSeries', value) }
     }
   },
-  created () {
-    this.$axios.get(process.env.FIRE_TIME_SERIES_URL)
-      .then(
-        res => {
-          let timeSeries = res.data
-          for (let year in timeSeries) {
-            if (timeSeries.hasOwnProperty(year)) {
-              var yearData = {
-                name: year,
-                x: timeSeries[year].dates,
-                y: timeSeries[year].acres
-              }
+  mounted () {
+    // Attach global listener
+    window.onresize = () => {
+      Plotly.Plots.resize(this.$refs.plotly)
+    }
 
-              if (year === moment().format('YYYY')) {
-                yearData.mode = 'lines+markers'
-              } else {
-                yearData.mode = 'lines'
-              }
-
-              graphData.push(yearData)
-            }
+    var processGraphData = (data) => {
+      let timeSeries = data
+      for (let year in timeSeries) {
+        if (timeSeries.hasOwnProperty(year)) {
+          var yearData = {
+            name: year,
+            x: timeSeries[year].dates,
+            y: timeSeries[year].acres
           }
-          this.drawGraph()
-        },
-      err => {
-        console.error(err)
+
+          if (year === moment().format('YYYY')) {
+            yearData.mode = 'lines+markers'
+          } else {
+            yearData.mode = 'lines'
+          }
+          graphData.push(yearData)
+        }
       }
-    )
+    }
+
+    if (!this.fireTimeSeries) {
+      this.$axios.get(process.env.FIRE_TIME_SERIES_URL)
+        .then(
+          res => {
+            this.fireTimeSeries = res.data
+            processGraphData(this.fireTimeSeries)
+            this.drawGraph()
+          },
+        err => {
+          console.error(err)
+        }
+      )
+    } else {
+      processGraphData(this.fireTimeSeries)
+      this.drawGraph()
+    }
   },
   methods: {
     hideGraph () {
@@ -119,6 +140,7 @@ export default {
         graphLayout,
         graphOptions
       )
+      Plotly.Plots.resize(this.$refs.plotly)
     }
   }
 }

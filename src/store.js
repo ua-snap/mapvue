@@ -47,8 +47,8 @@ export default new Vuex.Store({
       // Set some defaults for state/instance-based properties
       _.each(layers, layer => {
         // Default visibility on left/right maps to off
-        layer.visible = false
-        layer.secondVisible = false
+        layer.visible = layer.visible || false
+        layer.secondVisible = layer.visible
 
         restructuredlayers.push(layer)
       })
