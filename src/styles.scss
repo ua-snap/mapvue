@@ -50,11 +50,17 @@ h1.map-title {
 // Needs to be in global scope because the Shepherd
 // library writes the DOM outside of the scope of the
 // Map component.
+.shepherd-content {
+  border-radius: 5px !important;
+}
+
 .shepherd-content header {
   h3, a {
     color: rgba(255, 255, 255, 1) !important;
     opacity: 1 !important;
   }
+  border-top-left-radius: 5px !important;
+  border-top-right-radius: 5px !important;
 }
 .shepherd-text p {
   font-weight: 300;
