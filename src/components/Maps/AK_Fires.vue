@@ -99,8 +99,9 @@ export default {
       })
       tour.addStep({
         title: 'This season&rsquo;s fires',
-        attachTo: '#fires_2017 right',
+        attachTo: '#top_item right',
         text: `<img src="static/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p>`,
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
@@ -113,8 +114,9 @@ export default {
       })
       tour.addStep({
         title: 'Fires in history',
-        attachTo: '#fireareahistory right',
+        attachTo: '#top_item right',
         text: 'This layer shows all mapped fire perimeters from 1940 to 2016. It can be interesting to look for areas of repeated burn, or where a fire is burning today compared to older fire scars.',
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', {
@@ -138,8 +140,9 @@ export default {
       })
       tour.addStep({
         title: 'Land cover from 2010',
-        attachTo: '#alaska_landcover_2010 right',
+        attachTo: '#top_item right',
         text: `This layer provides a generalized view of the vegetation and type of  land at a spatial resolution of 250 meters. Vegetation types affect the flammability of an area.`,
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', {
