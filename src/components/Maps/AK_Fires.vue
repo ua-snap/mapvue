@@ -28,6 +28,16 @@ import MapInstance from '@/components/MapInstance'
 import AKFiresGraph from './AK_Fires_Graph'
 import Tour from '../Tour'
 
+// Leaflet objects, keep these outside of the
+// scope of the Vue component for performance
+// reasons
+var firePolygons
+var fireMarkers
+var fireLayerGroup
+var secondFirePolygons
+var secondFireMarkers
+var secondFireLayerGroup
+
 export default {
   name: 'AK_Fires',
   extends: MapInstance,
@@ -70,8 +80,8 @@ export default {
     localLayers () {
       return {
         'fires_2017': {
-          first: this.fireLayerGroup,
-          second: this.secondFireLayerGroup
+          first: fireLayerGroup,
+          second: secondFireLayerGroup
         }
       }
     },
@@ -277,13 +287,7 @@ export default {
       ],
       // Will initialize these in the created() method
       activeFireIcon: undefined,
-      inactiveFireIcon: undefined,
-      firePolygons: undefined,
-      fireMarkers: undefined,
-      secondFirePolygons: undefined,
-      secondFireMarkers: undefined,
-      fireLayerGroup: undefined,
-      secondFireLayerGroup: undefined
+      inactiveFireIcon: undefined
     }
   },
   created () {
@@ -304,8 +308,8 @@ export default {
     })
 
     // This will be the container for the fire markers & popups.
-    this.fireLayerGroup = this.$L.layerGroup()
-    this.secondFireLayerGroup = this.$L.layerGroup()
+    fireLayerGroup = this.$L.layerGroup()
+    secondFireLayerGroup = this.$L.layerGroup()
   },
   mounted () {
     this.fetchFireData()
@@ -315,18 +319,18 @@ export default {
       // Helper function to rebuild Leaflet objects
       // from either localStorage or HTTP request
       var processFireData = (data) => {
-        this.firePolygons = this.getGeoJsonLayer(data)
-        this.fireMarkers = this.getFireMarkers(data)
-        this.secondFirePolygons = this.getGeoJsonLayer(data)
-        this.secondFireMarkers = this.getFireMarkers(data)
+        firePolygons = this.getGeoJsonLayer(data)
+        fireMarkers = this.getFireMarkers(data)
+        secondFirePolygons = this.getGeoJsonLayer(data)
+        secondFireMarkers = this.getFireMarkers(data)
 
         // Add layers to the LayerGroup we're using here.
-        this.fireLayerGroup
-          .addLayer(this.firePolygons)
-          .addLayer(this.fireMarkers)
-        this.secondFireLayerGroup
-          .addLayer(this.secondFirePolygons)
-          .addLayer(this.secondFireMarkers)
+        fireLayerGroup
+          .addLayer(firePolygons)
+          .addLayer(fireMarkers)
+        secondFireLayerGroup
+          .addLayer(secondFirePolygons)
+          .addLayer(secondFireMarkers)
       }
 
       return new Promise((resolve, reject) => {
@@ -336,7 +340,7 @@ export default {
             .then(res => {
               if (res) {
                 this.fireJson = res.data
-                processFireData(this.fireJson)
+                processFireData(res.data)
                 this.$refs.map.refreshLayers()
                 resolve()
               }
