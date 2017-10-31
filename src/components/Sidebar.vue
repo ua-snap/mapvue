@@ -72,6 +72,7 @@ export default {
 #sidebar {
   font-family: 'Lato';
   font-size: 150%;
+  z-index: 500;
 
   // Assign the ID to override an !important
   // assigned in the general Leaflet css.

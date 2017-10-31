@@ -14,6 +14,7 @@
     :local-layers="localLayers"
   ></mv-map>
   <sidebar :mapObj="primaryMapObject"></sidebar>
+  <tour :tour="tour"></tour>
   <mv-footer></mv-footer>
   <graph></graph>
 </div>
@@ -25,12 +26,14 @@
 import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
 import AKFiresGraph from './AK_Fires_Graph'
+import Tour from '../Tour'
 
 export default {
   name: 'AK_Fires',
   extends: MapInstance,
   components: {
-    'graph': AKFiresGraph
+    'graph': AKFiresGraph,
+    'tour': Tour
   },
   computed: {
     crs () {
@@ -75,6 +78,154 @@ export default {
     fireJson: {
       get () { return this.$localStorage.get('fireJson') },
       set (value) { this.$localStorage.set('fireJson', value) }
+    },
+    tour () {
+      let tour
+      tour = new this.$shepherd.Tour({
+        defaults: {
+          classes: 'shepherd-theme-square-dark',
+          showCancelLink: true
+        }
+      })
+      tour.addStep({
+        title: 'This season&rsquo;s fires',
+        attachTo: '#fires_2017 right',
+        text: `<img src="static/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p>`,
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: ['fires_2017']
+            })
+          }
+        }
+      })
+      tour.addStep({
+        title: 'Fires in history',
+        attachTo: '#fireareahistory right',
+        text: 'This layer shows all mapped fire perimeters from 1940 to 2016. It can be interesting to look for areas of repeated burn, or where a fire is burning today compared to older fire scars.',
+        when: {
+          show: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: ['fireareahistory']
+            })
+          },
+          hide () {
+            //
+          }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
+      })
+      tour.addStep({
+        title: 'Land cover from 2010',
+        attachTo: '#alaska_landcover_2010 right',
+        text: `This layer provides a generalized view of the vegetation and type of  land at a spatial resolution of 250 meters. Vegetation types affect the flammability of an area.`,
+        when: {
+          show: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: ['alaska_landcover_2010']
+            })
+          },
+          hide () {
+            //
+          }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
+      })
+      tour.addStep({
+        title: 'What do the colors mean?',
+        attachTo: '#alaska_landcover_2010 .info right',
+        text: `Use the Info button to see more details and a legend for each layer. Try clicking this button now to see what the colors for the land cover layer mean!`,
+        when: {
+          show: () => {
+            //
+          },
+          hide: () => {
+            this.$store.commit('hideSidebar')
+          }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
+      })
+      tour.addStep({
+        title: 'How does this year compare to others?',
+        attachTo: '.legend left',
+        text: `This graph compares this year to all of the years when more than 1 million acres burned since daily records began in 2004. Are we on track for another big year?`,
+        // Modify DOM before showing step
+        beforeShowPromise: () => {
+          return new Promise((resolve, reject) => {
+            this.$store.commit('showFireGraph')
+            resolve()
+          })
+        },
+        when: {
+          show: () => {
+          },
+          hide: () => {
+            this.$store.commit('hideFireGraph')
+          }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
+      })
+      tour.addStep({
+        title: 'End of tour!',
+        text: `Thanks for checking this out! This map is for general information only. If you need the newest information on current fires, <a target="_blank" href="http://afsmaps.blm.gov/imf_fire/imf.jsp?site=fire">visit the AICC web map</a>.  If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
+        when: {
+          show: () => {
+            // this.$store.commit('showFireGraph')
+          },
+          hide: () => {
+            // this.$store.commit('hideFireGraph')
+          }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Done',
+            action: tour.complete
+          }
+        ]
+      })
+      return tour
     }
   },
   data () {
@@ -115,12 +266,12 @@ export default {
         },
         {
           'abstract': 'This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types. \n\nThe dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010.  _What landcover burns the most?_\n\nTo access and learn more about this dataset, visit the [Commission for Environmental Cooperation](http://www.cec.org/tools-and-resources/map-files/land-cover-2010).\n',
-          'name': 'geonode:alaska_landcover_2010',
+          'name': 'alaska_landcover_2010',
           'title': 'Land cover, 2010'
         },
         {
           'abstract': 'This layer shows historical fire perimeters from 1940-2016.  _More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?_\n\nTo access and learn more about this dataset, visit the [AICC](https://fire.ak.blm.gov).\n',
-          'name': 'geonode:fireareahistory',
+          'name': 'fireareahistory',
           'title': 'Historical extent, 1940-2016'
         }
       ],
