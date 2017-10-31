@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
-import Map from '@/components/Map'
+import MapInstanceWrapper from '@/components/MapInstanceWrapper'
 
 Vue.use(Router)
 
@@ -15,7 +15,7 @@ export default new Router({
     {
       path: '/map/:slug',
       name: 'map',
-      component: Map,
+      component: MapInstanceWrapper,
       props: true
     }
   ]

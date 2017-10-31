@@ -37,6 +37,16 @@ body {
   background-screen-mode: darken;
 }
 
+/* TODO some of these styles may need to be moved elsewhere */
+h1.map-title {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, .9);
+  margin: 0;
+  padding: .5ex;
+}
+
 // Needs to be in global scope because the Shepherd
 // library writes the DOM outside of the scope of the
 // Map component.

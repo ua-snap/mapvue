@@ -9,11 +9,13 @@
 </template>
 
 <script>
+import maps from '../maps.js'
+
 export default {
   name: 'map-list',
-  data () {
-    return {
-      maps: this.$store.state.maps
+  computed: {
+    maps () {
+      return maps
     }
   }
 }

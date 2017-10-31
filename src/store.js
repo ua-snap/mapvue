@@ -1,18 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import maps from './maps'
 import _ from 'lodash'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    // List of all maps in the application
-    maps: maps,
-
-    // TODO figure this one out???
-    currentMap: undefined,
-
     // Layers is an array of objects which
     // define the layers and visibility for each layer
     layers: [],
@@ -67,11 +60,23 @@ export default new Vuex.Store({
       var swapVisibility = (targetLayer, propName) => {
         targetLayer[propName] = !targetLayer[propName]
 
+        // Gotcha here: because we are replacing
+        // the property in an array element,
+        // we need to ensure that Vue is aware of the
+        // change.
+        //
+        // See: https://vuejs.org/v2/guide/list.html#Caveats
+        //
         // If the layer is being turned on,
         // pull it to the top of the list
         if (targetLayer[propName] === true) {
           state.layers.splice(targetLayerIndex, 1)
           state.layers.unshift(targetLayer)
+        } else {
+          // Otherwise, just replace it in-place to ensure
+          // that reactivity rules see the changes and
+          // propagate this change to watchers.
+          Vue.set(state.layers, targetLayerIndex, targetLayer)
         }
       }
 
@@ -105,11 +110,8 @@ export default new Vuex.Store({
       state.sidebarVisibility = false
       state.sidebarContent = undefined
     },
-    showLayerMenu (state) {
-      state.layerMenuVisibility = true
-    },
-    hideLayerMenu (state) {
-      state.layerMenuVisibility = false
+    toggleLayerMenu (state) {
+      state.layerMenuVisibility = !state.layerMenuVisibility
     },
     showSplash (state) {
       state.showSplash = true
@@ -134,28 +136,18 @@ export default new Vuex.Store({
     },
     hideFireGraph (state) {
       state.fireGraphVisible = false
+    },
+    incrementPendingHttpRequest (state) {
+      state.pendingHttpRequests++
+    },
+    decrementPendingHttpRequest (state) {
+      state.pendingHttpRequests--
     }
   },
-  // Some getters here are just used for watching global state changes.
   getters: {
-    getLayers (state) {
-      return state.layers
-    },
-    sidebarVisibility (state) {
-      return state.sidebarVisibility
-    },
-    layerMenuVisibility (state) {
-      return state.layerMenuVisibility
-    },
-    fireGraphIsVisible (state) {
-      return state.fireGraphVisible
-    },
     // Returns true if there are pending HTTP requests
     loadingData (state) {
       return state.pendingHttpRequests > 0
-    },
-    tourIsActive (state) {
-      return state.tourIsActive
     }
   }
 })

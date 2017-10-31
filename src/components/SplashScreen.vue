@@ -36,7 +36,7 @@ export default {
       return this.$store.state.showSplash
     },
     loadingData () {
-      return this.$store.state.loadingData
+      return this.$store.getters.loadingData
     },
     tourIsActive () {
       return this.$store.tourIsActive
