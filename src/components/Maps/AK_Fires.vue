@@ -110,6 +110,11 @@ export default {
               first: ['fires_2017']
             })
           }
+        },
+        tetherOptions: {
+          attachment: 'top left',
+          targetAttachment: 'left right',
+          offset: '32px 0'
         }
       })
       tour.addStep({
