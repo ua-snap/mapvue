@@ -3,21 +3,34 @@
 <script>
 export default {
   name: 'Tour',
+  props: ['tour'],
   computed: {
     tourIsActive () {
       return this.$store.state.tourIsActive
     }
-  }, watch: {
+  },
+  mounted () {
+    // Handle event when tour is finished, or user pushes
+    // the "Close" button
+    var completeTour = (event) => {
+      this.$store.commit('endTour')
+    }
+    this.tour.on('complete', completeTour)
+    this.tour.on('cancel', completeTour)
+  },
+  watch: {
     // Start/stop the tour
     tourIsActive (tourIsActive) {
       if (tourIsActive === true) {
         // Tour started.  Clean up the app state and start tour.
         this.$store.commit('hideSplash')
         this.$store.commit('hideSidebar')
-        this.$refs.component.tour.start()
-      } else {
-        // ...
+        this.tour.start()
       }
+      // Don't take any specific action for cleanup
+      // when the tour is stopped; the specific
+      // Tour implementation for each map can decide
+      // what to do.
     }
   }
 }

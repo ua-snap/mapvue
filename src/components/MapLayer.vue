@@ -1,5 +1,5 @@
 <template>
-<div class="layer" data-toggle="buttons">
+<div :id="name" class="layer" data-toggle="buttons">
   <!-- We need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
   <label
     class="btn btn-primary visibility"

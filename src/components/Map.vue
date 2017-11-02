@@ -29,7 +29,8 @@ export default {
     'baseLayer',
     'placeLayer',
     'crs',
-    'mapOptions'
+    'mapOptions',
+    'localLayers'
   ],
   computed: {
     layers () {
@@ -75,26 +76,7 @@ export default {
     layers: {
       deep: true,
       handler (layers) {
-        // Helper function to toggle layers
-        var toggleLayerVisibility = (visible, map, layer) => {
-          if (visible && !map.hasLayer(layer)) {
-            map.addLayer(layer)
-          } else if (!visible && map.hasLayer(layer)) {
-            map.removeLayer(layer)
-          }
-        }
-        _.each(layers, (layer, index) => {
-          let leftLayerObj = maps.left.layers[layer.name]
-          let rightLayerObj = maps.right.layers[layer.name]
-
-          // Explicitly order the list so that topmost layers
-          // have the highest z-index
-          leftLayerObj.setZIndex(100 - index)
-          rightLayerObj.setZIndex(100 - index)
-
-          toggleLayerVisibility(layer.visible, maps.left.map, leftLayerObj)
-          toggleLayerVisibility(layer.secondVisible, maps.right.map, rightLayerObj)
-        })
+        this.refreshLayers(layers)
       }
     }
   },
@@ -109,14 +91,49 @@ export default {
         version: '1.3'
       }, this.baseLayerOptions)
 
-      // TODO: "special" layers (ones handled by the map component itself, not GeoServer)
+      // Create or obtain actual Leaflet objects, and add them
+      // to the maps.
       _.each(this.layers, (layer) => {
-        let layerConfiguration = _.extend(wmsLayerOptions,
-          {
-            layers: [layer.name]
-          })
-        maps.left.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
-        maps.right.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
+        // If the layer is a normal GeoServer layer, create
+        // and add it here.
+        if (layer.local !== true) {
+          let layerConfiguration = _.extend(wmsLayerOptions,
+            {
+              layers: [layer.name]
+            })
+          maps.left.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
+          maps.right.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
+        } else {
+          // Otherwise, fetch the layer from the list
+          // of local layers maintained in this map.
+          maps.left.layers[layer.name] = this.localLayers[layer.name].first
+          maps.right.layers[layer.name] = this.localLayers[layer.name].second
+        }
+      })
+    },
+    // Reorder & update layer visibility
+    refreshLayers (layers) {
+      layers = layers || this.layers
+
+      // Helper function to toggle layers
+      var toggleLayerVisibility = (visible, map, layer) => {
+        if (visible && !map.hasLayer(layer)) {
+          map.addLayer(layer)
+        } else if (!visible && map.hasLayer(layer)) {
+          map.removeLayer(layer)
+        }
+      }
+      _.each(layers, (layer, index) => {
+        let leftLayerObj = maps.left.layers[layer.name]
+        let rightLayerObj = maps.right.layers[layer.name]
+
+        // Explicitly order the list so that topmost layers
+        // have the highest z-index
+        leftLayerObj.setZIndex(100 - index)
+        rightLayerObj.setZIndex(100 - index)
+
+        toggleLayerVisibility(layer.visible, maps.left.map, leftLayerObj)
+        toggleLayerVisibility(layer.secondVisible, maps.right.map, rightLayerObj)
       })
     },
     getBaseMapAndLayers () {

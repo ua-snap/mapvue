@@ -1,5 +1,6 @@
 <template>
-<draggable v-model="layers" class="layer-list">
+<draggable v-model="layers" id="layer-list" class="layer-list">
+  <div id="top_item"></div>
   <transition-group name="list-complete">
     <div class="list-complete-item" v-for="layer in layers" :key="layer.name">
       <map-layer
