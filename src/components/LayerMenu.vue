@@ -7,33 +7,35 @@
   <div v-show="layerMenuVisibility" class="menu-wrapper">
     <layer-list></layer-list>
     <div class="map-tools form-inline">
-      <label class="btn btn-primary info" @click="showSplash()">
-        <span class="glyphicon glyphicon-question-sign"></span>
-        &nbsp;
-        About this map&hellip;
-      </label>
 
-      <label class="mobile-hidden btn btn-primary info" @click="toggleDualMaps()">
-        <span v-show="!dualMaps">
-          <span v-show="!dualMaps" class="glyphicon glyphicon-unchecked"></span>
-          |
-        </span>
-        <span class="glyphicon glyphicon-unchecked"></span>
-        &nbsp;
-        Split / single map
-      </label>
+      <layer-menu-button-item
+        glyphicon="question-sign"
+        :callback="showSplash"
+        text="About this map"
+      ></layer-menu-button-item>
 
-      <label class="mobile-hidden btn btn-primary info" :class="{ 'btn-success': syncMaps }" v-show="dualMaps" @click="toggleSyncMaps()">
-        <span class="glyphicon glyphicon-flash"></span>
-        &nbsp;
-        Synchronize maps
-      </label>
+      <layer-menu-button-item
+        :class="{ 'btn-success': dualMaps }"
+        classes="mobile-hidden"
+        glyphicon="resize-horizontal"
+        :callback="toggleDualMaps"
+        text="Split / single map"
+      ></layer-menu-button-item>
 
-      <label class="mobile-hidden btn btn-primary" @click="startTour()">
-        <span class="glyphicon glyphicon-question-sign"></span>
-        &nbsp;
-        Take a tour of this map&hellip;
-      </label>
+      <layer-menu-button-item
+        :class="{ 'btn-success': syncMaps }"
+        v-show="dualMaps"
+        glyphicon="flash"
+        :callback="toggleSyncMaps"
+        text="Synchronize maps"
+      ></layer-menu-button-item>
+
+      <layer-menu-button-item
+        glyphicon="question-sign"
+        classes="mobile-hidden"
+        :callback="startTour"
+        text="Take a tour of this map"
+      ></layer-menu-button-item>
 
       <layer-menu-button-item
         v-for="(button, index) in buttons"
