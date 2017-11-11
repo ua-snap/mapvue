@@ -1,5 +1,5 @@
 <template>
-  <div id="map-instance-wrapper"></div>
+  <div></div>
 </template>
 
 <script>
