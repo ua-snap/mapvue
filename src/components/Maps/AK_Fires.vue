@@ -342,6 +342,10 @@ export default {
   mounted () {
     this.fetchFireData()
   },
+  beforeDestroy () {
+    // Remove the store module when the component is destroyed.
+    this.$store.unregisterModule('fire')
+  },
   methods: {
     fetchFireData () {
       // Helper function to rebuild Leaflet objects
