@@ -13,7 +13,7 @@
         About this map&hellip;
       </label>
 
-      <label id="showDualMaps" class="mobile-hidden btn btn-primary info" @click="toggleDualMaps()">
+      <label class="mobile-hidden btn btn-primary info" @click="toggleDualMaps()">
         <span v-show="!dualMaps">
           <span v-show="!dualMaps" class="glyphicon glyphicon-unchecked"></span>
           |
@@ -23,7 +23,7 @@
         Split / single map
       </label>
 
-      <label id="syncDualMaps" class="mobile-hidden btn btn-primary info" :class="{ 'btn-success': syncMaps }" v-show="dualMaps" @click="toggleSyncMaps()">
+      <label class="mobile-hidden btn btn-primary info" :class="{ 'btn-success': syncMaps }" v-show="dualMaps" @click="toggleSyncMaps()">
         <span class="glyphicon glyphicon-flash"></span>
         &nbsp;
         Synchronize maps
@@ -34,17 +34,16 @@
         &nbsp;
         Take a tour of this map&hellip;
       </label>
-        <!-- <a ng-show="map.distribution_url" id="downloadMap" class="mobile-hidden btn btn-primary info" :ng-href="map.distribution_url">
-        <span class="glyphicon glyphicon-download-alt"></span>
-        &nbsp;
-        Download data
-        </a> -->
 
-      <label class="mobile-hidden btn btn-primary" @click="showFireGraph()">
-        <span class="glyphicon glyphicon-signal"></span>
-        &nbsp;
-        Graph large fire seasons&hellip;
-      </label>
+      <layer-menu-button-item
+        v-for="(button, index) in buttons"
+        :key="index"
+        :glyphicon="button.glyphicon"
+        :classes="button.classes"
+        :callback="button.callback"
+        :text="button.text"
+      ></layer-menu-button-item>
+
     </div>
   </div>
 </div>
@@ -52,11 +51,14 @@
 
 <script>
 import LayerList from './LayerList'
+import LayerMenuButtonItem from './LayerMenuButtonItem'
+
 export default {
   name: 'LayerMenu',
-  props: ['map'],
+  props: ['map', 'buttons'],
   components: {
-    'layer-list': LayerList
+    'layer-list': LayerList,
+    'layer-menu-button-item': LayerMenuButtonItem
   },
   computed: {
     dualMaps () {
@@ -84,9 +86,6 @@ export default {
     },
     toggleSyncMaps () {
       this.$store.commit('toggleSyncMaps')
-    },
-    showFireGraph () {
-      this.$store.commit('showFireGraph')
     }
   }
 }
@@ -109,7 +108,7 @@ export default {
       width: 16em;
     }
 
-    #showDualMaps {
+    /deep/ .mobile-hidden {
       @media screen and (max-width: 768px) {
         display: none;
       }

@@ -1,9 +1,8 @@
 <template>
 <div id="mv-ak-fires">
   <h1 class="map-title">{{ title }}</h1>
-  <layer-menu></layer-menu>
-  <splash-screen
-    :abstract="abstract"></splash-screen>
+  <layer-menu :buttons="buttons"></layer-menu>
+  <splash-screen :abstract="abstract"></splash-screen>
   <mv-map
     ref="map"
     :base-layer-options="baseLayerOptions"
@@ -88,6 +87,17 @@ export default {
     fireJson: {
       get () { return this.$localStorage.get('fireJson') },
       set (value) { this.$localStorage.set('fireJson', value) }
+    },
+    // Custom buttons for menu
+    buttons () {
+      return [
+        {
+          text: 'Graph large fire seasons',
+          glyphicon: 'signal',
+          classes: 'mobile-hidden',
+          callback: this.showFireGraph
+        }
+      ]
     },
     tour () {
       let tour
@@ -323,6 +333,9 @@ export default {
     this.fetchFireData()
   },
   methods: {
+    showFireGraph () {
+      this.$store.commit('showFireGraph')
+    },
     fetchFireData () {
       // Helper function to rebuild Leaflet objects
       // from either localStorage or HTTP request
