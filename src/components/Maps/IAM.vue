@@ -33,6 +33,7 @@ export default {
 </p>
 <p>While many groups have an answer to this question, the answer depends on the perspective and interests of the group. As a proof of concept, SNAP took an objective approach to identifying important areas by displaying existing geospatial datasets that fit into the environmental, economic, and cultural categories to see where they overlap. Based upon available data, this can illustrate the relative importance of those areas, identify potential areas of conflict, and highlight gaps in Arctic geospatial data.
 </p>
+<p class="photo-credit">UAF Photo by Todd Paris</p>
 `,
       mapOptions: {
         zoom: 0,
@@ -163,6 +164,10 @@ export default {
     color: #ffffee;
     a {
       color: #bdcdfa;
+    }
+    &.photo-credit {
+      font-size: 10pt;
+      color: #cfcfc0;
     }
   }
 }
