@@ -1,7 +1,9 @@
 <template>
 <div>
   <h1 class="map-title">{{ title }}</h1>
-  <layer-menu></layer-menu>
+  <layer-menu
+    :buttons="buttons"
+  ></layer-menu>
   <splash-screen
     :abstract="abstract"></splash-screen>
   <mv-map
@@ -104,7 +106,14 @@ export default {
         }
       ],
       title: 'Integrated Arctic Management',
-      abstract: '## What areas of the Arctic are &ldquo;important&rdquo;? One challenge that managers and policy makers often face is the conflict of interests among groups. This was evident when the [Scenarios Network for Alaska and Arctic Planning](https://www.snap.uaf.edu) was asked to identify specific geographic â€œareas of environmental, economic, and cultural importanceâ€ in Arctic Alaska for a 2013 report to the President of the United states on [Integrated Arctic Management (IAM)](https://www.afsc.noaa.gov/publications/misc_pdf/iamreport.pdf). While many groups have an answer to this question, the answer depends on the perspective and interests of the group. As a proof of concept, SNAP took an objective approach to identifying important areas by displaying existing geospatial datasets that fit into the environmental, economic, and cultural categories to see where they overlap. Based upon available data, this can illustrate the relative importance of those areas, identify potential areas of conflict, and highlight gaps in Arctic geospatial data.',
+      abstract: `
+<h1>What areas of the Arctic are &ldquo;important&rdquo;?</h1>
+<p>One challenge that managers and policy makers often face is the conflict of interests among groups. This was evident when the <a target="_blank" href="https://www.snap.uaf.edu">Scenarios Network for Alaska and Arctic Planning</a> was asked to identify specific geographic &ldquo;areas of environmental, economic, and cultural importance&rdquo; in Arctic Alaska for a 2013 report to the President of the United states on <a target="_blank" href="https://www.afsc.noaa.gov/publications/misc_pdf/iamreport.pdf">Integrated Arctic Management</a> (IAM).
+</p>
+<p>While many groups have an answer to this question, the answer depends on the perspective and interests of the group. As a proof of concept, SNAP took an objective approach to identifying important areas by displaying existing geospatial datasets that fit into the environmental, economic, and cultural categories to see where they overlap. Based upon available data, this can illustrate the relative importance of those areas, identify potential areas of conflict, and highlight gaps in Arctic geospatial data.
+</p>
+<p class="photo-credit">UAF Photo by Todd Paris</p>
+`,
       mapOptions: {
         zoom: 0,
         minZoom: 0,
@@ -118,6 +127,13 @@ export default {
         version: '1.3',
         continuousWorld: true // needed for non-3857 projs
       },
+      buttons: [
+        {
+          text: 'Dataset information',
+          glyphicon: 'new-window',
+          callback: this.openDatasetInformation
+        }
+      ],
       layers: [
         {
           'abstract': 'This layer shows cultural sites and buildings, as well as protected areas in the IAM area. Arctic Alaska has a long history of inhabitants, settlers, and traders since the earliest families crossed the Bering Land Bridge some 20,000 years ago. Cultural sites and structures are important artifacts. “Protected areas” are defined here as areas designated to preserve cultural and/or recreational features and activities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
@@ -223,6 +239,11 @@ export default {
         })
       )
     }
+  },
+  methods: {
+    openDatasetInformation () {
+      window.open('https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub')
+    }
   }
 }
 </script>
@@ -239,5 +260,27 @@ div /deep/ .leaflet-popup-content-wrapper {
 }
 div /deep/ .tourMarker {
   display: none;
+}
+// The `/deep/` syntax allows for modifying
+// child component CSS.
+// https://vue-loader.vuejs.org/en/features/scoped-css.html
+.splash-screen /deep/ .billboard {
+  max-width: 933px;
+  background: url("~@/assets/uaf-todd-paris-iam.jpg") white top left / cover no-repeat;
+  h1 {
+    color: #ffffee;
+    padding-top: 2em; // A little extra to position correctly on photo
+  }
+  p {
+    font-size: 14pt;
+    color: #ffffee;
+    a {
+      color: #bdcdfa;
+    }
+    &.photo-credit {
+      font-size: 10pt;
+      color: #cfcfc0;
+    }
+  }
 }
 </style>

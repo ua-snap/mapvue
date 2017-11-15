@@ -56,6 +56,9 @@ export default {
     maps.right.map = this.$L.map('map-2', this.getBaseMapAndLayers())
     this.addLayers()
   },
+  destroyed () {
+    this.$store.commit('resetState')
+  },
   watch: {
     dualMaps () {
       this.$nextTick(function () {

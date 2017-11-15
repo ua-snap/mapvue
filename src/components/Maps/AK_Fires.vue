@@ -1,9 +1,8 @@
 <template>
 <div id="mv-ak-fires">
   <h1 class="map-title">{{ title }}</h1>
-  <layer-menu></layer-menu>
-  <splash-screen
-    :abstract="abstract"></splash-screen>
+  <layer-menu :buttons="buttons"></layer-menu>
+  <splash-screen :abstract="abstract"></splash-screen>
   <mv-map
     ref="map"
     :base-layer-options="baseLayerOptions"
@@ -88,6 +87,17 @@ export default {
     fireJson: {
       get () { return this.$localStorage.get('fireJson') },
       set (value) { this.$localStorage.set('fireJson', value) }
+    },
+    // Custom buttons for menu
+    buttons () {
+      return [
+        {
+          text: 'Graph large fire seasons',
+          glyphicon: 'signal',
+          classes: 'mobile-hidden',
+          callback: this.showFireGraph
+        }
+      ]
     },
     tour () {
       let tour
@@ -323,6 +333,9 @@ export default {
     this.fetchFireData()
   },
   methods: {
+    showFireGraph () {
+      this.$store.commit('showFireGraph')
+    },
     fetchFireData () {
       // Helper function to rebuild Leaflet objects
       // from either localStorage or HTTP request
@@ -593,23 +606,6 @@ div.leaflet-marker-icon span {
 }
 
 .splash-screen .billboard {
-
-  @media screen and (max-width: 930px) {
-    padding: 0;
-    margin: 0;
-
-    h1 {
-      width: 100%;
-      font-size: 14pt;
-      font-weight: 500;
-    }
-  }
-
-  box-shadow: 0px 10px 40px 0px rgba(0,0,0,0.75);
-  min-height: 550px;
-  max-width: 930px;
-  margin: 5em auto;
-  padding: 1ex;
   background: url("~@/assets/scott-fire-fade.jpg") white bottom left / cover no-repeat;
   h1 {
     width: 75%;
