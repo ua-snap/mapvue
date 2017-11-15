@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import showdown from 'showdown'
 
 export default {
   props: ['mapObj'],
@@ -41,10 +40,6 @@ export default {
 
       // Populate sidebar content if showing it
       if (this.showOrHideSidebar === true) {
-        var converter = new showdown.Converter({
-          openLinksInNewWindow: true
-        })
-
         var content = '<h3>' + this.sidebarContent.title + '</h3>'
         if (this.sidebarContent.legend !== false) {
           content = content.concat(
@@ -55,8 +50,7 @@ export default {
             '" onerror="this.style.display=\'none\'" />'
           )
         }
-        content = content.concat(converter.makeHtml(this.sidebarContent.abstract))
-        this.sidebar.setContent(content).show()
+        this.sidebar.setContent(content + this.sidebarContent.abstract).show()
       } else {
         // Or, clear the content if hiding it.
         this.sidebar.setContent('').hide()
@@ -91,5 +85,8 @@ export default {
   p {
     margin: 10px 0;
   }
+}
+.leaflet-sidebar a.close {
+  z-index: 501;
 }
 </style>

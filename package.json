@@ -22,7 +22,6 @@
     "moment": "^2.19.1",
     "plotly.js": "^1.31.0",
     "proj4leaflet": "0.7.2",
-    "showdown": "^1.7.6",
     "tether-shepherd": "^1.8.1",
     "vue": "~2.5.2",
     "vue-router": "~2.7.0",
