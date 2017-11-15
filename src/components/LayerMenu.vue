@@ -7,44 +7,45 @@
   <div v-show="layerMenuVisibility" class="menu-wrapper">
     <layer-list></layer-list>
     <div class="map-tools form-inline">
-      <label class="btn btn-primary info" @click="showSplash()">
-        <span class="glyphicon glyphicon-question-sign"></span>
-        &nbsp;
-        About this map&hellip;
-      </label>
 
-      <label id="showDualMaps" class="mobile-hidden btn btn-primary info" @click="toggleDualMaps()">
-        <span v-show="!dualMaps">
-          <span v-show="!dualMaps" class="glyphicon glyphicon-unchecked"></span>
-          |
-        </span>
-        <span class="glyphicon glyphicon-unchecked"></span>
-        &nbsp;
-        Split / single map
-      </label>
+      <layer-menu-button-item
+        glyphicon="question-sign"
+        :callback="showSplash"
+        text="About this map"
+      ></layer-menu-button-item>
 
-      <label id="syncDualMaps" class="mobile-hidden btn btn-primary info" :class="{ 'btn-success': syncMaps }" v-show="dualMaps" @click="toggleSyncMaps()">
-        <span class="glyphicon glyphicon-flash"></span>
-        &nbsp;
-        Synchronize maps
-      </label>
+      <layer-menu-button-item
+        :class="{ 'btn-success': dualMaps }"
+        classes="mobile-hidden"
+        glyphicon="resize-horizontal"
+        :callback="toggleDualMaps"
+        text="Split / single map"
+      ></layer-menu-button-item>
 
-      <label class="mobile-hidden btn btn-primary" @click="startTour()">
-        <span class="glyphicon glyphicon-question-sign"></span>
-        &nbsp;
-        Take a tour of this map&hellip;
-      </label>
-        <!-- <a ng-show="map.distribution_url" id="downloadMap" class="mobile-hidden btn btn-primary info" :ng-href="map.distribution_url">
-        <span class="glyphicon glyphicon-download-alt"></span>
-        &nbsp;
-        Download data
-        </a> -->
+      <layer-menu-button-item
+        :class="{ 'btn-success': syncMaps }"
+        v-show="dualMaps"
+        glyphicon="flash"
+        :callback="toggleSyncMaps"
+        text="Synchronize maps"
+      ></layer-menu-button-item>
 
-      <label class="mobile-hidden btn btn-primary" @click="showFireGraph()">
-        <span class="glyphicon glyphicon-signal"></span>
-        &nbsp;
-        Graph large fire seasons&hellip;
-      </label>
+      <layer-menu-button-item
+        glyphicon="question-sign"
+        classes="mobile-hidden"
+        :callback="startTour"
+        text="Take a tour of this map"
+      ></layer-menu-button-item>
+
+      <layer-menu-button-item
+        v-for="(button, index) in buttons"
+        :key="index"
+        :glyphicon="button.glyphicon"
+        :classes="button.classes"
+        :callback="button.callback"
+        :text="button.text"
+      ></layer-menu-button-item>
+
     </div>
   </div>
 </div>
@@ -52,11 +53,14 @@
 
 <script>
 import LayerList from './LayerList'
+import LayerMenuButtonItem from './LayerMenuButtonItem'
+
 export default {
   name: 'LayerMenu',
-  props: ['map'],
+  props: ['map', 'buttons'],
   components: {
-    'layer-list': LayerList
+    'layer-list': LayerList,
+    'layer-menu-button-item': LayerMenuButtonItem
   },
   computed: {
     dualMaps () {
@@ -84,9 +88,6 @@ export default {
     },
     toggleSyncMaps () {
       this.$store.commit('toggleSyncMaps')
-    },
-    showFireGraph () {
-      this.$store.commit('showFireGraph')
     }
   }
 }
@@ -109,7 +110,7 @@ export default {
       width: 16em;
     }
 
-    #showDualMaps {
+    /deep/ .mobile-hidden {
       @media screen and (max-width: 768px) {
         display: none;
       }

@@ -1,7 +1,9 @@
 <template>
 <div>
   <h1 class="map-title">{{ title }}</h1>
-  <layer-menu></layer-menu>
+  <layer-menu
+    :buttons="buttons"
+  ></layer-menu>
   <splash-screen
     :abstract="abstract"></splash-screen>
   <mv-map
@@ -48,6 +50,13 @@ export default {
         version: '1.3',
         continuousWorld: true // needed for non-3857 projs
       },
+      buttons: [
+        {
+          text: 'Dataset information',
+          glyphicon: 'new-window',
+          callback: this.openDatasetInformation
+        }
+      ],
       layers: [
         {
           'abstract': 'This layer shows cultural sites and buildings, as well as protected areas in the IAM area. Arctic Alaska has a long history of inhabitants, settlers, and traders since the earliest families crossed the Bering Land Bridge some 20,000 years ago. Cultural sites and structures are important artifacts. “Protected areas” are defined here as areas designated to preserve cultural and/or recreational features and activities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
@@ -144,6 +153,11 @@ export default {
           zIndex: 1000
         })
       )
+    }
+  },
+  methods: {
+    openDatasetInformation () {
+      window.open('https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub')
     }
   }
 }
