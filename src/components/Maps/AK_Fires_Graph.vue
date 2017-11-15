@@ -79,7 +79,7 @@ export default {
   name: 'AK_Fires_Graph',
   computed: {
     visible () {
-      return this.$store.state.fireGraphVisible
+      return this.$store.state.fire.fireGraphVisible
     },
     fireTimeSeries: {
       get () { return this.$localStorage.get('fireTimeSeries') },
@@ -88,9 +88,7 @@ export default {
   },
   mounted () {
     // Attach global listener
-    window.onresize = () => {
-      Plotly.Plots.resize(this.$refs.plotly)
-    }
+    window.addEventListener('resize', this.resizeGraph)
 
     var processGraphData = (data) => {
       let timeSeries = data
@@ -140,8 +138,15 @@ export default {
         graphLayout,
         graphOptions
       )
+      this.resizeGraph()
+    },
+    resizeGraph () {
       Plotly.Plots.resize(this.$refs.plotly)
     }
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.resizeGraph)
+    Plotly.Plots.purge(this.$refs.plotly)
   }
 }
 </script>

@@ -65,10 +65,7 @@ export default new Vuex.Store({
     syncMaps: false,
 
     // True if tour is active
-    tourIsActive: false,
-
-    // True if the fire graph is visible
-    fireGraphVisible: false
+    tourIsActive: false
   },
   mutations: {
     // This function is used to initialize the layers in the store.
@@ -194,17 +191,23 @@ export default new Vuex.Store({
     disableSyncMaps (state) {
       state.syncMaps = false
     },
-    showFireGraph (state) {
-      state.fireGraphVisible = true
-    },
-    hideFireGraph (state) {
-      state.fireGraphVisible = false
-    },
     incrementPendingHttpRequest (state) {
       state.pendingHttpRequests++
     },
     decrementPendingHttpRequest (state) {
       state.pendingHttpRequests--
+    },
+    // Reset the map to some defaults.
+    // Called when a map is destroyed, such as when
+    // user navigates between maps.
+    resetState (state) {
+      this.commit('disableSyncMaps')
+      this.commit('hideDualMaps')
+      this.commit('endTour')
+      this.commit('hideSidebar')
+
+      // Show splash screen by default!
+      this.commit('showSplash')
     }
   },
   getters: {

@@ -1,9 +1,8 @@
 <template>
 <div id="mv-ak-fires">
   <h1 class="map-title">{{ title }}</h1>
-  <layer-menu></layer-menu>
-  <splash-screen
-    :abstract="abstract"></splash-screen>
+  <layer-menu :buttons="buttons"></layer-menu>
+  <splash-screen :abstract="abstract"></splash-screen>
   <mv-map
     ref="map"
     :base-layer-options="baseLayerOptions"
@@ -37,6 +36,24 @@ var fireLayerGroup
 var secondFirePolygons
 var secondFireMarkers
 var secondFireLayerGroup
+var activeFireIcon
+var inactiveFireIcon
+
+// Define the store methods that will be used here
+const fireStore = { // eslint-disable-line no-unused-vars
+  state: {
+    // True if the fire graph is visible
+    fireGraphVisible: false
+  },
+  mutations: {
+    showFireGraph (state) {
+      state.fireGraphVisible = true
+    },
+    hideFireGraph (state) {
+      state.fireGraphVisible = false
+    }
+  }
+}
 
 export default {
   name: 'AK_Fires',
@@ -88,6 +105,17 @@ export default {
     fireJson: {
       get () { return this.$localStorage.get('fireJson') },
       set (value) { this.$localStorage.set('fireJson', value) }
+    },
+    // Custom buttons for menu
+    buttons () {
+      return [
+        {
+          text: 'Graph large fire seasons',
+          glyphicon: 'signal',
+          classes: 'mobile-hidden',
+          callback: this.showFireGraph
+        }
+      ]
     },
     tour () {
       let tour
@@ -283,22 +311,23 @@ export default {
           'abstract': '<img src="images/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="externa">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
         },
         {
-          'abstract': 'This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types. \n\nThe dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010.  _What landcover burns the most?_\n\nTo access and learn more about this dataset, visit the [Commission for Environmental Cooperation](http://www.cec.org/tools-and-resources/map-files/land-cover-2010).\n',
+          'abstract': '<p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank">Commission for Environmental Cooperation</a></p>.',
           'name': 'alaska_landcover_2010',
           'title': 'Land cover, 2010'
         },
         {
-          'abstract': 'This layer shows historical fire perimeters from 1940-2016.  _More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?_\n\nTo access and learn more about this dataset, visit the [AICC](https://fire.ak.blm.gov).\n',
+          'abstract': '<p>This layer shows historical fire perimeters from 1940-2016. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank">AICC</a>.</p>',
           'name': 'fireareahistory',
           'title': 'Historical extent, 1940-2016'
         }
-      ],
-      // Will initialize these in the created() method
-      activeFireIcon: undefined,
-      inactiveFireIcon: undefined
+      ]
     }
   },
   created () {
+    // Register this map's store with the global store
+    this.$store.registerModule('fire', fireStore)
+
+    // Set up icon markers
     let FireIcon = this.$L.Icon.extend({
       options: {
         iconUrl: '/static/active_fire.png',
@@ -310,8 +339,8 @@ export default {
       }
     })
 
-    this.activeFireIcon = new FireIcon()
-    this.inactiveFireIcon = new FireIcon({
+    activeFireIcon = new FireIcon()
+    inactiveFireIcon = new FireIcon({
       iconUrl: '/static/inactive_fire.png'
     })
 
@@ -322,7 +351,14 @@ export default {
   mounted () {
     this.fetchFireData()
   },
+  beforeDestroy () {
+    // Remove the store module when the component is destroyed.
+    this.$store.unregisterModule('fire')
+  },
   methods: {
+    showFireGraph () {
+      this.$store.commit('showFireGraph')
+    },
     fetchFireData () {
       // Helper function to rebuild Leaflet objects
       // from either localStorage or HTTP request
@@ -385,7 +421,7 @@ export default {
           // Reverse order from what we need
           var coords = this.getCentroid2(polygonCoordinates)
           var icon = this.isFireActive(feature.properties)
-            ? this.activeFireIcon : this.inactiveFireIcon
+            ? activeFireIcon : inactiveFireIcon
 
           fireMarkers.push(
             this.$L.marker(new this.$L.latLng([coords[1], coords[0]]), {icon: icon}).bindPopup(this.getFireMarkerPopupContents(
@@ -593,23 +629,6 @@ div.leaflet-marker-icon span {
 }
 
 .splash-screen .billboard {
-
-  @media screen and (max-width: 930px) {
-    padding: 0;
-    margin: 0;
-
-    h1 {
-      width: 100%;
-      font-size: 14pt;
-      font-weight: 500;
-    }
-  }
-
-  box-shadow: 0px 10px 40px 0px rgba(0,0,0,0.75);
-  min-height: 550px;
-  max-width: 930px;
-  margin: 5em auto;
-  padding: 1ex;
   background: url("~@/assets/scott-fire-fade.jpg") white bottom left / cover no-repeat;
   h1 {
     width: 75%;
