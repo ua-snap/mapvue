@@ -37,6 +37,22 @@ var secondFirePolygons
 var secondFireMarkers
 var secondFireLayerGroup
 
+// Define the store methods that will be used here
+const fireStore = { // eslint-disable-line no-unused-vars
+  state: {
+    // True if the fire graph is visible
+    fireGraphVisible: false
+  },
+  mutations: {
+    showFireGraph (state) {
+      state.fireGraphVisible = true
+    },
+    hideFireGraph (state) {
+      state.fireGraphVisible = false
+    }
+  }
+}
+
 export default {
   name: 'AK_Fires',
   extends: MapInstance,
@@ -309,6 +325,10 @@ export default {
     }
   },
   created () {
+    // Register this map's store with the global store
+    this.$store.registerModule('fire', fireStore)
+
+    // Set up icon markers
     let FireIcon = this.$L.Icon.extend({
       options: {
         iconUrl: '/static/active_fire.png',
@@ -331,6 +351,10 @@ export default {
   },
   mounted () {
     this.fetchFireData()
+  },
+  beforeDestroy () {
+    // Remove the store module when the component is destroyed.
+    this.$store.unregisterModule('fire')
   },
   methods: {
     showFireGraph () {
