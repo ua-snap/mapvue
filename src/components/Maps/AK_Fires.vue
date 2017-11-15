@@ -593,23 +593,6 @@ div.leaflet-marker-icon span {
 }
 
 .splash-screen .billboard {
-
-  @media screen and (max-width: 930px) {
-    padding: 0;
-    margin: 0;
-
-    h1 {
-      width: 100%;
-      font-size: 14pt;
-      font-weight: 500;
-    }
-  }
-
-  box-shadow: 0px 10px 40px 0px rgba(0,0,0,0.75);
-  min-height: 550px;
-  max-width: 930px;
-  margin: 5em auto;
-  padding: 1ex;
   background: url("~@/assets/scott-fire-fade.jpg") white bottom left / cover no-repeat;
   h1 {
     width: 75%;
