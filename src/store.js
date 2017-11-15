@@ -205,6 +205,18 @@ export default new Vuex.Store({
     },
     decrementPendingHttpRequest (state) {
       state.pendingHttpRequests--
+    },
+    // Reset the map to some defaults.
+    // Called when a map is destroyed, such as when
+    // user navigates between maps.
+    resetState (state) {
+      this.commit('disableSyncMaps')
+      this.commit('hideDualMaps')
+      this.commit('endTour')
+      this.commit('hideSidebar')
+
+      // Show splash screen by default!
+      this.commit('showSplash')
     }
   },
   getters: {
