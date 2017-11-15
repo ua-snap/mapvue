@@ -36,6 +36,8 @@ var fireLayerGroup
 var secondFirePolygons
 var secondFireMarkers
 var secondFireLayerGroup
+var activeFireIcon
+var inactiveFireIcon
 
 // Define the store methods that will be used here
 const fireStore = { // eslint-disable-line no-unused-vars
@@ -318,10 +320,7 @@ export default {
           'name': 'fireareahistory',
           'title': 'Historical extent, 1940-2016'
         }
-      ],
-      // Will initialize these in the created() method
-      activeFireIcon: undefined,
-      inactiveFireIcon: undefined
+      ]
     }
   },
   created () {
@@ -340,8 +339,8 @@ export default {
       }
     })
 
-    this.activeFireIcon = new FireIcon()
-    this.inactiveFireIcon = new FireIcon({
+    activeFireIcon = new FireIcon()
+    inactiveFireIcon = new FireIcon({
       iconUrl: '/static/inactive_fire.png'
     })
 
@@ -422,7 +421,7 @@ export default {
           // Reverse order from what we need
           var coords = this.getCentroid2(polygonCoordinates)
           var icon = this.isFireActive(feature.properties)
-            ? this.activeFireIcon : this.inactiveFireIcon
+            ? activeFireIcon : inactiveFireIcon
 
           fireMarkers.push(
             this.$L.marker(new this.$L.latLng([coords[1], coords[0]]), {icon: icon}).bindPopup(this.getFireMarkerPopupContents(
