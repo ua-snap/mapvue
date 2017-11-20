@@ -15,6 +15,7 @@
     :mapOptions="mapOptions"
   ></mv-map>
   <sidebar :mapObj="primaryMapObject"></sidebar>
+  <tour class="tour" :tour="tour"></tour>
   <mv-footer></mv-footer>
 </div>
 </template>
@@ -22,16 +23,18 @@
 /* eslint new-cap: "off" */
 import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
+import Tour from '../Tour'
 
-// Will have a reference to a DOM object used in the tour
+// Will have references to DOM objects used in the tour
 var tourMarker // eslint-disable-line no-unused-vars
-
-// Contains the GeoJSON layer defining the project area.
-var iamPoly // eslint-disable-line no-unused-vars
+var placeMarker // eslint-disable-line no-unused-vars
 
 export default {
   name: 'IAM',
   extends: MapInstance,
+  components: {
+    tour: Tour
+  },
   mounted () {
     // Necessary to see the markers.
     this.$L.Icon.Default.imagePath = 'static'
@@ -60,31 +63,16 @@ export default {
         -162.61488740208168
       ],
       {
-        className: 'tourMarker',
-        stroke: false,
-        fillColor: '#DAEE88',
-        fillOpacity: 1
+        className: 'tour_marker'
       }
     ).addTo(this.$refs.map.primaryMapObject)
 
-    // Fetch shapefile of study area as GeoJSON
-    var requestUrl = process.env.GEOSERVER_WMS_URL + '/wfs?service=wfs&version=2.0.0&request=GetFeature&typeName=geonode:iam_area_alaska_albers&srsName=EPSG:3572&outputFormat=application/json'
-    this.$axios.get(requestUrl).then(res => {
-      var coordsToLatLng = (coords) => {
-        var xy = {
-          x: coords[0],
-          y: coords[1]
-        }
-        return this.$refs.map.primaryMapObject.options.crs.projection.unproject(xy)
+    placeMarker = this.$L.circleMarker(
+      this.hotspots[0].latlng,
+      {
+        className: 'place_marker'
       }
-      // This will added/removed during the tour.
-      iamPoly = this.$L.geoJson(res.data, {
-        coordsToLatLng: coordsToLatLng
-      })
-    },
-    err => {
-      console.info(err)
-    })
+    ).addTo(this.$refs.map.primaryMapObject)
   },
   data () {
     return {
@@ -130,6 +118,7 @@ export default {
       buttons: [
         {
           text: 'Dataset information',
+          classes: 'iam-dataset-info',
           glyphicon: 'new-window',
           callback: this.openDatasetInformation
         }
@@ -238,6 +227,139 @@ export default {
           zIndex: 1000
         })
       )
+    },
+    tour () {
+      let tour
+      tour = new this.$shepherd.Tour({
+        defaults: {
+          classes: 'shepherd-theme-square-dark',
+          showCancelLink: true
+        }
+      })
+      tour.addStep({
+        title: 'The IAM study area',
+        text: `
+        <p>The IAM study area covers a subset of the northern Arctic within US jurisdiction. The Bering Strait region and the Chukchi and Beaufort seas are characterized by diminishing seasonal sea ice and are thus vulnerable to significant changes. This tool allows you to explore some of the environmental, economic, and cultural geospatial data available in the study area.</p>
+        <p>Areas with overlapping datasets highlight zones of overlapping, and potentially competing, interests or concerns.</p>`,
+        classes: 'shepherd-theme-square-dark',
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+          }
+        }
+      })
+      tour.addStep({
+        title: 'What does this map show?',
+        attachTo: '#layer-list right',
+        text: `
+        <p>Each layer contains multiple datasets grouped by:</p>
+        <h4>Environmental</h4>
+        <ul><li>Signficant ecological areas</li><li>Mammals</li><li>Birds</li><li>Fish</li></ul>
+        <h4>Economic</h4>
+        <ul><li>Transportation</li><li>Oil infrastructure</li></ul>
+        <h4>Cultural</h4>
+        <ul><li>Communities and subsistence areas</li><li>Cultural and protected areas</li></ul>`,
+        classes: 'shepherd-theme-square-dark iam-tour',
+        when: {
+          show: () => {}
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
+      })
+      tour.addStep({
+        title: 'Information about the datasets',
+        attachTo: '.iam-dataset-info right',
+        text: `Click this button to see a list of all included datasets. This provides a short description of the dataset and shows where to get more information.`,
+        classes: 'shepherd-theme-square-dark',
+        when: {
+          show: () => {}
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
+      })
+      tour.addStep({
+        title: 'Overlapping areas',
+        attachTo: '.tour_marker bottom',
+        text: `Datasets are semi-transparent. The more datasets that overlap, the darker the area.`,
+        classes: 'shepherd-theme-square-dark',
+        when: {
+          show: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: ['mammals']
+            })
+          },
+          hide: () => {
+            this.$store.commit('showOnlyLayers', {first: []})
+          }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
+      })
+      tour.addStep({
+        title: 'Hotspots',
+        attachTo: '.place_marker right',
+        text: `We identified &ldquo;hot spots&rdquo; as locations with the greatest number of overlapping environmental, economic, and cultural datasets. Three example hot spots are shown on the map. Selecting a marker lists the datasets at that location.`,
+        classes: 'shepherd-theme-square-dark',
+        when: {
+          show: () => {}
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
+      })
+      tour.addStep({
+        title: 'End of tour!',
+        text: `Thanks for checking out the IAM map! Tools like this help to visualize the impact our development can have on a variety of species in Alaska, which represents an important talking point for decision makers and citizens alike.<p><p> If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
+        when: {
+          show: () => {}
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Done',
+            action: tour.complete
+          }
+        ]
+      })
+      return tour
     }
   },
   methods: {
@@ -258,8 +380,8 @@ div /deep/ .leaflet-popup-content-wrapper {
     font-size: 10pt;
   }
 }
-div /deep/ .tourMarker {
-  display: none;
+div /deep/ .tour_marker, div /deep/ .place_marker {
+  visibility: hidden;
 }
 // The `/deep/` syntax allows for modifying
 // child component CSS.
@@ -282,5 +404,11 @@ div /deep/ .tourMarker {
       color: #cfcfc0;
     }
   }
+}
+</style>
+<style lang="scss">
+// Not scoped so we can modify some Tour styles
+.iam-tour.shepherd-step .shepherd-text h4 {
+  color: #efefef;
 }
 </style>
