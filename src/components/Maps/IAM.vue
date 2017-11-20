@@ -266,7 +266,17 @@ export default {
         classes: 'shepherd-theme-square-dark iam-tour',
         when: {
           show: () => {}
-        }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
       })
       tour.addStep({
         title: 'Information about the datasets',
@@ -275,7 +285,17 @@ export default {
         classes: 'shepherd-theme-square-dark',
         when: {
           show: () => {}
-        }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
       })
       tour.addStep({
         title: 'Overlapping areas',
@@ -291,7 +311,17 @@ export default {
           hide: () => {
             this.$store.commit('showOnlyLayers', {first: []})
           }
-        }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
       })
       tour.addStep({
         title: 'Hotspots',
@@ -300,7 +330,39 @@ export default {
         classes: 'shepherd-theme-square-dark',
         when: {
           show: () => {}
-        }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
+      })
+      tour.addStep({
+        title: 'End of tour!',
+        text: `Thanks for checking out the IAM map! Tools like this help to visualize the impact our development can have on a variety of species in Alaska, which represents an important talking point for decision makers and citizens alike.<p><p> If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
+        when: {
+          show: () => {
+            // this.$store.commit('showFireGraph')
+          },
+          hide: () => {
+            // this.$store.commit('hideFireGraph')
+          }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Done',
+            action: tour.complete
+          }
+        ]
       })
       return tour
     }
