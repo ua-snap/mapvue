@@ -346,12 +346,7 @@ export default {
         title: 'End of tour!',
         text: `Thanks for checking out the IAM map! Tools like this help to visualize the impact our development can have on a variety of species in Alaska, which represents an important talking point for decision makers and citizens alike.<p><p> If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
         when: {
-          show: () => {
-            // this.$store.commit('showFireGraph')
-          },
-          hide: () => {
-            // this.$store.commit('hideFireGraph')
-          }
+          show: () => {}
         },
         buttons: [
           {
