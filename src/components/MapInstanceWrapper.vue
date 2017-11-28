@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style type="scss" scoped>
-// Styles common to all maps can be put here.
+/* Styles common to all maps can be put here. */
 #map-instance-wrapper /deep/ h1.map-title {
   position: absolute;
   top: 0; left: 0;
