@@ -380,7 +380,7 @@ export default {
       return new Promise((resolve, reject) => {
         // Check if the data is in local storage
         if (!this.fireJson) {
-          this.$axios.get(process.env.FIRE_FEATURES_URL)
+          this.$axios.get(process.env.FIRE_FEATURES_URL, { timeout: 120000 })
             .then(res => {
               if (res) {
                 this.fireJson = res.data
