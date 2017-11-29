@@ -38,9 +38,6 @@ Vue.prototype.$axios.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 
-// Include styles for some libraries here.
-require('../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss')
-
 // Disable nag
 Vue.config.productionTip = false
 
