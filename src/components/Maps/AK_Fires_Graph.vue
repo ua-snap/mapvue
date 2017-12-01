@@ -79,7 +79,10 @@ export default {
   name: 'AK_Fires_Graph',
   computed: {
     visible () {
-      return this.$store.state.fire.fireGraphVisible
+      // Guard in case data is unavailable to prevent error
+      return this.$store.state.fire
+        ? this.$store.state.fire.fireGraphVisible
+        : false
     },
     fireTimeSeries: {
       get () { return this.$localStorage.get('fireTimeSeries') },
