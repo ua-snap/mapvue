@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style type="sass" scoped>
+<style lang="scss" scoped>
 label {
   display: block;
   margin: 1ex 0;
