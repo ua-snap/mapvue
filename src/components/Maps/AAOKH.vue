@@ -161,12 +161,10 @@ export default {
       ],
       title: 'AAOKH (Draft)',
       abstract: `
-<h1>What areas of the Arctic are &ldquo;important&rdquo;?</h1>
-<p>One challenge that managers and policy makers often face is the conflict of interests among groups. This was evident when the <a target='_blank' href='https://www.snap.uaf.edu'>Scenarios Network for Alaska and Arctic Planning</a> was asked to identify specific geographic &ldquo;areas of environmental, economic, and cultural importance&rdquo; in Arctic Alaska for a 2013 report to the President of the United states on <a target='_blank' href='https://www.afsc.noaa.gov/publications/misc_pdf/iamreport.pdf'>Integrated Arctic Management</a> (IAM).
+<h1>Alaska Arctic Observatory and Knowledge Hub</h1>
+<p>The Alaska Arctic Observatory and Knowledge Hub (AAOKH) was established to build capacity in sharing information from community-based observations on cryosphere change conducted by northern Alaska communities. Observations that could be linked to the seasonal cycle of harvesting activities was identified as an important focus for prioritizing observations.</p>
+<p>A Knowledge Hub was developed to provide tools and observational data of relevance to communities in the context of a changing seasonal cycle and offers community members opportunities to share insights and observations to support the information-sharing goals.
 </p>
-<p>While many groups have an answer to this question, the answer depends on the perspective and interests of the group. As a proof of concept, SNAP took an objective approach to identifying important areas by displaying existing geospatial datasets that fit into the environmental, economic, and cultural categories to see where they overlap. Based upon available data, this can illustrate the relative importance of those areas, identify potential areas of conflict, and highlight gaps in Arctic geospatial data.
-</p>
-<p class='photo-credit'>UAF Photo by Todd Paris</p>
 `,
       mapOptions: {
         zoom: 5,
@@ -295,16 +293,16 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
 // https://vue-loader.vuejs.org/en/features/scoped-css.html
 .splash-screen /deep/ .billboard {
   max-width: 933px;
-  background: url('~@/assets/uaf-todd-paris-iam.jpg') white top left / cover no-repeat;
+  min-height: 600px;
+  background: url('~@/assets/barrow.jpg') white top left / cover no-repeat;
   h1 {
-    color: #ffffee;
-    padding-top: 2em; // A little extra to position correctly on photo
+    color: #100505;
   }
   p {
     font-size: 14pt;
-    color: #ffffee;
+    color: #100505;
     a {
-      color: #bdcdfa;
+      color: #0020f0;
     }
     &.photo-credit {
       font-size: 10pt;
