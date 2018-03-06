@@ -28,6 +28,10 @@ const MvAkFires = () => (Object.assign({
   component: import('@/components/Maps/AK_Fires')
 }, loadingDefaults))
 
+const MvAaokh = () => (Object.assign({
+  component: import('@/components/Maps/AAOKH')
+}, loadingDefaults))
+
 // This one will either be removed or replaced, so not fully updating it
 // here yet.
 const MvSnapRcp6 = () => import('@/components/Maps/SNAP_RCP6')
@@ -35,7 +39,8 @@ const MvSnapRcp6 = () => import('@/components/Maps/SNAP_RCP6')
 var mapSlugComponentMapper = {
   'snap-rcp-6.0': MvSnapRcp6,
   'iam': MvIam,
-  'fires': MvAkFires
+  'fires': MvAkFires,
+  'aaokh': MvAaokh
 }
 
 export default {
