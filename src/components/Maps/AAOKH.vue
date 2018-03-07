@@ -204,6 +204,12 @@ export default {
           'name': 'geoserver:NIC_SeaIce_5Dec2017_3338_AKExtent',
           'title': 'Sea Ice Extent',
           'legend': true
+        },
+        {
+          'abstract': 'TBD',
+          'name': 'geoserver:SeaIceConcentration06March2018_3338',
+          'title': 'Sea Ice Concentration',
+          'legend': true
         }
       ]
     }
