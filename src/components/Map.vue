@@ -54,6 +54,15 @@ export default {
     // Instantiate map objects
     maps.left.map = this.$L.map('map-1', this.getBaseMapAndLayers())
     maps.right.map = this.$L.map('map-2', this.getBaseMapAndLayers())
+
+    // Add zoom controls
+    this.$L.control.zoom({
+      position: 'topright'
+    }).addTo(maps.left.map)
+    this.$L.control.zoom({
+      position: 'topright'
+    }).addTo(maps.right.map)
+
     this.addLayers()
   },
   destroyed () {
@@ -215,6 +224,11 @@ export default {
 
 .leaflet-sidebar {
   z-index: 4500;
+}
+
+.leaflet-control-zoom {
+  position: relative;
+  top: -4em;
 }
 
 </style>
