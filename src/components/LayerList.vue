@@ -1,18 +1,19 @@
 <template>
-<draggable v-model="layers" id="layer-list" class="layer-list">
-  <div id="top_item"></div>
-  <transition-group name="list-complete">
-    <div class="list-complete-item" v-for="layer in layers" :key="layer.name">
-      <map-layer
-        :name="layer.name"
-        :title="layer.title"
-        :abstract="layer.abstract"
-        :visible="layer.visible"
-        :secondVisible="layer.secondVisible"
-      ></map-layer>
-    </div>
-  </transition-group>
-</draggable>
+  <div id="top_item">
+    <draggable v-model="layers" id="layer-list" class="layer-list">
+      <transition-group name="list-complete">
+        <div class="list-complete-item" v-for="layer in layers" :key="layer.name">
+          <map-layer
+            :name="layer.name"
+            :title="layer.title"
+            :abstract="layer.abstract"
+            :visible="layer.visible"
+            :secondVisible="layer.secondVisible"
+          ></map-layer>
+        </div>
+      </transition-group>
+    </draggable>
+  </div>
 </template>
 
 <script>
