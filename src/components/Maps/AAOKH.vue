@@ -44,11 +44,12 @@ export default {
         this.$L.marker(
           new this.$L.latLng([feature.lat, feature.lon])).bindPopup(this.getPopupContents(feature), popupOptions))
     })
+    this.observationMarkers = observations
     observationLayer = this.$L.layerGroup(observations)
   },
   mounted () {
     // Necessary to see the markers.
-    this.$L.Icon.Default.imagePath = 'static'
+    this.$L.Icon.Default.imagePath = 'static/'
   },
   data () {
     return {
@@ -168,7 +169,7 @@ export default {
 `,
       mapOptions: {
         zoom: 5,
-        minZoom: 4,
+        minZoom: 1,
         maxZoom: 8,
         center: [71.2906, -156.7886]
       },
@@ -181,7 +182,7 @@ export default {
       },
       layers: [
         {
-          'abstract': 'Obs from SIZONET',
+          'abstract': 'Placeholder for observations from ELOKA',
           'name': 'observations',
           'title': 'Observations',
           'legend': false,
@@ -262,6 +263,74 @@ export default {
           showCancelLink: true
         }
       })
+
+      tour.addStep({
+        title: 'Compare changes with other places',
+        attachTo: '#top_item right',
+        text: `<p>See if patterns are similar at broad scales, then zoom in for more details and observations.  This is showing sea ice concentration.</p>`,
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: ['geoserver:SeaIceConcentration06March2018_3338']
+            })
+            this.$refs.map.primaryMapObject.flyTo([65, -165], 1)
+          }
+        },
+        tetherOptions: {
+          attachment: 'top left',
+          targetAttachment: 'left right',
+          offset: '32px 0'
+        }
+      })
+
+      tour.addStep({
+        title: 'Actively participate in research',
+        attachTo: '#top_item right',
+        text: `<p>Observations/pictures, value is over time and by seasons to ID trends or patterns
+Scientists can’t be there, and obs are expensive, communities can help.</p>`,
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: ['observations']
+            })
+            this.$refs.map.primaryMapObject.flyTo([71.2906, -156.7886], 5)
+          }
+        },
+        tetherOptions: {
+          attachment: 'top left',
+          targetAttachment: 'left right',
+          offset: '32px 0'
+        }
+      })
+
+      tour.addStep({
+        title: 'Inform your activities',
+        attachTo: '#top_item right',
+        text: `<p>Here, you can see whaling trails set against the current ice extent with the Utqiagvik radar.</p>`,
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: ['geoserver:NIC_SeaIce_5Dec2017_3338_AKExtent', 'geoserver:Barrow02April2016', 'geoserver:WhalingTrails2017_3338']
+            })
+            this.$refs.map.primaryMapObject.flyTo([71.2906, -156.7886], 6)
+          }
+        },
+        tetherOptions: {
+          attachment: 'top left',
+          targetAttachment: 'left right',
+          offset: '32px 0'
+        }
+      })
+
       return tour
     }
   },
@@ -298,9 +367,10 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
 // child component CSS.
 // https://vue-loader.vuejs.org/en/features/scoped-css.html
 .splash-screen /deep/ .billboard {
-  max-width: 933px;
+  max-width: 900px;
   min-height: 600px;
-  background: url('~@/assets/barrow.jpg') white top left / cover no-repeat;
+  background: url('~@/assets/barrow.jpg') #ff0000 top left / cover no-repeat;
+  background-blend-mode: screen;
   h1 {
     color: #100505;
   }
@@ -310,10 +380,14 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
     a {
       color: #0020f0;
     }
-    &.photo-credit {
-      font-size: 10pt;
-      color: #cfcfc0;
-    }
+    text-shadow: 0 0 4px #fff;
+  }
+  .buttons {
+    margin-top: 4em;
+  }
+  .logos {
+    padding-left: 1em;
+    background: rgba(0, 0, 0, .5);
   }
 }
 </style>
