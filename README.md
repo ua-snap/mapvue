@@ -49,3 +49,12 @@ docker run -d -p 8080:8080 -v unzipped_data_and_exts_location/data:/var/local/ge
 ```
 
 The instance will be available at `localhost:8080` after a few moments.
+
+# Deploying
+
+```bash
+cd /path/to/mapvue
+# Check your enviroment variables first here
+npm run build
+cd dist && aws s3 sync . s3://mapventure.org
+```
