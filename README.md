@@ -10,7 +10,8 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8088
+export PORT=8088
 npm run dev
 
 # build for production with minification
@@ -33,13 +34,27 @@ If these variables are set in your environment, they'll be used in the applicati
 
 ### Geoserver instance for local development
 
-``` bash
+Fetch the needed Docker image:
+
+```bash
 docker pull oscarfonts/geoserver
-mkdir -p ~/geoserver-docker/data ~/geoserver-docker/extensions
-docker run -d -p 8080:8080 -v ~/geoserver-docker/data:/var/local/geoserver -v ~/geoserver-docker/extensions:/var/local/geoserver-exts/ --name=geoserver oscarfonts/geoserver
 ```
 
-(after a few minutes)
+Obtain a copy of the data/extensions directories, and unzip it to some specific location, referred to as `unzipped_data_and_exts_location` below.
 
-`http://localhost:8080/geoserver`
-`export GEOSERVER_URL='http://localhost:8080/geoserver'`
+To run:
+
+``` bash
+docker run -d -p 8080:8080 -v unzipped_data_and_exts_location/data:/var/local/geoserver -v unzipped_data_and_exts_location/exts:/var/local/geoserver-exts/ --name=geoserver oscarfonts/geoserver
+```
+
+The instance will be available at `localhost:8080` after a few moments.
+
+# Deploying
+
+```bash
+cd /path/to/mapvue
+# Check your enviroment variables first here
+npm run build
+cd dist && aws s3 sync . s3://mapventure.org
+```
