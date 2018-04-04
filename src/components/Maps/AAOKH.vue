@@ -15,6 +15,7 @@
   ></mv-map>
   <sidebar :mapObj='primaryMapObject'></sidebar>
   <tour class='tour' :tour='tour'></tour>
+  <div id='bottom-center'></div>
   <mv-footer></mv-footer>
 </div>
 </template>
@@ -214,14 +215,14 @@ export default {
       // 2. comparing changes
       tour.addStep({
         title: 'Compare changes with neighboring communities',
-        attachTo: '#top_item right',
-        text: `<p>See larger-scale data for all communities participating in the AAOKH project. Here, an example of daily sea ice concentration allows community members to see how ice conditions compare at other locations across the northern coast.</p>`,
+        text: `<p>See larger-scale data for all communities participating in the AAOKH project. Here is an example of daily sea ice concentration that allows community members to see how ice conditions compare at other locations.</p>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         buttons: buttons,
         when: {
           show: () => {
             this.$store.commit('showDualMaps')
             this.$store.commit('disableSyncMaps')
+            this.$store.commit('hideLayerMenu')
             this.$store.commit('showOnlyLayers', {
               first: ['aaokh:sea_ice_concentration']
             })
@@ -230,53 +231,51 @@ export default {
             })
 
             // Point Hope
-            this.$refs.map.primaryMapObject.setView([68.6987137076624, -167.67466225096828], 4, { animate: false })
+            this.$refs.map.primaryMapObject.setView([65.77107106796926, -166.41565997885598], 3, { animate: false })
 
             // Kaktovik
-            this.$refs.map.secondaryMapObject.setView([70.132778, -143.616111], 4, { animate: false })
+            this.$refs.map.secondaryMapObject.setView([68.69278629127302, -164.77517269036156], 3, { animate: false })
           },
           hide: () => {
             this.$store.commit('hideDualMaps')
+            this.$store.commit('showLayerMenu')
             this.$store.commit('showOnlyLayers', {
               first: [],
               second: []
             })
           }
-        },
-        tetherOptions: {
-          attachment: 'top left',
-          targetAttachment: 'left right',
-          offset: '32px 0'
         }
       })
 
       // 3. Participate in research
       tour.addStep({
         title: 'Actively participate in research',
-        attachTo: '#top_item right',
+        attachTo: '#research_photo left',
         text: `<p>Your observations and pictures help everyone! Communities are at the front lines of changing conditions, seeing changes in action before measurements can be made by scientists and often in places otherwise inaccessible to scientific instruments. </p>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         buttons: buttons,
-        when: {
-          show: () => {
+        beforeShowPromise: () => {
+          var p = new Promise((resolve, reject) => {
             this.$store.commit('hideDualMaps')
             this.$store.commit('disableSyncMaps')
             this.$store.commit('showOnlyLayers', {
               first: ['observations']
             })
-            setTimeout(() => {
-              this.$refs.map.primaryMapObject.setView([69.23232124768693, -170.39295749936036], 3, { animate: false })
-            }, 250) // allow time for the dual maps to disable so the center is right
 
             this.$refs.map.primaryMapObject.openPopup(observationPopup)
-          },
+            this.$refs.map.primaryMapObject.setView([69.23232124768693, -170.39295749936036], 3, { animate: false })
+            setTimeout(() => { resolve() }, 250)
+          })
+          return p
+        },
+        when: {
           hide: () => {
             this.$refs.map.primaryMapObject.closePopup(observationPopup)
           }
         },
         tetherOptions: {
-          attachment: 'top left',
-          targetAttachment: 'left right',
+          attachment: 'top right',
+          targetAttachment: 'top left',
           offset: '32px 0'
         }
       })
@@ -353,7 +352,7 @@ export default {
       .setLatLng(latlng)
       .setContent(`
 <h3>Collecting eggs in Point Hope</h3>
-<img src="${imagePath}">
+<img id="research_photo" src="${imagePath}">
 `)
       let marker = this.$L.marker(latlng)
       marker.bindPopup(observationPopup)
@@ -363,6 +362,17 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
+
+// This is to hook some tour steps into specific layout
+#bottom-center {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 5px;
+  width: 5px;
+  z-index: 10000
+}
+
 div /deep/ .leaflet-popup-content-wrapper {
   h1 {
     font-size: 14pt;
