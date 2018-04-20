@@ -338,8 +338,8 @@ export default {
             action: tour.back
           },
           {
-            text: 'Done',
-            action: tour.complete
+            text: 'Next',
+            action: tour.next
           }
         ],
         tetherOptions: {
@@ -347,6 +347,29 @@ export default {
           targetAttachment: 'left right',
           offset: '32px 0'
         }
+      })
+
+      // 6. Get involved!
+      tour.addStep({
+        title: 'Get involved!',
+        text: `<p>There are many ways to contribute to the Alaska Arctic Observatory & Knowledge Hub. Anyone in coastal communities can provide an observation of coastal conditions or wildlife. We hire new observers, support youth and outreach activities, and are guided by a Steering Group of community representatives and scientists. Learn more on <a href="https://arctic-aok.org">our website</a>.
+        </p><p><a class="btn btn-default" target="_blank" href="https://arctic-aok.org/get-involved/" role="button">Get involved!</a>`,
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
+        when: {
+          show: () => {
+            this.$store.commit('showOnlyLayers', [])
+          }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Done',
+            action: tour.complete
+          }
+        ]
       })
 
       return tour
@@ -425,16 +448,19 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
     background: rgba(0, 0, 0, .5);
   }
 }
-</style>
-<style lang='scss'>
-// Not scoped so we can modify some Tour styles
-.iam-tour.shepherd-step .shepherd-text h4 {
-  color: #efefef;
-}
-
 .aaokh {
     h1 {
       margin-top: 0;
     }
+}
+</style>
+
+<style lang='scss'>
+.shepherd-text p a:not(.btn) {
+  font-weight: 600;
+  color: #549fe0;
+  &:hover {
+    color: #ffffff;
+  }
 }
 </style>
