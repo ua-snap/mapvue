@@ -1,0 +1,4195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+
+<!-- 1 -->
+<link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+
+</head>
+<body>
+<style type="text/css">
+h2.observer {
+  color: #888;
+  font-size: 24px;
+}
+.weather h3 {
+  margin: 0;
+  color: #aaa;
+  font-size: 16px;
+}
+</style>
+<!-- 2 -->
+<h1 style="font-family: sans-serif; color: #aaa">ELOKA data on a timeline (experiment)</h1>
+
+<div id='timeline-embed' style="width: 100%; height: 600px"></div>
+
+<!-- 3 -->
+<script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/combine/npm/lodash@4.17.5,npm/lodash@4.17.5/template.min.js"></script>
+<script type="text/javascript">
+
+function get_data() {
+  return  [
+  {
+    "sizonet_id": 6138,
+    "identifier": "UTQAD180320",
+    "obs_date": "2018-03-20",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.33333,
+      "lon": -156.7667,
+      "source": "NARL"
+    },
+    "locations": [
+      "NARL"
+    ],
+    "observation_text": "Location NARL, temperature -4f, east winds 10 mph, overcast, and visibility to 3 miles. It has been good east winds and keeping the lead system open for scouting this past week. Unfortunately my snowmachine did not do so well at it has broken parts from the last trip, so there will be no pictures of the lead, birds, or mammals for the next 2 weeks or so. ",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Overcast",
+      "wind": {
+        "wind_speed_min": 4.47,
+        "wind_speed_max": 4.47,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 4.828,
+        "visibility_max": 4.828,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -20,
+      "air_temperature_max": -20
+    },
+    "ice_ocean": {
+      "lead": {
+        "lead_condition": "Lead open"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6137,
+    "identifier": "UTQAD1803131824",
+    "obs_date": "2018-03-13",
+    "obs_time": "18:24",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Utqiaġvik (Barrow)"
+    ],
+    "observation_text": "Location in front of Barrow side bingo hall, temperature 3f, overcast, open lead with currents about 2 mph going north. Edge is rough her took us about 3 hours of rough trail to get to. We will not be whaling in this area.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Overcast",
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -16.111,
+      "air_temperature_max": -16.111
+    },
+    "ice_ocean": {
+      "lead": {
+        "lead_condition": "Lead open"
+      },
+      "ocean_current": {
+        "ocean_current_direction": "N"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6136,
+    "identifier": "UTQAD1803110833",
+    "obs_date": "2018-03-11",
+    "obs_time": "08:33",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Utqiaġvik (Barrow)"
+    ],
+    "observation_text": "Location Stevenson Street looking towards town, temperature -4f, north east winds 25-30 mph, and visibility to a few hundred yards at the most. We had great plans to venture out to the ice but storm after storm continue to punish me and my plans until I have a better attitude and a better plan.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 11.176,
+        "wind_speed_max": 13.411,
+        "wind_direction": "NE"
+      },
+      "visibility": {
+        "visibility": "Limited",
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -20,
+      "air_temperature_max": -20
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6135,
+    "identifier": "UTQAD1803091032",
+    "obs_date": "2018-03-09",
+    "obs_time": "10:32",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.2829,
+      "lon": -156.81,
+      "source": "Amafnaat (Gravel Pit)"
+    },
+    "locations": [
+      "Amafnaat (Gravel Pit)"
+    ],
+    "observation_text": "Location Gravel Pit, north east winds 25-30 mph, blowing snow, temperature 2f, and limited visibility to 1/4 mile to 1/2 mile. The winds and storms continue to trade off east to west and plenty of snow. I spoke with whalers from Savoonga, Little Diomede, Kotzebue, Pt. Lay, and myself about what the weather is doing and what we think of it this year. So here it is straight out of hunters across the globe. First is persistent high winds with very warm temperatures, no ice at Savoonga and Diomede, lots of snow everywhere, birds and whales during winter months. This new year we are being hit hard with sledge  hammer to the brain directly that has had a hangover from last year.",
+    "instructional_value": false,
+    "unusual_condition_situation": true,
+    "historic_observation": false,
+    "local_knowledge": true,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Blowing/drifting snow",
+      "wind": {
+        "wind_speed_min": 11.176,
+        "wind_speed_max": 13.411,
+        "wind_direction": "NE"
+      },
+      "visibility": {
+        "visibility_min": 0.402,
+        "visibility_max": 0.805,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -16.667,
+      "air_temperature_max": -16.667
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6134,
+    "identifier": "UTQAD1803021259",
+    "obs_date": "2018-03-02",
+    "obs_time": "12:59",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.33333,
+      "lon": -156.7667,
+      "source": "NARL"
+    },
+    "locations": [
+      "NARL"
+    ],
+    "observation_text": "Location NARL, east winds 30 mph, drifting snow blizzard, sunny, and dandy! 1 above too. Here monumental structures survive many a storms.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": true,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Storm/blizzard",
+      "wind": {
+        "wind_speed_min": 13.411,
+        "wind_speed_max": 13.411,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -17.222,
+      "air_temperature_max": -17.222
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6133,
+    "identifier": "UTQAD1803010912",
+    "obs_date": "2018-03-01",
+    "obs_time": "09:12",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Shop 3"
+    ],
+    "observation_text": "Location Cake eater near shop3, temperatures from 1 am to 4 am went from -31f then at 4 am went to -13f now only -3f, east winds 10-20 mph, super foggy, and limited visibility to a few 100 yards. We had polar bears all night but no photos to be had because of the extreme fog and darkness up us.\r\n",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Fog",
+      "wind": {
+        "wind_speed_min": 4.47,
+        "wind_speed_max": 8.941,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility": "Limited",
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -19.444,
+      "air_temperature_max": -19.444
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Polar bear",
+        "description": "Major subsistence",
+        "latin_name": "Ursus maritimus",
+        "classification": "Terrestrial Mammals",
+        "status": "Sighted"
+      }
+    ],
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6132,
+    "identifier": "UTQAD1802281636",
+    "obs_date": "2018-02-28",
+    "obs_time": "16:36",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.3459,
+      "lon": -156.6058,
+      "source": "Piqniq (Duck Camp)"
+    },
+    "locations": [
+      "Piqniq (Duck Camp)"
+    ],
+    "observation_text": "Location Pigniq looking north, temperatures drop to -28f, light south east winds, clear and visibility has increased with almost an inversion. Open water in some areas now.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Clear",
+      "wind": {
+        "wind_speed_description": "Light",
+        "wind_direction": "SE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -33.333,
+      "air_temperature_max": -33.333
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6131,
+    "identifier": "UTQAD180227",
+    "obs_date": "2018-02-27",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.2829,
+      "lon": -156.81,
+      "source": "Amafnaat (Gravel Pit)"
+    },
+    "locations": [
+      "Amafnaat (Gravel Pit)"
+    ],
+    "observation_text": " Location Gravel Pit, temperature -15f, north west winds 10 mph, clear and visibility to 10 miles. Reports of snow bunting birds in Wainwright and Barrow, plus reports of many bowheads sighted near Pt. Hope! They will have a community prayer and head out whaling soon after.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Clear",
+      "wind": {
+        "wind_speed_min": 4.47,
+        "wind_speed_max": 4.47,
+        "wind_direction": "NW"
+      },
+      "visibility": {
+        "visibility_min": 16.093,
+        "visibility_max": 16.093,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -26.111,
+      "air_temperature_max": -26.111
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Bowhead whale",
+        "description": "Major subsistence",
+        "latin_name": "Balaena mysticetus",
+        "classification": "Marine Mammals",
+        "status": "Sighted"
+      },
+      {
+        "name": "Snow bunting",
+        "description": "Local/migratory",
+        "latin_name": "Plectrophenax nivalis",
+        "classification": "Birds",
+        "status": "Sighted"
+      }
+    ],
+    "activities": {
+      "whaling": [
+        "Preparing for whaling"
+      ],
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6130,
+    "identifier": "UTQAD1802251515",
+    "obs_date": "2018-02-25",
+    "obs_time": "15:15",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.388889,
+      "lon": -156.479167,
+      "source": "Nuvuk (Pt. Barrow)"
+    },
+    "locations": [
+      "Nuvuk (Pt. Barrow)"
+    ],
+    "observation_text": "Location Nuvuk, temperature -3f, west winds 15 mph, clearing and visibility to 6 miles. February 22-24 very windy and white out conditions and blizzardy no visibility days. I went out asap to check on the leads here but they filled with snow very quickly and froze over already. ",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Clear",
+      "wind": {
+        "wind_speed_min": 6.706,
+        "wind_speed_max": 6.706,
+        "wind_direction": "W"
+      },
+      "visibility": {
+        "visibility_min": 9.656,
+        "visibility_max": 9.656,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -19.444,
+      "air_temperature_max": -19.444
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6129,
+    "identifier": "UTQAD180221",
+    "obs_date": "2018-02-21",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Utqiaġvik (Barrow)"
+    ],
+    "observation_text": " Location Elson lagoon overflow better day and less winds let us resume the search. Overflow on lagoon too.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_feature": "High water/Overflow",
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "sea_ice_travel": [
+        "Search and rescue"
+      ],
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6128,
+    "identifier": "UTQAD1802201015",
+    "obs_date": "2018-02-20",
+    "obs_time": "10:15",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Utqiaġvik (Barrow)"
+    ],
+    "observation_text": " Location Barrow, temperature 31f,southwest winds 20 mph, 10 miles visibility. Ice is in here and I'm on a search mission for a missing person.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 8.941,
+        "wind_speed_max": 8.941,
+        "wind_direction": "SW"
+      },
+      "visibility": {
+        "visibility_min": 16.093,
+        "visibility_max": 16.093,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -0.556,
+      "air_temperature_max": -0.556
+    },
+    "ice_ocean": {
+      "lead": {
+        "lead_condition": "Lead closed"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "sea_ice_travel": [
+        "Search and rescue"
+      ],
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6127,
+    "identifier": "UTQAD1802140955",
+    "obs_date": "2018-02-14",
+    "obs_time": "09:55",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Utqiaġvik (Barrow)"
+    ],
+    "observation_text": " Location Barrow, east winds 35 mph, no visibility, and time to stay in!",
+    "instructional_value": true,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 15.646,
+        "wind_speed_max": 15.646,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 0,
+        "visibility_max": 0,
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6126,
+    "identifier": "UTQAD1802131418",
+    "obs_date": "2018-02-13",
+    "obs_time": "14:18",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.2829,
+      "lon": -156.81,
+      "source": "Amafnaat (Gravel Pit)"
+    },
+    "locations": [
+      "Amafnaat (Gravel Pit)"
+    ],
+    "observation_text": "Location Gravel Pit, temperature -17f east winds 20 mph, clear skies, seems like haze from cold temperature, and visibility to 5miles. There is open water just can't see from the fog.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Clear",
+      "wind": {
+        "wind_speed_min": 8.941,
+        "wind_speed_max": 8.941,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 8.047,
+        "visibility_max": 8.047,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -27.222,
+      "air_temperature_max": -27.222
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6125,
+    "identifier": "UTQAD1802121036",
+    "obs_date": "2018-02-12",
+    "obs_time": "10:36",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.2829,
+      "lon": -156.81,
+      "source": "Amafnaat (Gravel Pit)"
+    },
+    "locations": [
+      "Amafnaat (Gravel Pit)"
+    ],
+    "observation_text": "Location Gravel Pit, temperature 14f, overcast, light snow, extreme white out, and visibility 1/4 mile.\r\n",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "White-out",
+      "precipitation": "Light snow",
+      "sky": "Overcast",
+      "visibility": {
+        "visibility_min": 0.402,
+        "visibility_max": 0.402,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -10,
+      "air_temperature_max": -10
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6124,
+    "identifier": "UTQAD1802111642",
+    "obs_date": "2018-02-11",
+    "obs_time": "16:42",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Shop 3"
+    ],
+    "observation_text": "Location Shop 3, temperature 22f, overcast, south winds 10 mph, and visibility to 4 miles. A bull caribou on the ice. They do go on the ice to lick salt.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": true,
+    "email_communication": true,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 4.47,
+        "wind_speed_max": 4.47,
+        "wind_direction": "S"
+      },
+      "visibility": {
+        "visibility_min": 6.437,
+        "visibility_max": 6.437,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -5.556,
+      "air_temperature_max": -5.556
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Caribou",
+        "description": "Major subsistence",
+        "latin_name": "Rangifer tarandus",
+        "classification": "Terrestrial Mammals",
+        "status": "Sighted"
+      }
+    ],
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6123,
+    "identifier": "UTQAD1802091332",
+    "obs_date": "2018-02-09",
+    "obs_time": "13:32",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.2829,
+      "lon": -156.81,
+      "source": "Amafnaat (Gravel Pit)"
+    },
+    "locations": [
+      "Amafnaat (Gravel Pit)"
+    ],
+    "observation_text": "Location Gravel Pit, overcast, temperature 7f, light winds, and visibility to 7 miles. You can see the ice is active and has piled up about 1/4 mile out where it has piled up recently.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Overcast",
+      "wind": {
+        "wind_speed_description": "Light"
+      },
+      "visibility": {
+        "visibility_min": 11.265,
+        "visibility_max": 11.265,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -13.889,
+      "air_temperature_max": -13.889
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6120,
+    "identifier": "UTQAD1802081050",
+    "obs_date": "2018-02-08",
+    "obs_time": "10:50",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Shop 3"
+    ],
+    "observation_text": " Location Shop 3, temperature `14f, overcast, light southerly winds, and visibility to 7 miles. Big 2,000 pounder! It is piling up in places.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Overcast",
+      "wind": {
+        "wind_speed_description": "Light",
+        "wind_direction": "S"
+      },
+      "visibility": {
+        "visibility_min": 11.265,
+        "visibility_max": 11.265,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -10,
+      "air_temperature_max": -10
+    },
+    "ice_ocean": {
+      "ice_event": "Ice ridging event",
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6122,
+    "identifier": "UTQAD1802071330",
+    "obs_date": "2018-02-07",
+    "obs_time": "13:30",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Dry Cleaners"
+    ],
+    "observation_text": "Location Dry Cleaners, temperature 14f, mostly cloudy, south winds at about 10 mph, and visibility to 8 miles. It opened up very close and it closed up. This event tells me the shore fast ice was hit south from the pack ice which also tells me that the pack ice had to be solid enough to move this shorefast ice. I also know that south winds raises water level.",
+    "instructional_value": true,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": true,
+    "email_communication": true,
+    "weather": {
+      "sky": "Cloudy",
+      "wind": {
+        "wind_speed_min": 4.47,
+        "wind_speed_max": 4.47,
+        "wind_direction": "S"
+      },
+      "visibility": {
+        "visibility_min": 12.875,
+        "visibility_max": 12.875,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -10,
+      "air_temperature_max": -10
+    },
+    "ice_ocean": {
+      "lead": {
+        "lead_condition": "Lead closed"
+      },
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice pushed against shorefast ice"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6121,
+    "identifier": "UTQAD1802061400",
+    "obs_date": "2018-02-06",
+    "obs_time": "14:00",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.3459,
+      "lon": -156.6058,
+      "source": "Piqniq (Duck Camp)"
+    },
+    "locations": [
+      "Piqniq (Duck Camp)"
+    ],
+    "observation_text": "Location Pigniq, temperature -23f, light winds, clear skies, and visibility 10 miles. The frost has been accumulated in about a week on the antlers and wires everywhere that it can stick from the heavy fog  we had last week. The fog also delayed flights for a few days.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Fog",
+      "sky": "Clear",
+      "wind": {
+        "wind_speed_description": "Light"
+      },
+      "visibility": {
+        "visibility_min": 16.093,
+        "visibility_max": 16.093,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -30.556,
+      "air_temperature_max": -30.556
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6119,
+    "identifier": "UTQAD1802041059",
+    "obs_date": "2018-02-04",
+    "obs_time": "10:59",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.33333,
+      "lon": -156.7667,
+      "source": "NARL"
+    },
+    "locations": [
+      "NARL"
+    ],
+    "observation_text": "Location NARL, about 1/2 mile from shore, temperature -1f, light south east winds, light south currents, mostly cloudy, fog on water area, clear on land, and visibility to 8 miles. It opened up in some areas and rubbing in some areas.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Fog",
+      "sky": "Cloudy",
+      "wind": {
+        "wind_speed_description": "Light",
+        "wind_direction": "SE"
+      },
+      "visibility": {
+        "visibility_min": 12.875,
+        "visibility_max": 12.875,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -18.333,
+      "air_temperature_max": -18.333
+    },
+    "ice_ocean": {
+      "lead": {
+        "distance_to_lead_min": 0.805,
+        "distance_to_lead_max": 0.805
+      },
+      "ocean_current": {
+        "ocean_current_strength": "Weak",
+        "ocean_current_direction": "S"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6160,
+    "identifier": "UTQLE180131",
+    "obs_date": "2018-01-31",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "No water, but grey water smoke indicates ice is moving further out. Still cloudy.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "sky": "Cloudy",
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_concentration": "Ocean ice covered/No open water",
+      "lead": {
+        "lead_condition": "Frost smoke visible"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6118,
+    "identifier": "GAMIR180130",
+    "obs_date": "2018-01-30",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Clarence Irrigoo",
+    "locations": [
+      "Aguligaq"
+    ],
+    "observation_text": "asdfg",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6159,
+    "identifier": "UTQLE180130",
+    "obs_date": "2018-01-30",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Ice covers all the ocean, ice has moved and minor ridging has occurred about 2.5-3 miles out. Still cloudy and white out condtions still have caribou close to town.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "conditions": "White-out",
+      "sky": "Cloudy",
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_feature": "Ice ridge/s",
+      "ice_event": "Ice ridging event",
+      "ice_concentration": "Ocean ice covered/No open water",
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice is moving"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6117,
+    "identifier": "UTQAD180129",
+    "obs_date": "2018-01-29",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "observation_text": "It has been warm and cold over the weekend temperatures-27f to +13f, west winds from calm to 20 mph, overcast, no open lead but looks like pack ice is moving around. I will be leaving today and will be back on the 1st.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_concentration": "Ocean ice covered/No open water",
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6158,
+    "identifier": "UTQLE180129",
+    "obs_date": "2018-01-29",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "No change. ",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6157,
+    "identifier": "UTQLE180128",
+    "obs_date": "2018-01-28",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "W, 16. No change still. White out conditions. No water smoke. Temp. has warmed up again.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "conditions": "White-out",
+      "wind": {
+        "wind_direction": "W"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -8.889,
+      "air_temperature_max": -8.889
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6156,
+    "identifier": "UTQLE180127",
+    "obs_date": "2018-01-27",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Calm. Ice fog over the ocean, ½ mile visibility. No water smoke.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_description": "Calm"
+      },
+      "visibility": {
+        "visibility_min": 0.805,
+        "visibility_max": 0.805,
+        "ice_fog": true,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6155,
+    "identifier": "UTQLE180126",
+    "obs_date": "2018-01-26",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "No sign of water. Sun finally seen today cause of no clouds.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "sky": "Clear",
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_concentration": "Ocean ice covered/No open water",
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6116,
+    "identifier": "UTQAD1801261221",
+    "obs_date": "2018-01-26",
+    "obs_time": "12:21",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.3195,
+      "lon": -156.7051,
+      "source": "Cake Eater Road"
+    },
+    "locations": [
+      "Cake Eater Road"
+    ],
+    "observation_text": " Location Cake Eater , temperature -8f, light north winds, clear skies, and great visibility. No open water. ",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Clear",
+      "wind": {
+        "wind_speed_description": "Light",
+        "wind_direction": "N"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -22.222,
+      "air_temperature_max": -22.222
+    },
+    "ice_ocean": {
+      "ice_concentration": "Ocean ice covered/No open water",
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6115,
+    "identifier": "UTQAD180125",
+    "obs_date": "2018-01-25",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "observation_text": " Location Niksiuraq, temperature warms up to -4f, overcast, white out conditions, and visibility to 2 miles. West winds about 3 mph has closed up the lead.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "White-out",
+      "sky": "Overcast",
+      "wind": {
+        "wind_speed_min": 1.341,
+        "wind_speed_max": 1.341,
+        "wind_direction": "W"
+      },
+      "visibility": {
+        "visibility_min": 3.219,
+        "visibility_max": 3.219,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -20,
+      "air_temperature_max": -20
+    },
+    "ice_ocean": {
+      "lead": {
+        "lead_condition": "Lead closed"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6154,
+    "identifier": "UTQLE180125",
+    "obs_date": "2018-01-25",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "-4. Ocean ice still closed but is moving to the NE, ridging has occurred 1.5-2 miles out, very cloudy, and white out conditions.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "conditions": "White-out",
+      "sky": "Cloudy",
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -20,
+      "air_temperature_max": -20
+    },
+    "ice_ocean": {
+      "ice_direction": "NE",
+      "ice_concentration": "Ocean ice covered/No open water",
+      "lead": {
+        "lead_condition": "Lead closed"
+      },
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice is moving"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6114,
+    "identifier": "UTQAD180124",
+    "obs_date": "2018-01-24",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.3195,
+      "lon": -156.7051,
+      "source": "Cake Eater Road"
+    },
+    "locations": [
+      "Cake Eater Road"
+    ],
+    "observation_text": "Location Cake Eater to 90,000,000 miles, temperature was -30f here, light west winds, partly cloudy, and visibility 90, 000,000 miles.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Partly cloudy",
+      "wind": {
+        "wind_direction": "W"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -34.444,
+      "air_temperature_max": -34.444
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6153,
+    "identifier": "UTQLE180124",
+    "obs_date": "2018-01-24",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Light W. Ocean is all covered with ice. Ridges have not really fromed as of yet, but shore fast is still here.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_description": "Light",
+        "wind_direction": "W"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_feature": "Little or no ridging",
+      "ice_concentration": "Ocean ice covered/No open water",
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6152,
+    "identifier": "UTQLE180123",
+    "obs_date": "2018-01-23",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "SW, calm, cold and clear. No sign of water, all 1st year ice but a large pan of ice can be seen near the last lead opening. Whales were reported by a scientist who put out audio equip on the open lead. 3 tagged whales from this fall were reported wintering off Barrow.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "sky": "Clear",
+      "wind": {
+        "wind_speed_description": "Calm",
+        "wind_direction": "SW"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_concentration": "Ocean ice covered/No open water",
+      "ice_type": [
+        "First year ice only"
+      ],
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Whale",
+        "description": "Major subsistence",
+        "latin_name": "",
+        "classification": "Marine Mammals",
+        "status": "Sighted"
+      }
+    ],
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6151,
+    "identifier": "UTQLE180122",
+    "obs_date": "2018-01-22",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Calm. Water smoke can be seen 8-10 miles out. Water is not wide but can be seen slowly opening up. Ridges that formed early this month are still there, but seem lower.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_description": "Calm"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "lead": {
+        "lead_condition": "Frost smoke visible"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6113,
+    "identifier": "UTQAD1801221308",
+    "obs_date": "2018-01-22",
+    "obs_time": "13:08",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Browerville"
+    ],
+    "observation_text": " Location Browerville, temperature -24f, overcast, light east winds, and visibility by the water is only 25 yards. Eider ducks feed here.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Overcast",
+      "wind": {
+        "wind_speed_description": "Light",
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 0.023,
+        "visibility_max": 0.023,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -31.111,
+      "air_temperature_max": -31.111
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Eider",
+        "description": "Major subsistence",
+        "latin_name": "",
+        "classification": "Birds",
+        "status": "Sighted"
+      }
+    ],
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6150,
+    "identifier": "UTQLE180121",
+    "obs_date": "2018-01-21",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Cloudy. Ocean has no water. White out conditions.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "conditions": "White-out",
+      "sky": "Cloudy",
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_concentration": "Ocean ice covered/No open water",
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6149,
+    "identifier": "UTQLE180120",
+    "obs_date": "2018-01-20",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Ocean has no sign of water, ice has come in but no ridges have formed.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_concentration": "Ocean ice covered/No open water",
+      "lead": {
+        "lead_condition": "Lead closed"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6148,
+    "identifier": "UTQLE180119",
+    "obs_date": "2018-01-19",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "W at 33. Very windy, ocean has no visibility but ice has come in (no water smoke). One truck going cross country from Prudhoe ran out of gas, chopper pick up all the people. Hope the ocean builds up more ridges.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 14.752,
+        "wind_speed_max": 14.752,
+        "wind_direction": "W"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "lead": {
+        "lead_condition": "Lead closed"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "sea_ice_travel": [
+        "Search and rescue"
+      ],
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6112,
+    "identifier": "UTQAD1801191258",
+    "obs_date": "2018-01-19",
+    "obs_time": "12:58",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.33333,
+      "lon": -156.7667,
+      "source": "NARL"
+    },
+    "locations": [
+      "NARL"
+    ],
+    "observation_text": "Location NARL, blowing snow, west winds 30 mph, temperature has dropped to -20f, and visibility to less than 1/4 mile. ",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Blowing/drifting snow",
+      "wind": {
+        "wind_speed_min": 13.411,
+        "wind_speed_max": 13.411,
+        "wind_direction": "W"
+      },
+      "visibility": {
+        "visibility_min": 0.402,
+        "visibility_max": 0.402,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -28.889,
+      "air_temperature_max": -28.889
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6147,
+    "identifier": "UTQLE180118",
+    "obs_date": "2018-01-18",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "No change. Open lead still 1.5 miles out. Water smoke can be seen along ways down the SW side fairly close to the beach.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "lead": {
+        "lead_condition": "Frost smoke visible",
+        "distance_to_lead_min": 2.414,
+        "distance_to_lead_max": 2.414
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6111,
+    "identifier": "UTQAD1801181246",
+    "obs_date": "2018-01-18",
+    "obs_time": "12:46",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Browerville"
+    ],
+    "observation_text": " Location Browerville, temperature 20f, south east winds 5-10 mph, visibility is about 2 miles out but looking west 4 miles, overcast, light southerly currents, and slow hunting.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Overcast",
+      "wind": {
+        "wind_speed_min": 2.235,
+        "wind_speed_max": 4.47,
+        "wind_direction": "SE"
+      },
+      "visibility": {
+        "visibility_min": 3.219,
+        "visibility_max": 6.437,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -6.667,
+      "air_temperature_max": -6.667
+    },
+    "ice_ocean": {
+      "ocean_current": {
+        "ocean_current_strength": "Weak",
+        "ocean_current_direction": "S"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": true,
+      "hunting_activity": "Hunting on sea ice",
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6146,
+    "identifier": "UTQLE180117",
+    "obs_date": "2018-01-17",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "20. Very foggy today.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "conditions": "Fog",
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -6.667,
+      "air_temperature_max": -6.667
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6110,
+    "identifier": "UTQAD1801171250",
+    "obs_date": "2018-01-17",
+    "obs_time": "12:50",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.3195,
+      "lon": -156.7051,
+      "source": "Cake Eater Road"
+    },
+    "locations": [
+      "Cake Eater Road"
+    ],
+    "observation_text": "Location Cake Eater road, wet thick fog, east winds to 15mph, temperature 11f, and visibility to less than 200 yards.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Fog",
+      "wind": {
+        "wind_speed_min": 6.706,
+        "wind_speed_max": 6.706,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_max": 0.183,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -11.667,
+      "air_temperature_max": -11.667
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6145,
+    "identifier": "UTQLE180116",
+    "obs_date": "2018-01-16",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "SE calm. Open water still 1.5 miles out, young ice covers open lead, Ice pack can be seen about 10 miles out. Daylight is now longer, hunters catching caribou close to town, ice terrain is low mostly young ice formed this fall.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_description": "Calm",
+        "wind_direction": "SE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_type": [
+        "Young ice"
+      ],
+      "lead": {
+        "lead_condition": "Young ice covering lead",
+        "distance_to_lead_min": 2.414,
+        "distance_to_lead_max": 2.414
+      },
+      "pack_ice": {
+        "distance_to_pack_ice_min": 16.093,
+        "distance_to_pack_ice_max": 16.093
+      },
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Caribou",
+        "description": "Major subsistence",
+        "latin_name": "Rangifer tarandus",
+        "classification": "Terrestrial Mammals",
+        "status": "Taken"
+      }
+    ],
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6109,
+    "identifier": "UTQAD1801161127",
+    "obs_date": "2018-01-16",
+    "obs_time": "11:27",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Browerville"
+    ],
+    "observation_text": "Location in front of Browerville, partly cloudy, temperature 5f hot, south east winds 5 mph, south currents 2 mph, and visibility to 8 miles. The young ice is rubbing in and currents maybe too fast for casting the ctd? Didn't want to take a chance of losing it today.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Partly cloudy",
+      "wind": {
+        "wind_speed_min": 2.235,
+        "wind_speed_max": 2.235,
+        "wind_direction": "SE"
+      },
+      "visibility": {
+        "visibility_min": 12.875,
+        "visibility_max": 12.875,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -15,
+      "air_temperature_max": -15
+    },
+    "ice_ocean": {
+      "ice_type": [
+        "Young ice"
+      ],
+      "ocean_current": {
+        "ocean_current_direction": "S"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6144,
+    "identifier": "UTQLE180115",
+    "obs_date": "2018-01-15",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Open water is only 1.5 miles out in front of Barrow but further out about 8 miles to the SW side. Seal hunters catching seals, polar bear report at duck camp.  Ice pack can be seen to the North of Barrow. Young ice has covered up the open water.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "lead": {
+        "lead_condition": "Young ice covering lead",
+        "distance_to_lead_min": 2.414,
+        "distance_to_lead_max": 12.875
+      },
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice visible from shore"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Seal",
+        "description": "Major subsistence",
+        "latin_name": "",
+        "classification": "Marine Mammals",
+        "status": "Taken"
+      },
+      {
+        "name": "Polar bear",
+        "description": "Major subsistence",
+        "latin_name": "Ursus maritimus",
+        "classification": "Terrestrial Mammals",
+        "status": "Sighted"
+      }
+    ],
+    "activities": {
+      "hunting": true,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6106,
+    "identifier": "UTQAD1801151158",
+    "obs_date": "2018-01-15",
+    "obs_time": "11:58",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Browerville"
+    ],
+    "observation_text": "Location in front of Browerville, temperature -1f, light winds, partly cloudy, light south currents, and visibility getting better each day. Carl is helping me out with the casts.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Partly cloudy",
+      "wind": {
+        "wind_speed_description": "Light"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -18.333,
+      "air_temperature_max": -18.333
+    },
+    "ice_ocean": {
+      "ocean_current": {
+        "ocean_current_strength": "Weak",
+        "ocean_current_direction": "S"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6105,
+    "identifier": "UTQAD1801141057",
+    "obs_date": "2018-01-14",
+    "obs_time": "10:57",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "observation_text": "Location in front of town, temperature -2f, light winds, dark, no currents. Did another cast today.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "wind": {
+        "wind_speed_description": "Light"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -18.889,
+      "air_temperature_max": -18.889
+    },
+    "ice_ocean": {
+      "ocean_current": {
+        "ocean_current_strength": "None"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6104,
+    "identifier": "UTQAD1801131409",
+    "obs_date": "2018-01-13",
+    "obs_time": "14:09",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "observation_text": "Location Cake eater, clear, temperature -8f, east winds to 15 mph, and visibility to 8 miles. Did not go on ice was foggy in the morning but you can see it has changed.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Clear",
+      "wind": {
+        "wind_speed_min": 6.706,
+        "wind_speed_max": 6.706,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 12.875,
+        "visibility_max": 12.875,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -22.222,
+      "air_temperature_max": -22.222
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6103,
+    "identifier": "UTQAD1801121342",
+    "obs_date": "2018-01-12",
+    "obs_time": "13:42",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.3566,
+      "lon": -156.536,
+      "source": "Niksiuraq"
+    },
+    "locations": [
+      "Niksiuraq"
+    ],
+    "observation_text": "Location Niksiuraq, temperature -6f, east winds calm down to 8 mph, skies clearing up, and visibility up now to 5 miles. Location in front of town. This is where I did a ctd cast and it is in the drop box already, it was not so deep here. ",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 3.576,
+        "wind_speed_max": 3.576,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 8.047,
+        "visibility_max": 8.047,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -21.111,
+      "air_temperature_max": -21.111
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6143,
+    "identifier": "UTQLE180111",
+    "obs_date": "2018-01-11",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "9 at ESE. Open lead is thin but is 8-10 miles out. Water smoke things out to the SW side and wider to the NE side. Caribou very close to town. All young ice, no sign of older ice ridges. Still here (staying intact). Ice fog is not too heavy (cloudy).",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "sky": "Cloudy",
+      "wind": {
+        "wind_speed_min": 4.023,
+        "wind_speed_max": 4.023,
+        "wind_direction": "ESE"
+      },
+      "visibility": {
+        "ice_fog": true,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_type": [
+        "Young ice"
+      ],
+      "lead": {
+        "lead_condition": "Frost smoke visible",
+        "distance_to_lead_min": 12.875,
+        "distance_to_lead_max": 16.093
+      },
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Caribou",
+        "description": "Major subsistence",
+        "latin_name": "Rangifer tarandus",
+        "classification": "Terrestrial Mammals",
+        "status": "Sighted"
+      }
+    ],
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6102,
+    "identifier": "UTQAD1801111211",
+    "obs_date": "2018-01-11",
+    "obs_time": "12:11",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "observation_text": "Location out of Utqiagvik, temperature -8f,light east winds, overcast, and visibility to 2 miles. Found a good safe spot here. ",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Overcast",
+      "wind": {
+        "wind_speed_description": "Light",
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 3.219,
+        "visibility_max": 3.219,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -22.222,
+      "air_temperature_max": -22.222
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6142,
+    "identifier": "UTQLE180109",
+    "obs_date": "2018-01-09",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "-18, SE. Water smoke is thick and can be seen on the NNE side. Show lots of water, shore fast still here.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_direction": "SE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -27.778,
+      "air_temperature_max": -27.778
+    },
+    "ice_ocean": {
+      "lead": {
+        "lead_condition": "Frost smoke visible"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6083,
+    "identifier": "UTQAD1801091235",
+    "obs_date": "2018-01-09",
+    "obs_time": "12:35",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.33333,
+      "lon": -156.7667,
+      "source": "NARL"
+    },
+    "locations": [
+      "NARL"
+    ],
+    "observation_text": "Location NARL looking towards Utqiagvik, temperature -17, south east winds 4 mph, overcast with visibility to 4 miles. There is good ice till about 700 yards out then this young stuff that got left behind. So we will wait till it gets harder and thicker maybe in 1 week or so, then get back on and rebuild trails.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": true,
+    "email_communication": true,
+    "weather": {
+      "sky": "Overcast",
+      "wind": {
+        "wind_speed_min": 1.788,
+        "wind_speed_max": 1.788,
+        "wind_direction": "SE"
+      },
+      "visibility": {
+        "visibility_min": 6.437,
+        "visibility_max": 6.437,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -27.222,
+      "air_temperature_max": -27.222
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Polar bear",
+        "description": "Major subsistence",
+        "latin_name": "Ursus maritimus",
+        "classification": "Terrestrial Mammals",
+        "status": "Sighted"
+      }
+    ],
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6141,
+    "identifier": "UTQLE180108",
+    "obs_date": "2018-01-08",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "E, -7. Open water still 8-10 miles out, shore fast still in tact.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -21.667,
+      "air_temperature_max": -21.667
+    },
+    "ice_ocean": {
+      "lead": {
+        "distance_to_lead_min": 12.875,
+        "distance_to_lead_max": 16.093
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6082,
+    "identifier": "UTQAD1801081456",
+    "obs_date": "2018-01-08",
+    "obs_time": "14:56",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.2829,
+      "lon": -156.81,
+      "source": "Amafnaat (Gravel Pit)"
+    },
+    "locations": [
+      "Amafnaat (Gravel Pit)"
+    ],
+    "observation_text": " Location Gravel Pit, east winds picking up along with blowing snow 20 mph, clear skies, temperature warmed up to -12f, and visibility is about 3 miles. Getting brighter each day and we can't wait to get out to the lead!",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Blowing/drifting snow",
+      "sky": "Clear",
+      "wind": {
+        "wind_speed_min": 8.941,
+        "wind_speed_max": 8.941,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 4.828,
+        "visibility_max": 4.828,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -24.444,
+      "air_temperature_max": -24.444
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6140,
+    "identifier": "UTQLE180107",
+    "obs_date": "2018-01-07",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Shore fast ice has now stabilized a few tall ridges can be seen 3mi from the beach, open water is about 8-10 miles out, no sign of older ice. Still 1st year ice. Hopefully shore fast will stay and build up more, thicken up. Daylight is now longer cold and clear skies.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "sky": "Clear",
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_event": "Ice ridging event",
+      "ice_type": [
+        "First year ice only"
+      ],
+      "lead": {
+        "distance_to_lead_min": 12.875,
+        "distance_to_lead_max": 16.093
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6081,
+    "identifier": "UTQAD1801071348",
+    "obs_date": "2018-01-07",
+    "obs_time": "13:48",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.2829,
+      "lon": -156.81,
+      "source": "Amafnaat (Gravel Pit)"
+    },
+    "locations": [
+      "Amafnaat (Gravel Pit)"
+    ],
+    "observation_text": "Location Gravel Pit, east winds 20 mph, clear skies, temperature -13f, visibility to 3 miles. The lead is very tempting to get to but it is still blowing just enough to keep us off it.",
+    "instructional_value": true,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Clear",
+      "wind": {
+        "wind_speed_min": 8.941,
+        "wind_speed_max": 8.941,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 4.828,
+        "visibility_max": 4.828,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -25,
+      "air_temperature_max": -25
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6080,
+    "identifier": "UTQAD1801061137",
+    "obs_date": "2018-01-06",
+    "obs_time": "11:37",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Napa"
+    ],
+    "observation_text": " Location NAPA, temperature has dropped to -15f with east winds 20mph, clear skies, some ground blowing snow but not much, and visibility to 3 miles. The open lead is about 1/4 mile out but we not going on the ice till after the blow calms.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Blowing/drifting snow",
+      "sky": "Clear",
+      "wind": {
+        "wind_speed_min": 8.941,
+        "wind_speed_max": 8.941,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 4.828,
+        "visibility_max": 4.828,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -26.111,
+      "air_temperature_max": -26.111
+    },
+    "ice_ocean": {
+      "lead": {
+        "distance_to_lead_min": 0.402,
+        "distance_to_lead_max": 0.402
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6079,
+    "identifier": "UTQAD1801051406",
+    "obs_date": "2018-01-05",
+    "obs_time": "14:06",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Napa"
+    ],
+    "observation_text": "Location NAPA, fog, temperature -3f, north east winds 5-10 mph, overcast, limited visibility and light snow. Can't tell if there is open water but I can tell that the ice will be safe to be on soon.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": true,
+    "email_communication": true,
+    "weather": {
+      "precipitation": "Light snow",
+      "sky": "Overcast",
+      "wind": {
+        "wind_speed_min": 2.235,
+        "wind_speed_max": 4.47,
+        "wind_direction": "NE"
+      },
+      "visibility": {
+        "visibility": "Limited",
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -19.444,
+      "air_temperature_max": -19.444
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6139,
+    "identifier": "UTQLE180103",
+    "obs_date": "2018-01-03",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "NW at 10. Ice has stayed but still young ice. Polar bear report in town but not taken.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 4.47,
+        "wind_speed_max": 4.47,
+        "wind_direction": "NW"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_type": [
+        "Young ice"
+      ],
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Polar bear",
+        "description": "Major subsistence",
+        "latin_name": "Ursus maritimus",
+        "classification": "Terrestrial Mammals",
+        "status": "Sighted"
+      }
+    ],
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6077,
+    "identifier": "UTQAD1801031300",
+    "obs_date": "2018-01-03",
+    "obs_time": "13:00",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "observation_text": "Location Oliver Leavitts area, south winds 5 mph, temperature 9f, light snow and overcast. The lead is iced over and we are not hunting on it.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "precipitation": "Light snow",
+      "sky": "Overcast",
+      "wind": {
+        "wind_speed_min": 2.235,
+        "wind_speed_max": 2.235,
+        "wind_direction": "S"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -12.778,
+      "air_temperature_max": -12.778
+    },
+    "ice_ocean": {
+      "lead": {
+        "lead_condition": "Young ice covering lead"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6101,
+    "identifier": "UTQLE171231",
+    "obs_date": "2017-12-31",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Shorefast has stayed intact, but no ridges have build up yet.  Open water is 1.5 miles out, ice pack is still close by only about ¼ mile of water is open, daylight is more noticible, twilight getting longer and longer",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": true,
+    "email_communication": false,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_feature": "Little or no ridging",
+      "shorefast_ice": {
+        "shorefast_ice_condition": [
+          "Stationary ice along shore"
+        ]
+      },
+      "lead": {
+        "distance_to_lead_min": 2.414,
+        "distance_to_lead_max": 2.414
+      },
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice near shore"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6076,
+    "identifier": "UTQAD1712311135",
+    "obs_date": "2017-12-31",
+    "obs_time": "11:35",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "observation_text": "The red moon",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6100,
+    "identifier": "UTQLE171230",
+    "obs_date": "2017-12-30",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Polynia’s are now ice covered but dark no sign of any open water",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "lead": {
+        "lead_condition": "Young ice covering lead"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6078,
+    "identifier": "UTQAD1712301308",
+    "obs_date": "2017-12-30",
+    "obs_time": "13:08",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "observation_text": "",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6099,
+    "identifier": "UTQLE171229",
+    "obs_date": "2017-12-29",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Ice is moving to the NE. Polynia’s can be seen 1-2 miles out.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_direction": "NE",
+      "lead": {
+        "distance_to_lead_min": 1.609,
+        "distance_to_lead_max": 3.219
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6075,
+    "identifier": "UTQAD1712291128",
+    "obs_date": "2017-12-29",
+    "obs_time": "11:28",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Nunavaaq Bay"
+    ],
+    "observation_text": "Location 3 miles south west of Barrow about 1/4 mile out from Nunavaaq, temperature 7f, light winds dark, and visibility to 4 miles looking towards Utqiagvik. It has been warm this month. The ice sort of got planted in on the beach from last week we had west winds and it brought in ice and this week we had east winds that blew about 25 mph and it held up!",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "wind": {
+        "wind_speed_description": "Light"
+      },
+      "visibility": {
+        "visibility_min": 6.437,
+        "visibility_max": 6.437,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -13.889,
+      "air_temperature_max": -13.889
+    },
+    "ice_ocean": {
+      "lead": {
+        "distance_to_lead_min": 0.402,
+        "distance_to_lead_max": 0.402
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6098,
+    "identifier": "UTQLE171227",
+    "obs_date": "2017-12-27",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "No water today, just ice.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice all packed in"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6097,
+    "identifier": "UTQLE171225",
+    "obs_date": "2017-12-25",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Ice has finally come in and filled in the beach with ice.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice pushed against shore"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6096,
+    "identifier": "UTQLE171221",
+    "obs_date": "2017-12-21",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "SW@30, 34°. Heavy slush on the beach and high surf.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 13.411,
+        "wind_speed_max": 13.411,
+        "wind_direction": "SW"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": 1.111,
+      "air_temperature_max": 1.111
+    },
+    "ice_ocean": {
+      "ice_feature": "Slush ice freezing on beach",
+      "ice_type": [
+        "Slush ice"
+      ],
+      "open_water_condition": "Heavy surf",
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6095,
+    "identifier": "UTQLE171220",
+    "obs_date": "2017-12-20",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "SW. Wind has died down and shifted to SW. Ice pans can be seen mostly to the NE side. Slush ice is now on the beach.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_direction": "SW"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "ice_feature": "Slush ice freezing on beach",
+      "ice_type": [
+        "Slush ice"
+      ],
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice visible from shore"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6094,
+    "identifier": "UTQLE171219",
+    "obs_date": "2017-12-19",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Blowing snow",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "conditions": "Blowing/drifting snow",
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6093,
+    "identifier": "UTQLE171218",
+    "obs_date": "2017-12-18",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "ENE. Open water still at the beach. Lots of water smoke over the ocean",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_direction": "ENE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "shorefast_ice": {
+        "shorefast_ice_condition": [
+          "Water along the beach"
+        ]
+      },
+      "lead": {
+        "lead_condition": "Frost smoke visible"
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6092,
+    "identifier": "UTQLE171216",
+    "obs_date": "2017-12-16",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "NE25, -6°. Open water still at the beach. Ice pans going by.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 11.176,
+        "wind_speed_max": 11.176,
+        "wind_direction": "NE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -21.111,
+      "air_temperature_max": -21.111
+    },
+    "ice_ocean": {
+      "shorefast_ice": {
+        "shorefast_ice_condition": [
+          "Beach is ice-free"
+        ]
+      },
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice visible from shore"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6091,
+    "identifier": "UTQLE171215",
+    "obs_date": "2017-12-15",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "Wind still blowing, Ice berg’s starting to stay on the beach but smaller ones float on by, cloudy not very good visibility.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "sky": "Cloudy",
+      "visibility": {
+        "visibility": "Limited",
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice pushed against shore"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6090,
+    "identifier": "UTQLE171214",
+    "obs_date": "2017-12-14",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "28@ENE, 3°.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 12.517,
+        "wind_speed_max": 12.517,
+        "wind_direction": "ENE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -16.111,
+      "air_temperature_max": -16.111
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6089,
+    "identifier": "UTQLE171213",
+    "obs_date": "2017-12-13",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "ENE@33, 5°. Ice floes going to the SW, still no shorefast intact near Brw, seal hunters have taken seals near the Point, still windy.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_description": "Strong",
+        "wind_speed_min": 14.752,
+        "wind_speed_max": 14.752,
+        "wind_direction": "ENE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -15,
+      "air_temperature_max": -15
+    },
+    "ice_ocean": {
+      "ice_direction": "SW",
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Seal",
+        "description": "Major subsistence",
+        "latin_name": "",
+        "classification": "Marine Mammals",
+        "status": "Taken"
+      }
+    ],
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6088,
+    "identifier": "UTQLE171212",
+    "obs_date": "2017-12-12",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "ENE@28, 2°.Blow snow all over even in town.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "conditions": "Blowing/drifting snow",
+      "wind": {
+        "wind_speed_min": 12.517,
+        "wind_speed_max": 12.517,
+        "wind_direction": "ENE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -16.667,
+      "air_temperature_max": -16.667
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6087,
+    "identifier": "UTQLE171211",
+    "obs_date": "2017-12-11",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "NE@28, 4°. Ice pans can be seen near the beach, young ice is near the beach.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 12.517,
+        "wind_speed_max": 12.517,
+        "wind_direction": "NE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -15.556,
+      "air_temperature_max": -15.556
+    },
+    "ice_ocean": {
+      "ice_type": [
+        "Young ice"
+      ],
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6045,
+    "identifier": "UTQAD1712101340",
+    "obs_date": "2017-12-10",
+    "obs_time": "13:40",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.3459,
+      "lon": -156.6058,
+      "source": "Piqniq (Duck Camp)"
+    },
+    "locations": [
+      "Piqniq (Duck Camp)"
+    ],
+    "observation_text": "Location Pigniq, east winds 20 mph, temperature 0 F, ground blowing snow, and visibility to 3/4 mile. Some pans of ice make it to the shore from this point northward at least!",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Blowing/drifting snow",
+      "wind": {
+        "wind_speed_min": 8.941,
+        "wind_speed_max": 8.941,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 1.207,
+        "visibility_max": 1.207,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -17.778,
+      "air_temperature_max": -17.778
+    },
+    "ice_ocean": {
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice near shore"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6048,
+    "identifier": "NOMJO171205",
+    "obs_date": "2017-12-05",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Frank Johnson",
+    "locations": [
+      "Nome"
+    ],
+    "observation_text": "There have been about 8-10 Seals sleeping in the Nome harbor on the river ice mostly at night time.  Those dark spots are all seals.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Seal",
+        "description": "Major subsistence",
+        "latin_name": "",
+        "classification": "Marine Mammals",
+        "status": "Sighted"
+      }
+    ],
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6086,
+    "identifier": "UTQLE171204",
+    "obs_date": "2017-12-04",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "10@NE, 10°",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 4.47,
+        "wind_speed_max": 4.47,
+        "wind_direction": "NE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -12.222,
+      "air_temperature_max": -12.222
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6044,
+    "identifier": "UTQAD1712040831",
+    "obs_date": "2017-12-04",
+    "obs_time": "08:31",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Browerville"
+    ],
+    "observation_text": "Location Browerville looking west and at the moon, temperature 7f, east winds 25 mph, cloudy and dark, and visibility 40,000 miles?( how far is the moon?) there is still open water all the way to the beach from Pt. Barrow west. It has been windy all weekend and warm. ",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Cloudy",
+      "wind": {
+        "wind_speed_min": 11.176,
+        "wind_speed_max": 11.176,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -13.889,
+      "air_temperature_max": -13.889
+    },
+    "ice_ocean": {
+      "shorefast_ice": {
+        "shorefast_ice_condition": [
+          "Beach is ice-free"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6085,
+    "identifier": "UTQLE171202",
+    "obs_date": "2017-12-02",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "E@22, 8°. Pans on ice can be seen close to the beach 2-3 mi out. Low visibility.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "wind": {
+        "wind_speed_min": 9.835,
+        "wind_speed_max": 9.835,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility": "Limited",
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "pack_ice": {
+        "distance_to_pack_ice_min": 3.219,
+        "distance_to_pack_ice_max": 4.828
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6108,
+    "identifier": "PT.LA171201",
+    "obs_date": "2017-12-01",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Jack Lane",
+    "locations": [
+      "Pt. Hope"
+    ],
+    "observation_text": "The beginning of December was harsh until the 14th. No ice on North side, not much snow. 5 to 2 inches about, than build up again. South side beach no ice, beach has a dip. Land washing away on south and north side. First ice forming over since the 14th.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": true,
+    "email_communication": false,
+    "weather": {
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6084,
+    "identifier": "UTQLE171201",
+    "obs_date": "2017-12-01",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "E@7, 2°. Fog still over the ocean",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "conditions": "Fog",
+      "wind": {
+        "wind_speed_min": 3.129,
+        "wind_speed_max": 3.129,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -16.667,
+      "air_temperature_max": -16.667
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6043,
+    "identifier": "UTQAD1712011132",
+    "obs_date": "2017-12-01",
+    "obs_time": "11:32",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.388889,
+      "lon": -156.479167,
+      "source": "Nuvuk (Pt. Barrow)"
+    },
+    "locations": [
+      "Nuvuk (Pt. Barrow)"
+    ],
+    "observation_text": "Location Nuvuk, east winds 15 mph, temperature -1f, fog, low clouds and visibility to 1/4 mile. Saw a large bear and we have shore fast ice at Nuvuk now.  Nuvuk looking south west. Lots of open water this way! No seals around as the pack ice is another 1/2 mile out or so.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Fog",
+      "sky": "Cloudy",
+      "wind": {
+        "wind_speed_min": 6.706,
+        "wind_speed_max": 6.706,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 0.402,
+        "visibility_max": 0.402,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -18.333,
+      "air_temperature_max": -18.333
+    },
+    "ice_ocean": {
+      "ice_cycle": "First shorefast ice",
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice visible from shore"
+        ],
+        "distance_to_pack_ice_min": 0.805,
+        "distance_to_pack_ice_max": 0.805
+      },
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Polar bear",
+        "description": "Major subsistence",
+        "latin_name": "Ursus maritimus",
+        "classification": "Terrestrial Mammals",
+        "status": "Sighted"
+      }
+    ],
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6074,
+    "identifier": "UTQLE171130",
+    "obs_date": "2017-11-30",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "6°. Very low fog, over ocean, hard to tell where ice is.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "conditions": "Fog",
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -14.444,
+      "air_temperature_max": -14.444
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6042,
+    "identifier": "UTQAD1711301301",
+    "obs_date": "2017-11-30",
+    "obs_time": "13:01",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.3459,
+      "lon": -156.6058,
+      "source": "Piqniq (Duck Camp)"
+    },
+    "locations": [
+      "Piqniq (Duck Camp)"
+    ],
+    "observation_text": "Location Pigniq looking north west, temperature 5f, east winds 5-10 mph, overcast , fog, low clouds, light snow falling, and visibility to about 1/2-3/4 mile? Hard to look out into ocean but easy to look towards the tundra. You can see the ice in the distance going south very slow. Last day of November its Christmas Season! And no shore ice !",
+    "instructional_value": false,
+    "unusual_condition_situation": true,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Fog",
+      "precipitation": "Light snow",
+      "sky": "Overcast",
+      "wind": {
+        "wind_speed_min": 2.235,
+        "wind_speed_max": 4.47,
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility_min": 0.805,
+        "visibility_max": 1.207,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -15,
+      "air_temperature_max": -15
+    },
+    "ice_ocean": {
+      "ice_direction": "S",
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6073,
+    "identifier": "UTQLE171129",
+    "obs_date": "2017-11-29",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "NE, 14°. Large pans can be seen, young ice has formed over ocean. Still cloudy.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "sky": "Cloudy",
+      "wind": {
+        "wind_direction": "NE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -10,
+      "air_temperature_max": -10
+    },
+    "ice_ocean": {
+      "ice_type": [
+        "Large ice floes in sight",
+        "Young ice"
+      ],
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice visible from shore"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6041,
+    "identifier": "UTQAD1711291254",
+    "obs_date": "2017-11-29",
+    "obs_time": "12:54",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "locations": [
+      "Narl Runway"
+    ],
+    "observation_text": "Location NARL Runway, north east winds 20 mph, overcast, snow and blowing snow, temperature 8f, visibility to 3 miles, and ice is going south west getting closer to shore now.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Blowing/drifting snow",
+      "precipitation": "Snow",
+      "wind": {
+        "wind_speed_min": 8.941,
+        "wind_speed_max": 8.941,
+        "wind_direction": "NE"
+      },
+      "visibility": {
+        "visibility_min": 4.828,
+        "visibility_max": 4.828,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -13.333,
+      "air_temperature_max": -13.333
+    },
+    "ice_ocean": {
+      "ice_direction": "SW",
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6072,
+    "identifier": "UTQLE171128",
+    "obs_date": "2017-11-28",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "E, 11°. Snow falling, young ice still on the beach. Low visibility. Skies clear up late afternoon, ice pan’s can be see 5-8 miles out. Moon is out, nice to finally see it.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "precipitation": "Snow",
+      "wind": {
+        "wind_direction": "E"
+      },
+      "visibility": {
+        "visibility": "Limited",
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -11.667,
+      "air_temperature_max": -11.667
+    },
+    "ice_ocean": {
+      "ice_type": [
+        "Young ice"
+      ],
+      "shorefast_ice": {
+        "shorefast_ice_condition": [
+          "Young ice beginning to form along beach"
+        ]
+      },
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice visible from shore"
+        ],
+        "distance_to_pack_ice_min": 8.047,
+        "distance_to_pack_ice_max": 12.875
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6040,
+    "identifier": "UTQAD1711281056",
+    "obs_date": "2017-11-28",
+    "obs_time": "10:56",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.33333,
+      "lon": -156.7667,
+      "source": "NARL"
+    },
+    "locations": [
+      "NARL"
+    ],
+    "observation_text": "Location NARL, north east winds 20-25 mph, temperature 7f, warm, blowing snow, visibility to 1/2 mile, slush ice or new young ice offshore going south, and dark.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "conditions": "Blowing/drifting snow",
+      "precipitation": "Snow",
+      "wind": {
+        "wind_speed_min": 8.941,
+        "wind_speed_max": 11.176,
+        "wind_direction": "NE"
+      },
+      "visibility": {
+        "visibility_min": 0.805,
+        "visibility_max": 0.805,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -13.889,
+      "air_temperature_max": -13.889
+    },
+    "ice_ocean": {
+      "ice_direction": "S",
+      "ice_type": [
+        "Slush ice",
+        "Young ice"
+      ],
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6071,
+    "identifier": "UTQLE171127",
+    "obs_date": "2017-11-27",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "1°, calm. Ocean now covered with Qinu (young ice) few large pans but young ice is more noticiable, still cloudy.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "sky": "Cloudy",
+      "wind": {
+        "wind_speed_description": "Calm"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -17.222,
+      "air_temperature_max": -17.222
+    },
+    "ice_ocean": {
+      "local_sea_ice_terms": [
+        {
+          "local_term": "qinu"
+        }
+      ],
+      "ice_type": [
+        "Large ice floes in sight",
+        "Young ice"
+      ],
+      "pack_ice": {
+        "pack_ice_condition": [
+          "Pack ice visible from shore"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6070,
+    "identifier": "UTQLE171126",
+    "obs_date": "2017-11-26",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "NE@4, clear, -4°. Lots of water smoke, colder temperture today. No visibility on ocean, very low fog.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "conditions": "Fog",
+      "sky": "Clear",
+      "wind": {
+        "wind_speed_min": 1.788,
+        "wind_speed_max": 1.788,
+        "wind_direction": "NE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -20,
+      "air_temperature_max": -20
+    },
+    "ice_ocean": {
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6039,
+    "identifier": "UTQAD1711261043",
+    "obs_date": "2017-11-26",
+    "obs_time": "10:43",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.388889,
+      "lon": -156.479167,
+      "source": "Nuvuk (Pt. Barrow)"
+    },
+    "locations": [
+      "Nuvuk (Pt. Barrow)"
+    ],
+    "observation_text": "Location Nuvuk, temperature -4f! burrrr, freezing waters, young ice going west now, our spot at Plover froze over, wave were pounding from winds shifting to North east. No seal hunting today.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "wind": {
+        "wind_direction": "NE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -20,
+      "air_temperature_max": -20
+    },
+    "ice_ocean": {
+      "ice_direction": "W",
+      "ice_type": [
+        "Young ice"
+      ],
+      "ice_cycle": "Start freeze up on ocean",
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6069,
+    "identifier": "UTQLE171125",
+    "obs_date": "2017-11-25",
+    "obs_time": "",
+    "recorder": "Josh Jones",
+    "observer": "Joe Leavitt",
+    "observation_text": "NE calm. Very young ice forms on the beach. Ice thicker to the NE side, still cloudy.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": false,
+    "weather": {
+      "sky": "Cloudy",
+      "wind": {
+        "wind_speed_description": "Calm",
+        "wind_direction": "NE"
+      },
+      "visibility": {
+        "ice_fog": false,
+        "mirage": false
+      }
+    },
+    "ice_ocean": {
+      "shorefast_ice": {
+        "shorefast_ice_condition": [
+          "Young ice beginning to form along beach"
+        ]
+      },
+      "dark_sky_visible": false
+    },
+    "activities": {
+      "hunting": false,
+      "fishing": false
+    }
+  },
+  {
+    "sizonet_id": 6038,
+    "identifier": "UTQAD1711251235",
+    "obs_date": "2017-11-25",
+    "obs_time": "12:35",
+    "recorder": "Josh Jones",
+    "observer": "Billy Adams",
+    "geo_coordinates": {
+      "lat": 71.3599,
+      "lon": -156.3584,
+      "source": "Plover Point"
+    },
+    "locations": [
+      "Plover Point"
+    ],
+    "observation_text": "Location Plover Point, temperature 18f, south east winds 15 mph, very slow currents going west, some clearing skies, and visibility to 3 miles. Eider ducks, various gulls, and seals are in the area.",
+    "instructional_value": false,
+    "unusual_condition_situation": false,
+    "historic_observation": false,
+    "local_knowledge": false,
+    "email_communication": true,
+    "weather": {
+      "sky": "Partly cloudy",
+      "wind": {
+        "wind_speed_min": 6.706,
+        "wind_speed_max": 6.706,
+        "wind_direction": "SE"
+      },
+      "visibility": {
+        "visibility_min": 4.828,
+        "visibility_max": 4.828,
+        "ice_fog": false,
+        "mirage": false
+      },
+      "air_temperature_min": -7.778,
+      "air_temperature_max": -7.778
+    },
+    "ice_ocean": {
+      "ocean_current": {
+        "ocean_current_strength": "Weak",
+        "ocean_current_direction": "W"
+      },
+      "dark_sky_visible": false
+    },
+    "wildlife": [
+      {
+        "name": "Seal",
+        "description": "Major subsistence",
+        "latin_name": "",
+        "classification": "Marine Mammals",
+        "status": "Taken"
+      },
+      {
+        "name": "Eider",
+        "description": "Major subsistence",
+        "latin_name": "",
+        "classification": "Birds",
+        "status": "Sighted"
+      },
+      {
+        "name": "Gull",
+        "description": "Local/migratory",
+        "latin_name": "",
+        "classification": "Birds",
+        "status": "Sighted"
+      }
+    ],
+    "activities": {
+      "hunting": true,
+      "fishing": false
+    }
+  }
+]
+}
+
+
+// The TL.Timeline constructor takes at least two arguments:
+// the id of the Timeline container (no '#'), and
+// the URL to your JSON data file or Google spreadsheet.
+// the id must refer to an element "above" this code,
+// and the element must have CSS styling to give it width and height
+// optionally, a third argument with configuration options can be passed.
+// See below for more about options.
+
+raw_eloka = get_data()
+var processed_eloka = _.map(raw_eloka, (e) => {
+  var has_time = false
+ if(e.obs_time) {
+   has_time = true
+   var m = moment(e.obs_date + ' ' + e.obs_time, 'YYYY-MM-DD HH:mm')
+ } else {
+   var m = moment(e.obs_date, 'YYYY-MM-DD')
+ }
+ console.log("moment sees", m.format('YYYY-MM-DD HH:mm'))
+ console.log("we had", e.obs_date, e.obs_time)
+
+ if(e.locations) {
+   var recorded_location = e.locations[0] ? e.locations[0] : null
+ } else {
+   recorded_location = null
+ }
+ location_string = recorded_location ? '<h1>' + recorded_location + '</h1>' : ''
+
+ headline_template = `
+<%= location %>
+<h2 class="observer"><%= observer %></h2>
+`
+text_template = `
+<div class="weather"><%= weather %></div>
+<p><%= observation %></p>
+`
+
+headline_date = has_time ? m.format('dddd, MMMM Do YYYY, h:mm a') : m.format('dddd, MMMM Do YYYY')
+headline = _.template(headline_template)({
+  location: location_string,
+  observer: e.observer
+})
+
+function format_wind(wind) {
+  let wind_string = ''
+  if(!wind) { return wind_string }
+  if(wind.wind_speed_min) {
+    wind_string += wind.wind_speed_min
+  }
+  if(wind.wind_direction) {
+    if(wind_string) {
+      wind_string += ' '
+    }
+    wind_string += wind.wind_direction
+  }
+  return wind_string
+}
+
+function format_temp(temperature) {
+  if(!temperature) { console.log("WHAT ", temperature) }
+
+  return 'Temperature ' + Math.floor(((1.8 * e.weather.air_temperature_min) + 32)) + '&deg;F'
+}
+
+weather_string = null
+if (e.weather.wind && e.weather.air_temperature_min) {
+  weather_string = _.template(`
+<h3><%= temperature %>, winds <%= wind %></h3>
+  `)({
+    wind: format_wind(e.weather.wind),
+    temperature: format_temp(e.weather.air_temperature_min)
+  })
+} else if (e.weather.wind) {
+  weather_string = _.template(`
+<h3>Winds <%= wind %></h3>
+  `)({
+    wind: format_wind(e.weather.wind)
+  })
+} else if (e.weather.air_temperature_min) {
+  weather_string = _.template(`
+<h3>temperature <%= temperature %></h3>
+  `)({
+    temperature: format_temp(e.weather.air_temperature_min)
+  })
+}
+text = _.template(text_template)({
+  observation: e.observation_text,
+  weather: weather_string
+})
+console.log('moment', m)
+let start_date = {
+    year: m.format('YYYY'),
+    month: m.format('M'),
+    day: m.format('D'),
+  }
+
+if(has_time) {
+  _.extend(start_date, {
+    hour: m.format('H'),
+    minute: m.format('m')
+  })
+}
+console.log("start_date", start_date)
+ var k = {
+   start_date: start_date,
+   text: {
+     headline: headline,
+     text: text
+   }
+ }
+ return k
+})
+
+timeline = new TL.Timeline('timeline-embed', {
+ events: processed_eloka
+});
+
+</script>
+</body>
+</html>

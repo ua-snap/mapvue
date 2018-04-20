@@ -96,35 +96,43 @@ export default {
       },
       layers: [
         {
-          'abstract': 'Placeholder for observations from ELOKA',
+          'abstract': '<p>Local observers in coastal communities provide observations on sea ice, weather, wildlife, and subsistence activities throughout the year, particularly in relation to the seasonal cycle. Participating communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqiagvik, and Wales.</p><p>Visit the <a target="_blank"  href="https://eloka-arctic.org">ELOKA</a> web site for more information about observations.</p>',
           'name': 'observations',
           'title': 'Observations',
           'legend': false,
           'local': true
         },
         {
-          'abstract': 'TBD',
+          'abstract': `
+            <p>The Utqiagvik marine radar is mounted on top of the 4-story bank building in downtown Utqiagvik. It detects sea ice up to 6 miles out and acquires a new image every 5 minutes for near real-time results. Ice appears white in the image due to the radar signals reflecting off it. Ridges in the sea ice also appear as bright linear objects, but buildings, fences, and cars on the land can also return strong signals. Darker regions in the image can indicate open water, smooth ice, or shadows.</p>
+            <p><a target="_blank" href="http://seaice.alaska.edu/gi/observatories/barrow_radar">Access and learn more about this data</a>.</p>`,
           'name': 'aaokh:barrow_radar',
-          'title': 'Barrow Sea Ice Radar',
+          'title': 'Utqia&#289;vik Marine Radar',
           'legend': false
         },
         {
-          'abstract': 'TBD',
+          'abstract': '<p>Trails built by Utqia&#289;vik whaling crews for the 2017 spring whaling season were mapped by Matthew Druckenmiller (National Snow and Ice Data Center) and Josh Jones (UAF Geophysical Institute) in late April 2017.</p>',
           'name': 'aaokh:whaling_trails',
-          'title': 'Whaling Trails (2017)',
+          'title': 'Spring 2017 Whaling Trails',
           'legend': false
         },
         {
-          'abstract': 'TBD',
+          'abstract': '<p>Produced by the National Ice Center and updated daily, this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds. </p><p>Find more information at the <a target="_blank" href="http://www.natice.noaa.gov/products/daily_products.html">National Ice Center</a> and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View</a> web site.</p>',
           'name': 'aaokh:sea_ice_extent',
           'title': 'Sea Ice Extent',
           'legend': true
         },
         {
-          'abstract': 'TBD',
+          'abstract': '<p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt">NASA AMSR-2 near-real-time data products page</a>, and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View web site</a>.</p>',
           'name': 'aaokh:sea_ice_concentration',
           'title': 'Sea Ice Concentration',
           'legend': true
+        },
+        {
+          'abstract': '<p>Synthetic Aperture Radar (SAR) image from Sentinel-1 satellite acquired on May 1, 2017. SAR is an active microwave remote sensing platform, particularly useful in Alaska due to its ability to penetrate clouds and acquire images during the day or night.</p><p>Learn about and access SAR data from the <a target="_blank"  href="https://vertex.daac.asf.alaska.edu">Alaska Satellite Facility</a> data portal.</p>',
+          'name': 'aaokh:Sentinel1A_01May2017_overviews_transparent',
+          'title': 'Sentinel-1 SAR image',
+          'legend': false
         }
       ]
     }
