@@ -332,16 +332,7 @@ export default {
             this.$refs.map.primaryMapObject.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
           }
         },
-        buttons: [
-          {
-            text: 'Back',
-            action: tour.back
-          },
-          {
-            text: 'Next',
-            action: tour.next
-          }
-        ],
+        buttons: buttons,
         tetherOptions: {
           attachment: 'top left',
           targetAttachment: 'left right',
@@ -374,16 +365,7 @@ export default {
             this.$refs.map.primaryMapObject.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
           }
         },
-        buttons: [
-          {
-            text: 'Back',
-            action: tour.back
-          },
-          {
-            text: 'Next',
-            action: tour.next
-          }
-        ],
+        buttons: buttons,
         tetherOptions: {
           attachment: 'top left',
           targetAttachment: 'left right',
@@ -395,11 +377,12 @@ export default {
       tour.addStep({
         title: 'Get involved!',
         text: `<p>There are many ways to contribute to the Alaska Arctic Observatory & Knowledge Hub. Anyone in coastal communities can provide an observation of coastal conditions or wildlife. We hire new observers, support youth and outreach activities, and are guided by a Steering Group of community representatives and scientists. Learn more on <a href="https://arctic-aok.org">our website</a>.
-        </p><p><a class="btn btn-default" target="_blank" href="https://arctic-aok.org/get-involved/" role="button">Get involved!</a>`,
+        </p><p><a class="btn btn-default get-involved" target="_blank" href="https://arctic-aok.org/get-involved/" role="button">Get involved!</a>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', [])
+            this.$refs.map.primaryMapObject.setView([71.2906, -156.7886], 4, { animate: false })
           }
         },
         buttons: [
@@ -495,6 +478,7 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
       margin-top: 0;
     }
 }
+
 </style>
 
 <style lang='scss'>
@@ -504,5 +488,9 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
   &:hover {
     color: #ffffff;
   }
+}
+
+a.get-involved {
+  margin-bottom: 1em;
 }
 </style>
