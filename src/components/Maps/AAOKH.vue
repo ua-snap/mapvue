@@ -112,12 +112,12 @@ export default {
         },
         {
           'abstract': '<p>Trails built by Utqia&#289;vik whaling crews for the 2017 spring whaling season were mapped by Matthew Druckenmiller (National Snow and Ice Data Center) and Josh Jones (UAF Geophysical Institute) in late April 2017.</p>',
-          'name': 'aaokh:whaling_trails',
+          'name': 'aaokh:aa_whaling_trails',
           'title': 'Spring 2017 Whaling Trails',
           'legend': false
         },
         {
-          'abstract': '<p>Produced by the National Ice Center and updated daily, this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds. </p><p>Find more information at the <a target="_blank" href="http://www.natice.noaa.gov/products/daily_products.html">National Ice Center</a> and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View</a> web site.</p>',
+          'abstract': '<p>Produced by the National Ice Center and updated daily (although we are only showing a single previous point in time with this example), this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds.</p><p>See the <a target="_blank" href="http://www.natice.noaa.gov/products/daily_products.html">National Ice Center</a> and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View</a> web sites for more information.</p>',
           'name': 'aaokh:sea_ice_extent',
           'title': 'Sea Ice Extent',
           'legend': true
@@ -349,7 +349,49 @@ export default {
         }
       })
 
-      // 6. Get involved!
+      // SAR + Whaling Trails
+      tour.addStep({
+        title: 'Inform your activities with near real-time data',
+        attachTo: '#top_item right',
+        text: `<p>This map shows another way that data can inform activities.  A recording of whaling trails from 2017 are shown on a coastal image of Synthetic Aperture Radar (SAR), where open water is dark and reflecting surfaces (such as ice) are lighter.
+        </p>`,
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
+        when: {
+          show: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: ['aaokh:Sentinel1A_01May2017_overviews_transparent']
+            })
+            // Hack to ensure the whale trail is on top
+            this.$store.commit('toggleLayerVisibility', {
+              layer: 'aaokh:aa_whaling_trails'
+            })
+            this.$refs.map.primaryMapObject.setView([71.30456041085161, -157.3716677124989], 6, { animate: false })
+          },
+          hide: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+            this.$refs.map.primaryMapObject.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
+          }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ],
+        tetherOptions: {
+          attachment: 'top left',
+          targetAttachment: 'left right',
+          offset: '32px 0'
+        }
+      })
+
+      // 7. Get involved!
       tour.addStep({
         title: 'Get involved!',
         text: `<p>There are many ways to contribute to the Alaska Arctic Observatory & Knowledge Hub. Anyone in coastal communities can provide an observation of coastal conditions or wildlife. We hire new observers, support youth and outreach activities, and are guided by a Steering Group of community representatives and scientists. Learn more on <a href="https://arctic-aok.org">our website</a>.
