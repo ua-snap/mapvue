@@ -222,8 +222,8 @@ export default {
 
       // 2. comparing changes
       tour.addStep({
-        title: 'Compare changes with neighboring communities',
-        text: `<p>See larger-scale data for all communities participating in the AAOKH project. Here is an example of daily sea ice concentration that allows community members to see how ice conditions compare at other locations.</p>`,
+        title: 'Compare data between places',
+        text: `<p>See larger-scale data for all communities participating in the AAOKH project. In this split-map view showing Wales (left) and Point Lay (right), community members can see how ice conditions compare at other locations.</p>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         buttons: buttons,
         when: {
