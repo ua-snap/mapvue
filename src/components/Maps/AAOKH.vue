@@ -506,6 +506,7 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
   }
   .logos {
     padding-left: 1em;
+    width: 425px;
     background: rgba(0, 0, 0, .5);
   }
 }
