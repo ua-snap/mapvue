@@ -1,7 +1,7 @@
 <template>
 <div class='aaokh'>
   <h1 class='map-title'>{{ title }}</h1>
-  <layer-menu></layer-menu>
+  <layer-menu :buttons="buttons"></layer-menu>
   <splash-screen
     :abstract='abstract'></splash-screen>
   <mv-map
@@ -117,10 +117,16 @@ export default {
           'legend': false
         },
         {
-          'abstract': '<p>Produced by the National Ice Center and updated daily (although we are only showing a single previous point in time with this example), this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds.</p><p>See the <a target="_blank" href="http://www.natice.noaa.gov/products/daily_products.html">National Ice Center</a> and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View</a> web sites for more information.</p>',
+          'abstract': `
+          <table class="aaokh-sidebar-legend">
+          <tr>
+          <td><div class="marginal-ice"></div></td><td>Marginal Ice Zone</td></tr>
+          <td><div class="fast-ice"></div></td><td>Fast Ice</td></tr>
+          </table>
+          <p>Produced by the National Ice Center and updated daily (although we are only showing a single previous point in time with this example), this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds.</p><p>See the <a target="_blank" href="http://www.natice.noaa.gov/products/daily_products.html">National Ice Center</a> and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View</a> web sites for more information.</p>`,
           'name': 'aaokh:sea_ice_extent',
           'title': 'Sea Ice Extent',
-          'legend': true
+          'legend': false
         },
         {
           'abstract': '<p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt">NASA AMSR-2 near-real-time data products page</a>, and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View web site</a>.</p>',
@@ -138,6 +144,16 @@ export default {
     }
   },
   computed: {
+    buttons () {
+      return [
+        {
+          text: 'Get involved!',
+          glyphicon: 'share-alt',
+          classes: 'btn-success',
+          callback: this.openGetInvolved
+        }
+      ]
+    },
     crs () {
       return new this.$L.Proj.CRS('EPSG:3338',
       '+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs',
@@ -401,6 +417,9 @@ export default {
     }
   },
   methods: {
+    openGetInvolved () {
+      window.open('https://arctic-aok.org/get-involved/', '_blank')
+    },
     setupObservations () {
       var imagePath = require('@/assets/point_hope_eggs.jpg')
       var latlng = [68.40033170453667, -166.3469122563418]
@@ -410,7 +429,13 @@ export default {
 <h3>Collecting eggs in Point Hope</h3>
 <img id="research_photo" src="${imagePath}">
 `)
-      let marker = this.$L.marker(latlng)
+
+      let markerIcon = this.$L.AwesomeMarkers.icon({
+        icon: 'coffee',
+        iconColor: 'white',
+        markerColor: 'red'
+      })
+      let marker = this.$L.marker(latlng, { icon: markerIcon })
       marker.bindPopup(observationPopup)
       observationLayer = this.$L.layerGroup([marker])
     }
@@ -418,7 +443,6 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-
 // This is to hook some tour steps into specific layout
 #bottom-center {
   position: absolute;
@@ -473,15 +497,33 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
     background: rgba(0, 0, 0, .5);
   }
 }
-.aaokh {
-    h1 {
-      margin-top: 0;
-    }
-}
-
 </style>
 
 <style lang='scss'>
+// Not scoped so we can modify styles outside the typical scope of this component.
+
+// Sidebar tables
+table.aaokh-sidebar-legend {
+
+  td {
+    padding: 1ex 1ex 0 0;
+    div {
+      height: 2em;
+      width: 2em;
+      border: 2px solid black;
+      &.fast-ice {
+        background-color: #fff;
+      }
+
+      &.marginal-ice {
+        background-color: #236192;
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+
 .shepherd-text p a:not(.btn) {
   font-weight: 600;
   color: #549fe0;
