@@ -42,18 +42,29 @@ export default {
     syncMaps () {
       return this.$store.state.syncMaps
     },
-    // This wrapper allows access to the primary (left) map
-    // object so it can be provided to other components, but
+    // These wrappers allows access to the primary (left) map object
+    // and secondary (right) map object so it can be provided to other components, but
     // the object remains outside the scope of Vue and thus
     // won't get decorated with accessors, etc.
     primaryMapObject () {
       return maps.left.map
+    },
+    secondaryMapObject () {
+      return maps.right.map
     }
   },
   mounted () {
     // Instantiate map objects
     maps.left.map = this.$L.map('map-1', this.getBaseMapAndLayers())
     maps.right.map = this.$L.map('map-2', this.getBaseMapAndLayers())
+
+    // Put the (left) map center in the console to assist with coding
+    maps.left.map.on('zoomend', () => {
+      console.log('Map zoom: ', maps.left.map.getZoom())
+    })
+    maps.left.map.on('moveend', () => {
+      console.log('Map center: ', maps.left.map.getCenter().lat, ', ', maps.left.map.getCenter().lng)
+    })
 
     // Add zoom controls
     this.$L.control.zoom({

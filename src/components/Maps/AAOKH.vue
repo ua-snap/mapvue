@@ -1,7 +1,7 @@
 <template>
-<div>
+<div class='aaokh'>
   <h1 class='map-title'>{{ title }}</h1>
-  <layer-menu></layer-menu>
+  <layer-menu :buttons="buttons"></layer-menu>
   <splash-screen
     :abstract='abstract'></splash-screen>
   <mv-map
@@ -15,6 +15,7 @@
   ></mv-map>
   <sidebar :mapObj='primaryMapObject'></sidebar>
   <tour class='tour' :tour='tour'></tour>
+  <div id='bottom-center'></div>
   <mv-footer></mv-footer>
 </div>
 </template>
@@ -26,6 +27,7 @@ import Tour from '../Tour'
 
 // Will have references to DOM objects used in the tour
 var observationLayer // eslint-disable-line no-unused-vars
+var observationPopup // eslint-disable-line no-unused-vars
 
 export default {
   name: 'aaokh',
@@ -35,142 +37,54 @@ export default {
   },
   created () {
     // Process the observed SIZONET data
-    var observations = []
-    var popupOptions = {
-      maxWidth: 200
-    }
-    _.each(this.observations, feature => {
-      observations.push(
-        this.$L.marker(
-          new this.$L.latLng([feature.lat, feature.lon])).bindPopup(this.getPopupContents(feature), popupOptions))
-    })
-    this.observationMarkers = observations
-    observationLayer = this.$L.layerGroup(observations)
+    this.setupObservations()
   },
   mounted () {
     // Necessary to see the markers.
     this.$L.Icon.Default.imagePath = 'static/'
+    // Add places to map
+    this.participating_communities().addTo(this.$refs.map.primaryMapObject)
+    this.participating_communities().addTo(this.$refs.map.secondaryMapObject)
   },
   data () {
     return {
-      observations: [
-        {
-          'lat': 71.2906,
-          'lon': -156.5486,
-          'id': 6123,
-          'identifier': 'UTQAD1802091332',
-          'hunting': false,
-          'fishing': false,
-          'dark_sky_visible': false,
-          'unusual_condition_situation': false,
-          'original_observation_text': 'Location Gravel Pit, overcast, temperature 7f, light winds, and visibility to 7 miles. You can see the ice is active and has piled up about 1/4 mile out where it has piled up recently.',
-          'rating': 1,
-          'created_at': '2018-02-12T16:59:19.054Z',
-          'updated_at': '2018-02-12T17:00:11.434Z',
-          'ice_fog': false,
-          'instructional_value': false,
-          'access_id': null,
-          'air_temperature_min': -13.889,
-          'air_temperature_max': -13.889,
-          'wind_speed_min': null,
-          'wind_speed_max': null,
-          'visibility_min': 11.265,
-          'visibility_max': 11.265,
-          'shorefast_ice_thickness_min': null,
-          'shorefast_ice_thickness_max': null,
-          'distance_to_lead_min': null,
-          'distance_to_lead_max': null,
-          'distance_to_the_pack_ice_min': null,
-          'distance_to_the_pack_ice_max': null,
-          'obs_date': '2018-02-09',
-          'obs_time': '2000-01-01T13:32:00.000Z',
-          'boat_count': null,
-          'person_count': null,
-          'geom4326': null,
-          'mirage': false
-        },
-        {
-          'lat': 71.2006,
-          'lon': -156.70884,
-          'id': 6120,
-          'identifier': 'UTQAD1802081050',
-          'hunting': false,
-          'fishing': false,
-          'dark_sky_visible': false,
-          'unusual_condition_situation': false,
-          'original_observation_text': ' Location Shop 3, temperature `14f, overcast, light southerly winds, and visibility to 7 miles. Big 2,000 pounder! It is piling up in places.',
-          'rating': 1,
-          'created_at': '2018-02-09T18:10:46.920Z',
-          'updated_at': '2018-02-12T16:56:17.717Z',
-          'ice_fog': false,
-          'instructional_value': false,
-          'access_id': null,
-          'air_temperature_min': -10,
-          'air_temperature_max': -10,
-          'wind_speed_min': null,
-          'wind_speed_max': null,
-          'visibility_min': 11.265,
-          'visibility_max': 11.265,
-          'shorefast_ice_thickness_min': null,
-          'shorefast_ice_thickness_max': null,
-          'distance_to_lead_min': null,
-          'distance_to_lead_max': null,
-          'distance_to_the_pack_ice_min': null,
-          'distance_to_the_pack_ice_max': null,
-          'obs_date': '2018-02-08',
-          'obs_time': '2000-01-01T10:50:00.000Z',
-          'boat_count': null,
-          'person_count': null,
-          'geom4326': null,
-          'mirage': false
-        },
-        {
-          'lat': 71.2944,
-          'lon': -156.7846,
-          'id': 6122,
-          'identifier': 'UTQAD1802071330',
-          'hunting': false,
-          'fishing': false,
-          'dark_sky_visible': false,
-          'unusual_condition_situation': false,
-          'original_observation_text': 'Location Dry Cleaners, temperature 14f, mostly cloudy, south winds at about 10 mph, and visibility to 8 miles. It opened up very close and it closed up. This event tells me the shore fast ice was hit south from the pack ice which also tells me that the pack ice had to be solid enough to move this shorefast ice. I also know that south winds raises water level.',
-          'rating': 1,
-          'created_at': '2018-02-12T16:50:06.132Z',
-          'updated_at': '2018-02-12T16:51:02.499Z',
-          'ice_fog': false,
-          'instructional_value': true,
-          'access_id': null,
-          'air_temperature_min': -10,
-          'air_temperature_max': -10,
-          'wind_speed_min': 4.47,
-          'wind_speed_max': 4.47,
-          'visibility_min': 12.875,
-          'visibility_max': 12.875,
-          'shorefast_ice_thickness_min': null,
-          'shorefast_ice_thickness_max': null,
-          'distance_to_lead_min': null,
-          'distance_to_lead_max': null,
-          'distance_to_the_pack_ice_min': null,
-          'distance_to_the_pack_ice_max': null,
-          'obs_date': '2018-02-07',
-          'obs_time': '2000-01-01T13:30:00.000Z',
-          'boat_count': null,
-          'person_count': null,
-          'geom4326': null,
-          'mirage': false
-        }
-      ],
+      participating_communities () {
+        /*
+        Kaktovik 70.132778, -143.616111
+        Wainwright 70.647222, -160.016111
+        Point Lay 69.741111, -163.008611
+        Point Hope 68.346944, -166.763056
+        Kotzebue 66.897222, -162.585556
+        Utqiagvik 71.290556, -156.788611
+        Wales 65.612222, -168.089167
+        */
+        var communities = []
+        _.each([
+          { place: 'Kaktovik', lat: 70.132778, lon: -143.616111 },
+          { place: 'Wainwright', lat: 70.647222, lon: -160.016111 },
+          { place: 'Point Lay', lat: 69.741111, lon: -163.008611 },
+          { place: 'Point Hope', lat: 68.346944, lon: -166.763056 },
+          { place: 'Kotzebue', lat: 66.897222, lon: -162.585556 },
+          { place: 'Utqia&#289;vik', lat: 71.290556, lon: -156.788611 },
+          { place: 'Wales', lat: 65.612222, lon: -168.089167 }
+        ], (feature) => {
+          communities.push(
+            this.$L.marker(
+              new this.$L.latLng([feature.lat, feature.lon])).bindPopup('<h2 class="popup">' + feature.place + '</h2>')
+          )
+        })
+        return this.$L.layerGroup(communities)
+      },
       title: 'AAOKH (Draft)',
       abstract: `
-<h1>Alaska Arctic Observatory and Knowledge Hub</h1>
-<p>The Alaska Arctic Observatory and Knowledge Hub (AAOKH) was established to build capacity in sharing information from community-based observations on cryosphere change conducted by northern Alaska communities. Observations that could be linked to the seasonal cycle of harvesting activities was identified as an important focus for prioritizing observations.</p>
-<p>A Knowledge Hub was developed to provide tools and observational data of relevance to communities in the context of a changing seasonal cycle and offers community members opportunities to share insights and observations to support the information-sharing goals.
+<h1>Alaska Arctic Observatory &amp; Knowledge Hub</h1>
+<p><strong>The Alaska Arctic Observatory and Knowledge Hub</strong> (AAOKH) facilitates the sharing of sea ice conditions in combination with observations collected by members of coastal communities in the context of a changing seasonal cycle. This approach can help track environmental change from a community perspective. The tour below will give you a idea of the types of curated data AAOKH helps to share and make accessible.
 </p>
 `,
       mapOptions: {
-        zoom: 5,
+        zoom: 4,
         minZoom: 1,
-        maxZoom: 8,
+        maxZoom: 6,
         center: [71.2906, -156.7886]
       },
       baseLayerOptions: {
@@ -182,40 +96,76 @@ export default {
       },
       layers: [
         {
-          'abstract': 'Placeholder for observations from ELOKA',
+          'abstract': '<p>Local observers in coastal communities provide observations on sea ice, weather, wildlife, and subsistence activities throughout the year, particularly in relation to the seasonal cycle. Participating communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqiagvik, and Wales.</p><p>Visit the <a target="_blank"  href="https://eloka-arctic.org">ELOKA</a> web site for more information about observations.</p>',
           'name': 'observations',
           'title': 'Observations',
           'legend': false,
           'local': true
         },
         {
-          'abstract': 'TBD',
-          'name': 'geoserver:Barrow02April2016',
-          'title': 'Barrow Sea Ice Radar',
+          'abstract': `
+            <p>The Utqiagvik marine radar is mounted on top of the 4-story bank building in downtown Utqiagvik. It detects sea ice up to 6 miles out and acquires a new image every 5 minutes for near real-time results. Ice appears white in the image due to the radar signals reflecting off it. Ridges in the sea ice also appear as bright linear objects, but buildings, fences, and cars on the land can also return strong signals. Darker regions in the image can indicate open water, smooth ice, or shadows.</p>
+            <p><a target="_blank" href="http://seaice.alaska.edu/gi/observatories/barrow_radar">Access and learn more about this data</a>.</p>`,
+          'name': 'aaokh:barrow_radar',
+          'title': 'Utqia&#289;vik Marine Radar',
           'legend': false
         },
         {
-          'abstract': 'TBD',
-          'name': 'geoserver:WhalingTrails2017_3338',
-          'title': 'Whaling Trails (2017)',
+          'abstract': '<p>Trails built by Utqia&#289;vik whaling crews for the 2017 spring whaling season were mapped by Matthew Druckenmiller (National Snow and Ice Data Center) and Josh Jones (UAF Geophysical Institute) in late April 2017.</p>',
+          'name': 'aaokh:aa_whaling_trails',
+          'title': 'Spring 2017 Whaling Trails',
           'legend': false
         },
         {
-          'abstract': 'TBD',
-          'name': 'geoserver:NIC_SeaIce_5Dec2017_3338_AKExtent',
+          'abstract': `
+          <table class="aaokh-sidebar-legend">
+          <tr>
+          <td><div class="marginal-ice"></div></td><td>Marginal Ice Zone</td></tr>
+          <td><div class="fast-ice"></div></td><td>Fast Ice</td></tr>
+          </table>
+          <p>Produced by the National Ice Center and updated daily (although we are only showing a single previous point in time with this example), this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds.</p><p>See the <a target="_blank" href="http://www.natice.noaa.gov/products/daily_products.html">National Ice Center</a> and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View</a> web sites for more information.</p>`,
+          'name': 'aaokh:sea_ice_extent',
           'title': 'Sea Ice Extent',
-          'legend': true
+          'legend': false
         },
         {
-          'abstract': 'TBD',
-          'name': 'geoserver:SeaIceConcentration06March2018_3338',
+          'abstract': `
+          <table class="aaokh-sidebar-legend ice-concentration">
+          <tr>
+            <td><div class="conc-19"></div></td><td>0&mdash;19%</td></tr>
+            <td><div class="conc-39"></div></td><td>20&mdash;39%</td></tr>
+            <td><div class="conc-59"></div></td><td>40&mdash;59%</td></tr>
+            <td><div class="conc-79"></div></td><td>60&mdash;79%</td></tr>
+            <td><div class="conc-89"></div></td><td>80&mdash;89%</td></tr>
+            <td><div class="conc-94"></div></td><td>90&mdash;94%</td></tr>
+            <td><div class="conc-99"></div></td><td>95&mdash;09%</td></tr>
+            <td><div class="conc-100"></div></td><td>100%</td></tr>
+          </table>
+          <p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt">NASA AMSR-2 near-real-time data products page</a>, and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View web site</a>.</p>`,
+          'name': 'aaokh:sea_ice_concentration',
           'title': 'Sea Ice Concentration',
-          'legend': true
+          'legend': false
+        },
+        {
+          'abstract': '<p>Synthetic Aperture Radar (SAR) image from Sentinel-1 satellite acquired on May 1, 2017. SAR is an active microwave remote sensing platform, particularly useful in Alaska due to its ability to penetrate clouds and acquire images during the day or night.</p><p>Learn about and access SAR data from the <a target="_blank"  href="https://vertex.daac.asf.alaska.edu">Alaska Satellite Facility</a> data portal.</p>',
+          'name': 'aaokh:Sentinel1A_01May2017_overviews_transparent',
+          'title': 'Sentinel-1 SAR image',
+          'legend': false
         }
       ]
     }
   },
   computed: {
+    buttons () {
+      return [
+        {
+          text: 'Get involved!',
+          glyphicon: 'share-alt',
+          classes: 'btn-success',
+          callback: this.openGetInvolved
+        }
+      ]
+    },
     crs () {
       return new this.$L.Proj.CRS('EPSG:3338',
       '+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs',
@@ -256,28 +206,40 @@ export default {
       }
     },
     tour () {
-      let tour
-      tour = new this.$shepherd.Tour({
+      let tour = new this.$shepherd.Tour({
         defaults: {
           classes: 'shepherd-theme-square-dark',
           showCancelLink: true
         }
       })
 
+      let buttons = [
+        {
+          text: 'Back',
+          action: tour.back
+        },
+        {
+          text: 'Next',
+          action: tour.next
+        }
+      ]
+
+      // 1. participating communities
       tour.addStep({
-        title: 'Compare changes with other places',
+        title: 'Participating communities',
         attachTo: '#top_item right',
-        text: `<p>See if patterns are similar at broad scales, then zoom in for more details and observations.  This is showing sea ice concentration.</p>`,
+        text: `<p>Participating AAOKH communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqia&#289;vik, and Wales.</p>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
             this.$store.commit('disableSyncMaps')
             this.$store.commit('showOnlyLayers', {
-              first: ['geoserver:SeaIceConcentration06March2018_3338']
+              first: []
             })
-            this.$refs.map.primaryMapObject.flyTo([65, -165], 1)
-          }
+            this.$refs.map.primaryMapObject.setView([65.7835000982029, -170.03220962071967], 1, { animate: false })
+          },
+          hide: () => {}
         },
         tetherOptions: {
           attachment: 'top left',
@@ -286,22 +248,90 @@ export default {
         }
       })
 
+      // 2. comparing changes
       tour.addStep({
-        title: 'Actively participate in research',
-        attachTo: '#top_item right',
-        text: `<p>Observations/pictures, value is over time and by seasons to ID trends or patterns
-Scientists can’t be there, and obs are expensive, communities can help.</p>`,
+        title: 'Compare data between places',
+        text: `<p>See larger-scale data for all communities participating in the AAOKH project. In this split-map view showing Wales (left) and Point Lay (right), community members can see how ice conditions compare at other locations.</p>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
+        buttons: buttons,
         when: {
           show: () => {
+            this.$store.commit('showDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('hideLayerMenu')
+            this.$store.commit('showOnlyLayers', {
+              first: ['aaokh:sea_ice_concentration']
+            })
+            this.$store.commit('showOnlyLayers', {
+              second: ['aaokh:sea_ice_concentration']
+            })
+
+            // Point Hope
+            this.$refs.map.primaryMapObject.setView([65.77107106796926, -166.41565997885598], 3, { animate: false })
+
+            // Kaktovik
+            this.$refs.map.secondaryMapObject.setView([68.69278629127302, -164.77517269036156], 3, { animate: false })
+          },
+          hide: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('showLayerMenu')
+            this.$store.commit('showOnlyLayers', {
+              first: [],
+              second: []
+            })
+          }
+        }
+      })
+
+      // 3. Participate in research
+      tour.addStep({
+        title: 'Actively participate in research',
+        attachTo: '#research_photo left',
+        text: `<p>Your observations and pictures help everyone! Communities are at the front lines of changing conditions, seeing changes in action before measurements can be made by scientists and often in places otherwise inaccessible to scientific instruments. </p>`,
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
+        buttons: buttons,
+        beforeShowPromise: () => {
+          var p = new Promise((resolve, reject) => {
             this.$store.commit('hideDualMaps')
             this.$store.commit('disableSyncMaps')
             this.$store.commit('showOnlyLayers', {
               first: ['observations']
             })
-            this.$refs.map.primaryMapObject.flyTo([71.2906, -156.7886], 5)
+
+            this.$refs.map.primaryMapObject.openPopup(observationPopup)
+            this.$refs.map.primaryMapObject.setView([69.23232124768693, -170.39295749936036], 3, { animate: false })
+            setTimeout(() => { resolve() }, 250)
+          })
+          return p
+        },
+        when: {
+          hide: () => {
+            this.$refs.map.primaryMapObject.closePopup(observationPopup)
           }
         },
+        tetherOptions: {
+          attachment: 'top right',
+          targetAttachment: 'top left',
+          offset: '32px 0'
+        }
+      })
+
+      // 4. Show MIZO
+      tour.addStep({
+        title: 'See shoreline and offshore ice types',
+        attachTo: '#top_item right',
+        text: `<p>The marginal ice zone is the transition between the open ocean and more stable landfast ice that is anchored to the coastline or the seafloor. This zone is very dynamic due to the influence of the weather and rapid changes. Knowing the locations of different ice types can help people figure out how safe it is to travel, indicate habitats for marine life, and show areas of potential coastal erosion.
+        </p>`,
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
+        when: {
+          show: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: ['aaokh:sea_ice_extent']
+            })
+            this.$refs.map.primaryMapObject.setView([65.66768261334428, -170.23812752033535], 1, { animate: false })
+          }
+        },
+        buttons: buttons,
         tetherOptions: {
           attachment: 'top left',
           targetAttachment: 'left right',
@@ -309,50 +339,139 @@ Scientists can’t be there, and obs are expensive, communities can help.</p>`,
         }
       })
 
+      // 5. Inform activities
       tour.addStep({
-        title: 'Inform your activities',
+        title: 'Inform your activities with near real-time data',
         attachTo: '#top_item right',
-        text: `<p>Here, you can see whaling trails set against the current ice extent with the Utqiagvik radar.</p>`,
+        text: `<p>Marine radar is valuable for locating the ice edge near Utqia&#289;vik for subsistence activities, search and rescue, and maritime navigation. Black areas are open water and ice appears white.
+        </p>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
-            this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
             this.$store.commit('showOnlyLayers', {
-              first: ['geoserver:NIC_SeaIce_5Dec2017_3338_AKExtent', 'geoserver:Barrow02April2016', 'geoserver:WhalingTrails2017_3338']
+              first: ['aaokh:barrow_radar']
             })
-            this.$refs.map.primaryMapObject.flyTo([71.2906, -156.7886], 6)
+            this.$refs.map.primaryMapObject.setView([71.30456041085161, -157.3716677124989], 6, { animate: false })
+          },
+          hide: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+            this.$refs.map.primaryMapObject.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
           }
         },
+        buttons: buttons,
         tetherOptions: {
           attachment: 'top left',
           targetAttachment: 'left right',
           offset: '32px 0'
         }
+      })
+
+      // SAR + Whaling Trails
+      tour.addStep({
+        title: 'Inform your activities with near real-time data',
+        attachTo: '#top_item right',
+        text: `<p>This map shows another way that data can inform activities.  A recording of whaling trails from 2017 are shown on a coastal image of Synthetic Aperture Radar (SAR), where open water is dark and reflecting surfaces (such as ice) are lighter.
+        </p>`,
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
+        when: {
+          show: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: ['aaokh:Sentinel1A_01May2017_overviews_transparent']
+            })
+            // Hack to ensure the whale trail is on top
+            this.$store.commit('toggleLayerVisibility', {
+              layer: 'aaokh:aa_whaling_trails'
+            })
+            this.$refs.map.primaryMapObject.setView([71.30456041085161, -157.3716677124989], 6, { animate: false })
+          },
+          hide: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+            this.$refs.map.primaryMapObject.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
+          }
+        },
+        buttons: buttons,
+        tetherOptions: {
+          attachment: 'top left',
+          targetAttachment: 'left right',
+          offset: '32px 0'
+        }
+      })
+
+      // 7. Get involved!
+      tour.addStep({
+        title: 'Get involved!',
+        text: `<p>There are many ways to contribute to the Alaska Arctic Observatory & Knowledge Hub. Anyone in coastal communities can provide an observation of coastal conditions or wildlife. We hire new observers, support youth and outreach activities, and are guided by a Steering Group of community representatives and scientists. Learn more on <a href="https://arctic-aok.org">our website</a>.
+        </p><p><a class="btn btn-default get-involved" target="_blank" href="https://arctic-aok.org/get-involved/" role="button">Get involved!</a>`,
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
+        when: {
+          show: () => {
+            this.$store.commit('showOnlyLayers', [])
+            this.$refs.map.primaryMapObject.setView([71.2906, -156.7886], 4, { animate: false })
+          }
+        },
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Done',
+            action: tour.complete
+          }
+        ]
       })
 
       return tour
     }
   },
   methods: {
-    getPopupContents (feature) {
-      let date = this.$moment(feature.obs_date).format('MMMM D, YYYY')
-      let time = this.$moment(feature.obs_time).format('h:m a')
-      feature.date = date + ' at ' + time
-      return _.template(
-        `
-        <p><%= original_observation_text %></p>
-        <p><%= date %></p>
-        `
-      )(feature)
+    openGetInvolved () {
+      window.open('https://arctic-aok.org/get-involved/', '_blank')
+    },
+    setupObservations () {
+      var imagePath = require('@/assets/point_hope_eggs.jpg')
+      var latlng = [68.40033170453667, -166.3469122563418]
+      observationPopup = this.$L.popup()
+      .setLatLng(latlng)
+      .setContent(`
+<h3>Collecting eggs in Point Hope</h3>
+<img id="research_photo" src="${imagePath}">
+`)
+
+      let markerIcon = this.$L.AwesomeMarkers.icon({
+        icon: 'coffee',
+        iconColor: 'white',
+        markerColor: 'red'
+      })
+      let marker = this.$L.marker(latlng, { icon: markerIcon })
+      marker.bindPopup(observationPopup)
+      observationLayer = this.$L.layerGroup([marker])
     }
   }
 }
 </script>
 <style lang='scss' scoped>
+// This is to hook some tour steps into specific layout
+#bottom-center {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 5px;
+  width: 5px;
+  z-index: 10000
+}
+
 div /deep/ .leaflet-popup-content-wrapper {
   h1 {
     font-size: 14pt;
+  }
+  h2.popup {
+    font: bold 14pt #000;
+    margin: 0;
   }
   ul {
     margin: 1em 2em 1.5em;
@@ -387,13 +506,76 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
   }
   .logos {
     padding-left: 1em;
+    width: 425px;
     background: rgba(0, 0, 0, .5);
   }
 }
 </style>
+
 <style lang='scss'>
-// Not scoped so we can modify some Tour styles
-.iam-tour.shepherd-step .shepherd-text h4 {
-  color: #efefef;
+// Not scoped so we can modify styles outside the typical scope of this component.
+
+// Sidebar tables
+table.aaokh-sidebar-legend {
+
+  td {
+    padding: 1ex 1ex 0 0;
+    div {
+      height: 2em;
+      width: 2em;
+      border: 2px solid black;
+
+      // Styles for Ice Extent
+      &.fast-ice {
+        background-color: #fff;
+      }
+      &.marginal-ice {
+        background-color: #236192;
+        opacity: 0.7;
+      }
+
+      // Styles for Ice Concentration
+      &.conc-19 { background-color: #f7fcfd; opacity: 0.1;}
+      &.conc-39 { background-color: #e0ecf4; opacity: 0.6;}
+      &.conc-59 { background-color: #bfd3e6; opacity: 0.7;}
+      &.conc-79 { background-color: #9ebcda; opacity: 0.8;}
+      &.conc-89 { background-color: #8c96c6; opacity: 0.9;}
+      &.conc-94 { background-color: #8c6bb1; opacity: 1;}
+      &.conc-99 { background-color: #88419d; opacity: 1;}
+      &.conc-100 { background-color: #6e016b; opacity: 1;}
+    }
+  }
+}
+
+table.aaokh-sidebar-legend.ice-concentration {
+
+  td {
+    padding: 0 1ex 0 0;
+
+    div {
+      border: none;
+      // Styles for Ice Concentration
+      &.conc-19 { background-color: #f7fcfd; opacity: 0.1; border: 1px solid #000; }
+      &.conc-39 { background-color: #e0ecf4; opacity: 0.6;}
+      &.conc-59 { background-color: #bfd3e6; opacity: 0.7;}
+      &.conc-79 { background-color: #9ebcda; opacity: 0.8;}
+      &.conc-89 { background-color: #8c96c6; opacity: 0.9;}
+      &.conc-94 { background-color: #8c6bb1; opacity: 1;}
+      &.conc-99 { background-color: #88419d; opacity: 1;}
+      &.conc-100 { background-color: #6e016b; opacity: 1;}
+    }
+  }
+}
+
+.shepherd-text p a:not(.btn) {
+  font-weight: 600;
+  color: #549fe0;
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+a.get-involved {
+  margin-bottom: 1em;
 }
 </style>

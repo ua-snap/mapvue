@@ -161,6 +161,12 @@ export default new Vuex.Store({
     toggleLayerMenu (state) {
       state.layerMenuVisibility = !state.layerMenuVisibility
     },
+    showLayerMenu (state) {
+      state.layerMenuVisibility = true
+    },
+    hideLayerMenu (state) {
+      state.layerMenuVisibility = false
+    },
     showSplash (state) {
       state.showSplash = true
     },
