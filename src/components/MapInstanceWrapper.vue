@@ -62,7 +62,7 @@ export default {
 #map-instance-wrapper /deep/ h1.map-title {
   position: absolute;
   top: 0; left: 0;
-  z-index: 1000;
+  z-index: 100;
   background-color: rgba(255, 255, 255, .9);
   margin: 0;
   padding: .5ex;

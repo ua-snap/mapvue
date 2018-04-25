@@ -21,7 +21,7 @@ export default {
   name: 'Footer',
   data () {
     return {
-      year: 2018,
+      year: 2017,
       version: '2.0'
     }
   }

@@ -28,7 +28,7 @@
   >
     <span class="glyphicon glyphicon-info-sign"></span>
   </label>
-  <span v-html="title">{{ title }}</span>
+  {{ title }}
 </div>
 </template>
 
