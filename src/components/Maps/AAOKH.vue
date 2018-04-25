@@ -129,10 +129,22 @@ export default {
           'legend': false
         },
         {
-          'abstract': '<p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt">NASA AMSR-2 near-real-time data products page</a>, and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View web site</a>.</p>',
+          'abstract': `
+          <table class="aaokh-sidebar-legend ice-concentration">
+          <tr>
+            <td><div class="conc-19"></div></td><td>0&mdash;19%</td></tr>
+            <td><div class="conc-39"></div></td><td>20&mdash;39%</td></tr>
+            <td><div class="conc-59"></div></td><td>40&mdash;59%</td></tr>
+            <td><div class="conc-79"></div></td><td>60&mdash;79%</td></tr>
+            <td><div class="conc-89"></div></td><td>80&mdash;89%</td></tr>
+            <td><div class="conc-94"></div></td><td>90&mdash;94%</td></tr>
+            <td><div class="conc-99"></div></td><td>95&mdash;09%</td></tr>
+            <td><div class="conc-100"></div></td><td>100%</td></tr>
+          </table>
+          <p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt">NASA AMSR-2 near-real-time data products page</a>, and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View web site</a>.</p>`,
           'name': 'aaokh:sea_ice_concentration',
           'title': 'Sea Ice Concentration',
-          'legend': true
+          'legend': false
         },
         {
           'abstract': '<p>Synthetic Aperture Radar (SAR) image from Sentinel-1 satellite acquired on May 1, 2017. SAR is an active microwave remote sensing platform, particularly useful in Alaska due to its ability to penetrate clouds and acquire images during the day or night.</p><p>Learn about and access SAR data from the <a target="_blank"  href="https://vertex.daac.asf.alaska.edu">Alaska Satellite Facility</a> data portal.</p>',
@@ -511,18 +523,48 @@ table.aaokh-sidebar-legend {
       height: 2em;
       width: 2em;
       border: 2px solid black;
+
+      // Styles for Ice Extent
       &.fast-ice {
         background-color: #fff;
       }
-
       &.marginal-ice {
         background-color: #236192;
         opacity: 0.7;
       }
+
+      // Styles for Ice Concentration
+      &.conc-19 { background-color: #f7fcfd; opacity: 0.1;}
+      &.conc-39 { background-color: #e0ecf4; opacity: 0.6;}
+      &.conc-59 { background-color: #bfd3e6; opacity: 0.7;}
+      &.conc-79 { background-color: #9ebcda; opacity: 0.8;}
+      &.conc-89 { background-color: #8c96c6; opacity: 0.9;}
+      &.conc-94 { background-color: #8c6bb1; opacity: 1;}
+      &.conc-99 { background-color: #88419d; opacity: 1;}
+      &.conc-100 { background-color: #6e016b; opacity: 1;}
     }
   }
 }
 
+table.aaokh-sidebar-legend.ice-concentration {
+
+  td {
+    padding: 0 1ex 0 0;
+
+    div {
+      border: none;
+      // Styles for Ice Concentration
+      &.conc-19 { background-color: #f7fcfd; opacity: 0.1; border: 1px solid #000; }
+      &.conc-39 { background-color: #e0ecf4; opacity: 0.6;}
+      &.conc-59 { background-color: #bfd3e6; opacity: 0.7;}
+      &.conc-79 { background-color: #9ebcda; opacity: 0.8;}
+      &.conc-89 { background-color: #8c96c6; opacity: 0.9;}
+      &.conc-94 { background-color: #8c6bb1; opacity: 1;}
+      &.conc-99 { background-color: #88419d; opacity: 1;}
+      &.conc-100 { background-color: #6e016b; opacity: 1;}
+    }
+  }
+}
 
 .shepherd-text p a:not(.btn) {
   font-weight: 600;
