@@ -328,7 +328,7 @@ export default {
           'title': 'Lightning Strikes in past 2 weeks',
           'local': true,
           'legend': false,
-          'abstract': '<p>This layer shows all of the recorded lightning strikes that have occurred over the course of the past two weeks.</p><p>Many of the fires that occur during the summer in Alaska are caused by lightning strikes, thus seeing the recorded lightning strikes can be a good indication of potential fire starting points. See if you can find some lightning strikes that line up with recently started forest fires.'
+          'abstract': '<p>This layer shows all of the recorded lightning strikes that have occurred over the course of the past two weeks.</p><p>Many of the fires that occur during the summer in Alaska are caused by lightning strikes, thus seeing the recorded lightning strikes can be a good indication of potential fire starting points. See if you can find some lightning strikes that line up with recently started forest fires.</p>'
         },
         {
           'abstract': '<p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank">Commission for Environmental Cooperation</a></p>.',
@@ -607,10 +607,8 @@ export default {
         lightningMarkers = this.getLightningMarkers(data)
         secondFireMarkers = this.getLightningMarkers(data)
 
-        lightningLayerGroup
-          .addLayer(lightningMarkers)
-        secondLightningLayerGroup
-          .addLayer(secondLightningMarkers)
+        lightningLayerGroup.addLayer(lightningMarkers)
+        secondLightningLayerGroup.addLayer(secondLightningMarkers)
       }
       return new Promise((resolve, reject) => {
         // Check if the data is in local storage
@@ -648,11 +646,11 @@ export default {
       _.each(geoJson.features, feature => {
         // Maybe change opacity based on how old the lightning is?
         lightningMarkers.push(
-          this.$L.marker(new this.$L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]), {icon: lightningIcon}).bindPopup(this.getLightningMarkerPopupContents(
+          this.$L.marker(new this.$L.latLng(feature.properties.LATITUDE, feature.properties.LONGITUDE), {icon: lightningIcon}).bindPopup(this.getLightningMarkerPopupContents(
             {
               datetime: feature.properties.STRIKETIME,
-              latitude: feature.geometry.coordinates[1],
-              longitude: feature.geometry.coordinates[0],
+              latitude: feature.properties.LATITUDE,
+              longitude: feature.properties.LONGITUDE,
               amplitude: feature.properties.AMPLITUDE,
               lightningtype: feature.properties.lightningtype
             }, popupOptions))
