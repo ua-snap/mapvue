@@ -119,9 +119,8 @@ export default {
         {
           'abstract': `
           <table class="aaokh-sidebar-legend">
-          <tr>
-          <td><div class="marginal-ice"></div></td><td>Marginal Ice Zone</td></tr>
-          <td><div class="fast-ice"></div></td><td>Fast Ice</td></tr>
+          <tr><td><div class="marginal-ice"></div></td><td>Marginal Ice Zone</td></tr>
+          <tr><td><div class="fast-ice"></div></td><td>Fast Ice</td></tr>
           </table>
           <p>Produced by the National Ice Center and updated daily (although we are only showing a single previous point in time with this example), this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds.</p><p>See the <a target="_blank" href="http://www.natice.noaa.gov/products/daily_products.html">National Ice Center</a> and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View</a> web sites for more information.</p>`,
           'name': 'aaokh:sea_ice_extent',
@@ -131,15 +130,14 @@ export default {
         {
           'abstract': `
           <table class="aaokh-sidebar-legend ice-concentration">
-          <tr>
-            <td><div class="conc-19"></div></td><td>0&mdash;19%</td></tr>
-            <td><div class="conc-39"></div></td><td>20&mdash;39%</td></tr>
-            <td><div class="conc-59"></div></td><td>40&mdash;59%</td></tr>
-            <td><div class="conc-79"></div></td><td>60&mdash;79%</td></tr>
-            <td><div class="conc-89"></div></td><td>80&mdash;89%</td></tr>
-            <td><div class="conc-94"></div></td><td>90&mdash;94%</td></tr>
-            <td><div class="conc-99"></div></td><td>95&mdash;09%</td></tr>
-            <td><div class="conc-100"></div></td><td>100%</td></tr>
+            <tr><td><div class="conc-19"></div></td><td>0&mdash;19%</td></tr>
+            <tr><td><div class="conc-39"></div></td><td>20&mdash;39%</td></tr>
+            <tr><td><div class="conc-59"></div></td><td>40&mdash;59%</td></tr>
+            <tr><td><div class="conc-79"></div></td><td>60&mdash;79%</td></tr>
+            <tr><td><div class="conc-89"></div></td><td>80&mdash;89%</td></tr>
+            <tr><td><div class="conc-94"></div></td><td>90&mdash;94%</td></tr>
+            <tr><td><div class="conc-99"></div></td><td>95&mdash;09%</td></tr>
+            <tr><td><div class="conc-100"></div></td><td>100%</td></tr>
           </table>
           <p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt">NASA AMSR-2 near-real-time data products page</a>, and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View web site</a>.</p>`,
           'name': 'aaokh:sea_ice_concentration',
@@ -533,16 +531,6 @@ table.aaokh-sidebar-legend {
         background-color: #236192;
         opacity: 0.7;
       }
-
-      // Styles for Ice Concentration
-      &.conc-19 { background-color: #f7fcfd; opacity: 0.1;}
-      &.conc-39 { background-color: #e0ecf4; opacity: 0.6;}
-      &.conc-59 { background-color: #bfd3e6; opacity: 0.7;}
-      &.conc-79 { background-color: #9ebcda; opacity: 0.8;}
-      &.conc-89 { background-color: #8c96c6; opacity: 0.9;}
-      &.conc-94 { background-color: #8c6bb1; opacity: 1;}
-      &.conc-99 { background-color: #88419d; opacity: 1;}
-      &.conc-100 { background-color: #6e016b; opacity: 1;}
     }
   }
 }
