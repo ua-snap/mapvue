@@ -308,17 +308,47 @@ export default {
           'local': true,
           'legend': false,
           'visible': true,
-          'abstract': '<img src="images/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="externa">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
+          'abstract': '<img src="static/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="externa">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
         },
         {
-          'abstract': '<p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank">Commission for Environmental Cooperation</a></p>.',
-          'name': 'alaska_landcover_2010',
-          'title': 'Land cover, 2010'
+          'abstract': `
+          <table class="alaska-wildfires-legend alaska-landcover-2010">
+            <tr><td><div class="l-1"></div></td><td>Temperate or sub-polar needleleaf forest</td></tr>
+            <tr><td><div class="l-2"></div></td><td>Sub-polar taiga needleleaf forest</td></tr>
+            <tr><td><div class="l-3"></div></td><td>Temperate or sub-polar broadleaf deciduous forest</td></tr>
+            <tr><td><div class="l-4"></div></td><td>Mixed forest</td></tr>
+            <tr><td><div class="l-5"></div></td><td>Temperate or sub-polar shrubland</td></tr>
+            <tr><td><div class="l-6"></div></td><td>Temperate or sub-polar grassland</td></tr>
+            <tr><td><div class="l-7"></div></td><td>Sub-polar or polar shrubland-lichen-moss</td></tr>
+            <tr><td><div class="l-8"></div></td><td>Sub-polar or polar grassland-lichen-moss</td></tr>
+            <tr><td><div class="l-9"></div></td><td>Sub-polar or polar barren-lichen-moss</td></tr>
+            <tr><td><div class="l-10"></div></td><td>Wetland</td></tr>
+            <tr><td><div class="l-11"></div></td><td>Cropland</td></tr>
+            <tr><td><div class="l-12"></div></td><td>Barren land</td></tr>
+            <tr><td><div class="l-13"></div></td><td>Urban and built-up</td></tr>
+            <tr><td><div class="l-14"></div></td><td>Water</td></tr>
+            <tr><td><div class="l-15"></div></td><td>Snow and ice</td></tr>
+          </table>
+
+
+
+
+          <p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank">Commission for Environmental Cooperation</a></p>.`,
+          'name': 'alaska_wildfires:alaska_landcover_2010',
+          'title': 'Land cover, 2010',
+          'legend': false
         },
         {
-          'abstract': '<p>This layer shows historical fire perimeters from 1940-2016. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank">AICC</a>.</p>',
-          'name': 'fireareahistory',
-          'title': 'Historical extent, 1940-2016'
+          'abstract': `
+          <table class="alaska-wildfires-legend historical-fire-perimeters">
+            <tr><td><div class="h-40-69"></div></td><td>1940&mdash;1969</td></tr>
+            <tr><td><div class="h-70-99"></div></td><td>1970&mdash;1999</td></tr>
+            <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2017</td></tr>
+          </table>
+          <p>This layer shows historical fire perimeters from 1940&mdash;2017. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank">AICC</a>.</p>`,
+          'name': 'alaska_wildfires:historical_fire_perimiters',
+          'title': 'Historical extent, 1940-2016',
+          'legend': false
         }
       ]
     }
@@ -566,6 +596,68 @@ export default {
 }
 </script>
 <style lang="scss">
+
+table.alaska-wildfires-legend {
+
+  td {
+    padding: 1ex 1ex 0 0;
+    div {
+      height: 2em;
+      width: 2em;
+      border: 2px solid #222;
+    }
+  }
+
+  &.historical-fire-perimeters {
+    .h-40-69 { background-color: #FFF7BC; }
+    .h-70-99 { background-color: #fec44f; }
+    .h-00-17 { background-color: #d95f0e; }
+  }
+}
+/*
+
+      <ColorMapEntry quantity="1" color="#" label=""/>
+      <ColorMapEntry quantity="2" color="#" label=""/>
+      <ColorMapEntry quantity="5" color="#" label=""/>
+      <ColorMapEntry quantity="6" color="#" label=""/>
+      <ColorMapEntry quantity="8" color="#" label=""/>
+      <ColorMapEntry quantity="10" color="#" label=""/>
+      <ColorMapEntry quantity="11" color="#" label=""/>
+      <ColorMapEntry quantity="12" color="#" label=""/>
+      <ColorMapEntry quantity="13" color="#" label=""/>
+      <ColorMapEntry quantity="14" color="#" label=""/>
+      <ColorMapEntry quantity="15" color="#" label=""/>
+      <ColorMapEntry quantity="16" color="#" label=""/>
+      <ColorMapEntry quantity="17" color="#" label=""/>
+      <ColorMapEntry quantity="18" color="#" label=""/>
+      <ColorMapEntry quantity="19" color="#" label=""/>
+      */
+table.alaska-wildfires-legend.alaska-landcover-2010 {
+  td {
+    div {
+      height: 2em;
+      width: 2em;
+      border: none;
+      &.l-1 { background-color: #003d00; }
+      &.l-2 { background-color: #949c70; }
+      &.l-3 { background-color: #148c3d; }
+      &.l-4 { background-color: #5c752b; }
+      &.l-5 { background-color: #b38a33; }
+      &.l-6 { background-color: #e1cf8a; }
+      &.l-7 { background-color: #9c7554; }
+      &.l-8 { background-color: #bad48f; }
+      &.l-9 { background-color: #408a70; }
+      &.l-10 { background-color: #6ba38a; }
+      &.l-11 { background-color: #e6ae66; }
+      &.l-12 { background-color: #a8abae; }
+      &.l-13 { background-color: #DD40D6; }
+      &.l-14 { background-color: #4c70a3; }
+      &.l-15 { background-color: #eee9ee; }
+    }
+  }
+}
+
+
 .leaflet-popup-content {
   z-index: 1000;
 
