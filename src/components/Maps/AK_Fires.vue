@@ -605,7 +605,7 @@ export default {
       // from either localStorage or HTTP request
       var processLightningData = (data) => {
         lightningMarkers = this.getLightningMarkers(data)
-        secondFireMarkers = this.getLightningMarkers(data)
+        secondLightningMarkers = this.getLightningMarkers(data)
 
         lightningLayerGroup.addLayer(lightningMarkers)
         secondLightningLayerGroup.addLayer(secondLightningMarkers)
@@ -643,7 +643,7 @@ export default {
       var popupOptions = {
         maxWidth: 200
       }
-      _.each(geoJson.features, feature => {
+      _.each(geoJson.features.features, feature => {
         // Maybe change opacity based on how old the lightning is?
         lightningMarkers.push(
           this.$L.marker(new this.$L.latLng(feature.properties.LATITUDE, feature.properties.LONGITUDE), {icon: lightningIcon}).bindPopup(this.getLightningMarkerPopupContents(
@@ -665,10 +665,12 @@ export default {
       // updated info, in which case, leave that blank.
 
       return _.template(`
-  <h1>Striketime: <%= datetime %></h1>
+  <h1><%= datetime %></h1>
   <h2><%= lightningtype %></h2>
-  Coordinates: <%= longitude %>, <%= latitude %>
-  Amplitude: <%= amplitude %>`)(
+
+  <p><b>Latitude:</b> <%= latitude %>
+  <br/><b>Longitude:</b> <%= longitude %></p>
+  <p><b>Amplitude:</b> <%= amplitude %></p>`)(
         {
           datetime: lightningInfo.datetime,
           lightningtype: lightningInfo.lightningtype,
