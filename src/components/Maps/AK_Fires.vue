@@ -278,7 +278,7 @@ export default {
     return {
       title: 'Alaska Wildfires: Past and Present',
       abstract: `
-<h1>It’s important to study wildland fire and its relationship to humans and the ecosystems we share. Use this map to see locations and sizes of wildfires in context of long-term fire history, land cover types, and more.</h1>
+<h1>It’s important to study wildland fire and its relationship to humans and the ecosystems we share. Use this map to see locations and sizes of wildfires in relation to long-term fire history, land cover types, and more.</h1>
  <div class="abstractWrapper">
    <p>For the most current fire management information, visit:</p>
    <ul>
@@ -286,7 +286,7 @@ export default {
      <li><a href="http://fire.ak.blm.gov/content/aicc/sitreport/current.pdf" target="_blank">Current AICC Situation Report</a></li>
      <li><a href="https://akfireinfo.com/" target="_blank">Alaska Wildland Fire Information</a></li>
    </ul>
-   <p>We thank the Alaska Fire Service, State of Alaska, and the Alaska Interagency Coordination Center for their hard work fighting fires and maintaining the data.</p>
+   <p>We thank the Alaska Fire Service, State of Alaska, and the Alaska Interagency Coordination Center for their hard work fighting fires and maintaining the fire data.</p>
  </div>`,
       mapOptions: {
         zoom: 1,
