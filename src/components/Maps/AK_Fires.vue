@@ -367,7 +367,7 @@ export default {
     let LightningIcon = this.$L.Icon.extend({
       options: {
         iconUrl: '/static/round_bolt.png',
-        iconSize: [30, 30],
+        iconSize: [20, 20],
         shadowSize: [0, 0], // no shadow!
         iconAnchor: [16, 34], // point of the icon which will correspond to marker's location
         shadowAnchor: [0, 0],  // the same for the shadow
@@ -643,19 +643,28 @@ export default {
       var popupOptions = {
         maxWidth: 200
       }
+      var currentMarker
+      var now = this.$moment.unix(Date.now())
+      console.log(now)
+      // var fourdaysago = this.$moment(Date.now()).subtract(4, 'days')
+      // var sevendaysago = this.$moment(Date.now()).subtract(7, 'days')
+      // var tendaysago = this.$moment(Date.now()).subtract(10, 'days')
       _.each(geoJson.features.features, feature => {
         // Maybe change opacity based on how old the lightning is?
-        lightningMarkers.push(
-          this.$L.marker(new this.$L.latLng(feature.properties.LATITUDE, feature.properties.LONGITUDE), {icon: lightningIcon}).bindPopup(this.getLightningMarkerPopupContents(
-            {
-              datetime: feature.properties.STRIKETIME,
-              latitude: feature.properties.LATITUDE,
-              longitude: feature.properties.LONGITUDE,
-              amplitude: feature.properties.AMPLITUDE,
-              lightningtype: feature.properties.lightningtype
-            }, popupOptions))
-          )
+        currentMarker = this.$L.marker(new this.$L.latLng(feature.properties.LATITUDE, feature.properties.LONGITUDE), {icon: lightningIcon}).bindPopup(this.getLightningMarkerPopupContents(
+          {
+            datetime: feature.properties.STRIKETIME,
+            latitude: feature.properties.LATITUDE,
+            longitude: feature.properties.LONGITUDE,
+            amplitude: feature.properties.AMPLITUDE,
+            lightningtype: feature.properties.lightningtype
+          }, popupOptions))
+
+        console.log(now.diff(feature.properties.LOCALDATETIME, 'days'))
+        lightningMarkers.push(currentMarker)
       })
+
+      // if (feature.properties.LOCALDATETIME)
       return this.$L.layerGroup(lightningMarkers)
     },
     // For this method, fireInfo must contain properties
@@ -744,6 +753,10 @@ div.leaflet-marker-icon span {
     display: inline-block;
     z-index: 300;
   }
+}
+
+.old {
+  opacity: 10%;
 }
 
 .splash-screen .billboard {
