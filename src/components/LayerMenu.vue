@@ -1,49 +1,45 @@
 <template>
 <div class="layer-menu">
-  <label class="btn btn-primary" @click="toggleLayerMenu()">
-    <span v-show="layerMenuVisibility" class="glyphicon glyphicon-remove"></span>
-    <span v-show="!layerMenuVisibility" class="glyphicon glyphicon-menu-hamburger"></span>
+  <label @click="toggleLayerMenu()">
+    <span v-show="layerMenuVisibility">Hide menu</span>
+    <span v-show="!layerMenuVisibility">Show menu</span>
   </label>
   <div v-show="layerMenuVisibility" class="menu-wrapper">
     <layer-list></layer-list>
     <div class="map-tools form-inline">
 
+      <div class="custom-buttons">
+        <layer-menu-button-item
+          :class="{ 'enabled': dualMaps }"
+          classes="mobile-hidden"
+          :callback="toggleDualMaps"
+          text="Split / single map"
+        ></layer-menu-button-item>
+        <layer-menu-button-item
+          :class="{ 'enabled': syncMaps }"
+          classes="dual-maps"
+          v-show="dualMaps"
+          :callback="toggleSyncMaps"
+          text="Move maps together"
+        ></layer-menu-button-item>
+        <layer-menu-button-item
+          v-for="(button, index) in buttons"
+          :key="index"
+          :classes="button.classes"
+          :callback="button.callback"
+          :text="button.text"
+        ></layer-menu-button-item>
+      </div>
+
       <layer-menu-button-item
-        glyphicon="question-sign"
         :callback="showSplash"
         text="About this map"
       ></layer-menu-button-item>
 
       <layer-menu-button-item
-        :class="{ 'btn-success': dualMaps }"
-        classes="mobile-hidden"
-        glyphicon="resize-horizontal"
-        :callback="toggleDualMaps"
-        text="Split / single map"
-      ></layer-menu-button-item>
-
-      <layer-menu-button-item
-        :class="{ 'btn-success': syncMaps }"
-        v-show="dualMaps"
-        glyphicon="flash"
-        :callback="toggleSyncMaps"
-        text="Synchronize maps"
-      ></layer-menu-button-item>
-
-      <layer-menu-button-item
-        glyphicon="question-sign"
         classes="mobile-hidden"
         :callback="startTour"
         text="Take a tour of this map"
-      ></layer-menu-button-item>
-
-      <layer-menu-button-item
-        v-for="(button, index) in buttons"
-        :key="index"
-        :glyphicon="button.glyphicon"
-        :classes="button.classes"
-        :callback="button.callback"
-        :text="button.text"
       ></layer-menu-button-item>
 
     </div>
@@ -101,6 +97,10 @@ export default {
   top: 4em;
   padding: 1em;
 
+  .custom-buttons {
+    margin: 2em 0;
+  }
+
   .map-tools {
     margin: 1em 0;
     label, a {
@@ -110,11 +110,22 @@ export default {
       width: 16em;
     }
 
-    /deep/ .mobile-hidden {
-      @media screen and (max-width: 768px) {
-        display: none;
+    /deep/ {
+      .dual-maps {
+        margin-left: 2em;
+      }
+      .enabled {
+        color: #23527c;
+        font-weight: 900;
+        text-shadow: #FC0 1px 0 10px;
+      }
+      .mobile-hidden {
+        @media screen and (max-width: 768px) {
+          display: none;
+        }
       }
     }
+
   }
 
   .menu-wrapper {
