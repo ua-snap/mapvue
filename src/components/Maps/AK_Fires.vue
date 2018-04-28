@@ -33,9 +33,13 @@ import Tour from '../Tour'
 var firePolygons
 var fireMarkers
 var fireLayerGroup
+var viirsLayerGroup
+
 var secondFirePolygons
 var secondFireMarkers
 var secondFireLayerGroup
+var secondViirsLayerGroup
+
 var activeFireIcon
 var inactiveFireIcon
 
@@ -99,6 +103,10 @@ export default {
         'fires_2017': {
           first: fireLayerGroup,
           second: secondFireLayerGroup
+        },
+        'viirs': {
+          first: viirsLayerGroup,
+          second: secondViirsLayerGroup
         }
       }
     },
@@ -311,6 +319,13 @@ export default {
           'abstract': '<img src="images/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="externa">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
         },
         {
+          'name': 'viirs',
+          'title': 'Hotspots, last 48 hours',
+          'local': true,
+          'legend': false,
+          'abstract': `<h2>tears for viirs</h2><iframe width="560" height="315" src="https://www.youtube.com/embed/ST86JM1RPl0?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
+        },
+        {
           'abstract': '<p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank">Commission for Environmental Cooperation</a></p>.',
           'name': 'alaska_landcover_2010',
           'title': 'Land cover, 2010'
@@ -347,9 +362,14 @@ export default {
     // This will be the container for the fire markers & popups.
     fireLayerGroup = this.$L.layerGroup()
     secondFireLayerGroup = this.$L.layerGroup()
+
+    // Containers for VIIRS data
+    viirsLayerGroup = this.$L.layerGroup()
+    secondViirsLayerGroup = this.$L.layerGroup()
   },
   mounted () {
     this.fetchFireData()
+    this.fetchViirsData()
   },
   beforeDestroy () {
     // Remove the store module when the component is destroyed.
@@ -358,6 +378,55 @@ export default {
   methods: {
     showFireGraph () {
       this.$store.commit('showFireGraph')
+    },
+    fetchViirsData () {
+      var processViirsData = data => {
+        let viirsPoints = this.getViirsMarkers(data)
+        viirsLayerGroup.addLayer(viirsPoints)
+        secondViirsLayerGroup.addLayer(viirsPoints)
+      }
+
+      return new Promise((resolve, reject) => {
+        if (!this.viirsJson) {
+          this.$axios.get(process.env.VIIRS_URL, { timeout: 120000 })
+            .then(res => {
+              if (res) {
+                this.viirsJson = res.data
+                processViirsData(res.data)
+                this.$refs.map.refreshLayers()
+                resolve()
+              }
+            },
+            err => {
+              console.error(err)
+              reject()
+            })
+        } else {
+          // Restoring from localStorage
+          processViirsData(this.viirsJson)
+          this.$refs.map.refreshLayers()
+          resolve()
+        }
+      })
+    },
+    getViirsMarkers (geoJson) {
+      var viirsMarkers = []
+
+      _.each(geoJson.features, feature => {
+        viirsMarkers.push(
+          this.$L.circleMarker(
+            new this.$L.latLng([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]),
+            {
+              radius: 5,
+              fillColor: '#F9382B',
+              fillOpacity: 1,
+              stroke: false,
+              className: 'viirs-hotspot'
+            }
+          )
+        )
+      })
+      return this.$L.layerGroup(viirsMarkers)
     },
     fetchFireData () {
       // Helper function to rebuild Leaflet objects
@@ -566,6 +635,18 @@ export default {
 }
 </script>
 <style lang="scss">
+
+path.leaflet-interactive.viirs-hotspot {
+  animation: colors 2s infinite;
+}
+
+@keyframes colors {
+    50% {
+      fill: #F9EA31;
+      fill-opacity: 0.5;
+    }
+}
+
 .leaflet-popup-content {
   z-index: 1000;
 
