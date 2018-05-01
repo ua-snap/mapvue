@@ -323,7 +323,10 @@ export default {
           'title': 'Hotspots, last 48 hours',
           'local': true,
           'legend': false,
-          'abstract': `<h2>tears for viirs</h2><iframe width="560" height="315" src="https://www.youtube.com/embed/ST86JM1RPl0?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
+          'abstract': `<p>VIIRS is a <a href="https://jointmission.gsfc.nasa.gov/viirs.html" target="_blank">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank">Suomi satellite</a> that collects visible and infrared imagery and radiometric measurements of the land, atmosphere, cryosphere, and oceans. VIIRS records cloud and airborne particle properties, ocean color, land and water temperatures, ice motion and temperature, fires, and Earth's reflectivity (albedo). These data help climatologists learn more about global climate change. </p>
+
+<p>VIIRS can also see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.</p>
+`
         },
         {
           'abstract': '<p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank">Commission for Environmental Cooperation</a></p>.',
