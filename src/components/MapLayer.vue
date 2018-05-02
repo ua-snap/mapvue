@@ -11,34 +11,34 @@
   </a>
 
   <!-- Dual map controls -->
-  <span
+  <a
     class="split-map-controls"
     v-if="dualMaps"
   >
-    <span
+    <a
       class="left-right"
       :class="{'visible':visible}"
       @click.prevent="toggleLayer(name)"
     >
       Left
-    </span>
+    </a>
     &#47;
-    <span
+    <a
       class="left-right"
       :class="{'visible':secondVisible}"
       @click.prevent="toggleLayer(name, 'second')"
     >
       Right
-    </span>
-  </span>
+    </a>
+  </a>
 
   <!-- Layer title! -->
-  <span
+  <a
     v-html="title"
     class="layer-title"
     :class=" { 'visible': visible || (dualMaps && secondVisible) }"
     @click.prevent="toggleLayer(name)"
-  >{{ title }}</span>
+  >{{ title }}</a>
 </div>
 </template>
 
