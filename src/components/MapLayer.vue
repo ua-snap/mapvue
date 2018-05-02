@@ -3,7 +3,7 @@
   <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
 
   <!-- Draggy handle -->
-  <span class="glyphicon glyphicon-option-vertical drag"></span>
+  <span class="glyphicon glyphicon-resize-vertical drag"></span>
 
   <!-- Information about layer button -->
   <a @click="showLayerInformation(name)">
