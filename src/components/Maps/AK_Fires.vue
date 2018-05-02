@@ -33,9 +33,13 @@ import Tour from '../Tour'
 var firePolygons
 var fireMarkers
 var fireLayerGroup
+var viirsLayerGroup
+
 var secondFirePolygons
 var secondFireMarkers
 var secondFireLayerGroup
+var secondViirsLayerGroup
+
 var activeFireIcon
 var inactiveFireIcon
 var lightningLayerGroup
@@ -108,6 +112,10 @@ export default {
         '2w_lightning': {
           first: lightningLayerGroup,
           second: secondLightningLayerGroup
+        },
+        'viirs': {
+          first: viirsLayerGroup,
+          second: secondViirsLayerGroup
         }
       }
     },
@@ -291,7 +299,7 @@ export default {
     return {
       title: 'Alaska Wildfires: Past and Present',
       abstract: `
-<h1>It’s important to study wildland fire and its relationship to humans and the ecosystems we share. Use this map to see locations and sizes of wildfires in context of long-term fire history, land cover types, and more.</h1>
+<h1>It’s important to study wildland fire and its relationship to humans and the ecosystems we share. Use this map to see locations and sizes of wildfires in relation to long-term fire history, land cover types, and more.</h1>
  <div class="abstractWrapper">
    <p>For the most current fire management information, visit:</p>
    <ul>
@@ -299,7 +307,7 @@ export default {
      <li><a href="http://fire.ak.blm.gov/content/aicc/sitreport/current.pdf" target="_blank">Current AICC Situation Report</a></li>
      <li><a href="https://akfireinfo.com/" target="_blank">Alaska Wildland Fire Information</a></li>
    </ul>
-   <p>We thank the Alaska Fire Service, State of Alaska, and the Alaska Interagency Coordination Center for their hard work fighting fires and maintaining the data.</p>
+   <p>We thank the Alaska Fire Service, State of Alaska, and the Alaska Interagency Coordination Center for their hard work fighting fires and maintaining the fire data.</p>
  </div>`,
       mapOptions: {
         zoom: 1,
@@ -329,6 +337,15 @@ export default {
           'local': true,
           'legend': false,
           'abstract': '<p>This layer shows all of the recorded lightning strikes that have occurred over the course of the past two weeks.</p><p>Many of the fires that occur during the summer in Alaska are caused by lightning strikes, thus seeing the recorded lightning strikes can be a good indication of potential fire starting points. See if you can find some lightning strikes that line up with recently started forest fires.</p>'
+        },
+        {
+          'name': 'viirs',
+          'title': 'Hotspots, last 48 hours',
+          'local': true,
+          'legend': false,
+          'abstract': `<p>VIIRS is a <a href="https://jointmission.gsfc.nasa.gov/viirs.html" target="_blank">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank">Suomi satellite</a> that collects visible and infrared imagery and radiometric measurements of the land, atmosphere, cryosphere, and oceans. VIIRS records cloud and airborne particle properties, ocean color, land and water temperatures, ice motion and temperature, fires, and Earth's reflectivity (albedo). These data help climatologists learn more about global climate change. </p>
+
+<p>VIIRS can also see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.</p>`
         },
         {
           'abstract': '<p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank">Commission for Environmental Cooperation</a></p>.',
@@ -380,13 +397,18 @@ export default {
     // This will be the container for the fire markers & popups.
     fireLayerGroup = this.$L.layerGroup()
     secondFireLayerGroup = this.$L.layerGroup()
-
+    
     lightningLayerGroup = this.$L.layerGroup()
     secondLightningLayerGroup = this.$L.layerGroup()
+    
+    // Containers for VIIRS data
+    viirsLayerGroup = this.$L.layerGroup()
+    secondViirsLayerGroup = this.$L.layerGroup()
   },
   mounted () {
     this.fetchFireData()
     this.fetchLightningData()
+    this.fetchViirsData()
   },
   beforeDestroy () {
     // Remove the store module when the component is destroyed.
@@ -395,6 +417,55 @@ export default {
   methods: {
     showFireGraph () {
       this.$store.commit('showFireGraph')
+    },
+    fetchViirsData () {
+      var processViirsData = data => {
+        let viirsPoints = this.getViirsMarkers(data)
+        viirsLayerGroup.addLayer(viirsPoints)
+        secondViirsLayerGroup.addLayer(viirsPoints)
+      }
+
+      return new Promise((resolve, reject) => {
+        if (!this.viirsJson) {
+          this.$axios.get(process.env.VIIRS_URL, { timeout: 120000 })
+            .then(res => {
+              if (res) {
+                this.viirsJson = res.data
+                processViirsData(res.data)
+                this.$refs.map.refreshLayers()
+                resolve()
+              }
+            },
+            err => {
+              console.error(err)
+              reject()
+            })
+        } else {
+          // Restoring from localStorage
+          processViirsData(this.viirsJson)
+          this.$refs.map.refreshLayers()
+          resolve()
+        }
+      })
+    },
+    getViirsMarkers (geoJson) {
+      var viirsMarkers = []
+
+      _.each(geoJson.features, feature => {
+        viirsMarkers.push(
+          this.$L.circleMarker(
+            new this.$L.latLng([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]),
+            {
+              radius: 5,
+              fillColor: '#F9382B',
+              fillOpacity: 1,
+              stroke: false,
+              className: 'viirs-hotspot'
+            }
+          )
+        )
+      })
+      return this.$L.layerGroup(viirsMarkers)
     },
     fetchFireData () {
       // Helper function to rebuild Leaflet objects
@@ -693,6 +764,18 @@ export default {
 }
 </script>
 <style lang="scss">
+
+path.leaflet-interactive.viirs-hotspot {
+  animation: colors 2s infinite;
+}
+
+@keyframes colors {
+    50% {
+      fill: #F9EA31;
+      fill-opacity: 0.5;
+    }
+}
+
 .leaflet-popup-content {
   z-index: 1000;
 

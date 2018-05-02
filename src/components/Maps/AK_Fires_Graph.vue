@@ -6,7 +6,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
       <div ref="plotly"></div>
-      <p>This graph compares 2017 to all of the years when more than 1 million acres burned since daily tally records began in 2004. <br/>Source: <a target="_blank" href="https://fire.ak.blm.gov/">Alaska Interagency Coordination Center (AICC)</a>.</p>
+      <p>This graph compares the current year to all of the years when more than 1 million acres burned since daily tally records began in 2004.<br/>Source: <a target="_blank" href="https://fire.ak.blm.gov/">Alaska Interagency Coordination Center (AICC)</a>.</p>
     </div>
   </div>
 </div>
@@ -22,7 +22,7 @@ import Plotly from 'plotly.js/dist/plotly' // eslint-disable-line
 // We declare the static properties of the graph outside the Vue
 // object because they don't need to be reactive
 var graphLayout = {
-  title: 'Cumulative Acres Burned',
+  title: 'Cumulative Acres Burned, May 1 - Sept 30',
   titlefont: {
     size: 20
   },
@@ -83,10 +83,6 @@ export default {
       return this.$store.state.fire
         ? this.$store.state.fire.fireGraphVisible
         : false
-    },
-    fireTimeSeries: {
-      get () { return this.$localStorage.get('fireTimeSeries') },
-      set (value) { return this.$localStorage.set('fireTimeSeries', value) }
     }
   },
   mounted () {
