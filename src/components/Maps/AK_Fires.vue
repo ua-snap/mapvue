@@ -644,13 +644,11 @@ export default {
         maxWidth: 200
       }
       var currentMarker
-      var now = this.$moment.unix(Date.now())
-      console.log(now)
-      // var fourdaysago = this.$moment(Date.now()).subtract(4, 'days')
-      // var sevendaysago = this.$moment(Date.now()).subtract(7, 'days')
-      // var tendaysago = this.$moment(Date.now()).subtract(10, 'days')
+      var dateSince
+      var opacityAmount
+      var now = this.$moment.utc(this.$moment.now())
+
       _.each(geoJson.features.features, feature => {
-        // Maybe change opacity based on how old the lightning is?
         currentMarker = this.$L.marker(new this.$L.latLng(feature.properties.LATITUDE, feature.properties.LONGITUDE), {icon: lightningIcon}).bindPopup(this.getLightningMarkerPopupContents(
           {
             datetime: feature.properties.STRIKETIME,
@@ -660,19 +658,21 @@ export default {
             lightningtype: feature.properties.lightningtype
           }, popupOptions))
 
-        console.log(now.diff(feature.properties.LOCALDATETIME, 'days'))
+        // Days that have passed since lightning strike
+        dateSince = now.diff(feature.properties.UTCDATETIME, 'days')
+
+        // This may be too compute heavy if a lot of lightning strikes. Potentially need to revisit.
+        opacityAmount = 1.0 - (0.0714285714 * dateSince)
+
+        // Change opacity based on how old the lightning strike is
+        currentMarker.setOpacity(opacityAmount)
         lightningMarkers.push(currentMarker)
       })
 
       // if (feature.properties.LOCALDATETIME)
       return this.$L.layerGroup(lightningMarkers)
     },
-    // For this method, fireInfo must contain properties
-    // title, acres, cause, updated, outdate
     getLightningMarkerPopupContents (lightningInfo) {
-      // Convert updated to "days ago" format; not all fires have
-      // updated info, in which case, leave that blank.
-
       return _.template(`
   <h1><%= datetime %></h1>
   <h2><%= lightningtype %></h2>
