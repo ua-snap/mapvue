@@ -397,11 +397,8 @@ export default {
     // This will be the container for the fire markers & popups.
     fireLayerGroup = this.$L.layerGroup()
     secondFireLayerGroup = this.$L.layerGroup()
-    
     lightningLayerGroup = this.$L.layerGroup()
     secondLightningLayerGroup = this.$L.layerGroup()
-    
-    // Containers for VIIRS data
     viirsLayerGroup = this.$L.layerGroup()
     secondViirsLayerGroup = this.$L.layerGroup()
   },
