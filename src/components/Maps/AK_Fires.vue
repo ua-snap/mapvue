@@ -802,7 +802,7 @@ path.leaflet-interactive.viirs-hotspot {
 table.alaska-wildfires-legend {
 
   td {
-    padding: 1ex 1ex 0 0;
+    padding: .5ex .5ex 0 0;
     div {
       height: 2em;
       width: 2em;
@@ -819,6 +819,7 @@ table.alaska-wildfires-legend {
 
 table.alaska-wildfires-legend.alaska-landcover-2010 {
   td {
+    font-size: 12pt;
     div {
       height: 2em;
       width: 2em;
