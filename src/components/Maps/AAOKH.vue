@@ -159,7 +159,7 @@ export default {
         {
           text: 'Get involved!',
           glyphicon: 'share-alt',
-          classes: 'btn-success',
+          classes: 'btn btn-success',
           callback: this.openGetInvolved
         }
       ]
