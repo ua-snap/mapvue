@@ -383,7 +383,7 @@ export default {
 
     let LightningIcon = this.$L.Icon.extend({
       options: {
-        iconUrl: '/static/round_bolt.png',
+        iconUrl: '/static/lightning.svg',
         iconSize: [20, 20],
         shadowSize: [0, 0], // no shadow!
         iconAnchor: [16, 34], // point of the icon which will correspond to marker's location
