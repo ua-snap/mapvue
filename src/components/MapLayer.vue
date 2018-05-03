@@ -3,7 +3,7 @@
   <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
 
   <!-- Draggy handle -->
-  <span class="grippy"></span>
+  <span class="reorder"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path stroke="#888" fill="#888" d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"/></svg></span>
 
   <!-- Information about layer button -->
   <a class="info" @click="showLayerInformation(name)">&#9432;</a>
@@ -91,26 +91,12 @@ export default {
 }
 a.info:hover { text-decoration: none; }
 
-span.grippy {
-  content: '....';
-  width: 10px;
-  height: 20px;
+.reorder {
   display: inline-block;
-  overflow: hidden;
-  line-height: 5px;
-  padding: 3px 4px;
+  position: relative;
+  top: 2px;
   cursor: move;
-  vertical-align: middle;
-  margin-top: -.86em;
-  margin-right: .3em;
-  font-size: 12px;
-  font-family: sans-serif;
-  letter-spacing: 2px;
-  color: #cccccc;
-  text-shadow: 1px 0 1px black;
-}
-span.grippy::after {
-  content: '.. .. .. ..';
+  padding-right: .25ex;
 }
 
 </style>
