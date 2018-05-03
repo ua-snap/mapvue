@@ -105,7 +105,7 @@ export default {
     },
     localLayers () {
       return {
-        'fires_2017': {
+        'fires': {
           first: fireLayerGroup,
           second: secondFireLayerGroup
         },
@@ -156,7 +156,7 @@ export default {
             this.$store.commit('hideDualMaps')
             this.$store.commit('disableSyncMaps')
             this.$store.commit('showOnlyLayers', {
-              first: ['fires_2017']
+              first: ['fires']
             })
           }
         },
@@ -324,8 +324,8 @@ export default {
       },
       layers: [
         {
-          'name': 'fires_2017',
-          'title': 'All fires, 2017',
+          'name': 'fires',
+          'title': 'All fires, 2018',
           'local': true,
           'legend': false,
           'visible': true,
@@ -333,7 +333,7 @@ export default {
         },
         {
           'name': '2w_lightning',
-          'title': 'Lightning Strikes in past 2 weeks',
+          'title': 'Lightning strikes, last 2 weeks',
           'local': true,
           'legend': false,
           'abstract': '<p>This layer shows all of the recorded lightning strikes that have occurred over the course of the past two weeks.</p><p>Many of the fires that occur during the summer in Alaska are caused by lightning strikes, thus seeing the recorded lightning strikes can be a good indication of potential fire starting points. See if you can find some lightning strikes that line up with recently started forest fires.</p>'

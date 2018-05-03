@@ -1,8 +1,8 @@
 <template>
 <div class="layer-menu">
   <label @click="toggleLayerMenu()">
-    <span v-show="layerMenuVisibility">Hide menu</span>
-    <span v-show="!layerMenuVisibility">Show menu</span>
+    <a v-show="layerMenuVisibility">Hide menu</a>
+    <a v-show="!layerMenuVisibility">Show menu</a>
   </label>
   <div v-show="layerMenuVisibility" class="menu-wrapper">
     <layer-list></layer-list>
@@ -92,7 +92,7 @@ export default {
 <style lang="scss" scoped>
 .layer-menu {
   z-index: 500;
-  background-color: rgba(255, 255, 255, .75);
+  background-color: rgba(255, 255, 255, .9);
   position: absolute;
   top: 4em;
   padding: 1em;
