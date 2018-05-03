@@ -486,8 +486,7 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
 .splash-screen /deep/ .billboard {
   max-width: 900px;
   min-height: 600px;
-  background: url('~@/assets/barrow.jpg') #ff0000 top left / cover no-repeat;
-  background-blend-mode: screen;
+  background: url('~@/assets/barrow.jpg') top left / cover no-repeat;
   h1 {
     color: #100505;
   }
