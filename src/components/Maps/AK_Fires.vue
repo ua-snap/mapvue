@@ -42,6 +42,11 @@ var secondViirsLayerGroup
 
 var activeFireIcon
 var inactiveFireIcon
+var lightningLayerGroup
+var secondLightningLayerGroup
+var lightningIcon
+var lightningMarkers
+var secondLightningMarkers
 
 // Define the store methods that will be used here
 const fireStore = { // eslint-disable-line no-unused-vars
@@ -104,6 +109,10 @@ export default {
           first: fireLayerGroup,
           second: secondFireLayerGroup
         },
+        '2w_lightning': {
+          first: lightningLayerGroup,
+          second: secondLightningLayerGroup
+        },
         'viirs': {
           first: viirsLayerGroup,
           second: secondViirsLayerGroup
@@ -113,6 +122,10 @@ export default {
     fireJson: {
       get () { return this.$localStorage.get('fireJson') },
       set (value) { this.$localStorage.set('fireJson', value) }
+    },
+    lightningJson: {
+      get () { return this.$localStorage.get('lightningJson') },
+      set (value) { this.$localStorage.set('lightningJson', value) }
     },
     // Custom buttons for menu
     buttons () {
@@ -319,14 +332,20 @@ export default {
           'abstract': '<img src="images/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="externa">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
         },
         {
+          'name': '2w_lightning',
+          'title': 'Lightning Strikes in past 2 weeks',
+          'local': true,
+          'legend': false,
+          'abstract': '<p>This layer shows all of the recorded lightning strikes that have occurred over the course of the past two weeks.</p><p>Many of the fires that occur during the summer in Alaska are caused by lightning strikes, thus seeing the recorded lightning strikes can be a good indication of potential fire starting points. See if you can find some lightning strikes that line up with recently started forest fires.</p>'
+        },
+        {
           'name': 'viirs',
           'title': 'Hotspots, last 48 hours',
           'local': true,
           'legend': false,
           'abstract': `<p>VIIRS is a <a href="https://jointmission.gsfc.nasa.gov/viirs.html" target="_blank">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank">Suomi satellite</a> that collects visible and infrared imagery and radiometric measurements of the land, atmosphere, cryosphere, and oceans. VIIRS records cloud and airborne particle properties, ocean color, land and water temperatures, ice motion and temperature, fires, and Earth's reflectivity (albedo). These data help climatologists learn more about global climate change. </p>
 
-<p>VIIRS can also see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.</p>
-`
+<p>VIIRS can also see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.</p>`
         },
         {
           'abstract': '<p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank">Commission for Environmental Cooperation</a></p>.',
@@ -362,16 +381,30 @@ export default {
       iconUrl: '/static/inactive_fire.png'
     })
 
+    let LightningIcon = this.$L.Icon.extend({
+      options: {
+        iconUrl: '/static/lightning.svg',
+        iconSize: [20, 20],
+        shadowSize: [0, 0], // no shadow!
+        iconAnchor: [16, 34], // point of the icon which will correspond to marker's location
+        shadowAnchor: [0, 0],  // the same for the shadow
+        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
+      }
+    })
+
+    lightningIcon = new LightningIcon()
+
     // This will be the container for the fire markers & popups.
     fireLayerGroup = this.$L.layerGroup()
     secondFireLayerGroup = this.$L.layerGroup()
-
-    // Containers for VIIRS data
+    lightningLayerGroup = this.$L.layerGroup()
+    secondLightningLayerGroup = this.$L.layerGroup()
     viirsLayerGroup = this.$L.layerGroup()
     secondViirsLayerGroup = this.$L.layerGroup()
   },
   mounted () {
     this.fetchFireData()
+    this.fetchLightningData()
     this.fetchViirsData()
   },
   beforeDestroy () {
@@ -633,6 +666,96 @@ export default {
       }
       var sixSignedArea = 3 * twoTimesSignedArea
       return [cxTimes6SignedArea / sixSignedArea, cyTimes6SignedArea / sixSignedArea]
+    },
+    // Fetch lightning data from AK BLM cached data
+    fetchLightningData () {
+      // Helper function to rebuild Leaflet objects
+      // from either localStorage or HTTP request
+      var processLightningData = (data) => {
+        lightningMarkers = this.getLightningMarkers(data)
+        secondLightningMarkers = this.getLightningMarkers(data)
+
+        lightningLayerGroup.addLayer(lightningMarkers)
+        secondLightningLayerGroup.addLayer(secondLightningMarkers)
+      }
+      return new Promise((resolve, reject) => {
+        // Check if the data is in local storage
+        if (!this.lightningJson) {
+          this.$axios.get(process.env.LIGHTNING_FEATURES_URL, { timeout: 120000 })
+            .then(res => {
+              if (res) {
+                this.lightningJson = res.data
+                processLightningData(res.data)
+                this.$refs.map.refreshLayers()
+                resolve()
+              }
+            },
+            err => {
+              console.error(err)
+              reject()
+            })
+        } else {
+          // Restoring from localStorage
+          processLightningData(this.lightningJson)
+          this.$refs.map.refreshLayers()
+          resolve()
+        }
+      })
+    },
+    // This handler is only used for point features (no polygon).
+    // It returns a Leaflet divIcon marker with classes
+    // for active/inactive, and if the size of the fire is
+    // less than an acre, the class 'small' is attached.
+    getLightningMarkers (geoJson) {
+      var lightningMarkers = []
+      var popupOptions = {
+        maxWidth: 200
+      }
+      var currentMarker
+      var dateSince
+      var opacityAmount
+      var now = this.$moment.utc(this.$moment.now())
+
+      _.each(geoJson.features.features, feature => {
+        currentMarker = this.$L.marker(new this.$L.latLng(feature.properties.LATITUDE, feature.properties.LONGITUDE), {icon: lightningIcon}).bindPopup(this.getLightningMarkerPopupContents(
+          {
+            datetime: feature.properties.STRIKETIME,
+            latitude: feature.properties.LATITUDE,
+            longitude: feature.properties.LONGITUDE,
+            amplitude: feature.properties.AMPLITUDE,
+            lightningtype: feature.properties.lightningtype
+          }, popupOptions))
+
+        // Days that have passed since lightning strike
+        dateSince = now.diff(feature.properties.UTCDATETIME, 'days')
+
+        // This may be too compute heavy if a lot of lightning strikes. Potentially need to revisit.
+        opacityAmount = 1.0 - (0.0714285714 * dateSince)
+
+        // Change opacity based on how old the lightning strike is
+        currentMarker.setOpacity(opacityAmount)
+        lightningMarkers.push(currentMarker)
+      })
+
+      // if (feature.properties.LOCALDATETIME)
+      return this.$L.layerGroup(lightningMarkers)
+    },
+    getLightningMarkerPopupContents (lightningInfo) {
+      return _.template(`
+  <h1><%= datetime %></h1>
+  <h2><%= lightningtype %></h2>
+
+  <p><b>Latitude:</b> <%= latitude %>
+  <br/><b>Longitude:</b> <%= longitude %></p>
+  <p><b>Amplitude:</b> <%= amplitude %></p>`)(
+        {
+          datetime: lightningInfo.datetime,
+          lightningtype: lightningInfo.lightningtype,
+          longitude: lightningInfo.longitude,
+          latitude: lightningInfo.latitude,
+          amplitude: lightningInfo.amplitude
+        }
+      )
     }
   }
 }
@@ -710,6 +833,10 @@ div.leaflet-marker-icon span {
     display: inline-block;
     z-index: 300;
   }
+}
+
+.old {
+  opacity: 10%;
 }
 
 .splash-screen .billboard {
