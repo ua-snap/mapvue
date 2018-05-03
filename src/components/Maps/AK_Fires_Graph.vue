@@ -79,6 +79,11 @@ export default {
   name: 'AK_Fires_Graph',
   computed: {
     visible () {
+      // Resize must be run on a displayed div according to an error
+      // trying to resize the graph when it is not displayed.
+      if (this.$store.state.fire.fireGraphVisible) {
+        this.resizeGraph()
+      }
       // Guard in case data is unavailable to prevent error
       return this.$store.state.fire
         ? this.$store.state.fire.fireGraphVisible
