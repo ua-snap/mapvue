@@ -159,7 +159,7 @@ export default {
         {
           text: 'Get involved!',
           glyphicon: 'share-alt',
-          classes: 'btn-success',
+          classes: 'btn btn-success',
           callback: this.openGetInvolved
         }
       ]
@@ -486,8 +486,7 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
 .splash-screen /deep/ .billboard {
   max-width: 900px;
   min-height: 600px;
-  background: url('~@/assets/barrow.jpg') #ff0000 top left / cover no-repeat;
-  background-blend-mode: screen;
+  background: url('~@/assets/barrow.jpg') top left / cover no-repeat;
   h1 {
     color: #100505;
   }
@@ -531,16 +530,6 @@ table.aaokh-sidebar-legend {
         background-color: #236192;
         opacity: 0.7;
       }
-
-      // Styles for Ice Concentration
-      &.conc-19 { background-color: #f7fcfd; opacity: 0.1;}
-      &.conc-39 { background-color: #e0ecf4; opacity: 0.6;}
-      &.conc-59 { background-color: #bfd3e6; opacity: 0.7;}
-      &.conc-79 { background-color: #9ebcda; opacity: 0.8;}
-      &.conc-89 { background-color: #8c96c6; opacity: 0.9;}
-      &.conc-94 { background-color: #8c6bb1; opacity: 1;}
-      &.conc-99 { background-color: #88419d; opacity: 1;}
-      &.conc-100 { background-color: #6e016b; opacity: 1;}
     }
   }
 }
