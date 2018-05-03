@@ -1,17 +1,14 @@
 <template>
-<label :class="[classes, 'btn btn-primary']"
+<a :class="[classes]"
   @click="callback">
-  <span :class="['glyphicon', 'glyphicon-' + glyphicon]"></span>
-  &nbsp;
   {{ text }}
-</label>
+</a>
 </template>
 
 <script>
 export default {
   name: 'LayerMenuButtonItem',
   props: [
-    'glyphicon',
     'classes',
     'callback',
     'text'
@@ -20,7 +17,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-label {
+a {
+  cursor: pointer;
+  cursor: hand;
   display: block;
   margin: 1ex 0;
   text-align: left;
