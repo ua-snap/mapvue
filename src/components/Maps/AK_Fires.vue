@@ -26,6 +26,7 @@ import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
 import AKFiresGraph from './AK_Fires_Graph'
 import Tour from '../Tour'
+import Vue from 'vue'
 
 // Leaflet objects, keep these outside of the
 // scope of the Vue component for performance
@@ -443,6 +444,10 @@ export default {
     },
     fetchViirsData () {
       var processViirsData = data => {
+        if (data.features.length === 0) {
+          Vue.set(this.layers[2], 'nodata', true)
+          Vue.set(this.layers[2], 'nodataMessage', 'No hotspots have been recorded by VIIRS in the past 48 hours.')
+        }
         let viirsPoints = this.getViirsMarkers(data)
         viirsLayerGroup.addLayer(viirsPoints)
         secondViirsLayerGroup.addLayer(viirsPoints)
@@ -698,6 +703,10 @@ export default {
       // Helper function to rebuild Leaflet objects
       // from either localStorage or HTTP request
       var processLightningData = (data) => {
+        if (data.features.features.length === 0) {
+          Vue.set(this.layers[1], 'nodata', true)
+          Vue.set(this.layers[1], 'nodataMessage', 'No lightning strikes have been recorded in the past 48 hours.')
+        }
         lightningMarkers = this.getLightningMarkers(data)
         secondLightningMarkers = this.getLightningMarkers(data)
 

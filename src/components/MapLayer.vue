@@ -1,5 +1,11 @@
 <template>
-<div :id="name" class="layer" data-toggle="buttons">
+<div  :id="name"
+      class="layer"
+      :class="{'nodata':nodata}"
+      data-toggle="buttons"
+      :data-balloon="nodataMessage"
+      data-balloon-pos="right"
+>
   <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
 
   <!-- Draggy handle -->
@@ -44,7 +50,7 @@
 
 export default {
   name: 'MapLayer',
-  props: ['name', 'title', 'abstract', 'visible', 'secondVisible'],
+  props: ['name', 'title', 'abstract', 'visible', 'secondVisible', 'nodata', 'nodataMessage'],
   computed: {
     dualMaps () {
       return this.$store.state.dualMaps
@@ -52,10 +58,13 @@ export default {
   },
   methods: {
     toggleLayer (layerName, mapPane) {
-      this.$store.commit('toggleLayerVisibility', {
-        layer: layerName,
-        mapPane: mapPane
-      })
+      // If the layer has data, toggle on/off!
+      if (!this.nodata) {
+        this.$store.commit('toggleLayerVisibility', {
+          layer: layerName,
+          mapPane: mapPane
+        })
+      }
     },
     showLayerInformation (layer) {
       this.$store.commit('showSidebar', {
@@ -97,6 +106,22 @@ a.info:hover { text-decoration: none; }
   top: 2px;
   cursor: move;
   padding-right: .25ex;
+}
+
+.nodata {
+  a {
+    color: #888;
+  }
+  & a.layer-title {
+    cursor: not-allowed;
+    text-decoration: line-through;
+    &:hover, &:focus {
+      text-decoration: line-through;
+    }
+  }
+  span.reorder {
+    visibility: hidden;
+  }
 }
 
 </style>
