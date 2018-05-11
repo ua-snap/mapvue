@@ -27,6 +27,9 @@ import MapInstance from '@/components/MapInstance'
 import AKFiresGraph from './AK_Fires_Graph'
 import Tour from '../Tour'
 
+// Used for expiry times for localstorage
+const DAY_AS_MILLISECONDS = 86400000
+
 // Leaflet objects, keep these outside of the
 // scope of the Vue component for performance
 // reasons
@@ -121,11 +124,15 @@ export default {
     },
     fireJson: {
       get () { return this.$localStorage.get('fireJson') },
-      set (value) { this.$localStorage.set('fireJson', value) }
+      set (value) { this.$localStorage.set('fireJson', value, DAY_AS_MILLISECONDS) }
     },
     lightningJson: {
       get () { return this.$localStorage.get('lightningJson') },
-      set (value) { this.$localStorage.set('lightningJson', value) }
+      set (value) { this.$localStorage.set('lightningJson', value, DAY_AS_MILLISECONDS) }
+    },
+    viirsJson: {
+      get () { return this.$localStorage.get('viirsJson') },
+      set (value) { this.$localStorage.set('viirsJson', value, DAY_AS_MILLISECONDS) }
     },
     // Custom buttons for menu
     buttons () {
