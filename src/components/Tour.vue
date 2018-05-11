@@ -27,11 +27,10 @@ export default {
         this.$store.commit('hideSidebar')
         this.tour.start()
       }
-      // Don't take any specific action for cleanup
-      // when the tour is stopped; the specific
-      // Tour implementation for each map can decide
-      // what to do.
     }
+  },
+  beforeDestroy () {
+    this.tour.cancel()
   }
 }
 </script>
