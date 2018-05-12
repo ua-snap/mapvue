@@ -379,8 +379,26 @@ export default {
             <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2017</td></tr>
           </table>
           <p>This layer shows historical fire perimeters from 1940&mdash;2017. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank">AICC</a>.</p>`,
-          'name': 'alaska_wildfires:historical_fire_perimiters',
+          'name': 'alaska_wildfires:historical_fire_perimiters2',
+          'layerName': 'alaska_wildfires:historical_fire_perimiters',
           'title': 'Historical extent, 1940&mdash;2017',
+          'legend': false
+        },
+        {
+          'abstract': `
+          <table class="alaska-wildfires-legend big-fire-years">
+            <tr><td><div class="bf2004"></div></td><td>2004</td></tr>
+            <tr><td><div class="bf2005"></div></td><td>2005</td></tr>
+            <tr><td><div class="bf2009"></div></td><td>2009</td></tr>
+            <tr><td><div class="bf2010"></div></td><td>2010</td></tr>
+            <tr><td><div class="bf2013"></div></td><td>2013</td></tr>
+            <tr><td><div class="bf2015"></div></td><td>2015</td></tr>
+          </table>
+          <p>This layer shows the extent of the largest recent fire seasons.</p>`,
+          'name': 'alaska_wildfires:historical_fire_perimiters',
+          'layerName': 'alaska_wildfires:historical_fire_perimiters',
+          'styles': 'big_fire_years',
+          'title': 'Biggest recent fire seasons',
           'legend': false
         }
       ]
@@ -839,6 +857,23 @@ table.alaska-wildfires-legend.alaska-landcover-2010 {
       &.l-13 { background-color: #DD40D6; }
       &.l-14 { background-color: #4c70a3; }
       &.l-15 { background-color: #eee9ee; }
+    }
+  }
+}
+
+table.alaska-wildfires-legend.big-fire-years {
+  td {
+    font-size: 12pt;
+    div {
+      height: 2em;
+      width: 2em;
+      border: none;
+      &.bf2004 { background-color: #7fc97f; }
+      &.bf2005 { background-color: #beaed4; }
+      &.bf2009 { background-color: #fdc086; }
+      &.bf2010 { background-color: #ffff99; }
+      &.bf2013 { background-color: #386cb0; }
+      &.bf2015 { background-color: #f0027f; }
     }
   }
 }
