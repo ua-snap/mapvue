@@ -19,6 +19,16 @@ import moment from 'moment'
 // https://www.reddit.com/r/vuejs/comments/6psu78/a_simple_vuejs_example_with_plolyjs/
 import Plotly from 'plotly.js/dist/plotly' // eslint-disable-line
 
+var lineColors = {
+  2004: '#7fc97f',
+  2005: '#beaed4',
+  2009: '#fdc086',
+  2010: '#aaaa55',
+  2013: '#386cb0',
+  2015: '#f0027f',
+  2018: '#333344'
+}
+
 // We declare the static properties of the graph outside the Vue
 // object because they don't need to be reactive
 var graphLayout = {
@@ -101,7 +111,10 @@ export default {
           var yearData = {
             name: year,
             x: timeSeries[year].dates,
-            y: timeSeries[year].acres
+            y: timeSeries[year].acres,
+            line: {
+              color: lineColors[year]
+            }
           }
 
           if (year === moment().format('YYYY')) {

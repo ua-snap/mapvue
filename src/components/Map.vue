@@ -122,7 +122,8 @@ export default {
         if (layer.local !== true) {
           let layerConfiguration = _.extend(wmsLayerOptions,
             {
-              layers: [layer.name]
+              layers: [layer.layerName ? layer.layerName : layer.name],
+              styles: layer.styles ? layer.styles : ''
             })
           maps.left.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
           maps.right.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
