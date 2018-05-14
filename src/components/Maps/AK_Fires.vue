@@ -728,7 +728,8 @@ export default {
       // Helper function to rebuild Leaflet objects
       // from either localStorage or HTTP request
       var processLightningData = (data) => {
-        if (data.features.features.length === 0) {
+        console.log(data)
+        if (data.features.length === 0) {
           Vue.set(this.layers[1], 'nodata', true)
           Vue.set(this.layers[1], 'nodataMessage', 'No lightning strikes have been recorded in the past 48 hours.')
         }
@@ -745,7 +746,7 @@ export default {
             .then(res => {
               if (res) {
                 this.lightningJson = res.data
-                processLightningData(res.data)
+                console.log(this.lightningJson)
                 this.$refs.map.refreshLayers()
                 resolve()
               }
@@ -776,7 +777,7 @@ export default {
       var opacityAmount
       var now = this.$moment.utc(this.$moment.now())
 
-      _.each(geoJson.features.features, feature => {
+      _.each(geoJson.features, feature => {
         currentMarker = this.$L.marker(new this.$L.latLng(feature.properties.LATITUDE, feature.properties.LONGITUDE), {icon: lightningIcon}).bindPopup(this.getLightningMarkerPopupContents(
           {
             datetime: feature.properties.STRIKETIME,
@@ -789,8 +790,9 @@ export default {
         // Days that have passed since lightning strike
         dateSince = now.diff(feature.properties.UTCDATETIME, 'days')
 
-        // This may be too compute heavy if a lot of lightning strikes. Potentially need to revisit.
-        opacityAmount = 1.0 - (0.0714285714 * dateSince)
+        // This may be too compute heavy if a lot of lightning strikes.
+        // Maximum loss of opacity set to 75% over 3 days.
+        opacityAmount = 1.0 - (0.25 * dateSince)
 
         // Change opacity based on how old the lightning strike is
         currentMarker.setOpacity(opacityAmount)
