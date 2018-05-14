@@ -37,7 +37,7 @@
           <ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>FireYear</ogc:PropertyName>
-              <ogc:Literal>2004</ogc:Literal>
+              <ogc:Literal>2005</ogc:Literal>
             </ogc:PropertyIsEqualTo>
           </ogc:Filter>
           <se:PolygonSymbolizer>
