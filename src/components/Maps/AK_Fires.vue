@@ -26,6 +26,7 @@ import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
 import AKFiresGraph from './AK_Fires_Graph'
 import Tour from '../Tour'
+import Vue from 'vue'
 
 // Used for expiry times for localstorage
 const DAY_AS_MILLISECONDS = 86400000
@@ -112,7 +113,7 @@ export default {
           first: fireLayerGroup,
           second: secondFireLayerGroup
         },
-        '2w_lightning': {
+        'lightning': {
           first: lightningLayerGroup,
           second: secondLightningLayerGroup
         },
@@ -339,11 +340,11 @@ export default {
           'abstract': '<img src="static/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="externa">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
         },
         {
-          'name': '2w_lightning',
-          'title': 'Lightning strikes, last 2 weeks',
+          'name': 'lightning',
+          'title': 'Lightning strikes, last 48 hours',
           'local': true,
           'legend': false,
-          'abstract': '<p>This layer shows all of the recorded lightning strikes that have occurred over the course of the past two weeks.</p><p>Many of the fires that occur during the summer in Alaska are caused by lightning strikes, thus seeing the recorded lightning strikes can be a good indication of potential fire starting points. See if you can find some lightning strikes that line up with recently started forest fires.</p>'
+          'abstract': '<p>This layer shows all of the recorded lightning strikes that have occurred over the course of the last 48 hours.</p><p>Many of the fires that occur during the summer in Alaska are caused by lightning strikes, thus seeing the recorded lightning strikes can be a good indication of potential fire starting points. See if you can find some lightning strikes that line up with recently started forest fires.</p>'
         },
         {
           'name': 'viirs',
@@ -450,6 +451,10 @@ export default {
     },
     fetchViirsData () {
       var processViirsData = data => {
+        if (data.features.length === 0) {
+          Vue.set(this.layers[2], 'nodata', true)
+          Vue.set(this.layers[2], 'nodataMessage', 'No hotspots have been recorded by VIIRS in the past 48 hours.')
+        }
         let viirsPoints = this.getViirsMarkers(data)
         viirsLayerGroup.addLayer(viirsPoints)
         secondViirsLayerGroup.addLayer(viirsPoints)
@@ -705,6 +710,10 @@ export default {
       // Helper function to rebuild Leaflet objects
       // from either localStorage or HTTP request
       var processLightningData = (data) => {
+        if (data.features.features.length === 0) {
+          Vue.set(this.layers[1], 'nodata', true)
+          Vue.set(this.layers[1], 'nodataMessage', 'No lightning strikes have been recorded in the past 48 hours.')
+        }
         lightningMarkers = this.getLightningMarkers(data)
         secondLightningMarkers = this.getLightningMarkers(data)
 

@@ -9,6 +9,8 @@
             :abstract="layer.abstract"
             :visible="layer.visible"
             :secondVisible="layer.secondVisible"
+            :nodata="layer.nodata"
+            :nodataMessage="layer.nodataMessage"
           ></map-layer>
         </div>
       </transition-group>
