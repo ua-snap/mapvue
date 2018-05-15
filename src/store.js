@@ -15,23 +15,7 @@ var swapVisibility = (state, targetLayer, targetLayerIndex, propName, value) => 
     targetLayer[propName] = !targetLayer[propName]
   }
 
-  // Gotcha here: because we are replacing
-  // the property in an array element,
-  // we need to ensure that Vue is aware of the
-  // change.
-  //
-  // See: https://vuejs.org/v2/guide/list.html#Caveats
-  // If the layer is being turned on
-  // pull it to the top of the list
-  if (targetLayer[propName] === true) {
-    state.layers.splice(targetLayerIndex, 1)
-    state.layers.unshift(targetLayer)
-  } else {
-    // Otherwise, just replace it in-place to ensure
-    // that reactivity rules see the changes and
-    // propagate this change to watchers.
-    Vue.set(state.layers, targetLayerIndex, targetLayer)
-  }
+  Vue.set(state.layers, targetLayerIndex, targetLayer)
 }
 
 export default new Vuex.Store({
