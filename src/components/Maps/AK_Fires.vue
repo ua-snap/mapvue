@@ -728,7 +728,6 @@ export default {
       // Helper function to rebuild Leaflet objects
       // from either localStorage or HTTP request
       var processLightningData = (data) => {
-        console.log(data)
         if (data.features.length === 0) {
           Vue.set(this.layers[1], 'nodata', true)
           Vue.set(this.layers[1], 'nodataMessage', 'No lightning strikes have been recorded in the past 48 hours.')
