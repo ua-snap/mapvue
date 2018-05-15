@@ -745,7 +745,7 @@ export default {
             .then(res => {
               if (res) {
                 this.lightningJson = res.data
-                console.log(this.lightningJson)
+                processLightningData(res.data)
                 this.$refs.map.refreshLayers()
                 resolve()
               }
