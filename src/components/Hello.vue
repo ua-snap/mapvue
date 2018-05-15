@@ -35,9 +35,9 @@ export default {
   components: {
     'map-list': MapList
   },
-  data () {
-    return {
-      year: 2017
+  computed: {
+    year () {
+      return new Date().getFullYear()
     }
   }
 }
