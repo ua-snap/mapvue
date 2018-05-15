@@ -13,7 +13,7 @@
           :class="{ 'enabled': dualMaps }"
           classes="mobile-hidden"
           :callback="toggleDualMaps"
-          text="Split / single map"
+          text="Show two maps"
         ></layer-menu-button-item>
         <layer-menu-button-item
           :class="{ 'enabled': syncMaps }"
