@@ -37,12 +37,14 @@
   </a>
 
   <!-- Layer title! -->
-  <a
-    v-html="title"
-    class="layer-title"
-    :class=" { 'visible': visible || (dualMaps && secondVisible) }"
-    @click.prevent="toggleLayer(name)"
-  >{{ title }}</a>
+  <span class="layer-title">
+    <span v-if="visible || (dualMaps && secondVisible)">&#10003;</span>
+    <a
+      v-html="title"
+      :class=" { 'visible': visible || (dualMaps && secondVisible) }"
+      @click.prevent="toggleLayer(name)"
+    ></a>
+  </span>
 </div>
 </template>
 
@@ -97,8 +99,18 @@ export default {
 .layer-title {
   display: inline-block;
   padding-left: 1ex;
+
+  & span {
+    color: #666;
+    padding: 0;
+    margin: 0;
+  }
 }
-a.info:hover { text-decoration: none; }
+
+a.info {
+  font-weight: 900;
+  &:hover { text-decoration: none; }
+}
 
 .reorder {
   display: inline-block;

@@ -438,7 +438,7 @@ export default {
         iconUrl: '/static/lightning.svg',
         iconSize: [20, 20],
         shadowSize: [0, 0], // no shadow!
-        iconAnchor: [16, 34], // point of the icon which will correspond to marker's location
+        iconAnchor: [7, 20], // point of the icon which will correspond to marker's location
         shadowAnchor: [0, 0],  // the same for the shadow
         popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
       }
