@@ -28,9 +28,6 @@ import AKFiresGraph from './AK_Fires_Graph'
 import Tour from '../Tour'
 import Vue from 'vue'
 
-// Used for expiry times for localstorage
-const DAY_AS_MILLISECONDS = 86400000
-
 // Leaflet objects, keep these outside of the
 // scope of the Vue component for performance
 // reasons
@@ -122,18 +119,6 @@ export default {
           second: secondViirsLayerGroup
         }
       }
-    },
-    fireJson: {
-      get () { return this.$localStorage.get('fireJson') },
-      set (value) { this.$localStorage.set('fireJson', value, DAY_AS_MILLISECONDS) }
-    },
-    lightningJson: {
-      get () { return this.$localStorage.get('lightningJson') },
-      set (value) { this.$localStorage.set('lightningJson', value, DAY_AS_MILLISECONDS) }
-    },
-    viirsJson: {
-      get () { return this.$localStorage.get('viirsJson') },
-      set (value) { this.$localStorage.set('viirsJson', value, DAY_AS_MILLISECONDS) }
     },
     // Custom buttons for menu
     buttons () {
@@ -409,7 +394,10 @@ export default {
           'title': 'Biggest recent fire seasons',
           'legend': false
         }
-      ]
+      ],
+      fireJson: null,
+      lightningJson: null,
+      viirsJson: null
     }
   },
   created () {
@@ -458,6 +446,9 @@ export default {
     this.fetchFireData()
     this.fetchLightningData()
     this.fetchViirsData()
+
+    // Remove any stray localStorage.
+    localStorage.clear()
   },
   beforeDestroy () {
     // Remove the store module when the component is destroyed.
@@ -494,7 +485,6 @@ export default {
               reject()
             })
         } else {
-          // Restoring from localStorage
           processViirsData(this.viirsJson)
           this.$refs.map.refreshLayers()
           resolve()
@@ -522,7 +512,6 @@ export default {
     },
     fetchFireData () {
       // Helper function to rebuild Leaflet objects
-      // from either localStorage or HTTP request
       var processFireData = (data) => {
         firePolygons = this.getGeoJsonLayer(data)
         fireMarkers = this.getFireMarkers(data)
@@ -539,7 +528,6 @@ export default {
       }
 
       return new Promise((resolve, reject) => {
-        // Check if the data is in local storage
         if (!this.fireJson) {
           this.$axios.get(process.env.FIRE_FEATURES_URL, { timeout: 120000 })
             .then(res => {
@@ -555,7 +543,6 @@ export default {
               reject()
             })
         } else {
-          // Restoring from localStorage
           processFireData(this.fireJson)
           this.$refs.map.refreshLayers()
           resolve()
@@ -726,7 +713,6 @@ export default {
     // Fetch lightning data from AK BLM cached data
     fetchLightningData () {
       // Helper function to rebuild Leaflet objects
-      // from either localStorage or HTTP request
       var processLightningData = (data) => {
         if (data.features.length === 0) {
           Vue.set(this.layers[1], 'nodata', true)
@@ -739,7 +725,6 @@ export default {
         secondLightningLayerGroup.addLayer(secondLightningMarkers)
       }
       return new Promise((resolve, reject) => {
-        // Check if the data is in local storage
         if (!this.lightningJson) {
           this.$axios.get(process.env.LIGHTNING_FEATURES_URL, { timeout: 120000 })
             .then(res => {
@@ -755,7 +740,6 @@ export default {
               reject()
             })
         } else {
-          // Restoring from localStorage
           processLightningData(this.lightningJson)
           this.$refs.map.refreshLayers()
           resolve()
