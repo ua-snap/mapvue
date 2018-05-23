@@ -243,7 +243,7 @@ export default {
       })
       tour.addStep({
         title: 'End of tour!',
-        text: `Thanks for checking this out! This map is for general information only. If you need the newest information on current fires, <a target="_blank" href="http://afsmaps.blm.gov/imf_fire/imf.jsp?site=fire">visit the AICC web map</a>.  If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
+        text: `Thanks for checking this out! This map is for general information only. If you need the newest information on current fires, <a target="_blank" href="http://afsmaps.blm.gov/imf_fire/imf.jsp?site=fire">visit the AICC web map</a>.  If you have feedback, we’d love to hear it&mdash;please <a href="mailto:uaf-mapventure@alaska.edu?subject=Alaska Wildfire map feedback">contact us!</a>`,
         buttons: buttons
       })
       return tour
@@ -990,5 +990,10 @@ div.leaflet-marker-icon span {
       font-size: 25pt;
     }
   }
+}
+
+// Tour styles
+.shepherd-step a {
+  font-weight: 900;
 }
 </style>
