@@ -1,6 +1,6 @@
 <template>
   <ul class="map-list">
-    <li v-for="(map, key) in maps">
+    <li v-for="(map, key) in maps" v-if="!map.draft">
       <router-link :to="{ name: 'map', params: { slug: key }}">
         {{ map.title}}
       </router-link>
