@@ -12,6 +12,17 @@ import leaflet_awesome_markers from '../node_modules/leaflet.awesome-markers/dis
 import axios from 'axios'
 import shepherd from 'tether-shepherd'
 import moment from 'moment'
+import VueAnalytics from 'vue-analytics'
+
+Vue.use(VueAnalytics, {
+  id: [process.env.MV_GOOGLE_ANALYTICS_TOKEN],
+  router,
+  checkDuplicatedScript: true,
+  debug: {
+    enabled: true,
+    sendHitTask: true
+  }
+})
 
 // Attach 3rd party libraries to Vue instance objects
 // https://vuejsdevelopers.com/2017/04/22/vue-js-libraries-plugins/

@@ -12,7 +12,7 @@ var webpackConfig = require('./webpack.prod.conf')
 
 // Require Google Analytics token to be set in environment variables to build.
 if (process.env.MV_GOOGLE_ANALYTICS_TOKEN == undefined) {
-  console.log(chalk.red(' Build failed: MV_GOOGLE_ANALYTICS_TOKEN not set in Linux environment variables.'))
+  console.log(chalk.red(' Build failed: GOOGLE_ANALYTICS_TOKEN not set in Linux environment variables.'))
   process.exit(1)
 }
 
