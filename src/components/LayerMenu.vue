@@ -20,7 +20,7 @@
           classes="dual-maps"
           v-show="dualMaps"
           :callback="toggleSyncMaps"
-          text="Move both maps together"
+          text="Link maps"
         ></layer-menu-button-item>
         <layer-menu-button-item
           v-for="(button, index) in buttons"

@@ -124,7 +124,7 @@ export default {
     buttons () {
       return [
         {
-          text: 'Graph large fire seasons',
+          text: 'Compare this year to others',
           glyphicon: 'signal',
           classes: 'mobile-hidden',
           callback: this.showFireGraph
@@ -279,7 +279,7 @@ export default {
       layers: [
         {
           'name': 'fires',
-          'title': 'All fires, 2018',
+          'title': '2018 Wildfires',
           'local': true,
           'legend': false,
           'visible': true,
@@ -335,7 +335,7 @@ export default {
           <p>This layer shows historical fire perimeters from 1940&mdash;2017. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank">AICC</a>.</p>`,
           'name': 'historical_fire_perimiters',
           'layerName': 'alaska_wildfires:historical_fire_perimiters',
-          'title': 'Historical extent, 1940&mdash;2017',
+          'title': 'All Historical Fires',
           'legend': false
         },
         {
@@ -352,7 +352,7 @@ export default {
           'name': 'alaska_wildfires:big_fire_perimiters',
           'layerName': 'alaska_wildfires:historical_fire_perimiters',
           'styles': 'big_fire_years',
-          'title': 'Biggest recent fire seasons',
+          'title': 'Recent Large Fire Years',
           'legend': false
         }
       ],
