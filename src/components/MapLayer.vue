@@ -38,12 +38,15 @@
 
   <!-- Layer title! -->
   <span class="layer-title">
-    <span v-if="visible || (dualMaps && secondVisible)">&#10003;</span>
     <a
-      v-html="title"
-      :class=" { 'visible': visible || (dualMaps && secondVisible) }"
       @click.prevent="toggleLayer(name)"
-    ></a>
+    >
+      <span v-if="visible || (dualMaps && secondVisible)" >&#10003;</span>
+      <span
+        v-html="title"
+        :class=" { 'visible': visible || (dualMaps && secondVisible) }">
+      </span>
+    </a>
   </span>
 </div>
 </template>
