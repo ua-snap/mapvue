@@ -37,7 +37,7 @@ export default {
   },
   mounted () {
     // Necessary to see the markers.
-    this.$L.Icon.Default.imagePath = 'static'
+    this.$L.Icon.Default.imagePath = 'static/'
 
     // Add points of interest
     _.each(this.hotspots, (e) => {
@@ -127,13 +127,13 @@ export default {
         {
           'abstract': 'This layer shows cultural sites and buildings, as well as protected areas in the IAM area. Arctic Alaska has a long history of inhabitants, settlers, and traders since the earliest families crossed the Bering Land Bridge some 20,000 years ago. Cultural sites and structures are important artifacts. “Protected areas” are defined here as areas designated to preserve cultural and/or recreational features and activities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
           'name': 'cult_rec',
-          'title': 'Cultural and protected areas',
+          'title': 'Cultural & protected areas',
           'legend': false
         },
         {
           'abstract': 'This layer shows the communities and subsistence areas within the IAM area. People living in Arctic Alaska impact, and are being impacted by, the environmental, economic, and cultural features and changes in their area.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
           'name': 'comm_subs',
-          'title': 'Communities and subsistence areas',
+          'title': 'Communities & subsistence',
           'legend': false
         },
         {

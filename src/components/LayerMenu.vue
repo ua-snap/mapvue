@@ -20,7 +20,7 @@
           classes="dual-maps"
           v-show="dualMaps"
           :callback="toggleSyncMaps"
-          text="Move both maps together"
+          text="Link maps"
         ></layer-menu-button-item>
         <layer-menu-button-item
           v-for="(button, index) in buttons"
@@ -96,7 +96,7 @@ export default {
   position: absolute;
   top: 4em;
   padding: 1em;
-  width: 20em; /* prevent horizontal resize if possible */
+  min-width: 20em; /* prevent horizontal resize if possible */
 
   .custom-buttons {
     margin: 2em 0;

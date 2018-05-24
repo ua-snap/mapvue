@@ -124,7 +124,7 @@ export default {
     buttons () {
       return [
         {
-          text: 'Graph large fire seasons',
+          text: 'Compare this year to others',
           glyphicon: 'signal',
           classes: 'mobile-hidden',
           callback: this.showFireGraph
@@ -243,8 +243,24 @@ export default {
       })
       tour.addStep({
         title: 'End of tour!',
-        text: `Thanks for checking this out! This map is for general information only. If you need the newest information on current fires, <a target="_blank" href="http://afsmaps.blm.gov/imf_fire/imf.jsp?site=fire">visit the AICC web map</a>.  If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
-        buttons: buttons
+        text: `Thanks for checking this out! This map is for general information only. If you need the newest information on current fires, <a target="_blank" href="http://afsmaps.blm.gov/imf_fire/imf.jsp?site=fire">visit the AICC web map</a>.  If you have feedback, we’d love to hear it&mdash;please <a href="mailto:uaf-mapventure@alaska.edu?subject=Alaska Wildfire map feedback">contact us!</a>`,
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Done',
+            action: tour.complete
+          }
+        ],
+        when: {
+          show: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: ['fires']
+            })
+          }
+        }
       })
       return tour
     }
@@ -279,7 +295,7 @@ export default {
       layers: [
         {
           'name': 'fires',
-          'title': 'All fires, 2018',
+          'title': '2018 Wildfires',
           'local': true,
           'legend': false,
           'visible': true,
@@ -297,9 +313,7 @@ export default {
           'title': 'Hotspots, last 48 hours',
           'local': true,
           'legend': false,
-          'abstract': `<p>VIIRS is a <a href="https://jointmission.gsfc.nasa.gov/viirs.html" target="_blank">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank">Suomi satellite</a> that collects visible and infrared imagery and radiometric measurements of the land, atmosphere, cryosphere, and oceans. VIIRS records cloud and airborne particle properties, ocean color, land and water temperatures, ice motion and temperature, fires, and Earth's reflectivity (albedo). These data help climatologists learn more about global climate change. </p>
-
-<p>VIIRS can also see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.</p>`
+          'abstract': `VIIRS, a <a href="https://jointmission.gsfc.nasa.gov/viirs.html" target="_blank">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank">Suomi satellite</a>, can see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.`
         },
         {
           'abstract': `
@@ -335,7 +349,7 @@ export default {
           <p>This layer shows historical fire perimeters from 1940&mdash;2017. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank">AICC</a>.</p>`,
           'name': 'historical_fire_perimiters',
           'layerName': 'alaska_wildfires:historical_fire_perimiters',
-          'title': 'Historical extent, 1940&mdash;2017',
+          'title': 'All Historical Fires',
           'legend': false
         },
         {
@@ -352,7 +366,7 @@ export default {
           'name': 'alaska_wildfires:big_fire_perimiters',
           'layerName': 'alaska_wildfires:historical_fire_perimiters',
           'styles': 'big_fire_years',
-          'title': 'Biggest recent fire seasons',
+          'title': 'Recent Large Fire Years',
           'legend': false
         }
       ],
@@ -990,5 +1004,11 @@ div.leaflet-marker-icon span {
       font-size: 25pt;
     }
   }
+}
+
+// Tour styles
+.shepherd-step a {
+  font-weight: 900;
+  color: #67aBe5;
 }
 </style>
