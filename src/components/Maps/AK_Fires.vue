@@ -27,6 +27,16 @@ import MapInstance from '@/components/MapInstance'
 import AKFiresGraph from './AK_Fires_Graph'
 import Tour from '../Tour'
 import Vue from 'vue'
+const { detect } = require('detect-browser')
+const browser = detect()
+
+// Determine if we need to hack for IE11 or not.
+var isIe11
+if (browser) {
+  if (browser.name === 'ie' && browser.version === '11.0.0' && browser.os === 'Windows 7') {
+    isIe11 = true
+  }
+}
 
 // Leaflet objects, keep these outside of the
 // scope of the Vue component for performance
@@ -433,6 +443,7 @@ export default {
     showFireGraph () {
       this.$store.commit('showFireGraph')
     },
+
     fetchViirsData () {
       var processViirsData = data => {
         if (data.features.length === 0) {
@@ -510,6 +521,18 @@ export default {
                 this.fireJson = res.data
                 processFireData(res.data)
                 this.$refs.map.refreshLayers()
+                if (isIe11) {
+                  setTimeout(() => {
+                    this.$store.commit('showOnlyLayers', {
+                      first: []
+                    })
+                    setTimeout(() => {
+                      this.$store.commit('showOnlyLayers', {
+                        first: ['fires']
+                      })
+                    }, 500)
+                  }, 250)
+                }
                 resolve()
               }
             },
