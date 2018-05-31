@@ -345,7 +345,7 @@ export default {
             <tr><td><div class="l-15"></div></td><td>Snow and ice</td></tr>
           </table>
           <p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank">Commission for Environmental Cooperation</a></p>.`,
-          'name': 'alaska_landcover_2010',
+          'name': 'alaska_wildfires:alaska_landcover_2010',
           'title': 'Land cover, 2010',
           'legend': false
         },
@@ -375,7 +375,7 @@ export default {
           <p>This layer shows the extent of the largest recent fire seasons.</p>`,
           'name': 'alaska_wildfires:big_fire_perimiters',
           'layerName': 'alaska_wildfires:historical_fire_perimiters',
-          'styles': 'big_fire_years',
+          'styles': 'alaska_wildfires:big_fire_years',
           'title': 'Recent Large Fire Years',
           'legend': false
         }
