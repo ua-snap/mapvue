@@ -183,7 +183,7 @@ export default {
         '+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs',
         {
           resolutions: [4096, 2048, 1024, 512, 256, 128, 64],
-          origin: [-4234288.146966308, -4234288.146966307]
+          origin: [-4889334.802954878, -4889334.802954878]
         }
       )
 
