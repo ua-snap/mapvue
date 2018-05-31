@@ -9,10 +9,13 @@ import p4l from 'proj4leaflet' // eslint-disable-line
 import leaflet_sidebar from 'leaflet-sidebar' // eslint-disable-line
 import leaflet_sync from '../node_modules/leaflet.sync/L.Map.Sync.js' // eslint-disable-line
 import leaflet_awesome_markers from '../node_modules/leaflet.awesome-markers/dist/leaflet.awesome-markers.js' // eslint-disable-line
-import axios from 'axios'
 import shepherd from 'tether-shepherd'
 import moment from 'moment'
 import VueAnalytics from 'vue-analytics'
+
+// Polyfill needed for IE11 to work properly with Axios.
+require('es6-promise').polyfill()
+var axios = require('axios')
 
 Vue.use(VueAnalytics, {
   id: [process.env.MV_GOOGLE_ANALYTICS_TOKEN],
