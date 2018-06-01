@@ -411,6 +411,14 @@ export default {
           'styles': 'alaska_wildfires:big_fire_years',
           'title': 'Recent Large Fire Years',
           'legend': false
+        },
+        {
+          'abstract': `
+          <p>This layer shows the results of a wildfire model, ALFRESCO, that shows the projected relative flammability.  The more red, the more likely that area is to burn.  This layer includes data from the IEM and assumes RCP8.5.</p>`,
+          'name': 'alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099',
+          'layerName': 'alaska_wildfires:alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099',
+          'title': 'Future flammability, 2000-2099',
+          'legend': true
         }
       ],
       fireJson: null,
