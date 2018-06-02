@@ -2,8 +2,7 @@
   <div>
   <h1 class="map-title">{{ title }}</h1>
   <layer-menu></layer-menu>
-  <splash-screen
-    :abstract="abstract"></splash-screen>
+  <splash-screen :abstract="abstract"></splash-screen>
   <mv-map
     ref="map"
     :baseLayerOptions="baseLayerOptions"
@@ -13,6 +12,7 @@
     :mapOptions="mapOptions"
   ></mv-map>
   <sidebar :mapObj="primaryMapObject"></sidebar>
+  <tour :tour="tour"></tour>
   <mv-footer></mv-footer>
 </div>
 </template>
@@ -21,10 +21,14 @@
 /* eslint new-cap: "off" */
 import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
+import Tour from '../Tour'
 
 export default {
   name: 'SNAP_RCP6',
   extends: MapInstance,
+  components: {
+    'tour': Tour
+  },
   data () {
     return {
       title: 'Variation over time with RCP 6.0 (Draft)',
@@ -64,9 +68,28 @@ export default {
           'title': '2010s Mean Annual Temperature, RCP 6.0'
         },
         {
-          'abstract': 'This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types. \n\nThe dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010.  _What landcover burns the most?_\n\nTo access and learn more about this dataset, visit the [Commission for Environmental Cooperation](http://www.cec.org/tools-and-resources/map-files/land-cover-2010).\n',
-          'name': 'geonode:alaska_landcover_2010',
-          'title': 'Land cover, 2010'
+          'abstract': `
+          <table class="rcp6-legend alaska-landcover-2010">
+            <tr><td><div class="l-1"></div></td><td>Temperate or sub-polar needleleaf forest</td></tr>
+            <tr><td><div class="l-2"></div></td><td>Sub-polar taiga needleleaf forest</td></tr>
+            <tr><td><div class="l-3"></div></td><td>Temperate or sub-polar broadleaf deciduous forest</td></tr>
+            <tr><td><div class="l-4"></div></td><td>Mixed forest</td></tr>
+            <tr><td><div class="l-5"></div></td><td>Temperate or sub-polar shrubland</td></tr>
+            <tr><td><div class="l-6"></div></td><td>Temperate or sub-polar grassland</td></tr>
+            <tr><td><div class="l-7"></div></td><td>Sub-polar or polar shrubland-lichen-moss</td></tr>
+            <tr><td><div class="l-8"></div></td><td>Sub-polar or polar grassland-lichen-moss</td></tr>
+            <tr><td><div class="l-9"></div></td><td>Sub-polar or polar barren-lichen-moss</td></tr>
+            <tr><td><div class="l-10"></div></td><td>Wetland</td></tr>
+            <tr><td><div class="l-11"></div></td><td>Cropland</td></tr>
+            <tr><td><div class="l-12"></div></td><td>Barren land</td></tr>
+            <tr><td><div class="l-13"></div></td><td>Urban and built-up</td></tr>
+            <tr><td><div class="l-14"></div></td><td>Water</td></tr>
+            <tr><td><div class="l-15"></div></td><td>Snow and ice</td></tr>
+          </table>
+          <p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank">Commission for Environmental Cooperation</a></p>.`,
+          'name': 'alaska_wildfires:alaska_landcover_2010',
+          'title': 'Land cover, 2010',
+          'legend': false
         }
       ]
     }
@@ -75,11 +98,16 @@ export default {
     crs () {
       // We need to modify the default pan-Arctic
       // projection to avoid a bug.
-      var proj = new this.$L.Proj.CRS('EPSG:3572',
-        '+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs',
+      var proj = new this.$L.Proj.CRS('EPSG:3338',
+      '+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs',
         {
           resolutions: [4096, 2048, 1024, 512, 256, 128, 64],
-          origin: [-4234288.146966308, -4234288.146966307]
+
+          // Origin should be lower-left coordinate
+          // in projected space.  Use GeoServer to
+          // find this:
+          // TileSet > Gridset Bounds > compute from maximum extent of SRS
+          origin: [-4648005.934316417, 444809.882955059]
         }
       )
 
@@ -87,7 +115,7 @@ export default {
       // Without this (= pi/2), proj4js returns an undefined
       // value for tiles requested at the North Pole and
       // it causes a runtime exception.
-      proj.projection._proj.oProj.phi0 = 1.5708
+      // proj.projection._proj.oProj.phi0 = 1.5708
       return proj
     },
     baseLayer () {
@@ -125,51 +153,177 @@ export default {
       )
     },
     tour () {
-      let tour = new this.$shepherd.Tour({
+      let tour
+      tour = new this.$shepherd.Tour({
         defaults: {
-          classes: 'shepherd-theme-square-dark'
+          classes: 'shepherd-theme-square-dark',
+          showCancelLink: true
         }
       })
-      tour.addStep('rcp-overview', {
-        title: 'What&rsquo;s an RCP?',
+
+      // Reuse for navigation
+      /*
+      let buttons = [
+        {
+          text: 'Back',
+          action: tour.back
+        },
+        {
+          text: 'Next',
+          action: tour.next
+        }
+      ] */
+
+      tour.addStep({
+        title: 'General Circulation Models',
         text: `
-<p>The Intergovernmental Panel on Climate Change&rsquo;s (IPCC) 5th Assessment Report (AR5) describes four different potential future scenarios using <strong>Representative Concentration Pathways</strong> (RCPs).</p>
+        <p>Projecting into the future using <a href="https://www.gfdl.noaa.gov/climate-modeling/">General Circulation Model</a> (GCM) data will always include uncertainties. To address this, <a href="https://www.snap.uaf.edu/methods/models">SNAP provides five GCMs that perform best over the Arctic</a> as well as an average of those 5 models. This "5 Model Average" is generally more statistically accurate than any individual model; however, the average value does smooth out extreme values. If extreme values are of interest, it's best to use a series of individual GCMs.</p>`,
+        classes: 'shepherd-theme-square-dark',
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+          }
+        }
+      })
+      tour.addStep({
+        title: 'What is an RCP?',
+        text: `
+        <p>Just as it’s good to use multiple GCMs, it’s also good to look at multiple scenarios when using climate data. This approach provides the most complete picture of possible future climate trends.</p>
 
-<p>RCPs are the latest set of international climate scenarios used to model potential future climates. RCP data are used to ensure that modelers start from the same place, using values everyone is familiar with. RCPs reduce duplication, save money, and provide a &ldquo;common language&rdquo; for comparing results and sharing findings.</p>
+        <p>The Intergovernmental Panel on Climate Change (IPCC) describes 4 potential future scenarios known as Representative Concentration Pathways (RCPs).</p>
 
-<p>Each RCP sets levels for the concentration of greenhouse gases and how much the planet has heated up for the year 2100. These become &ldquo;pathways&rdquo; to the end of the 21st century.</p>
-`,
+        <p>RCPs are used by those running GCMs to model what the climate might be like in the future and to ensure that modelers start from the same place and agree on the same assumptions. RCPs provide a “common language” for comparing results and sharing findings.</p>`,
+        classes: 'shepherd-theme-square-dark',
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+          }
+        }
+      })
+      tour.addStep({
+        title: 'What do RCPs describe?',
+        text: `
+        <p>RCPs illustrate 3 major values:</p>
+        <p style="margin-left: 5px;"><b>1) Radiative forcing</b> — how much energy is at the Earth’s surface, measured in watts per square meter, by the year 2100. This is the metric that the RCP numbers are based upon, i.e. RCP 2.6, 4.5, 6.0, and 8.5.</p>
+        <p style="margin-left: 5px;"><b>2) Emission rates</b> — how fast we add greenhouse gases into the atmosphere
+        <p style="margin-left: 5px;"><b>3) Emission concentrations</b> — measured in parts per million for CO2, methane, and other greenhouse gases
+</p>`,
+        classes: 'shepherd-theme-square-dark',
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+          }
+        }
+      })
+      tour.addStep({
+        title: 'End of tour!',
+        text: `Thanks for checking out the RCP 6.0 map! Tools like this help to visualize the impact our development can have on a variety of species in Alaska, which represents an important talking point for decision makers and citizens alike.<p><p> If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
+        when: {
+          show: () => {}
+        },
         buttons: [
           {
-            text: 'Next',
-            action: tour.next
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Done',
+            action: tour.complete
           }
         ]
-      })
-      tour.addStep('rcp-describe', {
-        title: 'What do RCPs describe?',
-        classes: 'shepherd-theme-square-dark tour-wide',
-        text: `
-<p>RCPs illustrate three major values:</p>
-<ul>
-  <li><strong>Radiative forcing</strong>&mdash;how much sunlight is trapped in Earth’s atmosphere vs. being reflected back into space</li>
-  <li><strong>Emission rates</strong>&mdash;how fast we add greenhouse gases into the atmosphere</li>
-  <li><strong>Emission concentrations</strong>&mdash;measured in parts per million for CO2, methane, and other greenhouse gases</li>
-</ul>
-<p>RCP2.6, RCP4.5, RCP6, and RCP8.5 are the four major pathways. The numbers refer to levels of radiative forcings, measured in watts per square meter (W/m^2), by the year 2100.</p>
-<ul>
-  <li><strong>RCP 2.6</strong>: Forcing peaks at ~3 W/m&sup2; mid-century and drops to 2.6 W/m&sup2; by 2100. Greenhouse gas emissions drop substantially over time.</li>
-  <li><strong>RCPs 4.5 and 6.0</strong>: Forcing stabilizes soon after 2100 at 4.5 and 6.0 W/m&sup2;, respectively, due to efforts that curb emissions.</li>
-  <li><strong>RCP 8.5</strong>: Very high greenhouse gas concentrations. Radiative forcing values reach 8.5 W/m&sup2; by 2100 and continue to rise into the next century. Very high greenhouse gas concentrations.</li>
-</ul>
-<figure class="text-center"><img src="../../assets/rcp-variation.png"/>
-  <figcaption>Atmospheric concentrations of carbon dioxide, methane, and nitrous oxide for each RCP through 2100.</figcaption>
-</figure>
-`
       })
       return tour
     }
   }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss">
+.tabbed-entry {
+  margin-left: 5px;
+}
+table.rcp6-legend.alaska-landcover-2010 {
+  td {
+    font-size: 10pt;
+    div {
+      height: 2em;
+      width: 2em;
+      border: none;
+      margin-right: 5px;
+      &.l-1 { background-color: #003d00; }
+      &.l-2 { background-color: #949c70; }
+      &.l-3 { background-color: #148c3d; }
+      &.l-4 { background-color: #5c752b; }
+      &.l-5 { background-color: #b38a33; }
+      &.l-6 { background-color: #e1cf8a; }
+      &.l-7 { background-color: #9c7554; }
+      &.l-8 { background-color: #bad48f; }
+      &.l-9 { background-color: #408a70; }
+      &.l-10 { background-color: #6ba38a; }
+      &.l-11 { background-color: #e6ae66; }
+      &.l-12 { background-color: #a8abae; }
+      &.l-13 { background-color: #DD40D6; }
+      &.l-14 { background-color: #4c70a3; }
+      &.l-15 { background-color: #eee9ee; }
+    }
+  }
+}
+
+.splash-screen .billboard {
+  background: url("~@/assets/barrow.jpg") white bottom left / cover no-repeat;
+  h1 {
+    width: 75%;
+    font-size: 20pt;
+    padding: 1ex;
+    color: #000;
+  }
+  color: #222;
+  a {
+    color: #438bca;
+  }
+  p {
+    padding: 1em;
+  }
+  ul {
+    li {
+    }
+    margin-bottom: 1em;
+  }
+  .abstractWrapper {
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      border-radius: 0;
+      margin: 0;
+      font-size: 10pt;
+      ul {
+        margin-right: 1em;
+      }
+    }
+    @media screen and (min-width: 769px) {
+      max-width: 50%;
+    }
+    background: rgba(255, 255, 255, .8);
+    border-radius: 1ex;
+    margin: 1em;
+  }
+  .buttons {
+    margin: 1em;
+    padding-bottom: 1em;
+    font-weight: 700;
+  }
+  .logos {
+    margin: -1em 0 1em 1em;
+  }
+}
+</style>

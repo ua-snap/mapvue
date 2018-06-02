@@ -4,7 +4,6 @@ export default {
     title: 'AAOKH (Draft)'
   },
   'snap-rcp-6.0': {
-    draft: true,
     title: 'Variation over time with RCP 6.0 (Draft)'
   },
   'iam': {
