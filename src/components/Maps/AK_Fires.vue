@@ -790,11 +790,12 @@ table.alaska-wildfires-legend {
 
 table.alaska-wildfires-legend.alaska-landcover-2010 {
   td {
-    font-size: 12pt;
+    font-size: 10pt;
     div {
       height: 2em;
       width: 2em;
       border: none;
+      margin-right: 5px;
       &.l-1 { background-color: #003d00; }
       &.l-2 { background-color: #949c70; }
       &.l-3 { background-color: #148c3d; }
