@@ -313,10 +313,10 @@ export default {
         },
         {
           'name': 'lightning',
-          'title': 'Lightning strikes, last 48 hours',
+          'title': 'Recent lightning strikes',
           'local': true,
           'legend': false,
-          'abstract': '<p>This layer shows all of the recorded lightning strikes that have occurred over the course of the last 48 hours.</p><p>Many of the fires that occur during the summer in Alaska are caused by lightning strikes, thus seeing the recorded lightning strikes can be a good indication of potential fire starting points. See if you can find some lightning strikes that line up with recently started forest fires.</p>'
+          'abstract': '<p>This layer shows all <em>positive</em> lightning strikes recorded today since 6:00 AM AKDT.  Positive lightning strikes, as opposed to <em>negative</em> strikes, are less frequent (only 5% of recorded lightning strikes are positive) and thought to be more powerful and cause more wildfires than negative strikes.</p><p>Many of the fires that occur during the summer in Alaska are caused by lightning strikes, thus seeing the recorded lightning strikes can be a good indication of potential fire starting points.</p>'
         },
         {
           'name': 'viirs',
@@ -750,55 +750,17 @@ export default {
     // less than an acre, the class 'small' is attached.
     getLightningMarkers (geoJson) {
       var lightningMarkers = []
-      var popupOptions = {
-        maxWidth: 200
-      }
       var currentMarker
-      var hoursSince
-      var opacityAmount
-      var now = this.$moment.utc(this.$moment.now())
 
       _.each(geoJson.features, feature => {
-        currentMarker = this.$L.marker(new this.$L.latLng(feature.properties.LATITUDE, feature.properties.LONGITUDE), {icon: lightningIcon}).bindPopup(this.getLightningMarkerPopupContents(
-          {
-            datetime: feature.properties.STRIKETIME,
-            latitude: feature.properties.LATITUDE,
-            longitude: feature.properties.LONGITUDE,
-            amplitude: feature.properties.AMPLITUDE,
-            lightningtype: feature.properties.lightningtype
-          }, popupOptions))
-
-        // Hours that have passed since lightning strike
-        hoursSince = now.diff(feature.properties.UTCDATETIME, 'hours')
-
-        // This may be too compute heavy if a lot of lightning strikes.
-        // Maximum loss of opacity set to 75% over 3 days.
-        opacityAmount = 1.0 - (0.02 * hoursSince)
-
-        // Change opacity based on how old the lightning strike is
-        currentMarker.setOpacity(opacityAmount)
+        currentMarker = this.$L.marker(new this.$L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]), {
+          icon: lightningIcon
+        })
         lightningMarkers.push(currentMarker)
       })
 
       // if (feature.properties.LOCALDATETIME)
       return this.$L.layerGroup(lightningMarkers)
-    },
-    getLightningMarkerPopupContents (lightningInfo) {
-      return _.template(`
-  <h1><%= datetime %></h1>
-  <h2><%= lightningtype %></h2>
-
-  <p><b>Latitude:</b> <%= latitude %>
-  <br/><b>Longitude:</b> <%= longitude %></p>
-  <p><b>Amplitude:</b> <%= amplitude %></p>`)(
-        {
-          datetime: lightningInfo.datetime,
-          lightningtype: lightningInfo.lightningtype,
-          longitude: lightningInfo.longitude,
-          latitude: lightningInfo.latitude,
-          amplitude: lightningInfo.amplitude
-        }
-      )
     }
   }
 }
@@ -813,6 +775,10 @@ export default {
     font-size: 16pt !important;
     font-weight: bold;
   }
+
+div#mv-ak-fires img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive {
+  cursor: unset !important;
+}
 
 </style>
 <style lang="scss">
