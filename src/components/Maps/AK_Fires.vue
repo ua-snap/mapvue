@@ -12,7 +12,10 @@
     :map-options="mapOptions"
     :local-layers="localLayers"
   ></mv-map>
-  <sidebar :mapObj="primaryMapObject"></sidebar>
+  <sidebar
+    :mapObj="primaryMapObject"
+    :templateVars="templateVars"
+  ></sidebar>
   <tour :tour="tour"></tour>
   <mv-footer></mv-footer>
   <graph></graph>
@@ -277,6 +280,9 @@ export default {
   },
   data () {
     return {
+      templateVars: {
+        totalStrikes: undefined
+      },
       title: 'Alaska Wildfires: Past and Present',
       abstract: `
 <h1>It’s important to study wildland fire and its relationship to humans and the ecosystems we share. Use this map to see locations and sizes of wildfires in relation to long-term fire history, land cover types, and more.</h1>
@@ -316,7 +322,7 @@ export default {
           'title': 'Recent lightning strikes',
           'local': true,
           'legend': false,
-          'abstract': '<p>This layer shows all <em>positive</em> lightning strikes recorded today since 6:00 AM AKDT.  Positive lightning strikes, as opposed to <em>negative</em> strikes, are less frequent (only 5% of recorded lightning strikes are positive) and thought to be more powerful and cause more wildfires than negative strikes.</p><p>Many of the fires that occur during the summer in Alaska are caused by lightning strikes, thus seeing the recorded lightning strikes can be a good indication of potential fire starting points.</p>'
+          'abstract': _.template('<p>This layer shows the most recent 300 lightning strikes of the <%= totalStrikes %> recorded in the past 48 hours.</p><p>Many of the fires that occur during the summer in Alaska are caused by lightning strikes, thus seeing the recorded lightning strikes can be a good indication of potential fire starting points.</p>')
         },
         {
           'name': 'viirs',
@@ -712,6 +718,7 @@ export default {
     fetchLightningData () {
       // Helper function to rebuild Leaflet objects
       var processLightningData = (data) => {
+        this.templateVars.totalStrikes = data.totalStrikes
         if (data.features.length === 0) {
           Vue.set(this.layers[1], 'nodata', true)
           Vue.set(this.layers[1], 'nodataMessage', 'No lightning strikes have been recorded in the past 48 hours.')
@@ -744,10 +751,6 @@ export default {
         }
       })
     },
-    // This handler is only used for point features (no polygon).
-    // It returns a Leaflet divIcon marker with classes
-    // for active/inactive, and if the size of the fire is
-    // less than an acre, the class 'small' is attached.
     getLightningMarkers (geoJson) {
       var lightningMarkers = []
       var currentMarker
@@ -759,7 +762,6 @@ export default {
         lightningMarkers.push(currentMarker)
       })
 
-      // if (feature.properties.LOCALDATETIME)
       return this.$L.layerGroup(lightningMarkers)
     }
   }

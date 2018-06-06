@@ -5,7 +5,7 @@
 <script>
 
 export default {
-  props: ['mapObj'],
+  props: ['mapObj', 'templateVars'],
   data () {
     return {
       sidebar: undefined
@@ -50,7 +50,13 @@ export default {
             '" onerror="this.style.display=\'none\'" />'
           )
         }
-        this.sidebar.setContent(content + this.sidebarContent.abstract).show()
+        var abstractContent
+        if (typeof this.sidebarContent.abstract === 'function') {
+          abstractContent = this.sidebarContent.abstract(this.templateVars)
+        } else {
+          abstractContent = this.sidebarContent.abstract
+        }
+        this.sidebar.setContent(content + abstractContent).show()
       } else {
         // Or, clear the content if hiding it.
         this.sidebar.setContent('').hide()
