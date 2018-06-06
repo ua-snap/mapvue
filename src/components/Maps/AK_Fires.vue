@@ -214,7 +214,7 @@ export default {
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', {
-              first: ['alaska_landcover_2010']
+              first: ['alaska_wildfires:alaska_landcover_2010']
             })
           },
           hide () {
@@ -230,7 +230,7 @@ export default {
         when: {
           show: () => {
             this.$store.commit('showSidebar', {
-              layer: 'alaska_landcover_2010'
+              layer: 'alaska_wildfires:alaska_landcover_2010'
             })
           },
           hide: () => {
