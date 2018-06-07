@@ -159,6 +159,11 @@ export default {
     },
     resizeGraph () {
       Plotly.Plots.resize(this.$refs.plotly)
+      this.$ga.event({
+        eventCategory: 'Show large fire season graph',
+        eventAction: 'show',
+        eventLabel: 'Fire Graph'
+      })
     }
   },
   beforeDestroy () {

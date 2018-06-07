@@ -69,11 +69,21 @@ export default {
           layer: layerName,
           mapPane: mapPane
         })
+        this.$ga.event({
+          eventCategory: 'Toggle ' + this.title + ' layer',
+          eventAction: 'toggle',
+          eventLabel: 'Map Layer Toggle'
+        })
       }
     },
     showLayerInformation (layer) {
       this.$store.commit('showSidebar', {
         layer: layer
+      })
+      this.$ga.event({
+        eventCategory: 'View ' + this.title + ' layer information',
+        eventAction: 'toggle',
+        eventLabel: 'Map Layer Info'
       })
     }
   }
