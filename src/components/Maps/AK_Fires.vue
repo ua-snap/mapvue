@@ -184,12 +184,18 @@ export default {
             this.$store.commit('showOnlyLayers', {
               first: ['fires']
             })
+            this.$ga.event({
+              eventCategory: 'Tour Step: This Season\'s Fires',
+              eventAction: 'show',
+              eventLabel: 'AK Fires Tour',
+              eventValue: 1
+            })
           }
         },
         tetherOptions: tetherTopRight
       })
       tour.addStep({
-        title: 'Fires in history',
+        title: 'Fires in History',
         attachTo: '#top_item right',
         text: 'This layer shows all mapped fire perimeters from 1940 to 2017. It can be interesting to look for areas of repeated burn, or where a fire is burning today compared to older fire scars.',
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
@@ -197,6 +203,12 @@ export default {
           show: () => {
             this.$store.commit('showOnlyLayers', {
               first: ['historical_fire_perimiters']
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: Fires in History',
+              eventAction: 'show',
+              eventLabel: 'AK Fires Tour',
+              eventValue: 2
             })
           },
           hide () {
@@ -216,6 +228,12 @@ export default {
             this.$store.commit('showOnlyLayers', {
               first: ['alaska_wildfires:alaska_landcover_2010']
             })
+            this.$ga.event({
+              eventCategory: 'Tour Step: Land cover from 2010',
+              eventAction: 'show',
+              eventLabel: 'AK Fires Tour',
+              eventValue: 3
+            })
           },
           hide () {
             //
@@ -232,6 +250,12 @@ export default {
             this.$store.commit('showSidebar', {
               layer: 'alaska_wildfires:alaska_landcover_2010'
             })
+            this.$ga.event({
+              eventCategory: 'Tour Step: What do the colors mean?',
+              eventAction: 'show',
+              eventLabel: 'AK Fires Tour',
+              eventValue: 4
+            })
           },
           hide: () => {
             this.$store.commit('hideSidebar')
@@ -247,6 +271,12 @@ export default {
         when: {
           show: () => {
             this.$store.commit('showFireGraph')
+            this.$ga.event({
+              eventCategory: 'Tour Step: Fire Graph',
+              eventAction: 'show',
+              eventLabel: 'AK Fires Tour',
+              eventValue: 5
+            })
           },
           hide: () => {
             this.$store.commit('hideFireGraph')
@@ -271,6 +301,12 @@ export default {
           show: () => {
             this.$store.commit('showOnlyLayers', {
               first: ['fires']
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: Finished Tour!',
+              eventAction: 'show',
+              eventLabel: 'AK Fires Tour',
+              eventValue: 6
             })
           }
         }
