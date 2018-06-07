@@ -22,7 +22,7 @@ Vue.use(VueAnalytics, {
   router,
   checkDuplicatedScript: true,
   debug: {
-    enabled: true,
+    enabled: false,
     sendHitTask: true
   }
 })

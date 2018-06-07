@@ -5,5 +5,5 @@ module.exports = {
   FIRE_TIME_SERIES_URL: '"http://aicc-fire-api.openshift.snap.uaf.edu/fire-time-series"',
   LIGHTNING_FEATURES_URL: '"http://aicc-fire-api.openshift.snap.uaf.edu/lightning-data"',
   VIIRS_URL: '"http://aicc-fire-api.openshift.snap.uaf.edu/viirs"',
-  MV_GOOGLE_ANALYTICS_TOKEN: "'" + process.env.GOOGLE_ANALYTICS_TOKEN + "'"
+  MV_GOOGLE_ANALYTICS_TOKEN: "'" + process.env.MV_GOOGLE_ANALYTICS_TOKEN + "'"
 }
