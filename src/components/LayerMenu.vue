@@ -75,15 +75,30 @@ export default {
     },
     showSplash () {
       this.$store.commit('showSplash')
+      this.$ga.event({
+        eventCategory: 'Show About This Map splash screen',
+        eventAction: 'show',
+        eventLabel: 'About This Map'
+      })
     },
     startTour () {
       this.$store.commit('startTour')
     },
     toggleDualMaps () {
       this.$store.commit('toggleDualMaps')
+      this.$ga.event({
+        eventCategory: 'Toggle Dual Maps',
+        eventAction: 'toggle',
+        eventLabel: 'Dual Maps'
+      })
     },
     toggleSyncMaps () {
       this.$store.commit('toggleSyncMaps')
+      this.$ga.event({
+        eventCategory: 'Synchronize dual maps',
+        eventAction: 'toggle',
+        eventLabel: 'Dual Maps'
+      })
     }
   }
 }

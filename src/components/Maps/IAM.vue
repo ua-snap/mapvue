@@ -249,6 +249,11 @@ export default {
             this.$store.commit('showOnlyLayers', {
               first: []
             })
+            this.$ga.event({
+              eventCategory: 'Tour Step: The IAM study area',
+              eventAction: 'show',
+              eventLabel: 'IAM Tour'
+            })
           }
         }
       })
@@ -284,7 +289,13 @@ export default {
         text: `Click this button to see a list of all included datasets. This provides a short description of the dataset and shows where to get more information.`,
         classes: 'shepherd-theme-square-dark',
         when: {
-          show: () => {}
+          show: () => {
+            this.$ga.event({
+              eventCategory: 'Tour Step: Information about the datasets',
+              eventAction: 'show',
+              eventLabel: 'IAM Tour'
+            })
+          }
         },
         buttons: [
           {
@@ -306,6 +317,11 @@ export default {
           show: () => {
             this.$store.commit('showOnlyLayers', {
               first: ['mammals']
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: Overlapping areas',
+              eventAction: 'show',
+              eventLabel: 'IAM Tour'
             })
           },
           hide: () => {
@@ -329,7 +345,13 @@ export default {
         text: `We identified &ldquo;hot spots&rdquo; as locations with the greatest number of overlapping environmental, economic, and cultural datasets. Three example hot spots are shown on the map. Selecting a marker lists the datasets at that location.`,
         classes: 'shepherd-theme-square-dark',
         when: {
-          show: () => {}
+          show: () => {
+            this.$ga.event({
+              eventCategory: 'Tour Step: Hotspots',
+              eventAction: 'show',
+              eventLabel: 'IAM Tour'
+            })
+          }
         },
         buttons: [
           {
@@ -346,7 +368,13 @@ export default {
         title: 'End of tour!',
         text: `Thanks for checking out the IAM map! Tools like this help to visualize the impact our development can have on a variety of species in Alaska, which represents an important talking point for decision makers and citizens alike.<p><p> If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
         when: {
-          show: () => {}
+          show: () => {
+            this.$ga.event({
+              eventCategory: 'Tour Step: Finished the IAM tour!',
+              eventAction: 'show',
+              eventLabel: 'IAM Tour'
+            })
+          }
         },
         buttons: [
           {

@@ -187,8 +187,7 @@ export default {
             this.$ga.event({
               eventCategory: 'Tour Step: This Season\'s Fires',
               eventAction: 'show',
-              eventLabel: 'AK Fires Tour',
-              eventValue: 1
+              eventLabel: 'AK Fires Tour'
             })
           }
         },
@@ -207,8 +206,7 @@ export default {
             this.$ga.event({
               eventCategory: 'Tour Step: Fires in History',
               eventAction: 'show',
-              eventLabel: 'AK Fires Tour',
-              eventValue: 2
+              eventLabel: 'AK Fires Tour'
             })
           },
           hide () {
@@ -231,8 +229,7 @@ export default {
             this.$ga.event({
               eventCategory: 'Tour Step: Land cover from 2010',
               eventAction: 'show',
-              eventLabel: 'AK Fires Tour',
-              eventValue: 3
+              eventLabel: 'AK Fires Tour'
             })
           },
           hide () {
@@ -253,8 +250,7 @@ export default {
             this.$ga.event({
               eventCategory: 'Tour Step: What do the colors mean?',
               eventAction: 'show',
-              eventLabel: 'AK Fires Tour',
-              eventValue: 4
+              eventLabel: 'AK Fires Tour'
             })
           },
           hide: () => {
@@ -274,8 +270,7 @@ export default {
             this.$ga.event({
               eventCategory: 'Tour Step: Fire Graph',
               eventAction: 'show',
-              eventLabel: 'AK Fires Tour',
-              eventValue: 5
+              eventLabel: 'AK Fires Tour'
             })
           },
           hide: () => {
@@ -303,10 +298,9 @@ export default {
               first: ['fires']
             })
             this.$ga.event({
-              eventCategory: 'Tour Step: Finished Tour!',
+              eventCategory: 'Tour Step: Finished the AK Fires Tour!',
               eventAction: 'show',
-              eventLabel: 'AK Fires Tour',
-              eventValue: 6
+              eventLabel: 'AK Fires Tour'
             })
           }
         }
