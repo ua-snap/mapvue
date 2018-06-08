@@ -322,8 +322,8 @@ export default {
             this.$store.commit('disableSyncMaps')
             this.$store.commit('hideLayerMenu')
             this.$store.commit('showOnlyLayers', {
-              second: ['snap_rcp:tas_2010_rcp6'],
-              first: ['snap_rcp:tas_2090_rcp6']
+              first: ['snap_rcp:tas_2090_rcp6'],
+              second: ['snap_rcp:tas_2010_rcp6']
             })
             this.$ga.event({
               eventCategory: 'Tour Step: Side-by-side maps showing changing temperature',
