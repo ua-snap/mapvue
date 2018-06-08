@@ -48,26 +48,6 @@ export default {
       },
       layers: [
         {
-          'abstract': 'This layer shows the decadal average length of growing season in the 2090s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n[Read more about this data set](http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-2km-cmip5-ar5), including the algorithms used to generate this data layer.',
-          'name': 'snap_rcp:logs_2090_rcp6',
-          'title': '2090s Length of Growing Season, RCP 6.0'
-        },
-        {
-          'abstract': 'This layer shows the decadal average length of growing season in the 2010s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n[Read more about this data set](http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-2km-cmip5-ar5), including the algorithms used to generate this data layer.',
-          'name': 'snap_rcp:logs_2010_rcp6',
-          'title': '2010s Length of Growing Season, RCP 6.0'
-        },
-        {
-          'abstract': 'This layer shows projected, downscaled mean decadal temperature for 2090 using a five-model average. The spatial resolution of this dataset is 2x2km. The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n[Download source data for this layer](http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-2km-cmip5-ar5), and other related products.',
-          'name': 'snap_rcp:tas_2090_rcp6',
-          'title': '2090s Mean Annual Temperature, RCP 6.0'
-        },
-        {
-          'abstract': 'This layer shows projected, downscaled mean decadal temperature for 2010 using a five-model average.  The spatial resolution of this dataset is 2x2km.   The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n[Download source data](http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-2km-cmip5-ar5) for this layer, and other related products.',
-          'name': 'snap_rcp:tas_2010_rcp6',
-          'title': '2010s Mean Annual Temperature, RCP 6.0'
-        },
-        {
           'abstract': `
           <table class="rcp6-legend alaska-landcover-2010">
             <tr><td><div class="l-1"></div></td><td>Temperate or sub-polar needleleaf forest</td></tr>
@@ -90,6 +70,26 @@ export default {
           'name': 'alaska_wildfires:alaska_landcover_2010',
           'title': 'Land cover, 2010',
           'legend': false
+        },
+        {
+          'abstract': 'This layer shows the decadal average length of growing season in the 2010s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n[Read more about this data set](http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5), including the algorithms used to generate this data layer.',
+          'name': 'snap_rcp:logs_2010_rcp6',
+          'title': '2010s Length of Growing Season, RCP 6.0'
+        },
+        {
+          'abstract': 'This layer shows the decadal average length of growing season in the 2090s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n[Read more about this data set](http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5), including the algorithms used to generate this data layer.',
+          'name': 'snap_rcp:logs_2090_rcp6',
+          'title': '2090s Length of Growing Season, RCP 6.0'
+        },
+        {
+          'abstract': 'This layer shows projected, downscaled mean decadal temperature for 2010 using a five-model average.  The spatial resolution of this dataset is 771m.   The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n[Download source data](http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5) for this layer, and other related products.',
+          'name': 'snap_rcp:tas_2010_rcp6',
+          'title': '2010s Mean Annual Temperature, RCP 6.0'
+        },
+        {
+          'abstract': 'This layer shows projected, downscaled mean decadal temperature for 2090 using a five-model average. The spatial resolution of this dataset is 771m. The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n[Download source data for this layer](http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5), and other related products.',
+          'name': 'snap_rcp:tas_2090_rcp6',
+          'title': '2090s Mean Annual Temperature, RCP 6.0'
         }
       ]
     }
@@ -162,7 +162,6 @@ export default {
       })
 
       // Reuse for navigation
-      /*
       let buttons = [
         {
           text: 'Back',
@@ -172,12 +171,12 @@ export default {
           text: 'Next',
           action: tour.next
         }
-      ] */
+      ]
 
       tour.addStep({
         title: 'General Circulation Models',
         text: `
-        <p>Projecting into the future using <a href="https://www.gfdl.noaa.gov/climate-modeling/">General Circulation Model</a> (GCM) data will always include uncertainties. To address this, <a href="https://www.snap.uaf.edu/methods/models">SNAP provides five GCMs that perform best over the Arctic</a> as well as an average of those 5 models. This "5 Model Average" is generally more statistically accurate than any individual model; however, the average value does smooth out extreme values. If extreme values are of interest, it's best to use a series of individual GCMs.</p>`,
+        <p>Projecting into the future using <a href="https://www.gfdl.noaa.gov/climate-modeling/" target="_blank">General Circulation Model</a> (GCM) data will always include uncertainties. To address this, <a href="https://www.snap.uaf.edu/methods/models" target="_blank">SNAP provides five GCMs that perform best over the Arctic</a> as well as an average of those 5 models. This "5 Model Average" is generally more statistically accurate than any individual model; however, the average value does smooth out extreme values. If extreme values are of interest, it's best to use a series of individual GCMs.</p>`,
         classes: 'shepherd-theme-square-dark',
         when: {
           show: () => {
@@ -185,6 +184,11 @@ export default {
             this.$store.commit('disableSyncMaps')
             this.$store.commit('showOnlyLayers', {
               first: []
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: General Circulation Models',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
             })
           }
         }
@@ -198,12 +202,18 @@ export default {
 
         <p>RCPs are used by those running GCMs to model what the climate might be like in the future and to ensure that modelers start from the same place and agree on the same assumptions. RCPs provide a “common language” for comparing results and sharing findings.</p>`,
         classes: 'shepherd-theme-square-dark',
+        buttons: buttons,
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
             this.$store.commit('disableSyncMaps')
             this.$store.commit('showOnlyLayers', {
               first: []
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: What is an RCP?',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
             })
           }
         }
@@ -217,12 +227,85 @@ export default {
         <p style="margin-left: 5px;"><b>3) Emission concentrations</b> — measured in parts per million for CO2, methane, and other greenhouse gases
 </p>`,
         classes: 'shepherd-theme-square-dark',
+        buttons: buttons,
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
             this.$store.commit('disableSyncMaps')
             this.$store.commit('showOnlyLayers', {
               first: []
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: What do RCPs describe?',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
+            })
+          }
+        }
+      })
+      tour.addStep({
+        title: 'What do the RCPs represent?',
+        text: `
+        <p><b>RCP 2.6:</b> Forcing peaks at ~3 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup> mid-century and drops to 2.6 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup> by 2100. Greenhouse gas emissions drop substantially over time. </p>
+        <p><b>RCPs 4.5 and 6.0:</b> Forcing stabilizes soon after 2100 at 4.5 and 6.0 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup>, respectively, due to efforts that curb emissions.</p>
+        <p><b>RCP 8.5:</b> Forcing values reach 8.5 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup> by 2100 and continue to rise into the next century. Very high greenhouse gas concentrations.</p>`,
+        classes: 'shepherd-theme-square-dark',
+        buttons: buttons,
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: What do the RCPs represent?',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
+            })
+          }
+        }
+      })
+      tour.addStep({
+        title: 'CO<sup style="font-size=8px;">2</sup> atmospheric concentrations for RCP scenarios',
+        text: `
+        <p><img align='center' src='static/atmos_concent.png' width=700 height=500></img></p>
+        <p style='margin-top: 15px; font-size: 14px;'><i>CO<sup style='font-size=12px;'>2</sup> equivalent atmospheric concentrations for RCP scenarios. RCP 8.5 represents ‘business-as-usual’. See <a href='http://www.pik-potsdam.de/~mmalte/rcps/' target='_blank'>http://www.pik-potsdam.de/~mmalte/rcps/</a> for further description and data.</i></p>`,
+        classes: 'shepherd-theme-square-dark adjust-for-images',
+        buttons: buttons,
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: What do the RCPs represent?',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
+            })
+          }
+        }
+      })
+      tour.addStep({
+        title: 'What makes SNAP data different from General Circulation Model data?',
+        text: `
+        <p style="margin-left: 25px;"><img src='static/snap_downscaling.png' width=500 height=300 /></p>
+        <p style="margin-left: 25px; width: 500px;">SNAP <a href='https://www.snap.uaf.edu/methods/downscaling' target='_blank'>downscales climate data</a> from global models to generate locally relevant data at higher resolutions. The downscaling process connects global-scale projections with smaller-scale dynamics to create regionally specific projections. SNAP data adds value to GCM projections by making them more relevant and useful for making decisions about climate change.</p>`,
+        classes: 'shepherd-theme-square-dark adjust-for-images',
+        buttons: buttons,
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: What makes SNAP data different from General Circulation Model data?',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
             })
           }
         }
@@ -231,7 +314,13 @@ export default {
         title: 'End of tour!',
         text: `Thanks for checking out the RCP 6.0 map! Tools like this help to visualize the impact our development can have on a variety of species in Alaska, which represents an important talking point for decision makers and citizens alike.<p><p> If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
         when: {
-          show: () => {}
+          show: () => {
+            this.$ga.event({
+              eventCategory: 'Tour Step: Finished the SNAP RCP 6.0 tour!',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
+            })
+          }
         },
         buttons: [
           {
@@ -250,8 +339,9 @@ export default {
 }
 </script>
 <style lang="scss">
-.tabbed-entry {
-  margin-left: 5px;
+sup {
+  vertical-align: super;
+  font-size: 12px;
 }
 table.rcp6-legend.alaska-landcover-2010 {
   td {
