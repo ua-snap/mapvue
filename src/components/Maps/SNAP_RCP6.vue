@@ -281,7 +281,7 @@ export default {
               first: []
             })
             this.$ga.event({
-              eventCategory: 'Tour Step: What do the RCPs represent?',
+              eventCategory: 'Tour Step: CO2 atmospheric concentrations image',
               eventAction: 'show',
               eventLabel: 'SNAP RCP 6.0'
             })
@@ -311,10 +311,64 @@ export default {
         }
       })
       tour.addStep({
+        title: 'Side-by-side maps showing changing temperature',
+        text: `
+        <p>Example of a decadal average of mean annual temperature for the 2010s and 2090s. Viewed side-by-side with the same color scale, it’s apparent that mean annual temperature is projected to increase. This is most notable in northern Alaska—where the darkest blue is almost entirely replaced with lighter shades, denoting warmer temperatures. </p>`,
+        classes: 'shepherd-theme-square-dark',
+        buttons: buttons,
+        when: {
+          show: () => {
+            this.$store.commit('showDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('hideLayerMenu')
+            this.$store.commit('showOnlyLayers', {
+              second: ['snap_rcp:tas_2010_rcp6'],
+              first: ['snap_rcp:tas_2090_rcp6']
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: Side-by-side maps showing changing temperature',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
+            })
+          }
+        }
+      })
+      tour.addStep({
+        title: 'Side-by-side maps showing changing growing seasons',
+        text: `
+        <p>A shift in climate patterns is illustrated by the Length of Growing Season layer, which is measured in days. Length of growing season approximates the ice-free season; it’s defined by the dates between when the mean temperature crosses 0°C in the spring and fall.</p>
+        <p>By the 2090’s (right map) the growing season shows a strong warming trend with a longer ice-free season. This is most notable in the south—where the growing season increases by as much as 30 days.</p>`,
+        classes: 'shepherd-theme-square-dark',
+        buttons: buttons,
+        when: {
+          show: () => {
+            this.$store.commit('showDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('hideLayerMenu')
+            this.$store.commit('showOnlyLayers', {
+              first: ['snap_rcp:logs_2010_rcp6'],
+              second: ['snap_rcp:logs_2090_rcp6']
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: Side-by-side maps showing changing growing seasons',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
+            })
+          }
+        }
+      })
+      tour.addStep({
         title: 'End of tour!',
         text: `Thanks for checking out the RCP 6.0 map! Tools like this help to visualize the impact our development can have on a variety of species in Alaska, which represents an important talking point for decision makers and citizens alike.<p><p> If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
         when: {
           show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showLayerMenu')
+            this.$store.commit('showOnlyLayers', {
+              first: [''],
+              second: ['']
+            })
             this.$ga.event({
               eventCategory: 'Tour Step: Finished the SNAP RCP 6.0 tour!',
               eventAction: 'show',
