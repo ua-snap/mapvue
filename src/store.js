@@ -129,8 +129,7 @@ export default new Vuex.Store({
             payload.first,
             name => name === layer.name
           )
-          console.log(ifShowFirst)
-          swapVisibility(state, layer, index, 'visible', ifShowFirst !== undefined, true)
+          swapVisibility(state, layer, index, 'visible', ifShowFirst !== undefined, (_.isArray(payload.first) && _.isArray(payload.second)))
         }
 
         if (_.isArray(payload.second)) {
@@ -138,8 +137,7 @@ export default new Vuex.Store({
             payload.second,
             name => name === layer.name
           )
-          console.log(ifShowSecond)
-          swapVisibility(state, layer, index, 'secondVisible', ifShowSecond !== undefined, true)
+          swapVisibility(state, layer, index, 'secondVisible', ifShowSecond !== undefined, (_.isArray(payload.first) && _.isArray(payload.second)))
         }
       })
     },
