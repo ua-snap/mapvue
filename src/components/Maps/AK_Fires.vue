@@ -211,7 +211,7 @@ export default {
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', {
-              first: ['alaska_landcover_2010']
+              first: ['alaska_wildfires:alaska_landcover_2010']
             })
           },
           hide () {
