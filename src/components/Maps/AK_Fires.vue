@@ -56,11 +56,6 @@ var secondViirsLayerGroup
 
 var activeFireIcon
 var inactiveFireIcon
-var lightningLayerGroup
-var secondLightningLayerGroup
-var lightningIcon
-var lightningMarkers
-var secondLightningMarkers
 
 // Define the store methods that will be used here
 const fireStore = { // eslint-disable-line no-unused-vars
@@ -122,10 +117,6 @@ export default {
         'fires': {
           first: fireLayerGroup,
           second: secondFireLayerGroup
-        },
-        'lightning': {
-          first: lightningLayerGroup,
-          second: secondLightningLayerGroup
         },
         'viirs': {
           first: viirsLayerGroup,
@@ -318,11 +309,16 @@ export default {
           'abstract': '<img src="static/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="externa">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
         },
         {
-          'name': 'lightning',
-          'title': 'Recent lightning strikes',
-          'local': true,
+          'name': 'PostGIS:lightning',
+          'title': 'Lightning strikes, last 36 hours',
           'legend': false,
-          'abstract': _.template('<p>This layer shows the most recent 300 lightning strikes of the <%= totalStrikes %> recorded in the past 48 hours.</p><p>Many of the fires that occur during the summer in Alaska are caused by lightning strikes, thus seeing the recorded lightning strikes can be a good indication of potential fire starting points.</p>')
+          'abstract': `
+            <table class="alaska-wildfires-legend lightning">
+              <tr><td><div class="positive"><img src="/static/lightning-positive.svg"/></div></td><td>Positive</td></tr>
+              <tr><td><div class="negative"><img src="/static/lightning-negative.svg"/></div></td><td>Negative</td></tr>
+              <tr><td><div class="cloud2cloud">•</div></td><td>Cloud to cloud</td></tr>
+            </table>
+            <p>This layer shows the last 36 hours of lightning activity, with older lightning strikes fading out to be more opaque the older they are.  Both <href target="_blank" href="https://www.weather.gov/jetstream/positive">positive and negative lightning</a> strikes are shown.  Positive lightning is often stronger and may be more closely associated with wildfires, and is shown with a red outline.  Negative lightning is shown with a black outline.</p>`
         },
         {
           'name': 'viirs',
@@ -387,7 +383,6 @@ export default {
         }
       ],
       fireJson: null,
-      lightningJson: null,
       viirsJson: null
     }
   },
@@ -412,30 +407,14 @@ export default {
       iconUrl: '/static/inactive_fire.png'
     })
 
-    let LightningIcon = this.$L.Icon.extend({
-      options: {
-        iconUrl: '/static/lightning.svg',
-        iconSize: [20, 20],
-        shadowSize: [0, 0], // no shadow!
-        iconAnchor: [7, 20], // point of the icon which will correspond to marker's location
-        shadowAnchor: [0, 0],  // the same for the shadow
-        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
-      }
-    })
-
-    lightningIcon = new LightningIcon()
-
     // This will be the container for the fire markers & popups.
     fireLayerGroup = this.$L.layerGroup()
     secondFireLayerGroup = this.$L.layerGroup()
-    lightningLayerGroup = this.$L.layerGroup()
-    secondLightningLayerGroup = this.$L.layerGroup()
     viirsLayerGroup = this.$L.layerGroup()
     secondViirsLayerGroup = this.$L.layerGroup()
   },
   mounted () {
     this.fetchFireData()
-    this.fetchLightningData()
     this.fetchViirsData()
 
     // Remove any stray localStorage.
@@ -713,56 +692,6 @@ export default {
       }
       var sixSignedArea = 3 * twoTimesSignedArea
       return [cxTimes6SignedArea / sixSignedArea, cyTimes6SignedArea / sixSignedArea]
-    },
-    // Fetch lightning data from AK BLM cached data
-    fetchLightningData () {
-      // Helper function to rebuild Leaflet objects
-      var processLightningData = (data) => {
-        this.templateVars.totalStrikes = data.totalStrikes
-        if (data.features.length === 0) {
-          Vue.set(this.layers[1], 'nodata', true)
-          Vue.set(this.layers[1], 'nodataMessage', 'No lightning strikes have been recorded in the past 48 hours.')
-        }
-        lightningMarkers = this.getLightningMarkers(data)
-        secondLightningMarkers = this.getLightningMarkers(data)
-
-        lightningLayerGroup.addLayer(lightningMarkers)
-        secondLightningLayerGroup.addLayer(secondLightningMarkers)
-      }
-      return new Promise((resolve, reject) => {
-        if (!this.lightningJson) {
-          this.$axios.get(process.env.LIGHTNING_FEATURES_URL, { timeout: 120000 })
-            .then(res => {
-              if (res) {
-                this.lightningJson = res.data
-                processLightningData(res.data)
-                this.$refs.map.refreshLayers()
-                resolve()
-              }
-            },
-            err => {
-              console.error(err)
-              reject()
-            })
-        } else {
-          processLightningData(this.lightningJson)
-          this.$refs.map.refreshLayers()
-          resolve()
-        }
-      })
-    },
-    getLightningMarkers (geoJson) {
-      var lightningMarkers = []
-      var currentMarker
-
-      _.each(geoJson.features, feature => {
-        currentMarker = this.$L.marker(new this.$L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]), {
-          icon: lightningIcon
-        })
-        lightningMarkers.push(currentMarker)
-      })
-
-      return this.$L.layerGroup(lightningMarkers)
     }
   }
 }
@@ -793,6 +722,13 @@ path.leaflet-interactive.viirs-hotspot {
       fill: #F9EA31;
       fill-opacity: 0.5;
     }
+}
+
+table.alaska-wildfires-legend.lightning {
+  td div {
+    border: none;
+    text-align: center;
+  }
 }
 
 table.alaska-wildfires-legend {
