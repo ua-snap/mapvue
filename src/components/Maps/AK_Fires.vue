@@ -309,8 +309,9 @@ export default {
           'abstract': '<img src="static/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="externa">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
         },
         {
-          'name': 'PostGIS:lightning',
+          'name': 'postgis_lightning',
           'title': 'Lightning strikes, last 36 hours',
+          'layerName': 'alaska_wildfires:postgis_lightning',
           'legend': false,
           'abstract': `
             <table class="alaska-wildfires-legend lightning">
