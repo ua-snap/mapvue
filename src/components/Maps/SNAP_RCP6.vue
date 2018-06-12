@@ -319,12 +319,13 @@ export default {
         when: {
           show: () => {
             this.$store.commit('showDualMaps')
-            this.$store.commit('disableSyncMaps')
+            this.$store.commit('enableSyncMaps')
             this.$store.commit('hideLayerMenu')
             this.$store.commit('showOnlyLayers', {
-              first: ['snap_rcp:tas_2090_rcp6'],
-              second: ['snap_rcp:tas_2010_rcp6']
+              first: ['snap_rcp:tas_2010_rcp6'],
+              second: ['snap_rcp:tas_2090_rcp6']
             })
+            this.primaryMapObject.setView([69.297, -144.159], 4)
             this.$ga.event({
               eventCategory: 'Tour Step: Side-by-side maps showing changing temperature',
               eventAction: 'show',
@@ -343,14 +344,41 @@ export default {
         when: {
           show: () => {
             this.$store.commit('showDualMaps')
-            this.$store.commit('disableSyncMaps')
+            this.$store.commit('enableSyncMaps')
             this.$store.commit('hideLayerMenu')
             this.$store.commit('showOnlyLayers', {
               first: ['snap_rcp:logs_2010_rcp6'],
               second: ['snap_rcp:logs_2090_rcp6']
             })
+            this.primaryMapObject.setView([60.994, -148.69], 3)
             this.$ga.event({
               eventCategory: 'Tour Step: Side-by-side maps showing changing growing seasons',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
+            })
+          }
+        }
+      })
+      tour.addStep({
+        title: 'Download our data!',
+        text: `
+        <p>You can <a href="https://www.snap.uaf.edu/tools/data-downloads" target="_blank">download this and related data sets</a> from our data distribution server.</p>
+        <p>Need data for a specific community? Try our <a href="https://www.snap.uaf.edu/sites/all/modules/snap_community_charts/charts.php" target="_blank">Community Charts Tool</a>.</p>
+        <p>Need a spatial subset of data for your area of interest? <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon" target="_blank">This R script</a> can be adapted to subset a timeseries of this data for a region specified by a shapefile, producing CSV output that can the be graphed or visualized in other ways.</p>`,
+        classes: 'shepherd-theme-square-dark',
+        buttons: buttons,
+        when: {
+          show: () => {
+            this.primaryMapObject.setView([63.996, -164.979], 0)
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('hideLayerMenu')
+            this.$store.commit('showOnlyLayers', {
+              first: [''],
+              second: ['']
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: Download our data!',
               eventAction: 'show',
               eventLabel: 'SNAP RCP 6.0'
             })
