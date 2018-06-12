@@ -54,9 +54,6 @@ var secondFireMarkers
 var secondFireLayerGroup
 var secondViirsLayerGroup
 
-var activeFireIcon
-var inactiveFireIcon
-
 // Define the store methods that will be used here
 const fireStore = { // eslint-disable-line no-unused-vars
   state: {
@@ -429,23 +426,6 @@ export default {
     // Register this map's store with the global store
     this.$store.registerModule('fire', fireStore)
 
-    // Set up icon markers
-    let FireIcon = this.$L.Icon.extend({
-      options: {
-        iconUrl: '/static/active_fire.png',
-        iconSize: [30, 35],
-        shadowSize: [0, 0], // no shadow!
-        iconAnchor: [16, 34], // point of the icon which will correspond to marker's location
-        shadowAnchor: [0, 0],  // the same for the shadow
-        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
-      }
-    })
-
-    activeFireIcon = new FireIcon()
-    inactiveFireIcon = new FireIcon({
-      iconUrl: '/static/inactive_fire.png'
-    })
-
     // This will be the container for the fire markers & popups.
     fireLayerGroup = this.$L.layerGroup()
     secondFireLayerGroup = this.$L.layerGroup()
@@ -573,6 +553,43 @@ export default {
     },
     // For any polygon features, return a marker with a bound popup.
     getFireMarkers (geoJson) {
+      var svgCircleTemplate = _.template(`
+      <svg width="120" height="120" viewBox="0 0 120 120"
+         xmlns="http://www.w3.org/2000/svg">
+
+        <defs>
+          <radialGradient id="exampleGradient">
+            <stop offset="0%" stop-color="<%= stop1 %>"/>
+            <stop offset="75%" stop-color="<%= stop2 %>"/>
+            <stop offset="100%" stop-color="<%= stop3 %>"/>
+          </radialGradient>
+        </defs>
+
+        <circle fill="url(#exampleGradient)" cx="60" cy="60" r="50"/>
+      </svg>
+      `)
+      var activeSvgCircle = svgCircleTemplate({
+        stop1: 'RGBA(207, 38, 47, .85)',
+        stop2: 'RGBA(207, 38, 47, .15)',
+        stop3: 'RGBA(207, 38, 47, 0)'
+      })
+      var inactiveSvgCircle = svgCircleTemplate({
+        stop1: 'RGBA(55, 38, 38, .85)',
+        stop2: 'RGBA(55, 38, 38, .15)',
+        stop3: 'RGBA(55, 38, 38, 0)'
+      })
+
+      var activeFireCircle = encodeURI('data:image/svg+xml,' + activeSvgCircle).replace('#', '%23')
+
+      // Set up icon markers
+      let FireIcon = this.$L.Icon.extend({
+        options: {
+          iconUrl: activeFireCircle,
+          shadowSize: [0, 0], // no shadow!
+          popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
+        }
+      })
+
       var fireMarkers = []
       var popupOptions = {
         maxWidth: 200
@@ -588,10 +605,20 @@ export default {
             ? [].concat.apply([], feature.geometry.coordinates[0])
             : feature.geometry.coordinates[0]
 
+          // Icon size needs to be proportionate to fire size, to a minimum of 30px.
+          var iconSize = 0.0025 * (feature.properties.acres + 15000) + 25
+
           // Reverse order from what we need
           var coords = this.getCentroid2(polygonCoordinates)
           var icon = this.isFireActive(feature.properties)
-            ? activeFireIcon : inactiveFireIcon
+            ? new FireIcon({
+              iconSize: [iconSize, iconSize],
+              iconAnchor: [iconSize / 2, iconSize / 2]
+            }) : new FireIcon({
+              iconUrl: inactiveSvgCircle,
+              iconSize: [iconSize, iconSize],
+              iconAnchor: [iconSize / 2, iconSize / 2]
+            })
 
           fireMarkers.push(
             this.$L.marker(new this.$L.latLng([coords[1], coords[0]]), {icon: icon}).bindPopup(this.getFireMarkerPopupContents(
