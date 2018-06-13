@@ -31,8 +31,8 @@ export default {
   },
   data () {
     return {
-      title: 'Variation over time with RCP 6.0 (Draft)',
-      abstract: '<h1>Variation over time with RCP 6.0</h1><div class="abstractWrapper"><p>This map shows how data from the Scenarios Network for Alaska and Arctic Planning can show variation over time with two variables: <b>temperature</b> and <b>length of growing season</b>. The tour for this map explains the meaning of this data and how to explore it in this interface, as well as where to go for additional data and examples on how to apply this data in your own work.</p></div>',
+      title: 'SNAP Data for a Changing Climate',
+      abstract: '<h1>SNAP Data for a Changing Climate</h1><div class="abstractWrapper"><p>This map shows how data from the Scenarios Network for Alaska and Arctic Planning can show variation over time with two variables: <b>temperature</b> and <b>length of growing season</b>.</div>',
       mapOptions: {
         zoom: 0,
         minZoom: 0,
@@ -72,22 +72,22 @@ export default {
           'legend': false
         },
         {
-          'abstract': 'This layer shows the decadal average length of growing season in the 2010s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n[Read more about this data set](http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5), including the algorithms used to generate this data layer.',
+          'abstract': 'This layer shows the decadal average length of growing season in the 2010s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.',
           'name': 'snap_rcp:logs_2010_rcp6',
           'title': '2010s Length of Growing Season, RCP 6.0'
         },
         {
-          'abstract': 'This layer shows the decadal average length of growing season in the 2090s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n[Read more about this data set](http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5), including the algorithms used to generate this data layer.',
+          'abstract': 'This layer shows the decadal average length of growing season in the 2090s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.',
           'name': 'snap_rcp:logs_2090_rcp6',
           'title': '2090s Length of Growing Season, RCP 6.0'
         },
         {
-          'abstract': 'This layer shows projected, downscaled mean decadal temperature for 2010 using a five-model average.  The spatial resolution of this dataset is 771m.   The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n[Download source data](http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5) for this layer, and other related products.',
+          'abstract': 'This layer shows projected, downscaled mean decadal temperature for 2010 using a five-model average.  The spatial resolution of this dataset is 771m.   The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.',
           'name': 'snap_rcp:tas_2010_rcp6',
           'title': '2010s Mean Annual Temperature, RCP 6.0'
         },
         {
-          'abstract': 'This layer shows projected, downscaled mean decadal temperature for 2090 using a five-model average. The spatial resolution of this dataset is 771m. The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n[Download source data for this layer](http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5), and other related products.',
+          'abstract': 'This layer shows projected, downscaled mean decadal temperature for 2090 using a five-model average. The spatial resolution of this dataset is 771m. The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.',
           'name': 'snap_rcp:tas_2090_rcp6',
           'title': '2090s Mean Annual Temperature, RCP 6.0'
         }
@@ -174,10 +174,32 @@ export default {
       ]
 
       tour.addStep({
+        title: 'Welcome to the Tour!',
+        text: `
+        <p>The tour for this map provides context to the datasets, highlighting their usefulness in making meaningful predictions. You will also learn where to get more data and see examples of how to apply what you learn to your own work.</p>
+        <p>This tour has 11 stops.</p>`,
+        classes: 'shepherd-theme-square-dark',
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: Welcome to the Tour!',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
+            })
+          }
+        }
+      })
+      tour.addStep({
         title: 'General Circulation Models',
         text: `
         <p>Projecting into the future using <a href="https://www.gfdl.noaa.gov/climate-modeling/" target="_blank">General Circulation Model</a> (GCM) data will always include uncertainties. To address this, <a href="https://www.snap.uaf.edu/methods/models" target="_blank">SNAP provides five GCMs that perform best over the Arctic</a> as well as an average of those 5 models. This "5 Model Average" is generally more statistically accurate than any individual model; however, the average value does smooth out extreme values. If extreme values are of interest, it's best to use a series of individual GCMs.</p>`,
         classes: 'shepherd-theme-square-dark',
+        buttons: buttons,
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
@@ -246,9 +268,9 @@ export default {
       tour.addStep({
         title: 'What do the RCPs represent?',
         text: `
-        <p><b>RCP 2.6:</b> Forcing peaks at ~3 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup> mid-century and drops to 2.6 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup> by 2100. Greenhouse gas emissions drop substantially over time. </p>
-        <p><b>RCPs 4.5 and 6.0:</b> Forcing stabilizes soon after 2100 at 4.5 and 6.0 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup>, respectively, due to efforts that curb emissions.</p>
-        <p><b>RCP 8.5:</b> Forcing values reach 8.5 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup> by 2100 and continue to rise into the next century. Very high greenhouse gas concentrations.</p>
+        <p><b>RCP 2.6:</b> Forcing peaks at ~3 W / m<sup>2</sup> mid-century and drops to 2.6 W / m<sup>2</sup> by 2100. Greenhouse gas emissions drop substantially over time. </p>
+        <p><b>RCPs 4.5 and 6.0:</b> Forcing stabilizes soon after 2100 at 4.5 and 6.0 W / m<sup>2</sup>, respectively, due to efforts that curb emissions.</p>
+        <p><b>RCP 8.5:</b> Forcing values reach 8.5 W / m<sup>2</sup> by 2100 and continue to rise into the next century. Very high greenhouse gas concentrations.</p>
         <p><a href="http://sedac.ipcc-data.org/ddc/ar5_scenario_process/RCPs.html" target="_blank">Additional information about RCPs</a>`,
         classes: 'shepherd-theme-square-dark',
         buttons: buttons,
@@ -268,10 +290,10 @@ export default {
         }
       })
       tour.addStep({
-        title: 'CO<sup style="font-size=8px;">2</sup> atmospheric concentrations for RCP scenarios',
+        title: 'CO<sub>2</sub> atmospheric concentrations for RCP scenarios',
         text: `
         <p><img align='center' src='static/atmos_concent.png' width=700 height=500></img></p>
-        <p style='margin-top: 15px; font-size: 14px;'><i>CO<sup style='font-size=12px;'>2</sup> equivalent atmospheric concentrations for RCP scenarios. RCP 8.5 represents ‘business-as-usual’. See <a href='http://www.pik-potsdam.de/~mmalte/rcps/' target='_blank'>http://www.pik-potsdam.de/~mmalte/rcps/</a> for further description and data.</i></p>`,
+        <p style='margin-top: 15px; font-size: 14px;'><i>CO<sub>2</sub> equivalent atmospheric concentrations for RCP scenarios. RCP 8.5 represents "business-as-usual." Visit <a href='http://www.pik-potsdam.de/~mmalte/rcps/' target='_blank'>details and data</a> for additional information.</i></p>`,
         classes: 'shepherd-theme-square-dark adjust-for-images',
         buttons: buttons,
         when: {
@@ -338,8 +360,9 @@ export default {
       tour.addStep({
         title: 'Side-by-side maps showing changing growing seasons',
         text: `
-        <p>A shift in climate patterns is illustrated by the Length of Growing Season layer, which is measured in days. Length of growing season approximates the ice-free season; it’s defined by the dates between when the mean temperature crosses 0°C in the spring and fall.</p>
-        <p>By the 2090’s (right map) the growing season shows a strong warming trend with a longer ice-free season. This is most notable in the south—where the growing season increases by as much as 30 days.</p>`,
+        <p>A shift in climate patterns is illustrated by the length of the growing season, measured in days. Length of growing season approximates the ice-free season and is defined by the dates between when the mean temperature crosses 0°C in the spring and fall.</p>
+        <p>Look at the right-hand map. By the 2090s, the growing season shows a strong warming trend with a longer ice-free season, as shown by darker shades of green. This trend is most notable in the southern area of the map, where the growing season increases by as much as 30 days.</p>
+        <p>Map colors are explained in the next tour stop.</p>`,
         classes: 'shepherd-theme-square-dark',
         buttons: buttons,
         when: {
@@ -362,8 +385,8 @@ export default {
       })
       tour.addStep({
         title: 'What do the colors mean?',
-        text: `<p>Use the <span class="fire-tour-info">&#9432;</span> Info button by the name of each layer to see more details and a legend.</p>
-        <p><p>The color of these layers represent the length of the growing season. Dark brown is less than 120 days with the darkest green being a year round growing season.</p>`,
+        text: `<p>Use the <span>&#9432;</span> Info button by the name of each layer to see more details and a legend.</p>
+        <p>Layer colors represent the length of the growing season. Dark brown means less than 120 days. At the other end of the scale, the darkest green represents a year round growing season.</p>`,
         when: {
           show: () => {
             this.$store.commit('showDualMaps')
@@ -417,7 +440,8 @@ export default {
       })
       tour.addStep({
         title: 'End of tour!',
-        text: `Thanks for checking out the RCP 6.0 map! Tools like this help to visualize the impact our development can have on a variety of species in Alaska, which represents an important talking point for decision makers and citizens alike.<p><p> If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
+        text: `<p>Thanks for checking out this map! Tools like this help to visualize the impacts that a changing climate may have on all Alaska species — including ourselves — and forms an important starting point for discussions about how to respond and adapt to a new Alaska.</p>
+        <p>If you have feedback, we’d love to hear from you — <a href="mailto:uaf-mapventure@alaska.edu">please contact us.</a></p>`,
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
@@ -451,10 +475,19 @@ export default {
 }
 </script>
 <style lang="scss">
-sup {
-  vertical-align: super;
-  font-size: 12px;
+#legend {
+  display: block;
+  padding-bottom: 1em;
 }
+
+.shepherd-theme-square-dark sub,sup {
+  font-size: 75% !important;
+}
+
+.shepherd-theme-square-dark a {
+  color: #0099ff;
+}
+
 table.rcp6-legend.alaska-landcover-2010 {
   td {
     font-size: 10pt;
