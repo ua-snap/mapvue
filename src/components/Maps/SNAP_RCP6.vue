@@ -98,16 +98,11 @@ export default {
     crs () {
       // We need to modify the default pan-Arctic
       // projection to avoid a bug.
-      var proj = new this.$L.Proj.CRS('EPSG:3338',
-      '+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs',
+      var proj = new this.$L.Proj.CRS('EPSG:3572',
+        '+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs',
         {
           resolutions: [4096, 2048, 1024, 512, 256, 128, 64],
-
-          // Origin should be lower-left coordinate
-          // in projected space.  Use GeoServer to
-          // find this:
-          // TileSet > Gridset Bounds > compute from maximum extent of SRS
-          origin: [-4648005.934316417, 444809.882955059]
+          origin: [-4889334.802954878, -4889334.802954878]
         }
       )
 
@@ -115,7 +110,7 @@ export default {
       // Without this (= pi/2), proj4js returns an undefined
       // value for tiles requested at the North Pole and
       // it causes a runtime exception.
-      // proj.projection._proj.oProj.phi0 = 1.5708
+      proj.projection._proj.oProj.phi0 = 1.5708
       return proj
     },
     baseLayer () {
