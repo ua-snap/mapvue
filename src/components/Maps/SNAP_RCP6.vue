@@ -32,7 +32,7 @@ export default {
   data () {
     return {
       title: 'Variation over time with RCP 6.0 (Draft)',
-      abstract: 'This map shows how data from the Scenarios Network for Alaska and Arctic Planning can show variation over time with two variables: temperature and length of growing season. The tour for this map explains the meaning of this data and how to explore it in this interface, as well as where to go for additional data and examples on how to apply this data in your own work.',
+      abstract: '<h1>Variation over time with RCP 6.0</h1><div class="abstractWrapper"><p>This map shows how data from the Scenarios Network for Alaska and Arctic Planning can show variation over time with two variables: <b>temperature</b> and <b>length of growing season</b>. The tour for this map explains the meaning of this data and how to explore it in this interface, as well as where to go for additional data and examples on how to apply this data in your own work.</p></div>',
       mapOptions: {
         zoom: 0,
         minZoom: 0,
@@ -248,7 +248,8 @@ export default {
         text: `
         <p><b>RCP 2.6:</b> Forcing peaks at ~3 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup> mid-century and drops to 2.6 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup> by 2100. Greenhouse gas emissions drop substantially over time. </p>
         <p><b>RCPs 4.5 and 6.0:</b> Forcing stabilizes soon after 2100 at 4.5 and 6.0 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup>, respectively, due to efforts that curb emissions.</p>
-        <p><b>RCP 8.5:</b> Forcing values reach 8.5 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup> by 2100 and continue to rise into the next century. Very high greenhouse gas concentrations.</p>`,
+        <p><b>RCP 8.5:</b> Forcing values reach 8.5 W / m<sup style='vertical-align: super; font-size: 10px;'>2</sup> by 2100 and continue to rise into the next century. Very high greenhouse gas concentrations.</p>
+        <p><a href="http://sedac.ipcc-data.org/ddc/ar5_scenario_process/RCPs.html" target="_blank">Additional information about RCPs</a>`,
         classes: 'shepherd-theme-square-dark',
         buttons: buttons,
         when: {
@@ -360,6 +361,35 @@ export default {
         }
       })
       tour.addStep({
+        title: 'What do the colors mean?',
+        text: `<p>Use the <span class="fire-tour-info">&#9432;</span> Info button by the name of each layer to see more details and a legend.</p>
+        <p><p>The color of these layers represent the length of the growing season. Dark brown is less than 120 days with the darkest green being a year round growing season.</p>`,
+        when: {
+          show: () => {
+            this.$store.commit('showDualMaps')
+            this.$store.commit('enableSyncMaps')
+            this.$store.commit('hideLayerMenu')
+            this.$store.commit('showOnlyLayers', {
+              first: ['snap_rcp:logs_2010_rcp6'],
+              second: ['snap_rcp:logs_2090_rcp6']
+            })
+            this.primaryMapObject.setView([60.994, -148.69], 3)
+            this.$store.commit('showSidebar', {
+              layer: 'snap_rcp:logs_2090_rcp6'
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: What do the colors mean?',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
+            })
+          },
+          hide: () => {
+            this.$store.commit('hideSidebar')
+          }
+        },
+        buttons: buttons
+      })
+      tour.addStep({
         title: 'Download our data!',
         text: `
         <p>You can <a href="https://www.snap.uaf.edu/tools/data-downloads" target="_blank">download this and related data sets</a> from our data distribution server.</p>
@@ -369,7 +399,7 @@ export default {
         buttons: buttons,
         when: {
           show: () => {
-            this.primaryMapObject.setView([63.996, -164.979], 0)
+            this.primaryMapObject.setView([64, -165], 0)
             this.$store.commit('hideDualMaps')
             this.$store.commit('disableSyncMaps')
             this.$store.commit('hideLayerMenu')
@@ -453,7 +483,7 @@ table.rcp6-legend.alaska-landcover-2010 {
 }
 
 .splash-screen .billboard {
-  background: url("~@/assets/barrow.jpg") white bottom left / cover no-repeat;
+  background: url("~@/assets/mountains.jpg") white top left / cover no-repeat;
   h1 {
     width: 75%;
     font-size: 20pt;
@@ -472,6 +502,7 @@ table.rcp6-legend.alaska-landcover-2010 {
     }
     margin-bottom: 1em;
   }
+
   .abstractWrapper {
     @media screen and (max-width: 768px) {
       width: 100%;
@@ -483,7 +514,7 @@ table.rcp6-legend.alaska-landcover-2010 {
       }
     }
     @media screen and (min-width: 769px) {
-      max-width: 50%;
+      max-width: 100%;
     }
     background: rgba(255, 255, 255, .8);
     border-radius: 1ex;
