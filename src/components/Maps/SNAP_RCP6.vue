@@ -48,48 +48,85 @@ export default {
       },
       layers: [
         {
-          'abstract': `
-          <table class="rcp6-legend alaska-landcover-2010">
-            <tr><td><div class="l-1"></div></td><td>Temperate or sub-polar needleleaf forest</td></tr>
-            <tr><td><div class="l-2"></div></td><td>Sub-polar taiga needleleaf forest</td></tr>
-            <tr><td><div class="l-3"></div></td><td>Temperate or sub-polar broadleaf deciduous forest</td></tr>
-            <tr><td><div class="l-4"></div></td><td>Mixed forest</td></tr>
-            <tr><td><div class="l-5"></div></td><td>Temperate or sub-polar shrubland</td></tr>
-            <tr><td><div class="l-6"></div></td><td>Temperate or sub-polar grassland</td></tr>
-            <tr><td><div class="l-7"></div></td><td>Sub-polar or polar shrubland-lichen-moss</td></tr>
-            <tr><td><div class="l-8"></div></td><td>Sub-polar or polar grassland-lichen-moss</td></tr>
-            <tr><td><div class="l-9"></div></td><td>Sub-polar or polar barren-lichen-moss</td></tr>
-            <tr><td><div class="l-10"></div></td><td>Wetland</td></tr>
-            <tr><td><div class="l-11"></div></td><td>Cropland</td></tr>
-            <tr><td><div class="l-12"></div></td><td>Barren land</td></tr>
-            <tr><td><div class="l-13"></div></td><td>Urban and built-up</td></tr>
-            <tr><td><div class="l-14"></div></td><td>Water</td></tr>
-            <tr><td><div class="l-15"></div></td><td>Snow and ice</td></tr>
+          'abstract': `<table class="rcp6-legend logs">
+            <tr><td><div class="log-1"></div></td><td>0 - 120 days</td></tr>
+            <tr><td><div class="log-2"></div></td><td>121 - 150 days</td></tr>
+            <tr><td><div class="log-3"></div></td><td>151 - 180 days</td></tr>
+            <tr><td><div class="log-4"></div></td><td>181 - 210 days</td></tr>
+            <tr><td><div class="log-5"></div></td><td>211 - 240 days</td></tr>
+            <tr><td><div class="log-6"></div></td><td>241 - 270 days</td></tr>
+            <tr><td><div class="log-7"></div></td><td>271 - 300 days</td></tr>
+            <tr><td><div class="log-8"></div></td><td>301 - 330 days</td></tr>
+            <tr><td><div class="log-9"></div></td><td>331 - 365 days</td></tr>
           </table>
-          <p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank">Commission for Environmental Cooperation</a></p>.`,
-          'name': 'alaska_wildfires:alaska_landcover_2010',
-          'title': 'Land cover, 2010',
+          This layer shows the decadal average length of growing season in the 2010s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.`,
+          'name': 'snap_rcp:logs_2010_rcp6',
+          'title': '2010s Length of Growing Season, RCP 6.0',
           'legend': false
         },
         {
-          'abstract': 'This layer shows the decadal average length of growing season in the 2010s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.',
-          'name': 'snap_rcp:logs_2010_rcp6',
-          'title': '2010s Length of Growing Season, RCP 6.0'
-        },
-        {
-          'abstract': 'This layer shows the decadal average length of growing season in the 2090s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.',
+          'abstract': `
+          <table class="rcp6-legend logs">
+            <tr><td><div class="log-1"></div></td><td>0 - 120 days</td></tr>
+            <tr><td><div class="log-2"></div></td><td>121 - 150 days</td></tr>
+            <tr><td><div class="log-3"></div></td><td>151 - 180 days</td></tr>
+            <tr><td><div class="log-4"></div></td><td>181 - 210 days</td></tr>
+            <tr><td><div class="log-5"></div></td><td>211 - 240 days</td></tr>
+            <tr><td><div class="log-6"></div></td><td>241 - 270 days</td></tr>
+            <tr><td><div class="log-7"></div></td><td>271 - 300 days</td></tr>
+            <tr><td><div class="log-8"></div></td><td>301 - 330 days</td></tr>
+            <tr><td><div class="log-9"></div></td><td>331 - 365 days</td></tr>
+          </table>
+          This layer shows the decadal average length of growing season in the 2090s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.`,
           'name': 'snap_rcp:logs_2090_rcp6',
-          'title': '2090s Length of Growing Season, RCP 6.0'
+          'title': '2090s Length of Growing Season, RCP 6.0',
+          'legend': false
         },
         {
-          'abstract': 'This layer shows projected, downscaled mean decadal temperature for 2010 using a five-model average.  The spatial resolution of this dataset is 771m.   The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.',
+          'abstract': `<table class="rcp6-legend tas">
+            <tr><td><div class="tas-1"></div></td><td>-8 ºC or colder</td></tr>
+            <tr><td><div class="tas-2"></div></td><td>-7.9 to -7 ºC</td></tr>
+            <tr><td><div class="tas-3"></div></td><td>-6.9 to -6 ºC</td></tr>
+            <tr><td><div class="tas-4"></div></td><td>-5.9 to -5 ºC</td></tr>
+            <tr><td><div class="tas-5"></div></td><td>-4.9 to -4 ºC</td></tr>
+            <tr><td><div class="tas-6"></div></td><td>-3.9 to -3 ºC</td></tr>
+            <tr><td><div class="tas-7"></div></td><td>-2.9 to -2 ºC</td></tr>
+            <tr><td><div class="tas-8"></div></td><td>-1.9 to -1 ºC</td></tr>
+            <tr><td><div class="tas-9"></div></td><td>-0.9 to 0 ºC</td></tr>
+            <tr><td><div class="tas-10"></div></td><td>0.1 to 1 ºC</td></tr>
+            <tr><td><div class="tas-11"></div></td><td>1.1 to 2 ºC</td></tr>
+            <tr><td><div class="tas-12"></div></td><td>2.1 to 3 ºC</td></tr>
+            <tr><td><div class="tas-13"></div></td><td>3.1 to 4 ºC</td></tr>
+            <tr><td><div class="tas-14"></div></td><td>4.1 to 5 ºC</td></tr>
+            <tr><td><div class="tas-15"></div></td><td>5.1 ºC and warmer</td></tr>
+          </table>
+          This layer shows projected, downscaled mean decadal temperature for 2010 using a five-model average.  The spatial resolution of this dataset is 771m.   The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.`,
           'name': 'snap_rcp:tas_2010_rcp6',
-          'title': '2010s Mean Annual Temperature, RCP 6.0'
+          'title': '2010s Mean Annual Temperature, RCP 6.0',
+          'legend': false
         },
         {
-          'abstract': 'This layer shows projected, downscaled mean decadal temperature for 2090 using a five-model average. The spatial resolution of this dataset is 771m. The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.',
+          'abstract': `<table class="rcp6-legend tas">
+            <tr><td><div class="tas-1"></div></td><td>-8 ºC or colder</td></tr>
+            <tr><td><div class="tas-2"></div></td><td>-7.9 to -7 ºC</td></tr>
+            <tr><td><div class="tas-3"></div></td><td>-6.9 to -6 ºC</td></tr>
+            <tr><td><div class="tas-4"></div></td><td>-5.9 to -5 ºC</td></tr>
+            <tr><td><div class="tas-5"></div></td><td>-4.9 to -4 ºC</td></tr>
+            <tr><td><div class="tas-6"></div></td><td>-3.9 to -3 ºC</td></tr>
+            <tr><td><div class="tas-7"></div></td><td>-2.9 to -2 ºC</td></tr>
+            <tr><td><div class="tas-8"></div></td><td>-1.9 to -1 ºC</td></tr>
+            <tr><td><div class="tas-9"></div></td><td>-0.9 to 0 ºC</td></tr>
+            <tr><td><div class="tas-10"></div></td><td>0.1 to 1 ºC</td></tr>
+            <tr><td><div class="tas-11"></div></td><td>1.1 to 2 ºC</td></tr>
+            <tr><td><div class="tas-12"></div></td><td>2.1 to 3 ºC</td></tr>
+            <tr><td><div class="tas-13"></div></td><td>3.1 to 4 ºC</td></tr>
+            <tr><td><div class="tas-14"></div></td><td>4.1 to 5 ºC</td></tr>
+            <tr><td><div class="tas-15"></div></td><td>5.1 ºC and warmer</td></tr>
+          </table>
+          This layer shows projected, downscaled mean decadal temperature for 2090 using a five-model average. The spatial resolution of this dataset is 771m. The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.`,
           'name': 'snap_rcp:tas_2090_rcp6',
-          'title': '2090s Mean Annual Temperature, RCP 6.0'
+          'title': '2090s Mean Annual Temperature, RCP 6.0',
+          'legend': false
         }
       ]
     }
@@ -483,7 +520,8 @@ export default {
   color: #0099ff;
 }
 
-table.rcp6-legend.alaska-landcover-2010 {
+table.rcp6-legend.logs {
+  margin-bottom: 10px;
   td {
     font-size: 10pt;
     div {
@@ -491,21 +529,45 @@ table.rcp6-legend.alaska-landcover-2010 {
       width: 2em;
       border: none;
       margin-right: 5px;
-      &.l-1 { background-color: #003d00; }
-      &.l-2 { background-color: #949c70; }
-      &.l-3 { background-color: #148c3d; }
-      &.l-4 { background-color: #5c752b; }
-      &.l-5 { background-color: #b38a33; }
-      &.l-6 { background-color: #e1cf8a; }
-      &.l-7 { background-color: #9c7554; }
-      &.l-8 { background-color: #bad48f; }
-      &.l-9 { background-color: #408a70; }
-      &.l-10 { background-color: #6ba38a; }
-      &.l-11 { background-color: #e6ae66; }
-      &.l-12 { background-color: #a8abae; }
-      &.l-13 { background-color: #DD40D6; }
-      &.l-14 { background-color: #4c70a3; }
-      &.l-15 { background-color: #eee9ee; }
+      margin-bottom: 5px;
+      &.log-1 { background-color: #6E462D; }
+      &.log-2 { background-color: #826139; }
+      &.log-3 { background-color: #9C8448; }
+      &.log-4 { background-color: #B3A556; }
+      &.log-5 { background-color: #CCCC66; }
+      &.log-6 { background-color: #9EB54C; }
+      &.log-7 { background-color: #749E34; }
+      &.log-8 { background-color: #4D8A1E; }
+      &.log-9 { background-color: #267300; }
+    }
+  }
+}
+
+table.rcp6-legend.tas {
+  margin-bottom: 10px;
+  td {
+    font-size: 10pt;
+    div {
+      height: 2em;
+      width: 2em;
+      border: none;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      &.tas-1 { background-color: #4575B5; }
+      &.tas-2 { background-color: #6187B8; }
+      &.tas-3 { background-color: #7B98BA; }
+      &.tas-4 { background-color: #95ACBD; }
+      &.tas-5 { background-color: #AEBDBC; }
+      &.tas-6 { background-color: #CAD4BE; }
+      &.tas-7 { background-color: #E3E8BE; }
+      &.tas-8 { background-color: #FFFFBF; }
+      &.tas-9 { background-color: #FFE3A6; }
+      &.tas-10 { background-color: #FCC58D; }
+      &.tas-11 { background-color: #F7A474; }
+      &.tas-12 { background-color: #F2885E; }
+      &.tas-13 { background-color: #EB6E4B; }
+      &.tas-14 { background-color: #E05138; }
+      &.tas-15 { background-color: #D62F27; }
     }
   }
 }
