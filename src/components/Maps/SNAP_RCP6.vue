@@ -32,7 +32,8 @@ export default {
   data () {
     return {
       title: 'SNAP Data for a Changing Climate',
-      abstract: '<h1>SNAP Data for a Changing Climate</h1><div class="abstractWrapper"><p>This map shows how data from the Scenarios Network for Alaska and Arctic Planning can show variation over time with two variables: <b>temperature</b> and <b>length of growing season</b>.</div>',
+      abstract: `<h1>SNAP Data for a Changing Climate</h1><div class="abstractWrapper"><p>This “sampler” of climate projection efforts is an example how data from the Scenarios Network for Alaska and Arctic Planning (SNAP) can show variation over time.</p>
+      <p>By visualizing just two variables — <b>temperature and length of growing season</b> — the interactive map illustrates the usefulness of SNAP data in making meaningful projections for possible future climates in Alaska.</p>`,
       mapOptions: {
         zoom: 0,
         minZoom: 0,
