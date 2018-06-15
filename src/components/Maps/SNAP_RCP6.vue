@@ -208,8 +208,10 @@ export default {
       tour.addStep({
         title: 'Welcome to the Tour!',
         text: `
-        <p>The tour for this map provides context to the datasets, highlighting their usefulness in making meaningful predictions. You will also learn where to get more data and see examples of how to apply what you learn to your own work.</p>
-        <p>This tour has 11 stops.</p>`,
+        <p>The tour for this map provides a basic explanation of terms used in climate modeling, such as General Circulation Models, downscaling, and Representative Concentration Pathways.</p>
+        <p>It also gives context to SNAP climate datasets and highlights their usefulness in making meaningful projections for possible future climates in Alaska.</p>
+        <p>Finally, you’ll learn where to find more details on tour topics, and where to go to download SNAP data for your own work.</p>
+        <p>This tour has 9 stops.</p>`,
         classes: 'shepherd-theme-square-dark',
         when: {
           show: () => {
@@ -227,9 +229,13 @@ export default {
         }
       })
       tour.addStep({
-        title: 'General Circulation Models',
+        title: 'What is a General Circulation Model (GCM)?',
         text: `
-        <p>Projecting into the future using <a href="https://www.gfdl.noaa.gov/climate-modeling/" target="_blank">General Circulation Model</a> (GCM) data will always include uncertainties. To address this, <a href="https://www.snap.uaf.edu/methods/models" target="_blank">SNAP provides five GCMs that perform best over the Arctic</a> as well as an average of those 5 models. This "5 Model Average" is generally more statistically accurate than any individual model; however, the average value does smooth out extreme values. If extreme values are of interest, it's best to use a series of individual GCMs.</p>`,
+        <p>GCMs represent physical processes in the atmosphere, ocean, cryosphere, and land surface. They are the most advanced tools currently available for simulating the response of the global climate system to increasing greenhouse gas concentrations.</p>
+        <p><b>SNAP uses GCMs strategically</b></p>
+        <p>Projecting into the future using GCM data will always include uncertainties. To address this, SNAP provides 5 GCMs that perform best over the Arctic, as well as an average of those 5 models.</p>
+        <p>This "5 Model Average" is generally more statistically accurate than any individual model; however, the average value does smooth out extreme values. If extreme values are of interest, it's best to use a series of individual GCMs.</p>
+        <p><a href="https://www.snap.uaf.edu/methods/models" target="_blank">Learn more about how we select our models</a></p>`,
         classes: 'shepherd-theme-square-dark',
         buttons: buttons,
         when: {
@@ -240,7 +246,7 @@ export default {
               first: []
             })
             this.$ga.event({
-              eventCategory: 'Tour Step: General Circulation Models',
+              eventCategory: 'Tour Step: What is a General Circulation Model?',
               eventAction: 'show',
               eventLabel: 'SNAP RCP 6.0'
             })
@@ -248,84 +254,12 @@ export default {
         }
       })
       tour.addStep({
-        title: 'What is an RCP?',
+        title: 'What makes SNAP data different from “regular” GCM data?',
         text: `
-        <p>Just as it’s good to use multiple GCMs, it’s also good to look at multiple scenarios when using climate data. This approach provides the most complete picture of possible future climate trends.</p>
-
-        <p>The Intergovernmental Panel on Climate Change (IPCC) describes 4 potential future scenarios known as Representative Concentration Pathways (RCPs).</p>
-
-        <p>RCPs are used by those running GCMs to model what the climate might be like in the future and to ensure that modelers start from the same place and agree on the same assumptions. RCPs provide a “common language” for comparing results and sharing findings.</p>`,
-        classes: 'shepherd-theme-square-dark',
-        buttons: buttons,
-        when: {
-          show: () => {
-            this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
-            this.$store.commit('showOnlyLayers', {
-              first: []
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: What is an RCP?',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
-          }
-        }
-      })
-      tour.addStep({
-        title: 'What do RCPs describe?',
-        text: `
-        <p>RCPs illustrate 3 major values:</p>
-        <p style="margin-left: 5px;"><b>1) Radiative forcing</b> — how much energy is at the Earth’s surface, measured in watts per square meter, by the year 2100. This is the metric that the RCP numbers are based upon, i.e. RCP 2.6, 4.5, 6.0, and 8.5.</p>
-        <p style="margin-left: 5px;"><b>2) Emission rates</b> — how fast we add greenhouse gases into the atmosphere
-        <p style="margin-left: 5px;"><b>3) Emission concentrations</b> — measured in parts per million for CO2, methane, and other greenhouse gases
-</p>`,
-        classes: 'shepherd-theme-square-dark',
-        buttons: buttons,
-        when: {
-          show: () => {
-            this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
-            this.$store.commit('showOnlyLayers', {
-              first: []
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: What do RCPs describe?',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
-          }
-        }
-      })
-      tour.addStep({
-        title: 'What do the RCPs represent?',
-        text: `
-        <p><b>RCP 2.6:</b> Forcing peaks at ~3 W / m<sup>2</sup> mid-century and drops to 2.6 W / m<sup>2</sup> by 2100. Greenhouse gas emissions drop substantially over time. </p>
-        <p><b>RCPs 4.5 and 6.0:</b> Forcing stabilizes soon after 2100 at 4.5 and 6.0 W / m<sup>2</sup>, respectively, due to efforts that curb emissions.</p>
-        <p><b>RCP 8.5:</b> Forcing values reach 8.5 W / m<sup>2</sup> by 2100 and continue to rise into the next century. Very high greenhouse gas concentrations.</p>
-        <p><a href="http://sedac.ipcc-data.org/ddc/ar5_scenario_process/RCPs.html" target="_blank">Additional information about RCPs</a>`,
-        classes: 'shepherd-theme-square-dark',
-        buttons: buttons,
-        when: {
-          show: () => {
-            this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
-            this.$store.commit('showOnlyLayers', {
-              first: []
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: What do the RCPs represent?',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
-          }
-        }
-      })
-      tour.addStep({
-        title: 'CO<sub>2</sub> atmospheric concentrations for RCP scenarios',
-        text: `
-        <p><img align='center' src='static/atmos_concent.png' width=700 height=500></img></p>
-        <p style='margin-top: 15px; font-size: 14px;'><i>CO<sub>2</sub> equivalent atmospheric concentrations for RCP scenarios. RCP 8.5 represents "business-as-usual." Visit <a href='http://www.pik-potsdam.de/~mmalte/rcps/' target='_blank'>details and data</a> for additional information.</i></p>`,
+        <p align="center"><img src='static/snap_downscaling.png' width=500 height=300 /></p>
+        <p>SNAP downscales climate data from global models to generate locally relevant data at higher resolutions. The downscaling process connects global-scale projections with smaller-scale dynamics to create regionally specific projections.</p>
+        <p>SNAP data adds value to GCM projections by making them more relevant and useful for making decisions about climate change.</p>
+        <p><a href='https://www.snap.uaf.edu/methods/downscaling' target='_blank'>Learn more about our downscaling process</a></p>`,
         classes: 'shepherd-theme-square-dark adjust-for-images',
         buttons: buttons,
         when: {
@@ -336,7 +270,7 @@ export default {
               first: []
             })
             this.$ga.event({
-              eventCategory: 'Tour Step: CO2 atmospheric concentrations image',
+              eventCategory: 'Tour Step: What makes SNAP data different from “regular” GCM data?',
               eventAction: 'show',
               eventLabel: 'SNAP RCP 6.0'
             })
@@ -344,10 +278,60 @@ export default {
         }
       })
       tour.addStep({
-        title: 'What makes SNAP data different from General Circulation Model data?',
+        title: 'What are Representative Concentration Pathways and how are they useful?',
         text: `
-        <p style="margin-left: 25px;"><img src='static/snap_downscaling.png' width=500 height=300 /></p>
-        <p style="margin-left: 25px; width: 500px;">SNAP <a href='https://www.snap.uaf.edu/methods/downscaling' target='_blank'>downscales climate data</a> from global models to generate locally relevant data at higher resolutions. The downscaling process connects global-scale projections with smaller-scale dynamics to create regionally specific projections. SNAP data adds value to GCM projections by making them more relevant and useful for making decisions about climate change.</p>`,
+        <p>Just as it’s good to use multiple GCMs, it’s also good to look at multiple scenarios when using climate data, in order to show the most complete picture of possible future climate trends.</p>
+        <p>The Intergovernmental Panel on Climate Change describes 4 potential future scenarios known as Representative Concentration Pathways (RCPs).</p>
+        <p>RCPs are used by those running GCMs to model what the climate might be like in the future, and to ensure that modelers start from the same place and agree on the same assumptions. RCPs provide a “common language” for comparing results and sharing findings.</p>`,
+        classes: 'shepherd-theme-square-dark',
+        buttons: buttons,
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: What are Representative Concentration Pathways and how are they useful?',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
+            })
+          }
+        }
+      })
+      tour.addStep({
+        title: 'RCPs illustrate 3 major values',
+        text: `
+        <p><b>1) Radiative forcing</b> — how much energy is at the Earth’s surface, measured in watts per square meter, by the year 2100. This is the metric that the RCP numbers are based upon, i.e. RCP 2.6, 4.5, 6.0, and 8.5.</p>
+        <p><b>2) Emission rates</b> — how fast we add greenhouse gases into the atmosphere
+        <p><b>3) Emission concentrations</b> — measured in parts per million for CO<sub>2</sub>, methane, and other greenhouse gases`,
+        classes: 'shepherd-theme-square-dark',
+        buttons: buttons,
+        when: {
+          show: () => {
+            this.$store.commit('hideDualMaps')
+            this.$store.commit('disableSyncMaps')
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
+            this.$ga.event({
+              eventCategory: 'Tour Step: RCPs illustrate',
+              eventAction: 'show',
+              eventLabel: 'SNAP RCP 6.0'
+            })
+          }
+        }
+      })
+      tour.addStep({
+        title: 'RCPs simulate results of climate-warming mitigation efforts',
+        text: `
+        <p><b>RCP 2.6: Strong mitigation efforts.</b> Forcing peaks at ~3 W / m<sup>2</sup> mid-century and drops to 2.6 W / m<sup>2</sup> by 2100. Greenhouse gas emissions drop substantially over time. </p>
+        <p><b>RCPs 4.5 and 6.0: Moderate mitigation efforts.</b> Forcing stabilizes soon after 2100 at 4.5 and 6.0 W / m<sup>2</sup>, respectively, due to efforts that curb emissions.</p>
+        <p><b>RCP 8.5: "Business as usual."</b> Forcing values reach 8.5 W / m<sup>2</sup> by 2100 and continue to rise into the next century. Very high greenhouse gas concentrations.</p>
+        <p align='center'><img src='static/atmos_concent.png' width=500 height=300></img></p>
+        <p style='font-size: 14px;'><i>CO<sub>2</sub> equivalent atmospheric concentrations for RCP scenarios. RCP 8.5 represents "business-as-usual." Visit <a href='http://www.pik-potsdam.de/~mmalte/rcps/' target='_blank'>details and data</a> for additional information.</i></p>
+        <p><a href="http://sedac.ipcc-data.org/ddc/ar5_scenario_process/RCPs.html" target="_blank">Learn more about RCPs</a>`,
         classes: 'shepherd-theme-square-dark adjust-for-images',
         buttons: buttons,
         when: {
@@ -358,7 +342,7 @@ export default {
               first: []
             })
             this.$ga.event({
-              eventCategory: 'Tour Step: What makes SNAP data different from General Circulation Model data?',
+              eventCategory: 'Tour Step: RCPs simulate results of climate-warming mitigation efforts',
               eventAction: 'show',
               eventLabel: 'SNAP RCP 6.0'
             })
@@ -366,9 +350,9 @@ export default {
         }
       })
       tour.addStep({
-        title: 'Side-by-side maps showing changing temperature',
+        title: 'Side-by-side maps showing changes in temperature',
         text: `
-        <p>Example of a decadal average of mean annual temperature for the 2010s and 2090s. Viewed side-by-side with the same color scale, it’s apparent that mean annual temperature is projected to increase. This is most notable in northern Alaska—where the darkest blue is almost entirely replaced with lighter shades, denoting warmer temperatures. </p>`,
+        <p>Example of a decadal average of mean annual temperature for the 2010s and 2090s. Viewed side-by-side with the same color scale, it’s apparent that mean annual temperature is projected to increase. This is most notable in northern Alaska—where the darkest blue is almost entirely replaced with lighter shades, denoting warmer temperatures.</p>`,
         classes: 'shepherd-theme-square-dark',
         buttons: buttons,
         when: {
@@ -382,7 +366,7 @@ export default {
             })
             this.primaryMapObject.setView([69.297, -144.159], 4)
             this.$ga.event({
-              eventCategory: 'Tour Step: Side-by-side maps showing changing temperature',
+              eventCategory: 'Tour Step: Side-by-side maps showing changes in temperature',
               eventAction: 'show',
               eventLabel: 'SNAP RCP 6.0'
             })
@@ -390,7 +374,7 @@ export default {
         }
       })
       tour.addStep({
-        title: 'Side-by-side maps showing changing growing seasons',
+        title: 'Side-by-side maps showing changes in growing season length',
         text: `
         <p>A shift in climate patterns is illustrated by the length of the growing season, measured in days. Length of growing season approximates the ice-free season and is defined by the dates between when the mean temperature crosses 0°C in the spring and fall.</p>
         <p>Look at the right-hand map. By the 2090s, the growing season shows a strong warming trend with a longer ice-free season, as shown by darker shades of green. This trend is most notable in the southern area of the map, where the growing season increases by as much as 30 days.</p>
@@ -408,7 +392,7 @@ export default {
             })
             this.primaryMapObject.setView([60.994, -148.69], 3)
             this.$ga.event({
-              eventCategory: 'Tour Step: Side-by-side maps showing changing growing seasons',
+              eventCategory: 'Tour Step: Side-by-side maps showing changes in growing season length',
               eventAction: 'show',
               eventLabel: 'SNAP RCP 6.0'
             })
@@ -445,37 +429,16 @@ export default {
         buttons: buttons
       })
       tour.addStep({
-        title: 'Download our data!',
-        text: `
-        <p>You can <a href="https://www.snap.uaf.edu/tools/data-downloads" target="_blank">download this and related data sets</a> from our data distribution server.</p>
+        title: 'End of tour - thanks for your time!',
+        text: `<p>We hope this tour has shown how SNAP data fits into the larger contexts of climate modeling. Data visualizations such as this interactive map help show the impacts that a changing climate may have on all Alaska species — including ourselves — and form an important starting point for discussions about how to respond and adapt to a new Alaska.</p>
+        <p><b>Download our data</b></p>
+        <p>Download this and related datasets <a href="http://ckan.snap.uaf.edu/" target="_blank">here</a></p>
         <p>Need data for a specific community? Try our <a href="https://www.snap.uaf.edu/sites/all/modules/snap_community_charts/charts.php" target="_blank">Community Charts Tool</a>.</p>
-        <p>Need a spatial subset of data for your area of interest? <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon" target="_blank">This R script</a> can be adapted to subset a timeseries of this data for a region specified by a shapefile, producing CSV output that can the be graphed or visualized in other ways.</p>`,
-        classes: 'shepherd-theme-square-dark',
-        buttons: buttons,
-        when: {
-          show: () => {
-            this.primaryMapObject.setView([64, -165], 0)
-            this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
-            this.$store.commit('hideLayerMenu')
-            this.$store.commit('showOnlyLayers', {
-              first: [''],
-              second: ['']
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: Download our data!',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
-          }
-        }
-      })
-      tour.addStep({
-        title: 'End of tour!',
-        text: `<p>Thanks for checking out this map! Tools like this help to visualize the impacts that a changing climate may have on all Alaska species — including ourselves — and forms an important starting point for discussions about how to respond and adapt to a new Alaska.</p>
+        <p>Need a spatial subset of data for your area of interest? <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon" target="_blank">This R script</a> can be adapted to subset a timeseries of this dataset for a region specified by a shapefile, producing CSV output that can the be graphed or visualized in other ways.</p>
         <p>If you have feedback, we’d love to hear from you — <a href="mailto:uaf-mapventure@alaska.edu">please contact us.</a></p>`,
         when: {
           show: () => {
+            this.primaryMapObject.setView([64, -165], 0)
             this.$store.commit('hideDualMaps')
             this.$store.commit('disableSyncMaps')
             this.$store.commit('showLayerMenu')
