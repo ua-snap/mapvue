@@ -365,7 +365,7 @@ export default {
               first: ['snap_rcp:tas_2010_rcp6'],
               second: ['snap_rcp:tas_2090_rcp6']
             })
-            this.primaryMapObject.setView([69.297, -144.159], 4)
+            this.primaryMapObject.setView([68.009, -153.554], 2)
             this.$ga.event({
               eventCategory: 'Tour Step: Side-by-side maps showing changes in temperature',
               eventAction: 'show',
@@ -391,7 +391,7 @@ export default {
               first: ['snap_rcp:logs_2010_rcp6'],
               second: ['snap_rcp:logs_2090_rcp6']
             })
-            this.primaryMapObject.setView([60.994, -148.69], 3)
+            this.primaryMapObject.setView([60.994, -148.69], 2)
             this.$ga.event({
               eventCategory: 'Tour Step: Side-by-side maps showing changes in growing season length',
               eventAction: 'show',
@@ -413,7 +413,7 @@ export default {
               first: ['snap_rcp:logs_2010_rcp6'],
               second: ['snap_rcp:logs_2090_rcp6']
             })
-            this.primaryMapObject.setView([60.994, -148.69], 3)
+            this.primaryMapObject.setView([60.994, -148.69], 2)
             this.$store.commit('showSidebar', {
               layer: 'snap_rcp:logs_2090_rcp6'
             })
@@ -433,7 +433,7 @@ export default {
         title: 'End of tour - thanks for your time!',
         text: `<p>We hope this tour has shown how SNAP data fits into the larger contexts of climate modeling. Data visualizations such as this interactive map help show the impacts that a changing climate may have on all Alaska species — including ourselves — and form an important starting point for discussions about how to respond and adapt to a new Alaska.</p>
         <p><b>Download our data</b></p>
-        <p>Download this and related datasets <a href="http://ckan.snap.uaf.edu/" target="_blank">here</a></p>
+        <p>Download this and related datasets <a href="https://www.snap.uaf.edu/tools/data-downloads" target="_blank">here</a></p>
         <p>Need data for a specific community? Try our <a href="https://www.snap.uaf.edu/sites/all/modules/snap_community_charts/charts.php" target="_blank">Community Charts Tool</a>.</p>
         <p>Need a spatial subset of data for your area of interest? <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon" target="_blank">This R script</a> can be adapted to subset a timeseries of this dataset for a region specified by a shapefile, producing CSV output that can the be graphed or visualized in other ways.</p>
         <p>If you have feedback, we’d love to hear from you — <a href="mailto:uaf-mapventure@alaska.edu">please contact us.</a></p>`,
