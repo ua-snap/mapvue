@@ -2,8 +2,8 @@
 <div class='aaokh'>
   <h1 class='map-title'>{{ title }}</h1>
   <layer-menu :buttons="buttons"></layer-menu>
-  <splash-screen
-    :abstract='abstract'></splash-screen>
+  <aaokh-splash-screen
+    :abstract='abstract'></aaokh-splash-screen>
   <mv-map
     ref='map'
     :baseLayerOptions='baseLayerOptions'
@@ -24,6 +24,28 @@
 import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
 import Tour from '../Tour'
+import AaokhSplashScreen from './AaokhSplashScreen'
+
+import Observations from '@/assets/obs.json'
+
+// Define the store methods that will be used here
+const aaokhStore = { // eslint-disable-line no-unused-vars
+  state: {
+    // True if the user has agreed to terms of use
+    userAgreed: false
+  },
+  mutations: {
+    userAgreed (state) {
+      state.userAgreed = true
+    }
+  },
+  getters: {
+    // Returns true if there are pending HTTP requests
+    userAgreed (state) {
+      return state.userAgreed
+    }
+  }
+}
 
 // Will have references to DOM objects used in the tour
 var observationLayer // eslint-disable-line no-unused-vars
@@ -33,11 +55,13 @@ export default {
   name: 'aaokh',
   extends: MapInstance,
   components: {
-    tour: Tour
+    tour: Tour,
+    aaokhSplashScreen: AaokhSplashScreen
   },
   created () {
     // Process the observed SIZONET data
-    this.setupObservations()
+    // this.setupObservations()
+    this.$store.registerModule('aaokh', aaokhStore)
   },
   mounted () {
     // Necessary to see the markers.
@@ -75,7 +99,7 @@ export default {
         })
         return this.$L.layerGroup(communities)
       },
-      title: 'AAOKH (Draft)',
+      title: 'Alaska Arctic Observatory &amp; Knowledge Hub',
       abstract: `
 <h1>Alaska Arctic Observatory &amp; Knowledge Hub</h1>
 <p><strong>The Alaska Arctic Observatory and Knowledge Hub</strong> (AAOKH) facilitates the sharing of sea ice conditions in combination with observations collected by members of coastal communities in the context of a changing seasonal cycle. This approach can help track environmental change from a community perspective. The tour below will give you a idea of the types of curated data AAOKH helps to share and make accessible.
@@ -153,7 +177,15 @@ export default {
       ]
     }
   },
+  watch: {
+    userAgreed: function (v) {
+      console.log('WATCHER SAW', v)
+    }
+  },
   computed: {
+    userAgreed () {
+      return this.$store.userAgreed
+    },
     buttons () {
       return [
         {
@@ -431,23 +463,19 @@ export default {
       window.open('https://arctic-aok.org/get-involved/', '_blank')
     },
     setupObservations () {
-      var imagePath = require('@/assets/point_hope_eggs.jpg')
-      var latlng = [68.40033170453667, -166.3469122563418]
-      observationPopup = this.$L.popup()
-      .setLatLng(latlng)
-      .setContent(`
-<h3>Collecting eggs in Point Hope</h3>
-<img id="research_photo" src="${imagePath}">
-`)
-
-      let markerIcon = this.$L.AwesomeMarkers.icon({
-        icon: 'coffee',
-        iconColor: 'white',
-        markerColor: 'red'
+      var geojsonMarkerOptions = {
+        radius: 8,
+        fillColor: '#ff7800',
+        color: '#000',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+      }
+      observationLayer = this.$L.geoJSON(Observations, {
+        pointToLayer: function (feature, latlng) {
+          return this.$L.circleMarker(latlng, geojsonMarkerOptions)
+        }
       })
-      let marker = this.$L.marker(latlng, { icon: markerIcon })
-      marker.bindPopup(observationPopup)
-      observationLayer = this.$L.layerGroup([marker])
     }
   }
 }
