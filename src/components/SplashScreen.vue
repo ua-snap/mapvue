@@ -12,7 +12,6 @@
       <div v-show="!loadingData" class="buttons">
         <button type="button" class="mobile-hidden btn btn-lg btn-success" @click="startTour()">
           <span v-show="!tourIsActive">Take a tour of this map&hellip;</span>
-          <span v-show="tourIsActive">Continue tour&hellip;</span>
         </button>
         <button @click="closeSplashAndEndTour()" class="btn btn-lg btn-default">
           Show map
