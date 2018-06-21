@@ -32,7 +32,7 @@ export default {
   data () {
     return {
       title: 'SNAP Data for a Changing Climate',
-      abstract: `<h1>SNAP Data for a Changing Climate</h1><div class="abstractWrapper"><p>This “sampler” of climate projection efforts is an example how data from the Scenarios Network for Alaska and Arctic Planning (SNAP) can show variation over time.</p>
+      abstract: `<h1>SNAP Data for a Changing Climate</h1><div class="abstractWrapper"><p>This "sampler" of climate projection efforts is an example of how data from Scenarios Network for Alaska and Arctic Planning (SNAP) can show variation over time.</p>
       <p>By visualizing just two variables — <b>temperature and length of growing season</b> — the interactive map illustrates the usefulness of SNAP data in making meaningful projections for possible future climates in Alaska.</p>`,
       mapOptions: {
         zoom: 1,
@@ -233,7 +233,7 @@ export default {
         <p>GCMs represent physical processes in the atmosphere, ocean, cryosphere, and land surface. They are the most advanced tools currently available for simulating the response of the global climate system to increasing greenhouse gas concentrations.</p>
         <p><b>SNAP uses GCMs strategically</b></p>
         <p>Projecting into the future using GCM data will always include uncertainties. To address this, SNAP provides 5 GCMs that perform best over the Arctic, as well as an average of those 5 models.</p>
-        <p>This "5 Model Average" is generally more statistically accurate than any individual model; however, the average value does smooth out extreme values. If extreme values are of interest, it's best to use a series of individual GCMs.</p>
+        <p>This "5 Model Average" is generally more statistically robust than any individual model; however, the average value does smooth out extreme values. If extreme values are of interest, it's best to use a series of individual GCMs.</p>
         <p><a href="https://www.snap.uaf.edu/methods/models" target="_blank">Learn more about how we select our models</a></p>
         <p align="right" style="font-size: 12px;"><b>(1/9)</b></p>`,
         classes: 'shepherd-theme-square-dark',
@@ -256,8 +256,8 @@ export default {
       tour.addStep({
         title: 'What makes SNAP data different from “regular” GCM data?',
         text: `
-        <div align="center"><p style="font-size: 12px; width: 500px"><img src='static/snap_downscaling.png' width=500 height=300 />Downscaling results. Oringal CRU data at 0.5 x 0.5 degrees (left). At right, the same CRU data downscaled to 2 x 2 km.</p></div>
-        <p>SNAP downscales climate data from global models to generate locally relevant data at higher resolutions. The downscaling process connects global-scale projections with smaller-scale dynamics to create regionally specific projections.</p>
+        <div align="center"><table width=556px><tr><td align="center" width=278px>Original Data</td><td align="center" width=278px>Downscaled Data</td></tr></table><p style="width: 556px; height: 253px"><img src='static/snap_downscaling.png'/></p></div>
+        <p></p><p>SNAP downscales climate data from global models to generate locally relevant data at higher resolutions. The downscaling process connects global-scale projections with smaller-scale dynamics to create regionally specific projections.</p>
         <p>SNAP data adds value to GCM projections by making them more relevant and useful for making decisions about climate change.</p>
         <p><a href='https://www.snap.uaf.edu/methods/downscaling' target='_blank'>Learn more about our downscaling process</a></p>
         <p align="right" style="font-size: 12px;"><b>(2/9)</b></p>`,
@@ -502,6 +502,10 @@ export default {
 
 .shepherd-theme-square-dark a {
   color: #0099ff;
+}
+
+.shepherd-text {
+  font-size: 16px !important;
 }
 
 table.rcp6-legend.logs {
