@@ -556,30 +556,36 @@ export default {
       var svgCircleTemplate = _.template(`
       <svg width="120" height="120" viewBox="0 0 120 120"
          xmlns="http://www.w3.org/2000/svg">
-
         <defs>
-          <radialGradient id="exampleGradient">
-            <stop offset="0%" stop-color="<%= stop1 %>"/>
-            <stop offset="75%" stop-color="<%= stop2 %>"/>
-            <stop offset="100%" stop-color="<%= stop3 %>"/>
+          <radialGradient id="fire-gradient">
+            <stop offset="0%" stop-opacity="<%= stop1opacity %>" stop-color="<%= stop1 %>"/>
+            <stop offset="75%" stop-opacity="<%= stop2opacity %>" stop-color="<%= stop2 %>"/>
+            <stop offset="100%" stop-opacity="<%= stop3opacity %>" stop-color="<%= stop3 %>"/>
           </radialGradient>
         </defs>
 
-        <circle fill="url(#exampleGradient)" cx="60" cy="60" r="50"/>
+        <circle fill="url(#fire-gradient)" cx="60" cy="60" r="50"/>
       </svg>
       `)
       var activeSvgCircle = svgCircleTemplate({
-        stop1: 'RGBA(207, 38, 47, .85)',
-        stop2: 'RGBA(207, 38, 47, .15)',
-        stop3: 'RGBA(207, 38, 47, 0)'
+        stop1: 'RGB(207, 38, 47)',
+        stop1opacity: '.85',
+        stop2: 'RGB(207, 38, 47)',
+        stop2opacity: '.15',
+        stop3: 'RGB(207, 38, 47)',
+        stop3opacity: '0'
       })
       var inactiveSvgCircle = svgCircleTemplate({
-        stop1: 'RGBA(55, 38, 38, .85)',
-        stop2: 'RGBA(55, 38, 38, .15)',
-        stop3: 'RGBA(55, 38, 38, 0)'
+        stop1: 'RGB(80, 63, 63)',
+        stop1opacity: '.85',
+        stop2: 'RGB(80, 63, 63)',
+        stop2opacity: '.15',
+        stop3: 'RGB(80, 63, 63)',
+        stop3opacity: '0'
       })
 
       var activeFireCircle = encodeURI('data:image/svg+xml,' + activeSvgCircle).replace('#', '%23')
+      var inactiveFireCircle = encodeURI('data:image/svg+xml,' + inactiveSvgCircle).replace('#', '%23')
 
       // Set up icon markers
       let FireIcon = this.$L.Icon.extend({
@@ -605,8 +611,9 @@ export default {
             ? [].concat.apply([], feature.geometry.coordinates[0])
             : feature.geometry.coordinates[0]
 
-          // Icon size needs to be proportionate to fire size, to a minimum of 30px.
-          var iconSize = 0.0025 * (feature.properties.acres + 15000) + 25
+          // Icon size needs to be proportionate to fire size, max 100px.
+          var iconCandidateSize = 0.0025 * (feature.properties.acres + 15000) + 25
+          var iconSize = (iconCandidateSize > 100) ? 100 : iconCandidateSize
 
           // Reverse order from what we need
           var coords = this.getCentroid2(polygonCoordinates)
@@ -615,13 +622,15 @@ export default {
               iconSize: [iconSize, iconSize],
               iconAnchor: [iconSize / 2, iconSize / 2]
             }) : new FireIcon({
-              iconUrl: inactiveSvgCircle,
+              iconUrl: inactiveFireCircle,
               iconSize: [iconSize, iconSize],
               iconAnchor: [iconSize / 2, iconSize / 2]
             })
 
           fireMarkers.push(
-            this.$L.marker(new this.$L.latLng([coords[1], coords[0]]), {icon: icon}).bindPopup(this.getFireMarkerPopupContents(
+            this.$L.marker(new this.$L.latLng([coords[1], coords[0]]), {
+              icon: icon
+            }).bindPopup(this.getFireMarkerPopupContents(
               {
                 title: feature.properties.NAME,
                 acres: feature.properties.acres,
@@ -691,7 +700,8 @@ export default {
       }
       var icon = this.$L.divIcon({
         className: isActive,
-        html: '<span class="' + isActive + '">' + acres + '</span'
+        popupAnchor: [15, -5],
+        html: '<span class="' + isActive + '">' + acres + '</span>'
       })
       return this.$L.marker(latLng, {
         icon: icon,
@@ -772,10 +782,6 @@ export default {
     font-size: 16pt !important;
     font-weight: bold;
   }
-
-div#mv-ak-fires img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive {
-  cursor: unset !important;
-}
 
 </style>
 <style lang="scss">
