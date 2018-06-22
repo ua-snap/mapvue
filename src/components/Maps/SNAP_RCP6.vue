@@ -279,7 +279,8 @@ export default {
         }
       })
       tour.addStep({
-        title: 'What are Representative Concentration Pathways and how are they useful?',
+        title: `<p>What are Representative Concentration</p>
+         <p>Pathways and how are they useful?</p>`,
         text: `
         <p>Just as it’s good to use multiple GCMs, it’s also good to look at multiple scenarios when using climate data, in order to show the most complete picture of possible future climate trends.</p>
         <p>The Intergovernmental Panel on Climate Change describes 4 potential future scenarios known as Representative Concentration Pathways (RCPs).</p>
@@ -332,9 +333,8 @@ export default {
         <p><b>RCP 2.6: Strong mitigation efforts.</b> Forcing peaks at ~3 W / m<sup>2</sup> mid-century and drops to 2.6 W / m<sup>2</sup> by 2100. Greenhouse gas emissions drop substantially over time. </p>
         <p><b>RCPs 4.5 and 6.0: Moderate mitigation efforts.</b> Forcing stabilizes soon after 2100 at 4.5 and 6.0 W / m<sup>2</sup>, respectively, due to efforts that curb emissions.</p>
         <p><b>RCP 8.5: "Business as usual."</b> Forcing values reach 8.5 W / m<sup>2</sup> by 2100 and continue to rise into the next century. Very high greenhouse gas concentrations.</p>
-        <p align='center'><img src='static/atmos_concent.png' width=500 height=300></img></p>
-        <p style='font-size: 14px;'><i>CO<sub>2</sub> equivalent atmospheric concentrations for RCP scenarios. RCP 8.5 represents "business-as-usual." Visit <a href='http://www.pik-potsdam.de/~mmalte/rcps/' target='_blank'>details and data</a> for additional information.</i></p>
-        <p><a href="http://sedac.ipcc-data.org/ddc/ar5_scenario_process/RCPs.html" target="_blank">Learn more about RCPs</a>
+        <div align="center"><p style='width: 500px'><img src='static/atmos_concent.png' width=500 height=250></img></p>
+        <p style="font-size: 12px; margin-bottom: 0px;"><i>CO<sub>2</sub> equivalent atmospheric concentrations for RCP scenarios.</p><p style="font-size: 12px;">Visit <a href='http://www.pik-potsdam.de/~mmalte/rcps/' target='_blank'>details and data</a> for additional information or <a href="http://sedac.ipcc-data.org/ddc/ar5_scenario_process/RCPs.html" target="_blank">learn more about RCPs</a></p></i></div>
         <p align="right" style="font-size: 12px;"><b>(5/9)</b></p>`,
         classes: 'shepherd-theme-square-dark adjust-for-images',
         buttons: buttons,
@@ -504,8 +504,12 @@ export default {
   color: #0099ff;
 }
 
-.shepherd-text {
+.shepherd-title {
   font-size: 16px !important;
+}
+
+.shepherd-text {
+  font-size: 14px !important;
 }
 
 table.rcp6-legend.logs {
