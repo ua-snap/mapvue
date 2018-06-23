@@ -411,7 +411,8 @@ export default {
         },
         {
           'abstract': `
-          <p>This layer shows the results of a wildfire model, ALFRESCO, that shows the <a target="_blank" href="http://ckan.snap.uaf.edu/dataset/alfresco-model-outputs-relative-flammability">projected relative flammability</a>.  The darker red, the more likely that that area may burn in the future according to this model.  This layer includes data from the <a target="_blank" href="https://www.snap.uaf.edu/projects/iem">Integrated Ecosystem Management</a> project and assumes <a target="_blank" href="https://link.springer.com/article/10.1007/s10584-011-0149-y">comparatively high greenhouse gas emissions (RCP8.5)</a>.</p><p>This is a different type of data from other kinds on this map.  Instead of being directly observed current or historical data, this layer shows the result of computer models that take many different things into consideration to give an estimate about how future climate conditions may impact flammability.  This information can be useful for communities and decision makers.  To find out more about this type of data, visit the <a href="snap.uaf.edu" target="_blank">SNAP web site</a>.</p>`,
+          <p>This layer shows the results of a wildfire model, ALFRESCO, that shows the <a target="_blank" href="http://ckan.snap.uaf.edu/dataset/alfresco-model-outputs-relative-flammability">projected relative flammability</a>.  The darker red, the more likely that that area may burn in the future according to this model.  This layer includes data from the <a target="_blank" href="https://www.snap.uaf.edu/projects/iem">Integrated Ecosystem Management</a> project and assumes
+          <a target="_blank" href="https://link.springer.com/article/10.1007/s10584-011-0149-y">comparatively high greenhouse gas emissions (RCP8.5)</a>.</p><p>This is a different type of data from other kinds on this map.  Instead of being directly observed current or historical data, this layer shows the result of computer models that take many different things into consideration to give an estimate about how future climate conditions may impact flammability.  This information can be useful for communities and decision makers.  To find out more about this type of data, visit the <a href="snap.uaf.edu" target="_blank">SNAP web site</a>.</p>`,
           'name': 'alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099',
           'layerName': 'alaska_wildfires:alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099',
           'title': 'Future flammability, 2000-2099',
@@ -569,19 +570,19 @@ export default {
       `)
       var activeSvgCircle = svgCircleTemplate({
         stop1: 'RGB(207, 38, 47)',
-        stop1opacity: '.85',
+        stop1opacity: '.05',
         stop2: 'RGB(207, 38, 47)',
         stop2opacity: '.15',
         stop3: 'RGB(207, 38, 47)',
-        stop3opacity: '0'
+        stop3opacity: '.35'
       })
       var inactiveSvgCircle = svgCircleTemplate({
         stop1: 'RGB(80, 63, 63)',
-        stop1opacity: '.85',
+        stop1opacity: '.05',
         stop2: 'RGB(80, 63, 63)',
         stop2opacity: '.15',
         stop3: 'RGB(80, 63, 63)',
-        stop3opacity: '0'
+        stop3opacity: '.35'
       })
 
       var activeFireCircle = encodeURI('data:image/svg+xml,' + activeSvgCircle).replace('#', '%23')
