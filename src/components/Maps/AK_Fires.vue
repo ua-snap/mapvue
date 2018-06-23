@@ -54,9 +54,6 @@ var secondFireMarkers
 var secondFireLayerGroup
 var secondViirsLayerGroup
 
-var activeFireIcon
-var inactiveFireIcon
-
 // Define the store methods that will be used here
 const fireStore = { // eslint-disable-line no-unused-vars
   state: {
@@ -414,7 +411,8 @@ export default {
         },
         {
           'abstract': `
-          <p>This layer shows the results of a wildfire model, ALFRESCO, that shows the <a target="_blank" href="http://ckan.snap.uaf.edu/dataset/alfresco-model-outputs-relative-flammability">projected relative flammability</a>.  The darker red, the more likely that that area may burn in the future according to this model.  This layer includes data from the <a target="_blank" href="https://www.snap.uaf.edu/projects/iem">Integrated Ecosystem Management</a> project and assumes <a target="_blank" href="https://link.springer.com/article/10.1007/s10584-011-0149-y">comparatively high greenhouse gas emissions (RCP8.5)</a>.</p><p>This is a different type of data from other kinds on this map.  Instead of being directly observed current or historical data, this layer shows the result of computer models that take many different things into consideration to give an estimate about how future climate conditions may impact flammability.  This information can be useful for communities and decision makers.  To find out more about this type of data, visit the <a href="snap.uaf.edu" target="_blank">SNAP web site</a>.</p>`,
+          <p>This layer shows the results of a wildfire model, ALFRESCO, that shows the <a target="_blank" href="http://ckan.snap.uaf.edu/dataset/alfresco-model-outputs-relative-flammability">projected relative flammability</a>.  The darker red, the more likely that that area may burn in the future according to this model.  This layer includes data from the <a target="_blank" href="https://www.snap.uaf.edu/projects/iem">Integrated Ecosystem Management</a> project and assumes
+          <a target="_blank" href="https://link.springer.com/article/10.1007/s10584-011-0149-y">comparatively high greenhouse gas emissions (RCP8.5)</a>.</p><p>This is a different type of data from other kinds on this map.  Instead of being directly observed current or historical data, this layer shows the result of computer models that take many different things into consideration to give an estimate about how future climate conditions may impact flammability.  This information can be useful for communities and decision makers.  To find out more about this type of data, visit the <a href="snap.uaf.edu" target="_blank">SNAP web site</a>.</p>`,
           'name': 'alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099',
           'layerName': 'alaska_wildfires:alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099',
           'title': 'Future flammability, 2000-2099',
@@ -428,23 +426,6 @@ export default {
   created () {
     // Register this map's store with the global store
     this.$store.registerModule('fire', fireStore)
-
-    // Set up icon markers
-    let FireIcon = this.$L.Icon.extend({
-      options: {
-        iconUrl: '/static/active_fire.png',
-        iconSize: [30, 35],
-        shadowSize: [0, 0], // no shadow!
-        iconAnchor: [16, 34], // point of the icon which will correspond to marker's location
-        shadowAnchor: [0, 0],  // the same for the shadow
-        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
-      }
-    })
-
-    activeFireIcon = new FireIcon()
-    inactiveFireIcon = new FireIcon({
-      iconUrl: '/static/inactive_fire.png'
-    })
 
     // This will be the container for the fire markers & popups.
     fireLayerGroup = this.$L.layerGroup()
@@ -573,6 +554,49 @@ export default {
     },
     // For any polygon features, return a marker with a bound popup.
     getFireMarkers (geoJson) {
+      var svgCircleTemplate = _.template(`
+      <svg width="120" height="120" viewBox="0 0 120 120"
+         xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="fire-gradient">
+            <stop offset="0%" stop-opacity="<%= stop1opacity %>" stop-color="<%= stop1 %>"/>
+            <stop offset="75%" stop-opacity="<%= stop2opacity %>" stop-color="<%= stop2 %>"/>
+            <stop offset="100%" stop-opacity="<%= stop3opacity %>" stop-color="<%= stop3 %>"/>
+          </radialGradient>
+        </defs>
+
+        <circle fill="url(#fire-gradient)" cx="60" cy="60" r="50"/>
+      </svg>
+      `)
+      var activeSvgCircle = svgCircleTemplate({
+        stop1: 'RGB(207, 38, 47)',
+        stop1opacity: '.05',
+        stop2: 'RGB(207, 38, 47)',
+        stop2opacity: '.15',
+        stop3: 'RGB(207, 38, 47)',
+        stop3opacity: '.35'
+      })
+      var inactiveSvgCircle = svgCircleTemplate({
+        stop1: 'RGB(80, 63, 63)',
+        stop1opacity: '.05',
+        stop2: 'RGB(80, 63, 63)',
+        stop2opacity: '.15',
+        stop3: 'RGB(80, 63, 63)',
+        stop3opacity: '.35'
+      })
+
+      var activeFireCircle = encodeURI('data:image/svg+xml,' + activeSvgCircle).replace('#', '%23')
+      var inactiveFireCircle = encodeURI('data:image/svg+xml,' + inactiveSvgCircle).replace('#', '%23')
+
+      // Set up icon markers
+      let FireIcon = this.$L.Icon.extend({
+        options: {
+          iconUrl: activeFireCircle,
+          shadowSize: [0, 0], // no shadow!
+          popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
+        }
+      })
+
       var fireMarkers = []
       var popupOptions = {
         maxWidth: 200
@@ -588,13 +612,26 @@ export default {
             ? [].concat.apply([], feature.geometry.coordinates[0])
             : feature.geometry.coordinates[0]
 
+          // Icon size needs to be proportionate to fire size, max 100px.
+          var iconCandidateSize = 0.0025 * (feature.properties.acres + 15000) + 25
+          var iconSize = (iconCandidateSize > 100) ? 100 : iconCandidateSize
+
           // Reverse order from what we need
           var coords = this.getCentroid2(polygonCoordinates)
           var icon = this.isFireActive(feature.properties)
-            ? activeFireIcon : inactiveFireIcon
+            ? new FireIcon({
+              iconSize: [iconSize, iconSize],
+              iconAnchor: [iconSize / 2, iconSize / 2]
+            }) : new FireIcon({
+              iconUrl: inactiveFireCircle,
+              iconSize: [iconSize, iconSize],
+              iconAnchor: [iconSize / 2, iconSize / 2]
+            })
 
           fireMarkers.push(
-            this.$L.marker(new this.$L.latLng([coords[1], coords[0]]), {icon: icon}).bindPopup(this.getFireMarkerPopupContents(
+            this.$L.marker(new this.$L.latLng([coords[1], coords[0]]), {
+              icon: icon
+            }).bindPopup(this.getFireMarkerPopupContents(
               {
                 title: feature.properties.NAME,
                 acres: feature.properties.acres,
@@ -664,7 +701,8 @@ export default {
       }
       var icon = this.$L.divIcon({
         className: isActive,
-        html: '<span class="' + isActive + '">' + acres + '</span'
+        popupAnchor: [15, -5],
+        html: '<span class="' + isActive + '">' + acres + '</span>'
       })
       return this.$L.marker(latLng, {
         icon: icon,
@@ -745,10 +783,6 @@ export default {
     font-size: 16pt !important;
     font-weight: bold;
   }
-
-div#mv-ak-fires img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive {
-  cursor: unset !important;
-}
 
 </style>
 <style lang="scss">
