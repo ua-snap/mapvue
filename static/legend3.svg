@@ -19,12 +19,30 @@
    enable-background="new 0 0 224 169"
    xml:space="preserve"
    id="svg4011"
-   sodipodi:docname="legend4.svg"
+   sodipodi:docname="legend3.svg"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"><metadata
      id="metadata4017"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
-     id="defs4015" /><sodipodi:namedview
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
+     id="defs4015"><linearGradient
+       id="linearGradient998-3-8"
+       inkscape:collect="always"><stop
+         id="stop1002"
+         offset="0"
+         style="stop-color:#ff0000;stop-opacity:0.051" /><stop
+         id="stop1004"
+         offset="1"
+         style="stop-color:#ff0000;stop-opacity:0.157" /></linearGradient><radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient998-3-8"
+       id="radialGradient1000"
+       cx="167.25516"
+       cy="38.386433"
+       fx="167.25516"
+       fy="38.386433"
+       r="35.893806"
+       gradientTransform="matrix(1,0,0,0.95833334,0,1.5994344)"
+       gradientUnits="userSpaceOnUse" /></defs><sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1"
@@ -225,31 +243,10 @@
      inkscape:groupmode="layer"
      id="layer1"
      inkscape:label="Fire Icon"
-     style="display:inline"><image
-       y="2.43805"
-       x="150.75664"
-       id="image4129"
-       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAlCAYAAAAjt+tHAAAEEklEQVRYhb2XwU/bVhzHP0TGiQwk
-DUELmcgUTZ3UFko1Wm0iSIgDTFWuU9eetkPLDpu0VWG3TSL9B2DnTdtfMPU0MWguUSRAmkDTpirX
-okG1bivBNiFyTLB3wHYdmhAbwp70ZD/7l9/n69/7vbz36zJNE4CZmRkBCACidRXobKsDBqADRj6f
-rwN0maZpw0UgZHXREhDoENywBOiAZnU9n8/Xu6anp224BISta4iLiYAGVAHVuur2V4Ys+BuZQnG9
-w+CGtjQ1OW7dGkDdHXopUyiup1IpJEkiFAp1FKxpGtVqlUyhuL40NXkdaxrciRcCLgQOnPRp51lA
-4Hiu7e4Zvre3h6ZphEIhNE0jkUj4EeEw7Sz3le31ep39/X1Gv/maycc/cXh4SL1e9+PCYZ4p0zVN
-oyc5xLVPZwHoSQ6x+8+/xONx377OtM51XWcwnXbG6cVFarUau7u7/48A0zTpSSad8eBEmvHFBQ4O
-DpBl+WIFyLJMIBDgYHu74fnle3cZ/WoOVVUxDMOzEF8CVFVFVVXe+fwz/vxlGV1RGt7fmMvSHQ7z
-5icfU6vV0DStcwIqlQqKonB19gHDX36BGAmjK+prdoPpNJfGxrh0cwzlhMAzC6hWq5TLZd7+6A6j
-c1kApn78gd63kq/ZipEw0eFrjGaz1Gq1tr49LcO9vT2St2+T/nbRedY/MtLSXoxEGJxIt3zvbp4i
-cHR0xK1HOU8Orzy478nOlwCgabgBSt993zA+LTLnEtAKvrOych4X3gW8WF1z7stPn/L4vffZnM8R
-Tzefa7f9uQUEg0E25nPOut+Yz1HdeU53OMzVJnOuKwob8zmCwWBnBESjUeRSibWHWXRF4e+1dUzT
-5NajHGIk0mD7YnWNn2c+QC6ViEajbX17WoaiKBKLxdhZWeHX+7P0JIfoHx7h8r27jo2uKKw9zLK9
-vEwwGCSRSCAI7d173o4lSUIQBGrPnnH48iVXFl+FXlcUnnx4B7lUYmBgAEmSvLr1dx4QRdG5r1ib
-kRsej8cbbLw0OwcMPz/q7u7mj4UFJ+xnhBtwHIG6qzvnvNNaJBLhr53nPBmfQJZlYrGYJ7hrd3SY
-Aq/KJQ2ONx44/XAqCAJJ60DS19fXFmzDbd8WSwcMwQWvLk1NjrcqTFKpFP39/Z5g5XKZra2tpu+s
-wqSKqy4wrIFqGVynsTQLAGQKxVWgrQgbvjQ1OWE9svPrZGmmAYaX4tQ5w2cKxc3TIuGC36Qxt1oX
-p23Kc/vqLt9+aybCBX/XHeITApqX56c1S1gI6LW6lCkUf3eLcMFvWPCK1TUb1Kq1FdBCRK8dCcD9
-5RV8wD0LaCIibInYBOw5r3CcXJ7hvgScECFZ3f730TkOfdUP3LcAlwg7Ke2lai8x3Q8c4D+dy+IJ
-IknuKgAAAABJRU5ErkJggg==
-"
-       preserveAspectRatio="none"
-       height="37"
-       width="32" /></g></svg>
+     style="display:inline"><ellipse
+       style="opacity:0.504;fill:url(#radialGradient1000);fill-opacity:1"
+       id="path992"
+       cx="167.25516"
+       cy="38.386433"
+       rx="35.893806"
+       ry="34.398232" /></g></svg>
