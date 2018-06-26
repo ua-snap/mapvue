@@ -32,13 +32,13 @@ export default {
   data () {
     return {
       title: 'SNAP Data for a Changing Climate',
-      abstract: `<h1>SNAP Data for a Changing Climate</h1><div class="abstractWrapper"><p>This "sampler" of climate projection efforts is an example of how data from Scenarios Network for Alaska and Arctic Planning (SNAP) can show variation over time.</p>
-      <p>By visualizing just two variables — <b>temperature and length of growing season</b> — the interactive map illustrates the usefulness of SNAP data in making meaningful projections for possible future climates in Alaska.</p>`,
+      abstract: `<h1>SNAP Data for a Changing Climate</h1><div class="abstractWrapper"><p class='top'>This "sampler" of climate projection efforts is an example of how data from Scenarios Network for Alaska and Arctic Planning (SNAP) can show variation over time.</p>
+      <p class='bottom'>By visualizing just two variables — <b>temperature and length of growing season</b> — the interactive map illustrates the usefulness of SNAP data in making meaningful projections for possible future climates in Alaska.</p>`,
       mapOptions: {
         zoom: 1,
         minZoom: 0,
         maxZoom: 6,
-        center: [64, -165]
+        center: [64, -160]
       },
       baseLayerOptions: {
         transparent: true,
@@ -576,8 +576,12 @@ table.rcp6-legend.tas {
   a {
     color: #438bca;
   }
-  p {
-    padding: 1em;
+  p.top {
+    padding: 1em 1em 0.25em 1em;
+    font-size: 20px;
+  }
+  p.bottom {
+    padding: 0.25em 1em 1em 1em;
     font-size: 20px;
   }
   ul {
