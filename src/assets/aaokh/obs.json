@@ -1,0 +1,449 @@
+[
+  {
+    "type": "Feature",
+    "id": "UTQAD1806070722",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -156.7051,
+        71.3195
+      ]
+    },
+    "properties": {
+      "sizonet_id": 6197,
+      "obs_date": "2018-06-07",
+      "obs_time": "07:22",
+      "recorder": "Josh Jones",
+      "observer": "Billy Adams",
+      "geometry_source": [
+        "Cake Eater Road"
+      ],
+      "locations": [
+        "Cake Eater Road"
+      ],
+      "instructional_value": false,
+      "unusual_condition_situation": false,
+      "historic_observation": false,
+      "local_knowledge": false,
+      "email_communication": true,
+      "weather": {
+        "precipitation": "Snow",
+        "sky": "Overcast",
+        "visibility": {
+          "ice_fog": false,
+          "mirage": false
+        },
+        "air_temperature_min": -1.111,
+        "air_temperature_max": -1.111
+      },
+      "ice_ocean": {
+        "dark_sky_visible": false
+      },
+      "activities": {
+        "hunting": false,
+        "fishing": false
+      },
+      "multimedia": [
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad6852a80d4/BillyAdams_7June2018a_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad6852a80d4/BillyAdams_7June2018a.jpg"
+        },
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad6852aa37f/BillyAdams_7June2018b_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad6852aa37f/BillyAdams_7June2018b.jpg",
+          "description": "Swans have arrived at Cake Eater"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "id": "UTQAD1806051309",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -156.81,
+        71.2829
+      ]
+    },
+    "properties": {
+      "sizonet_id": 6195,
+      "obs_date": "2018-06-05",
+      "obs_time": "13:09",
+      "recorder": "Josh Jones",
+      "observer": "Billy Adams",
+      "geometry_source": [
+        "Amafnaat (Gravel Pit)"
+      ],
+      "locations": [
+        "Amafnaat (Gravel Pit)"
+      ],
+      "instructional_value": false,
+      "unusual_condition_situation": true,
+      "historic_observation": false,
+      "local_knowledge": false,
+      "email_communication": true,
+      "weather": {
+        "conditions": "Fog",
+        "sky": "Overcast",
+        "wind": {
+          "wind_speed_min": 5.364,
+          "wind_speed_max": 5.364,
+          "wind_direction": "E"
+        },
+        "visibility": {
+          "visibility_min": 1.609,
+          "visibility_max": 6.437,
+          "ice_fog": false,
+          "mirage": false
+        },
+        "air_temperature_min": 0,
+        "air_temperature_max": 0
+      },
+      "ice_ocean": {
+        "dark_sky_visible": false
+      },
+      "activities": {
+        "hunting": false,
+        "fishing": false
+      },
+      "multimedia": [
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad68529ef82/BillyAdams_5June2018a_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad68529ef82/BillyAdams_5June2018a.jpg"
+        },
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad6852a070b/BillyAdams_5June2018b_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad6852a070b/BillyAdams_5June2018b.jpg",
+          "description": "Where's Waldo the Siksrik?"
+        },
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad6852a268a/BillyAdams_5June2018c_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad6852a268a/BillyAdams_5June2018c.jpg",
+          "description": " The not too distant future of the Department's leadership!  Hey! Hey Hey!"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "id": "UTQAD1805161227",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -156.7667,
+        71.33333
+      ]
+    },
+    "properties": {
+      "sizonet_id": 6193,
+      "obs_date": "2018-05-16",
+      "obs_time": "12:27",
+      "recorder": "Josh Jones",
+      "observer": "Billy Adams",
+      "geometry_source": [
+        "NARL"
+      ],
+      "locations": [
+        "NARL"
+      ],
+      "instructional_value": false,
+      "unusual_condition_situation": false,
+      "historic_observation": false,
+      "local_knowledge": false,
+      "email_communication": true,
+      "weather": {
+        "conditions": "White-out",
+        "sky": "Overcast",
+        "wind": {
+          "wind_speed_min": 4.47,
+          "wind_speed_max": 4.47,
+          "wind_direction": "E"
+        },
+        "visibility": {
+          "visibility_min": 6.437,
+          "visibility_max": 6.437,
+          "ice_fog": false,
+          "mirage": false
+        },
+        "air_temperature_min": -7.778,
+        "air_temperature_max": -7.778
+      },
+      "ice_ocean": {
+        "dark_sky_visible": false
+      },
+      "wildlife": [
+        {
+          "name": "Snowy owl",
+          "description": "Local/migratory",
+          "latin_name": "Nyctea scandiaca",
+          "classification": "Birds",
+          "status": "Sighted"
+        }
+      ],
+      "activities": {
+        "hunting": false,
+        "fishing": false
+      },
+      "multimedia": [
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad6852933a6/BillyAdams_17May2018a_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad6852933a6/BillyAdams_17May2018a.jpg"
+        },
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad685295287/BillyAdams_17May2018b_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad685295287/BillyAdams_17May2018b.jpg"
+        },
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad685297e1e/BillyAdams_17May2018c_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad685297e1e/BillyAdams_17May2018c.jpg",
+          "description": " Location Cake Eater, Mr. Okpik looks out for Mrs Avingaq!"
+        },
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad685299d24/BillyAdams_17May2018d_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/b14ac4b5a48e87152b6bfad685299d24/BillyAdams_17May2018d.jpg",
+          "description": "Could it be Mrs. Okpik looking for Mr. Okpik?"
+        }
+      ]
+    }
+  },
+
+
+  {
+    "type": "Feature",
+    "id": "UTQAD1804061246",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -156.7872,
+        71.2924
+      ]
+    },
+    "properties": {
+      "sizonet_id": 6164,
+      "obs_date": "2018-04-06",
+      "obs_time": "12:46",
+      "recorder": "Josh Jones",
+      "observer": "Billy Adams",
+      "geometry_source": [
+        "Bank Building"
+      ],
+      "locations": [
+        "Bank Building"
+      ],
+      "instructional_value": false,
+      "unusual_condition_situation": false,
+      "historic_observation": false,
+      "local_knowledge": false,
+      "email_communication": true,
+      "weather": {
+        "conditions": "Blowing/drifting snow",
+        "sky": "Cloudy",
+        "wind": {
+          "wind_speed_min": 8.941,
+          "wind_speed_max": 8.941,
+          "wind_direction": "NE"
+        },
+        "visibility": {
+          "visibility_min": 8.047,
+          "visibility_max": 8.047,
+          "ice_fog": false,
+          "mirage": false
+        },
+        "air_temperature_min": -12.778,
+        "air_temperature_max": -12.778
+      },
+      "ice_ocean": {
+        "ice_direction": "S",
+        "lead": {
+          "lead_condition": "Lead opening"
+        },
+        "dark_sky_visible": false
+      },
+      "activities": {
+        "hunting": false,
+        "fishing": false
+      }
+    }
+  },
+  {
+    "type": "Feature",
+    "id": "UTQAD1802281636",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -156.6058,
+        71.3459
+      ]
+    },
+    "properties": {
+      "sizonet_id": 6132,
+      "obs_date": "2018-02-28",
+      "obs_time": "16:36",
+      "recorder": "Josh Jones",
+      "observer": "Billy Adams",
+      "geometry_source": [
+        "Piqniq (Duck Camp)"
+      ],
+      "locations": [
+        "Piqniq (Duck Camp)"
+      ],
+      "instructional_value": false,
+      "unusual_condition_situation": false,
+      "historic_observation": false,
+      "local_knowledge": false,
+      "email_communication": true,
+      "weather": {
+        "sky": "Clear",
+        "wind": {
+          "wind_speed_description": "Light",
+          "wind_direction": "SE"
+        },
+        "visibility": {
+          "ice_fog": false,
+          "mirage": false
+        },
+        "air_temperature_min": -33.333,
+        "air_temperature_max": -33.333
+      },
+      "ice_ocean": {
+        "dark_sky_visible": false
+      },
+      "activities": {
+        "hunting": false,
+        "fishing": false
+      },
+      "multimedia": [
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/7e89d1d142050ec9c3b3e2f034e89ffa/BillyAdams_28February2018a_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/7e89d1d142050ec9c3b3e2f034e89ffa/BillyAdams_28February2018a.jpg"
+        },
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/7e89d1d142050ec9c3b3e2f034e8b5ec/BillyAdams_28February2018b_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/7e89d1d142050ec9c3b3e2f034e8b5ec/BillyAdams_28February2018b.jpg",
+          "description": "A snow pile but the full moon was up but can't see it in the photo."
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "id": "UTQAD1802251515",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -156.479167,
+        71.388889
+      ]
+    },
+    "properties": {
+      "sizonet_id": 6130,
+      "obs_date": "2018-02-25",
+      "obs_time": "15:15",
+      "recorder": "Josh Jones",
+      "observer": "Billy Adams",
+      "geometry_source": [
+        "Nuvuk (Pt. Barrow)"
+      ],
+      "locations": [
+        "Nuvuk (Pt. Barrow)"
+      ],
+      "instructional_value": false,
+      "unusual_condition_situation": false,
+      "historic_observation": false,
+      "local_knowledge": false,
+      "email_communication": true,
+      "weather": {
+        "sky": "Clear",
+        "wind": {
+          "wind_speed_min": 6.706,
+          "wind_speed_max": 6.706,
+          "wind_direction": "W"
+        },
+        "visibility": {
+          "visibility_min": 9.656,
+          "visibility_max": 9.656,
+          "ice_fog": false,
+          "mirage": false
+        },
+        "air_temperature_min": -19.444,
+        "air_temperature_max": -19.444
+      },
+      "ice_ocean": {
+        "dark_sky_visible": false
+      },
+      "activities": {
+        "hunting": false,
+        "fishing": false
+      },
+      "multimedia": [
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/7e89d1d142050ec9c3b3e2f034e86129/BillyAdams_25February2018_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/7e89d1d142050ec9c3b3e2f034e86129/BillyAdams_25February2018.jpg"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "id": "UTQAD1801121342",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -156.536,
+        71.3566
+      ]
+    },
+    "properties": {
+      "sizonet_id": 6103,
+      "obs_date": "2018-01-12",
+      "obs_time": "13:42",
+      "recorder": "Josh Jones",
+      "observer": "Billy Adams",
+      "geometry_source": [
+        "Niksiuraq"
+      ],
+      "locations": [
+        "Niksiuraq"
+      ],
+      "instructional_value": false,
+      "unusual_condition_situation": false,
+      "historic_observation": false,
+      "local_knowledge": false,
+      "email_communication": true,
+      "weather": {
+        "wind": {
+          "wind_speed_min": 3.576,
+          "wind_speed_max": 3.576,
+          "wind_direction": "E"
+        },
+        "visibility": {
+          "visibility_min": 8.047,
+          "visibility_max": 8.047,
+          "ice_fog": false,
+          "mirage": false
+        },
+        "air_temperature_min": -21.111,
+        "air_temperature_max": -21.111
+      },
+      "ice_ocean": {
+        "dark_sky_visible": false
+      },
+      "activities": {
+        "hunting": false,
+        "fishing": false
+      },
+      "multimedia": [
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/7e89d1d142050ec9c3b3e2f034d16f30/BillyAdams_12January2018a_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/7e89d1d142050ec9c3b3e2f034d16f30/BillyAdams_12January2018a.jpg"
+        },
+        {
+          "thumbnail_url": "https://eloka-arctic.org/sizonet/atlas/db/7e89d1d142050ec9c3b3e2f034d17861/BillyAdams_12January2018b_thumb.jpg",
+          "fullsize_url": "https://eloka-arctic.org/sizonet/atlas/db/7e89d1d142050ec9c3b3e2f034d17861/BillyAdams_12January2018b.jpg",
+          "description": " Location in front of town. This is where I did a ctd cast and it is in the drop box already, it was not so deep here. "
+        }
+      ]
+    }
+  }
+]

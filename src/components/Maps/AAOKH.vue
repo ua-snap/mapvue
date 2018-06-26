@@ -25,8 +25,8 @@ import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
 import Tour from '../Tour'
 import AaokhSplashScreen from './AaokhSplashScreen'
-
-import Observations from '@/assets/obs.json'
+import moment from 'moment'
+import Observations from '@/assets/aaokh/obs.json'
 
 // Define the store methods that will be used here
 const aaokhStore = { // eslint-disable-line no-unused-vars
@@ -35,12 +35,11 @@ const aaokhStore = { // eslint-disable-line no-unused-vars
     userAgreed: false
   },
   mutations: {
-    userAgreed (state) {
+    userAgrees (state) {
       state.userAgreed = true
     }
   },
   getters: {
-    // Returns true if there are pending HTTP requests
     userAgreed (state) {
       return state.userAgreed
     }
@@ -60,7 +59,7 @@ export default {
   },
   created () {
     // Process the observed SIZONET data
-    // this.setupObservations()
+    this.setupObservations()
     this.$store.registerModule('aaokh', aaokhStore)
   },
   mounted () {
@@ -89,7 +88,7 @@ export default {
           { place: 'Point Lay', lat: 69.741111, lon: -163.008611 },
           { place: 'Point Hope', lat: 68.346944, lon: -166.763056 },
           { place: 'Kotzebue', lat: 66.897222, lon: -162.585556 },
-          { place: 'Utqia&#289;vik', lat: 71.290556, lon: -156.788611 },
+          // { place: 'Utqia&#289;vik', lat: 71.290556, lon: -156.788611 },
           { place: 'Wales', lat: 65.612222, lon: -168.089167 }
         ], (feature) => {
           communities.push(
@@ -471,9 +470,38 @@ export default {
         opacity: 1,
         fillOpacity: 0.8
       }
+
+      var observationPopupTemplate = _.template(`
+<div class="aaokh__observation">
+  <% if(datetime) { %>
+    <h3 class="datetime"><%= datetime %></h3>
+  <% } %>
+  <% if(observer) { %>
+    <h3 class="observer">Observation by <%= observer %></h3>
+  <% } %>
+  <% if(multimedia) { %>
+    <div class="multimedia">
+    <% _.each(multimedia, item => { %>
+      <figure>
+        <img src="<%= item.fullsize_url %>"/>
+        <figcaption><%= item.description %></figcaption>
+      </figure>
+    <% }) %>
+    </div>
+  <% } %>
+</div>
+        `)
       observationLayer = this.$L.geoJSON(Observations, {
-        pointToLayer: function (feature, latlng) {
+        pointToLayer: (feature, latlng) => {
+          var datetime = moment(feature.properties.obs_date + ' ' + feature.properties.obs_time).format('MMMM Do, YYYY [at] h:m A')
           return this.$L.circleMarker(latlng, geojsonMarkerOptions)
+          .bindPopup(observationPopupTemplate(
+            {
+              multimedia: feature.properties.multimedia,
+              datetime: datetime,
+              observer: feature.properties.observer
+            })
+          )
         }
       })
     }
@@ -539,6 +567,26 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
 
 <style lang='scss'>
 // Not scoped so we can modify styles outside the typical scope of this component.
+div.aaokh__observation {
+  h3.datetime {
+    font-size: 14pt;
+  }
+  h3.observer {
+    font-size: 12pt;
+    color: #666;
+  }
+  .multimedia {
+    min-width: 300px;
+    figure {
+      margin-bottom: 1em;
+      img {
+        max-width: 300px;
+      }
+    }
+    max-height: 450px;
+    overflow-y: auto;
+  }
+}
 
 // Sidebar tables
 table.aaokh-sidebar-legend {

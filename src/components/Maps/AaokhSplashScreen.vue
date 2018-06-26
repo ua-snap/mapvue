@@ -70,19 +70,7 @@ export default {
       this.$store.commit('startTour')
     },
     userAgrees () {
-      this.$axios({
-        url: 'https://eloka-arctic.org/sizonet/log_in.json',
-        method: 'post',
-        params: {
-          'guest_checkbox': 'true'
-        },
-        timeout: 120000
-      }).then(res => {
-        console.log('user is agreed')
-        this.$store.commit('userAgreed')
-      }).catch(err => {
-        console.log(err)
-      })
+      this.$store.commit('userAgrees')
     }
   }
 }
