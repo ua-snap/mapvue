@@ -40,6 +40,7 @@ const aaokhStore = { // eslint-disable-line no-unused-vars
     }
   },
   getters: {
+    // Returns true if there are pending HTTP requests
     userAgreed (state) {
       return state.userAgreed
     }
