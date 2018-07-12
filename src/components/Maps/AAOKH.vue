@@ -378,7 +378,7 @@ export default {
         title: 'Coastal Water Profiles and CTD Data',
         text: `<p>Electronic CTD (conductivity, temperature and depth) devices can examine water properties to detect how the conductivity and temperature of the water column change relative to depth.  Scientists analyze CTD data make inferences about the occurrence of certain biological processes, such as the growth of algae.
         </p>
-        <div><img style="max-width: 100%;" src="${imagePath}"/></div>`,
+        <div><img style="max-width: 100%; min-height: 262px;" src="${imagePath}"/></div>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         buttons: buttons,
         tetherOptions: {
