@@ -207,65 +207,6 @@
       ]
     }
   },
-
-
-  {
-    "type": "Feature",
-    "id": "UTQAD1804061246",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [
-        -156.7872,
-        71.2924
-      ]
-    },
-    "properties": {
-      "sizonet_id": 6164,
-      "obs_date": "2018-04-06",
-      "obs_time": "12:46",
-      "recorder": "Josh Jones",
-      "observer": "Billy Adams",
-      "geometry_source": [
-        "Bank Building"
-      ],
-      "locations": [
-        "Bank Building"
-      ],
-      "instructional_value": false,
-      "unusual_condition_situation": false,
-      "historic_observation": false,
-      "local_knowledge": false,
-      "email_communication": true,
-      "weather": {
-        "conditions": "Blowing/drifting snow",
-        "sky": "Cloudy",
-        "wind": {
-          "wind_speed_min": 8.941,
-          "wind_speed_max": 8.941,
-          "wind_direction": "NE"
-        },
-        "visibility": {
-          "visibility_min": 8.047,
-          "visibility_max": 8.047,
-          "ice_fog": false,
-          "mirage": false
-        },
-        "air_temperature_min": -12.778,
-        "air_temperature_max": -12.778
-      },
-      "ice_ocean": {
-        "ice_direction": "S",
-        "lead": {
-          "lead_condition": "Lead opening"
-        },
-        "dark_sky_visible": false
-      },
-      "activities": {
-        "hunting": false,
-        "fishing": false
-      }
-    }
-  },
   {
     "type": "Feature",
     "id": "UTQAD1802281636",

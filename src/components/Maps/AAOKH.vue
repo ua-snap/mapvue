@@ -1,6 +1,6 @@
 <template>
 <div class='aaokh'>
-  <h1 class='map-title'>{{ title }}</h1>
+  <h1 class='map-title' v-html="title"></h1>
   <layer-menu :buttons="buttons"></layer-menu>
   <aaokh-splash-screen
     :abstract='abstract'></aaokh-splash-screen>
@@ -49,7 +49,6 @@ const aaokhStore = { // eslint-disable-line no-unused-vars
 
 // Will have references to DOM objects used in the tour
 var observationLayer // eslint-disable-line no-unused-vars
-var observationPopup // eslint-disable-line no-unused-vars
 
 export default {
   name: 'aaokh',
@@ -82,6 +81,14 @@ export default {
         Utqiagvik 71.290556, -156.788611
         Wales 65.612222, -168.089167
         */
+        var geojsonMarkerOptions = {
+          radius: 8,
+          fillColor: '#ff7800',
+          color: '#000',
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 0.8
+        }
         var communities = []
         _.each([
           { place: 'Kaktovik', lat: 70.132778, lon: -143.616111 },
@@ -89,13 +96,14 @@ export default {
           { place: 'Point Lay', lat: 69.741111, lon: -163.008611 },
           { place: 'Point Hope', lat: 68.346944, lon: -166.763056 },
           { place: 'Kotzebue', lat: 66.897222, lon: -162.585556 },
-          // { place: 'Utqia&#289;vik', lat: 71.290556, lon: -156.788611 },
+          { place: 'Utqia&#289;vik', lat: 71.290556, lon: -156.788611 },
           { place: 'Wales', lat: 65.612222, lon: -168.089167 }
         ], (feature) => {
           communities.push(
-            this.$L.marker(
-              new this.$L.latLng([feature.lat, feature.lon])).bindPopup('<h2 class="popup">' + feature.place + '</h2>')
-          )
+            this.$L.circleMarker(
+              new this.$L.latLng([feature.lat, feature.lon]),
+              geojsonMarkerOptions)
+            )
         })
         return this.$L.layerGroup(communities)
       },
@@ -316,7 +324,7 @@ export default {
       // 3. Participate in research
       tour.addStep({
         title: 'Actively participate in research',
-        attachTo: '#research_photo left',
+        attachTo: 'div.leaflet-popup-content-wrapper right',
         text: `<p>Your observations and pictures help everyone! Communities are at the front lines of changing conditions, seeing changes in action before measurements can be made by scientists and often in places otherwise inaccessible to scientific instruments. </p>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         buttons: buttons,
@@ -328,25 +336,16 @@ export default {
               first: ['observations']
             })
 
-            this.$refs.map.primaryMapObject.openPopup(observationPopup)
-            this.$refs.map.primaryMapObject.setView([69.23232124768693, -170.39295749936036], 3, { animate: false })
+            let popup = observationLayer.getLayers()[0].getPopup()
+            popup.setLatLng([71.3195, -156.7051])
+            this.$refs.map.primaryMapObject.setView([71.43902096076037, -157.22073662565657], 6, { animate: false })
+            this.$refs.map.primaryMapObject.openPopup(popup)
             setTimeout(() => { resolve() }, 250)
           })
           return p
-        },
-        when: {
-          hide: () => {
-            this.$refs.map.primaryMapObject.closePopup(observationPopup)
-          }
-        },
-        tetherOptions: {
-          attachment: 'top right',
-          targetAttachment: 'top left',
-          offset: '32px 0'
         }
       })
 
-      // 4. Show MIZO
       tour.addStep({
         title: 'See shoreline and offshore ice types',
         attachTo: '#top_item right',
@@ -359,6 +358,11 @@ export default {
               first: ['aaokh:sea_ice_extent']
             })
             this.$refs.map.primaryMapObject.setView([65.66768261334428, -170.23812752033535], 1, { animate: false })
+          },
+          hide: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: []
+            })
           }
         },
         buttons: buttons,
@@ -369,7 +373,20 @@ export default {
         }
       })
 
-      // 5. Inform activities
+      let imagePath = require('@/assets/aaokh/CTD_Utqiagvik.png')
+      tour.addStep({
+        title: 'Coastal Water Profiles and CTD Data',
+        text: `<p>Electronic CTD (conductivity, temperature and depth) devices can examine water properties to detect how the conductivity and temperature of the water column change relative to depth.  Scientists analyze CTD data make inferences about the occurrence of certain biological processes, such as the growth of algae.
+        </p>
+        <div><img style="max-width: 100%;" src="${imagePath}"/></div>`,
+        classes: 'shepherd-theme-square-dark adjust-tour-panel',
+        buttons: buttons,
+        tetherOptions: {
+          attachment: 'middle center',
+          targetAttachment: 'middle center'
+        }
+      })
+
       tour.addStep({
         title: 'Inform your activities with near real-time data',
         attachTo: '#top_item right',
@@ -398,7 +415,6 @@ export default {
         }
       })
 
-      // SAR + Whaling Trails
       tour.addStep({
         title: 'Inform your activities with near real-time data',
         attachTo: '#top_item right',
@@ -431,7 +447,6 @@ export default {
         }
       })
 
-      // 7. Get involved!
       tour.addStep({
         title: 'Get involved!',
         text: `<p>There are many ways to contribute to the Alaska Arctic Observatory & Knowledge Hub. Anyone in coastal communities can provide an observation of coastal conditions or wildlife. We hire new observers, support youth and outreach activities, and are guided by a Steering Group of community representatives and scientists. Learn more on <a href="https://arctic-aok.org">our website</a>.
@@ -463,15 +478,6 @@ export default {
       window.open('https://arctic-aok.org/get-involved/', '_blank')
     },
     setupObservations () {
-      var geojsonMarkerOptions = {
-        radius: 8,
-        fillColor: '#ff7800',
-        color: '#000',
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
-      }
-
       var observationPopupTemplate = _.template(`
 <div class="aaokh__observation">
   <% if(datetime) { %>
@@ -492,14 +498,17 @@ export default {
   <% } %>
 </div>
         `)
+
+      let formatDate = (obsDate, obsTime) => {
+        return moment(obsDate + ' ' + obsTime).format('MMMM Do, YYYY [at] h:m A')
+      }
+
       observationLayer = this.$L.geoJSON(Observations, {
         pointToLayer: (feature, latlng) => {
-          var datetime = moment(feature.properties.obs_date + ' ' + feature.properties.obs_time).format('MMMM Do, YYYY [at] h:m A')
-          return this.$L.circleMarker(latlng, geojsonMarkerOptions)
-          .bindPopup(observationPopupTemplate(
+          return this.$L.marker(latlng).bindPopup(observationPopupTemplate(
             {
               multimedia: feature.properties.multimedia,
-              datetime: datetime,
+              datetime: formatDate(feature.properties.obs_date, feature.properties.obs_time),
               observer: feature.properties.observer
             })
           )
