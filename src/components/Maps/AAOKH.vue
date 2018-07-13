@@ -49,6 +49,7 @@ const aaokhStore = { // eslint-disable-line no-unused-vars
 
 // Will have references to DOM objects used in the tour
 var observationLayer // eslint-disable-line no-unused-vars
+var ctdLayer // eslint-disable-line no-unused-vars
 
 export default {
   name: 'aaokh',
@@ -58,8 +59,8 @@ export default {
     aaokhSplashScreen: AaokhSplashScreen
   },
   created () {
-    // Process the observed SIZONET data
     this.setupObservations()
+    this.setupCtd()
     this.$store.registerModule('aaokh', aaokhStore)
   },
   mounted () {
@@ -177,17 +178,20 @@ export default {
           'legend': false
         },
         {
+          'abstract': `<p>Electronic CTD (conductivity, temperature and depth) devices can examine water properties to detect how the conductivity and temperature of the water column change relative to depth.  Scientists analyze CTD data make inferences about the occurrence of certain biological processes, such as the growth of algae.
+          </p><p>For more information and to access this data, visit the <a href="https://arctic-aok.org/observations/coastal-water-profiles/" target="_blank">AAOKH Coastal Water Profiles page.</p>`,
+          'name': 'ctd',
+          'title': 'CTD',
+          'legend': false,
+          'local': true
+        },
+        {
           'abstract': '<p>Synthetic Aperture Radar (SAR) image from Sentinel-1 satellite acquired on May 1, 2017. SAR is an active microwave remote sensing platform, particularly useful in Alaska due to its ability to penetrate clouds and acquire images during the day or night.</p><p>Learn about and access SAR data from the <a target="_blank"  href="https://vertex.daac.asf.alaska.edu">Alaska Satellite Facility</a> data portal.</p>',
           'name': 'aaokh:Sentinel1A_01May2017_overviews_transparent',
           'title': 'Sentinel-1 SAR image',
           'legend': false
         }
       ]
-    }
-  },
-  watch: {
-    userAgreed: function (v) {
-      console.log('WATCHER SAW', v)
     }
   },
   computed: {
@@ -240,6 +244,10 @@ export default {
         'observations': {
           first: observationLayer,
           second: observationLayer
+        },
+        'ctd': {
+          first: ctdLayer,
+          second: ctdLayer
         }
       }
     },
@@ -336,7 +344,7 @@ export default {
               first: ['observations']
             })
 
-            let popup = observationLayer.getLayers()[0].getPopup()
+            let popup = observationLayer.getLayers()[4].getPopup()
             popup.setLatLng([71.3195, -156.7051])
             this.$refs.map.primaryMapObject.setView([71.43902096076037, -157.22073662565657], 6, { animate: false })
             this.$refs.map.primaryMapObject.openPopup(popup)
@@ -349,7 +357,7 @@ export default {
       tour.addStep({
         title: 'See shoreline and offshore ice types',
         attachTo: '#top_item right',
-        text: `<p>The marginal ice zone is the transition between the open ocean and more stable landfast ice that is anchored to the coastline or the seafloor. This zone is very dynamic due to the influence of the weather and rapid changes. Knowing the locations of different ice types can help people figure out how safe it is to travel, indicate habitats for marine life, and show areas of potential coastal erosion.
+        text: `<p>Knowing the locations of different ice types can help people figure out how safe it is to travel, indicate habitats for marine life, and show areas of potential coastal erosion. The marginal ice zone is the transition between the open ocean and more stable landfast ice that is anchored to the coastline or the seafloor. This zone is very dynamic due to the influence of the weather and rapid changes.
         </p>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
@@ -476,6 +484,10 @@ export default {
   methods: {
     openGetInvolved () {
       window.open('https://arctic-aok.org/get-involved/', '_blank')
+    },
+    setupCtd () {
+      let imagePath = require('@/assets/aaokh/CTD_Utqiagvik.png')
+      ctdLayer = this.$L.layerGroup([this.$L.marker({lat: 71.290556, lon: -156.788611}).bindPopup(`<img style="width: 300px;" src="${imagePath}"/>`)])
     },
     setupObservations () {
       var observationPopupTemplate = _.template(`
