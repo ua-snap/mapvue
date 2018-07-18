@@ -155,7 +155,7 @@ export default {
           <tr><td><div class="marginal-ice"></div></td><td>Marginal Ice Zone</td></tr>
           <tr><td><div class="fast-ice"></div></td><td>Fast Ice</td></tr>
           </table>
-          <p>Produced by the National Ice Center and updated daily (although we are only showing a single previous point in time with this example), this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds.</p><p>See the <a target="_blank" href="http://www.natice.noaa.gov/products/daily_products.html">National Ice Center</a> and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View</a> web sites for more information.</p>`,
+          <p>Produced by the National Ice Center and updated daily (although we are only showing a single previous point in time with this example, from December 5, 2017), this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds.</p><p>See the <a target="_blank" href="http://www.natice.noaa.gov/products/daily_products.html">National Ice Center</a> and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View</a> web sites for more information.</p>`,
           'name': 'aaokh:sea_ice_extent',
           'title': 'Sea Ice Extent',
           'legend': false
@@ -172,7 +172,7 @@ export default {
             <tr><td><div class="conc-99"></div></td><td>95&mdash;09%</td></tr>
             <tr><td><div class="conc-100"></div></td><td>100%</td></tr>
           </table>
-          <p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt">NASA AMSR-2 near-real-time data products page</a>, and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View web site</a>.</p>`,
+          <p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt">NASA AMSR-2 near-real-time data products page</a>, and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View web site</a>.</p><p>The data layer shown here is from March 6, 2018.</p>`,
           'name': 'aaokh:sea_ice_concentration',
           'title': 'Sea Ice Concentration',
           'legend': false
