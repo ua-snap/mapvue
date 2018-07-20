@@ -32,8 +32,9 @@ export default {
   data () {
     return {
       title: 'SNAP Data for a Changing Climate',
-      abstract: `<h1>SNAP Data for a Changing Climate</h1><div class="abstractWrapper"><p class='top'>This "sampler" of climate projection efforts is an example of how data from Scenarios Network for Alaska and Arctic Planning (SNAP) can show variation over time.</p>
-      <p class='bottom'>By visualizing just two variables — <b>temperature and length of growing season</b> — the interactive map illustrates the usefulness of SNAP data in making meaningful projections for possible future climates in Alaska.</p>`,
+      abstract: `<h1>SNAP Data for a Changing Climate</h1><div class="abstractWrapper"><p class="top">The tour for this map provides a basic explanation of terms used in climate modeling, such as General Circulation Models, downscaling, and Representative Concentration Pathways.</p>
+      <p class="middle">It also gives context for two SNAP climate datasets - <b>temperature and length of growing season</b> - and highlights their usefulness in making meaningful projections of climate in Alaska.</p>
+      <p class="bottom">Finally, you’ll learn where to find more details on tour topics, and where to go to download SNAP data for your own work.</p>`,
       mapOptions: {
         zoom: 1,
         minZoom: 0,
@@ -204,29 +205,6 @@ export default {
         }
       ]
 
-      tour.addStep({
-        title: 'Welcome to the Tour!',
-        text: `
-        <p>The tour for this map provides a basic explanation of terms used in climate modeling, such as General Circulation Models, downscaling, and Representative Concentration Pathways.</p>
-        <p>It also gives context to SNAP climate datasets and highlights their usefulness in making meaningful projections for possible future climates in Alaska.</p>
-        <p>Finally, you’ll learn where to find more details on tour topics, and where to go to download SNAP data for your own work.</p>
-        <p><b>This tour has 9 stops.</b></p>`,
-        classes: 'shepherd-theme-square-dark',
-        when: {
-          show: () => {
-            this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
-            this.$store.commit('showOnlyLayers', {
-              first: []
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: Welcome to the Tour!',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
-          }
-        }
-      })
       tour.addStep({
         title: 'What is a General Circulation Model (GCM)?',
         text: `
@@ -441,9 +419,9 @@ export default {
         text: `
         <p>We hope this tour has shown how SNAP data fits into the larger contexts of climate modeling. Data visualizations such as this interactive map help show the impacts that a changing climate may have on all Alaska species — including ourselves — and form an important starting point for discussions about how to respond and adapt to a new Alaska.</p>
         <p><b>Download our data</b></p>
-        <p>Download this and related datasets <a href="https://www.snap.uaf.edu/tools/data-downloads" target="_blank">here</a></p>
-        <p>Need data for a specific community? Try our <a href="https://www.snap.uaf.edu/sites/all/modules/snap_community_charts/charts.php" target="_blank">Community Charts Tool</a>.</p>
-        <p>Need a spatial subset of data for your area of interest? <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon" target="_blank">This R script</a> can be adapted to subset a timeseries of this dataset for a region specified by a shapefile, producing CSV output that can the be graphed or visualized in other ways.</p>
+        <ul><li>Download our data <a href="https://www.snap.uaf.edu/tools/data-downloads" target="_blank">here</a></li>
+        <li>Need data for a specific community? Try our <a href="https://www.snap.uaf.edu/sites/all/modules/snap_community_charts/charts.php" target="_blank">Community Charts Tool</a>.</li>
+        <li>Need a spatial subset of data for your area of interest? <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon" target="_blank">This R script</a> can be adapted to subset a timeseries of this dataset for a region specified by a shapefile, producing CSV output that can the be graphed or visualized in other ways.</li></ul>
         <p>If you have feedback, we’d love to hear from you — <a href="mailto:uaf-mapventure@alaska.edu">please contact us.</a></p>
         <p align="right" class="tour_step_number"><b>(9/9)</b></p>`,
         when: {
@@ -520,6 +498,10 @@ export default {
 
 .shepherd-theme-square-dark a {
   color: #0099ff;
+}
+
+.shepherd-theme-square-dark li {
+  line-height: 1.35em !important;
 }
 
 .shepherd-title {
@@ -605,6 +587,10 @@ table.rcp6-legend.tas {
   }
   p.top {
     padding: 1em 1em 0.25em 1em;
+    font-size: 20px;
+  }
+  p.middle {
+    padding: 0.25em 1em 0.25em 1em;
     font-size: 20px;
   }
   p.bottom {

@@ -3,7 +3,7 @@ export default {
     draft: true,
     title: 'AAOKH (Draft)'
   },
-  'snap-rcp-6.0': {
+  'snap-data-intro': {
     title: 'SNAP Data for a Changing Climate'
   },
   'iam': {
