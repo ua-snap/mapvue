@@ -49,7 +49,9 @@ const aaokhStore = { // eslint-disable-line no-unused-vars
 
 // Will have references to DOM objects used in the tour
 var observationLayer // eslint-disable-line no-unused-vars
+var observationLayerRight // eslint-disable-line no-unused-vars
 var ctdLayer // eslint-disable-line no-unused-vars
+var ctdLayerRight // eslint-disable-line no-unused-vars
 
 export default {
   name: 'aaokh',
@@ -66,22 +68,21 @@ export default {
   mounted () {
     // Necessary to see the markers.
     this.$L.Icon.Default.imagePath = 'static/'
-    // Add places to map
-    this.participating_communities().addTo(this.$refs.map.primaryMapObject)
-    this.participating_communities().addTo(this.$refs.map.secondaryMapObject)
+
+    // Magic number -32 is the number of pixels so the tooltips on the 2nd
+    // map object are properly aligned.  Adding to $options makes these objects
+    // static i.e. non-Vue reactive.
+    this.$options.participatingCommunitiesLeft = this.participating_communities()
+    this.$options.participatingCommunitiesLeft.addTo(this.$refs.map.primaryMapObject)
+    this.$options.participatingCommunitiesRight = this.participating_communities(-32)
+    this.$options.participatingCommunitiesRight.addTo(this.$refs.map.secondaryMapObject)
+    this.toggleCommunityTooltips() // hide the tooltips to start with
   },
   data () {
     return {
-      participating_communities () {
-        /*
-        Kaktovik 70.132778, -143.616111
-        Wainwright 70.647222, -160.016111
-        Point Lay 69.741111, -163.008611
-        Point Hope 68.346944, -166.763056
-        Kotzebue 66.897222, -162.585556
-        Utqiagvik 71.290556, -156.788611
-        Wales 65.612222, -168.089167
-        */
+      // tooltipOffset is needed because the 2nd map pane was showing
+      // offset tooltips by a consistent amount.
+      participating_communities (tooltipOffset = 0) {
         var geojsonMarkerOptions = {
           radius: 8,
           fillColor: '#ff7800',
@@ -103,7 +104,11 @@ export default {
           communities.push(
             this.$L.circleMarker(
               new this.$L.latLng([feature.lat, feature.lon]),
-              geojsonMarkerOptions)
+              geojsonMarkerOptions).bindTooltip(feature.place, {
+                permanent: true,
+                direction: 'bottom',
+                offset: this.$L.point(tooltipOffset, 0)
+              })
             )
         })
         return this.$L.layerGroup(communities)
@@ -129,7 +134,7 @@ export default {
       },
       layers: [
         {
-          'abstract': '<p>Local observers in coastal communities provide observations on sea ice, weather, wildlife, and subsistence activities throughout the year, particularly in relation to the seasonal cycle. Participating communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqiagvik, and Wales.</p><p>Visit the <a target="_blank"  href="https://eloka-arctic.org">ELOKA</a> web site for more information about observations.</p>',
+          'abstract': '<p>Local observers in coastal communities provide observations on sea ice, weather, wildlife, and subsistence activities throughout the year, particularly in relation to the seasonal cycle. Participating communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqiagvik, and Wales.</p><p>Visit the <a href="https://arctic-aok.org/observations/" target="_blank">AAOKH observations web site</a> for more information about observations. Data are stored and can be accessed through a collaboration with the <a href="https://eloka-arctic.org/sizonet/" target="_external">ELOKA</a> project.</p>',
           'name': 'observations',
           'title': 'Observations',
           'legend': false,
@@ -137,14 +142,14 @@ export default {
         },
         {
           'abstract': `
-            <p>The Utqiagvik marine radar is mounted on top of the 4-story bank building in downtown Utqiagvik. It detects sea ice up to 6 miles out and acquires a new image every 5 minutes for near real-time results. Ice appears white in the image due to the radar signals reflecting off it. Ridges in the sea ice also appear as bright linear objects, but buildings, fences, and cars on the land can also return strong signals. Darker regions in the image can indicate open water, smooth ice, or shadows.</p>
-            <p><a target="_blank" href="http://seaice.alaska.edu/gi/observatories/barrow_radar">Access and learn more about this data</a>.</p>`,
+            <p>The Utqiagvik marine radar is mounted on top of the 4-story bank building in downtown Utqiagvik. It detects sea ice up to 6 miles out and acquires a new image every 5 minutes for near real-time results. Ice appears white in the image due to the radar signals reflecting off it. Ridges in the sea ice also appear as bright linear objects, but buildings, fences, and cars on the land can also return strong signals. Darker regions in the image can indicate open water, smooth ice, or shadows.  The image shown here is from April 2, 2016.</p>
+            <p><a target="_blank" href="http://seaice.alaska.edu/gi/observatories/barrow_radar">Access and learn more about these data</a>.</p>`,
           'name': 'aaokh:barrow_radar',
           'title': 'Utqia&#289;vik Marine Radar',
           'legend': false
         },
         {
-          'abstract': '<p>Trails built by Utqia&#289;vik whaling crews for the 2017 spring whaling season were mapped by Matthew Druckenmiller (National Snow and Ice Data Center) and Josh Jones (UAF Geophysical Institute) in late April 2017.</p>',
+          'abstract': '<p>Trails built by Utqia&#289;vik whaling crews for the 2017 spring whaling season were mapped by Matthew Druckenmiller (National Snow and Ice Data Center) and Josh Jones (AAOKH) in late April 2017.</p>',
           'name': 'aaokh:aa_whaling_trails',
           'title': 'Spring 2017 Whaling Trails',
           'legend': false
@@ -172,14 +177,14 @@ export default {
             <tr><td><div class="conc-99"></div></td><td>95&mdash;09%</td></tr>
             <tr><td><div class="conc-100"></div></td><td>100%</td></tr>
           </table>
-          <p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt">NASA AMSR-2 near-real-time data products page</a>, and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View web site</a>.</p><p>The data layer shown here is from March 6, 2018.</p>`,
+          <p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite. The data layer shown here is from March 6, 2018.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt">NASA AMSR-2 near-real-time data products page</a>, and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View web site</a>.</p>`,
           'name': 'aaokh:sea_ice_concentration',
           'title': 'Sea Ice Concentration',
           'legend': false
         },
         {
-          'abstract': `<p>Electronic CTD (conductivity, temperature and depth) devices can examine water properties to detect how the conductivity and temperature of the water column change relative to depth.  Scientists analyze CTD data make inferences about the occurrence of certain biological processes, such as the growth of algae.
-          </p><p>For more information and to access this data, visit the <a href="https://arctic-aok.org/observations/coastal-water-profiles/" target="_blank">AAOKH Coastal Water Profiles page.</p>`,
+          'abstract': `<p>Electronic CTD (conductivity, temperature and depth) devices can examine water properties to detect how the conductivity and temperature of the water column change relative to depth.  Scientists analyze CTD data make inferences about the occurrence of certain biological processes, such as the growth of algae. The figure shown here is from May 6, 2017.</p>
+          </p><p>For more information and to access these data, visit the <a href="https://arctic-aok.org/observations/coastal-water-profiles/" target="_blank">AAOKH Coastal Water Profiles page.</p>`,
           'name': 'ctd',
           'title': 'CTD',
           'legend': false,
@@ -243,11 +248,11 @@ export default {
       return {
         'observations': {
           first: observationLayer,
-          second: observationLayer
+          second: observationLayerRight
         },
         'ctd': {
           first: ctdLayer,
-          second: ctdLayer
+          second: ctdLayerRight
         }
       }
     },
@@ -257,6 +262,13 @@ export default {
           classes: 'shepherd-theme-square-dark',
           showCancelLink: true
         }
+      })
+
+      this.$shepherd.on('active', (tour) => {
+        this.toggleCommunityTooltips()
+      })
+      this.$shepherd.on('inactive', (tour) => {
+        this.toggleCommunityTooltips()
       })
 
       let buttons = [
@@ -284,12 +296,16 @@ export default {
               first: []
             })
             this.$refs.map.primaryMapObject.setView([65.7835000982029, -170.03220962071967], 1, { animate: false })
-          },
-          hide: () => {}
+          }
+        },
+        beforeShowPromise: () => {
+          var p = new Promise((resolve, reject) => {
+            this.$store.commit('showLayerMenu')
+            setTimeout(() => { resolve() }, 100)
+          })
+          return p
         },
         tetherOptions: {
-          attachment: 'top left',
-          targetAttachment: 'left right',
           offset: '32px 0'
         }
       })
@@ -482,12 +498,25 @@ export default {
     }
   },
   methods: {
+    toggleCommunityTooltips () {
+      this.$options.participatingCommunitiesLeft.eachLayer((layer) => {
+        layer.toggleTooltip()
+      })
+      this.$options.participatingCommunitiesRight.eachLayer((layer) => {
+        layer.toggleTooltip()
+      })
+    },
     openGetInvolved () {
       window.open('https://arctic-aok.org/get-involved/', '_blank')
     },
     setupCtd () {
       let imagePath = require('@/assets/aaokh/CTD_Utqiagvik.png')
-      ctdLayer = this.$L.layerGroup([this.$L.marker({lat: 71.290556, lon: -156.788611}).bindPopup(`<img style="width: 300px;" src="${imagePath}"/>`)])
+
+      var getCtdLayer = () => {
+        return this.$L.layerGroup([this.$L.marker({lat: 71.290556, lon: -156.788611}).bindPopup(`<img style="width: 300px;" src="${imagePath}"/>`)])
+      }
+      ctdLayer = getCtdLayer()
+      ctdLayerRight = getCtdLayer()
     },
     setupObservations () {
       var observationPopupTemplate = _.template(`
@@ -515,17 +544,22 @@ export default {
         return moment(obsDate + ' ' + obsTime).format('MMMM Do, YYYY [at] h:m A')
       }
 
-      observationLayer = this.$L.geoJSON(Observations, {
-        pointToLayer: (feature, latlng) => {
-          return this.$L.marker(latlng).bindPopup(observationPopupTemplate(
-            {
-              multimedia: feature.properties.multimedia,
-              datetime: formatDate(feature.properties.obs_date, feature.properties.obs_time),
-              observer: feature.properties.observer
-            })
-          )
-        }
-      })
+      var getObservationLayer = () => {
+        return this.$L.geoJSON(Observations, {
+          pointToLayer: (feature, latlng) => {
+            return this.$L.marker(latlng).bindPopup(observationPopupTemplate(
+              {
+                multimedia: feature.properties.multimedia,
+                datetime: formatDate(feature.properties.obs_date, feature.properties.obs_time),
+                observer: feature.properties.observer
+              })
+            )
+          }
+        })
+      }
+
+      observationLayer = getObservationLayer()
+      observationLayerRight = getObservationLayer()
     }
   }
 }
