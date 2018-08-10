@@ -1,6 +1,6 @@
 <template>
-<div class="footer navbar-fixed-bottom">
-  <div class="container-fluid">
+<div>
+  <div class="footer">
     <p>
       <router-link to="/">About this site &amp; other maps&hellip;</router-link>
       <span class="identity">
@@ -29,7 +29,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#page-footer {
+
+}
+
 .footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 1.4em;
+  z-index: 500;
   color: #777;
   background-color: rgba(225, 225, 225, .8);
   padding: 1ex;

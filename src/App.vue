@@ -5,11 +5,6 @@
 </template>
 
 <script>
-// Include styles for some libraries here;
-// it's important to include Bootstrap first so that our custom
-// styls will override its defaults.
-require('../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss')
-require('../node_modules/leaflet.awesome-markers/dist/leaflet.awesome-markers.css')
 require('./global.scss')
 
 export default {

@@ -9,7 +9,7 @@
   <!-- Below, we need @click.prevent because of this: https://github.com/vuejs/vue/issues/3699 -->
 
   <!-- Draggy handle -->
-  <span class="reorder"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path stroke="#888" fill="#888" d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"/></svg></span>
+  <span class="reorder"><svg xmlns="https://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path stroke="#888" fill="#888" d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"/></svg></span>
 
   <!-- Information about layer button -->
   <a class="info" @click="showLayerInformation(name)">&#9432;</a>

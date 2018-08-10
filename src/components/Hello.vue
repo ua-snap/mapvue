@@ -45,7 +45,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-@import url(https://fonts.googleapis.com/css?family=Great+Vibes:400);
+// @import url(https://fonts.googleapis.com/css?family=Great+Vibes:400);
 
 * {
   text-align: center;

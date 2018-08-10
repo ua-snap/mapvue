@@ -10,13 +10,13 @@
         </p>
       </div>
       <div v-show="!loadingData" class="buttons">
-        <button type="button" class="mobile-hidden btn btn-lg btn-success" @click="startTour()">
+        <a href="#" class="mobile-hidden btn btn--blue" @click.prevent="startTour()">
           <span v-show="!tourIsActive">Take a tour of this map&hellip;</span>
           <span v-show="tourIsActive">Continue tour&hellip;</span>
-        </button>
-        <button @click="closeSplashAndEndTour()" class="btn btn-lg btn-default">
+        </a>
+        <a href="#" @click.prevent="closeSplashAndEndTour()" class="btn">
           Show map
-        </button>
+        </a>
       </div>
       <div class="logos align-middle">
         <a href="http://snap.uaf.edu" target="_blank"><img src="../assets/snap_acronym_white.svg" class="snap"></a>
