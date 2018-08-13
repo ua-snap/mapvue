@@ -17,8 +17,8 @@ import shepherd from 'tether-shepherd'
 import moment from 'moment'
 import 'leaflet/dist/leaflet.css'
 import 'tether/dist/css/tether.css'
-import 'tether/dist/css/tether-theme-basic.css'
-import 'tether-shepherd/dist/css/shepherd-theme-default.css'
+import 'tether/dist/css/tether-theme-arrows-dark.css'
+import 'tether-shepherd/dist/css/shepherd-theme-square-dark.css'
 import 'balloon-css/balloon.css'
 
 // Polyfill needed for IE11 to work properly with Axios.

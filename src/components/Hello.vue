@@ -1,7 +1,7 @@
 <template>
 
 <div class="container about">
-  <a target="_blank" href="https://www.snap.uaf.edu"><img class="snap" alt="SNAP Logo" src="../assets/snap_color_lato.svg" /></a>
+  <a target="_blank" href="https://www.snap.uaf.edu"><img class="snap" alt="SNAP Logo" src="../assets/snap_color_lato.svg"/></a>
   <h1>MapVentures</h1>
   <h2 class="subtitle">Interactive maps of Alaska + Arctic data</h2>
   <h3 class="featuring">&mdash; featuring &mdash;</h3>
@@ -43,45 +43,49 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-// @import url(https://fonts.googleapis.com/css?family=Great+Vibes:400);
-
 * {
   text-align: center;
 }
+
 h1 {
   margin-top: 1em;
 }
+
 p {
   margin-top: 2em;
 }
+
 .sponsors {
   img {
     width: 5em;
     margin: 0 1em;
   }
 }
+
 img.snap {
   display: inline-block;
   margin-top: 2em;
   width: 20em;
 }
+
 h2 {
   font-size: 20pt;
   &.subtitle {
     margin-top: .5ex;
   }
 }
+
 h3.featuring {
   margin: 1em 0 .5ex;
-  font-family: "Great Vibes";
   font-size: 36px;
   font-weight: 400;
 }
+
 h4 {
   margin: 2em 0;
 }
+
 .mapList {
   padding: 0;
   margin: 0;
