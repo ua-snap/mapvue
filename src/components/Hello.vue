@@ -1,25 +1,25 @@
 <template>
 
 <div class="container about">
-  <a target="_blank" href="https://www.snap.uaf.edu"><img class="snap" alt="SNAP Logo" src="../assets/snap_color_lato.svg"/></a>
+  <a target="_blank" rel="noopener" href="https://www.snap.uaf.edu"><img class="snap" alt="SNAP Logo" src="../assets/snap_color_lato.svg"/></a>
   <h1>MapVentures</h1>
   <h2 class="subtitle">Interactive maps of Alaska + Arctic data</h2>
   <h3 class="featuring">&mdash; featuring &mdash;</h3>
   <map-list></map-list>
   <p>
-    Map development by <a href="https://www.snap.uaf.edu" target="_blank">SNAP</a>.<br/>
-    Source code for this project is available on <a target="_blank" href="https://github.com/ua-snap/mapventure">GitHub</a>.<br/>
+    Map development by <a href="https://www.snap.uaf.edu" target="_blank" rel="noopener">SNAP</a>.<br/>
+    Source code for this project is available on <a target="_blank" rel="noopener" href="https://github.com/ua-snap/mapventure">GitHub</a>.<br/>
     Questions? <span>uaf-mapventure@alaska.edu</span>
   </p>
-  <h4 class="tools"><a target="_blank" href="https://www.snap.uaf.edu/tools-and-data/all-analysis-tools">See all SNAP climate + weather analysis tools</a></h4>
+  <h4 class="tools"><a target="_blank" rel="noopener"  href="https://www.snap.uaf.edu/tools-and-data/all-analysis-tools">See all SNAP climate + weather analysis tools</a></h4>
   <div class="sponsors">
-    <a href="https://web.iarc.uaf.edu" target="_blank"><img alt="IARC Logo" src="../assets/IARC_color_square.png"/></a>
-    <a href="http://www.uaf.edu" target="_blank"><img alt="UAF Logo" src="../assets/UAFLogo_A_647.svg"/></a>
+    <a href="https://web.iarc.uaf.edu" rel="noopener" target="_blank"><img alt="IARC Logo" src="../assets/IARC_color_square.png"/></a>
+    <a href="http://www.uaf.edu" rel="noopener" target="_blank"><img alt="UAF Logo" src="../assets/UAFLogo_A_647.svg"/></a>
   </div>
-  <p>The <a href="http://uaf.edu/">University of Alaska Fairbanks</a> is an AA/EO employer and educational institution and prohibits illegal discrimination against any individual: Learn more about UA's <a href="https://www.alaska.edu/titleIXcompliance/nondiscrimination/">notice of nondiscrimination</a>.</p>
+  <p>The <a target="_blank" rel="noopener" href="http://uaf.edu/">University of Alaska Fairbanks</a> is an AA/EO employer and educational institution and prohibits illegal discrimination against any individual: Learn more about UA's <a href="https://www.alaska.edu/titleIXcompliance/nondiscrimination/">notice of nondiscrimination</a>.</p>
 
   <p>
-    <a href="https://www.snap.uaf.edu/expertise/expertise" target="_blank">
+    <a href="https://www.snap.uaf.edu/expertise/expertise" rel="noopener" target="_blank">
       Copyright &copy; {{ year }} SNAP / IARC / UAF
     </a>
   </p>

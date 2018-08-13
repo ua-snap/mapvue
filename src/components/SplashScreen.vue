@@ -19,9 +19,9 @@
         </button>
       </div>
       <div class="logos align-middle">
-        <a href="http://snap.uaf.edu" target="_blank"><img src="../assets/snap_acronym_white.svg" class="snap"></a>
-        <a href="http://web.iarc.uaf.edu" target="_blank"><img src="../assets/IARC_gray_square_reversed_acronym.svg" class="iarc"></a>
-        <a href="http://uaf.edu" target="_blank"><img src="../assets/UAFLogo_A_nofill.svg" class="uaf"></a>
+        <a href="http://snap.uaf.edu" target="_blank" rel="noopener"><img src="../assets/snap_acronym_white.svg" class="snap"></a>
+        <a href="http://web.iarc.uaf.edu" target="_blank" rel="noopener"><img src="../assets/IARC_gray_square_reversed_acronym.svg" class="iarc"></a>
+        <a href="http://uaf.edu" target="_blank" rel="noopener"><img src="../assets/UAFLogo_A_nofill.svg" class="uaf"></a>
       </div>
     </div>
   </div>

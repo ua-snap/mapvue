@@ -6,7 +6,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
       <div ref="plotly"></div>
-      <p>This graph compares the current year to all of the years when more than 1 million acres burned since daily tally records began in 2004.<br/>Source: <a target="_blank" href="https://fire.ak.blm.gov/">Alaska Interagency Coordination Center (AICC)</a>.</p>
+      <p>This graph compares the current year to all of the years when more than 1 million acres burned since daily tally records began in 2004.<br/>Source: <a target="_blank" rel="noopener" href="https://fire.ak.blm.gov/">Alaska Interagency Coordination Center (AICC)</a>.</p>
     </div>
   </div>
 </div>

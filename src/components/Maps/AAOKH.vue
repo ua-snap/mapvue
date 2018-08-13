@@ -96,7 +96,7 @@ export default {
       },
       layers: [
         {
-          'abstract': '<p>Local observers in coastal communities provide observations on sea ice, weather, wildlife, and subsistence activities throughout the year, particularly in relation to the seasonal cycle. Participating communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqiagvik, and Wales.</p><p>Visit the <a target="_blank"  href="https://eloka-arctic.org">ELOKA</a> web site for more information about observations.</p>',
+          'abstract': '<p>Local observers in coastal communities provide observations on sea ice, weather, wildlife, and subsistence activities throughout the year, particularly in relation to the seasonal cycle. Participating communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqiagvik, and Wales.</p><p>Visit the <a target="_blank"  href="https://eloka-arctic.org" rel="noopener" >ELOKA</a> web site for more information about observations.</p>',
           'name': 'observations',
           'title': 'Observations',
           'legend': false,
@@ -105,7 +105,7 @@ export default {
         {
           'abstract': `
             <p>The Utqiagvik marine radar is mounted on top of the 4-story bank building in downtown Utqiagvik. It detects sea ice up to 6 miles out and acquires a new image every 5 minutes for near real-time results. Ice appears white in the image due to the radar signals reflecting off it. Ridges in the sea ice also appear as bright linear objects, but buildings, fences, and cars on the land can also return strong signals. Darker regions in the image can indicate open water, smooth ice, or shadows.</p>
-            <p><a target="_blank" href="http://seaice.alaska.edu/gi/observatories/barrow_radar">Access and learn more about this data</a>.</p>`,
+            <p><a target="_blank" rel="noopener"  href="http://seaice.alaska.edu/gi/observatories/barrow_radar">Access and learn more about this data</a>.</p>`,
           'name': 'aaokh:barrow_radar',
           'title': 'Utqia&#289;vik Marine Radar',
           'legend': false
@@ -122,7 +122,7 @@ export default {
           <tr><td><div class="marginal-ice"></div></td><td>Marginal Ice Zone</td></tr>
           <tr><td><div class="fast-ice"></div></td><td>Fast Ice</td></tr>
           </table>
-          <p>Produced by the National Ice Center and updated daily (although we are only showing a single previous point in time with this example), this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds.</p><p>See the <a target="_blank" href="http://www.natice.noaa.gov/products/daily_products.html">National Ice Center</a> and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View</a> web sites for more information.</p>`,
+          <p>Produced by the National Ice Center and updated daily (although we are only showing a single previous point in time with this example), this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds.</p><p>See the <a target="_blank"   href="http://www.natice.noaa.gov/products/daily_products.html" rel="noopener">National Ice Center</a> and the <a rel="noopener" target="_blank" href="https://www.polarview.aq/arctic">Polar View</a> web sites for more information.</p>`,
           'name': 'aaokh:sea_ice_extent',
           'title': 'Sea Ice Extent',
           'legend': false
@@ -139,13 +139,13 @@ export default {
             <tr><td><div class="conc-99"></div></td><td>95&mdash;09%</td></tr>
             <tr><td><div class="conc-100"></div></td><td>100%</td></tr>
           </table>
-          <p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt">NASA AMSR-2 near-real-time data products page</a>, and the <a target="_blank" href="https://www.polarview.aq/arctic">Polar View web site</a>.</p>`,
+          <p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt" rel="noopener">NASA AMSR-2 near-real-time data products page</a>, and the <a rel="noopener" target="_blank" href="https://www.polarview.aq/arctic" rel="noopener">Polar View web site</a>.</p>`,
           'name': 'aaokh:sea_ice_concentration',
           'title': 'Sea Ice Concentration',
           'legend': false
         },
         {
-          'abstract': '<p>Synthetic Aperture Radar (SAR) image from Sentinel-1 satellite acquired on May 1, 2017. SAR is an active microwave remote sensing platform, particularly useful in Alaska due to its ability to penetrate clouds and acquire images during the day or night.</p><p>Learn about and access SAR data from the <a target="_blank"  href="https://vertex.daac.asf.alaska.edu">Alaska Satellite Facility</a> data portal.</p>',
+          'abstract': '<p>Synthetic Aperture Radar (SAR) image from Sentinel-1 satellite acquired on May 1, 2017. SAR is an active microwave remote sensing platform, particularly useful in Alaska due to its ability to penetrate clouds and acquire images during the day or night.</p><p>Learn about and access SAR data from the <a target="_blank"  href="https://vertex.daac.asf.alaska.edu" rel="noopener">Alaska Satellite Facility</a> data portal.</p>',
           'name': 'aaokh:Sentinel1A_01May2017_overviews_transparent',
           'title': 'Sentinel-1 SAR image',
           'legend': false
@@ -403,7 +403,7 @@ export default {
       tour.addStep({
         title: 'Get involved!',
         text: `<p>There are many ways to contribute to the Alaska Arctic Observatory & Knowledge Hub. Anyone in coastal communities can provide an observation of coastal conditions or wildlife. We hire new observers, support youth and outreach activities, and are guided by a Steering Group of community representatives and scientists. Learn more on <a href="https://arctic-aok.org">our website</a>.
-        </p><p><a class="btn btn-default get-involved" target="_blank" href="https://arctic-aok.org/get-involved/" role="button">Get involved!</a>`,
+        </p><p><a class="btn btn-default get-involved" target="_blank" href="https://arctic-aok.org/get-involved/" rel="noopener" role="button">Get involved!</a>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
