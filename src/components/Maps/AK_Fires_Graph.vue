@@ -14,10 +14,7 @@
 </template>
 <script>
 import moment from 'moment'
-
-// This is imported a little oddly to bypass a bug, see:
-// https://www.reddit.com/r/vuejs/comments/6psu78/a_simple_vuejs_example_with_plolyjs/
-import Plotly from 'plotly.js/dist/plotly' // eslint-disable-line
+import Plotly from 'plotly.js/lib/index-basic' // eslint-disable-line
 
 var lineColors = {
   2004: '#7fc97f',

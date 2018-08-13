@@ -4,9 +4,7 @@ import Hello from '@/components/Hello'
 Vue.use(Router)
 
 // Lazy load the map wrapper
-const MapInstanceWrapper = () => (Object.assign({
-  component: import('@/components/MapInstanceWrapper')
-}, Vue.$loadingDefaults))
+const MapInstanceWrapper = () => import('@/components/MapInstanceWrapper')
 
 export default new Router({
   routes: [

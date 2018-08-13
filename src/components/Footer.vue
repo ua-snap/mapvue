@@ -42,7 +42,6 @@ export default {
   color: #777;
   background-color: rgba(225, 225, 225, .8);
   padding: 1ex;
-  z-index: 500;
   border-top: 1px solid #e5e5e5;
 
   p {
