@@ -27,7 +27,6 @@
     "picnic": "^6.5.0",
     "plotly.js": "^1.31.0",
     "proj4leaflet": "1.0.2",
-    "purecss": "^1.0.0",
     "tether-shepherd": "^1.8.1",
     "vue": "~2.5.2",
     "vue-analytics": "^5.12.2",
