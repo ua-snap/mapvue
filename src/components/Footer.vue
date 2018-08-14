@@ -37,7 +37,7 @@ export default {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 1.4em;
+  height: 2.8em;
   z-index: 500;
   color: #777;
   background-color: rgba(225, 225, 225, .8);

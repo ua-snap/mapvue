@@ -4,7 +4,6 @@
   <a target="_blank" rel="noopener" href="https://www.snap.uaf.edu"><img class="snap" alt="SNAP Logo" src="../assets/snap_color_lato.svg"/></a>
   <h1>MapVentures</h1>
   <h2 class="subtitle">Interactive maps of Alaska + Arctic data</h2>
-  <h3 class="featuring">&mdash; featuring &mdash;</h3>
   <map-list></map-list>
   <p>
     Map development by <a href="https://www.snap.uaf.edu" target="_blank" rel="noopener">SNAP</a>.<br/>
@@ -69,17 +68,18 @@ img.snap {
   width: 20em;
 }
 
-h2 {
-  font-size: 20pt;
-  &.subtitle {
-    margin-top: .5ex;
-  }
+h1 {
+  font-weight: 900;
+  font-size: 3.8rem;
+  margin: 2rem 0 0 0;
+  padding: 0;
 }
-
-h3.featuring {
-  margin: 1em 0 .5ex;
-  font-size: 36px;
-  font-weight: 400;
+h2 {
+  font-size: 2rem;
+  color: #999;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  font-weight: 700;
 }
 
 h4 {
