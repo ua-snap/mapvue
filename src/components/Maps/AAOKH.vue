@@ -159,7 +159,6 @@ export default {
         {
           text: 'Get involved!',
           glyphicon: 'share-alt',
-          classes: 'btn btn-success',
           callback: this.openGetInvolved
         }
       ]
@@ -403,7 +402,7 @@ export default {
       tour.addStep({
         title: 'Get involved!',
         text: `<p>There are many ways to contribute to the Alaska Arctic Observatory & Knowledge Hub. Anyone in coastal communities can provide an observation of coastal conditions or wildlife. We hire new observers, support youth and outreach activities, and are guided by a Steering Group of community representatives and scientists. Learn more on <a href="https://arctic-aok.org">our website</a>.
-        </p><p><a class="btn btn-default get-involved" target="_blank" href="https://arctic-aok.org/get-involved/" rel="noopener" role="button">Get involved!</a>`,
+        </p><p><a class="get-involved" target="_blank" href="https://arctic-aok.org/get-involved/" rel="noopener" role="button">Get involved!</a>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
@@ -554,7 +553,7 @@ table.aaokh-sidebar-legend.ice-concentration {
   }
 }
 
-.shepherd-text p a:not(.btn) {
+.shepherd-text p a {
   font-weight: 600;
   color: #549fe0;
   &:hover {

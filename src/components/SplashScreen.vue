@@ -14,7 +14,7 @@
           <span v-show="!tourIsActive">Take a tour of this map&hellip;</span>
           <span v-show="tourIsActive">Continue tour&hellip;</span>
         </button>
-        <button @click.prevent="closeSplashAndEndTour()" class="btn">
+        <button @click.prevent="closeSplashAndEndTour()">
           Show map
         </button>
       </div>
