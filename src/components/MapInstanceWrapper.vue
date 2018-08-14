@@ -37,7 +37,7 @@ const MvAaokh = () => (Object.assign({
 const MvSnapRcp6 = () => import('@/components/Maps/SNAP_RCP6')
 
 var mapSlugComponentMapper = {
-  'snap-rcp-6.0': MvSnapRcp6,
+  'snap-data-intro': MvSnapRcp6,
   'iam': MvIam,
   'fires': MvAkFires,
   'aaokh': MvAaokh

@@ -49,6 +49,11 @@ body {
   left: 10px !important;
 }
 
+.adjust-for-images {
+  max-width: 750px !important;
+  max-height: 700px !important;
+}
+
 .shepherd-content header {
   h3, a {
     color: rgba(255, 255, 255, 1) !important;

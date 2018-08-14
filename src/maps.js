@@ -3,9 +3,8 @@ export default {
     draft: true,
     title: 'AAOKH (Draft)'
   },
-  'snap-rcp-6.0': {
-    draft: true,
-    title: 'Variation over time with RCP 6.0 (Draft)'
+  'snap-data-intro': {
+    title: 'SNAP Data for a Changing Climate'
   },
   'iam': {
     title: 'Integrated Arctic Management'

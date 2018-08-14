@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 // Helper function to toggle visiblity properties on the
 // store for either left or right map pane
-var swapVisibility = (state, targetLayer, targetLayerIndex, propName, value) => {
+var swapVisibility = (state, targetLayer, targetLayerIndex, propName, value, raceCondition = false) => {
   // If we're explicitly setting the value, do so.
   if (value === true || value === false) {
     targetLayer[propName] = value
@@ -23,7 +23,7 @@ var swapVisibility = (state, targetLayer, targetLayerIndex, propName, value) => 
   // See: https://vuejs.org/v2/guide/list.html#Caveats
   // If the layer is being turned on
   // pull it to the top of the list
-  if (targetLayer[propName] === true) {
+  if (targetLayer[propName] === true && raceCondition === false) {
     state.layers.splice(targetLayerIndex, 1)
     state.layers.unshift(targetLayer)
   } else {
@@ -129,7 +129,7 @@ export default new Vuex.Store({
             payload.first,
             name => name === layer.name
           )
-          swapVisibility(state, layer, index, 'visible', ifShowFirst !== undefined)
+          swapVisibility(state, layer, index, 'visible', ifShowFirst !== undefined, (_.isArray(payload.first) && _.isArray(payload.second)))
         }
 
         if (_.isArray(payload.second)) {
@@ -137,7 +137,7 @@ export default new Vuex.Store({
             payload.second,
             name => name === layer.name
           )
-          swapVisibility(state, layer, index, 'secondVisible', ifShowSecond !== undefined)
+          swapVisibility(state, layer, index, 'secondVisible', ifShowSecond !== undefined, (_.isArray(payload.first) && _.isArray(payload.second)))
         }
       })
     },
