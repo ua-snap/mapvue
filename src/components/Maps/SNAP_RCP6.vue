@@ -169,17 +169,14 @@ export default {
       return [
         {
           text: 'Download our data',
-          glyphicon: 'signal',
           callback: this.openDownloadData
         },
         {
           text: 'View Community Charts',
-          glyphicon: 'signal',
           callback: this.openCommCharts
         },
         {
           text: 'Show other tools',
-          glyphicon: 'signal',
           callback: this.openOtherTools
         }
       ]
