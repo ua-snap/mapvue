@@ -1,8 +1,10 @@
-# mapvue _work in progress_
+# mapvue
 
-> A Vue.js rewrite of MapVenture from Angular 1.x.
+Simple OSS framework for interactive, narrative tours of geospatial data.
 
 ## Build Setup
+
+Uses `nodejs@~8.5`, `npm@~5.4`.
 
 ### Web application
 
@@ -21,7 +23,7 @@ npm run build
 npm run build --report
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For detailed explanation on how the project is organized and how webpack is organized, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 #### Environment variables used during the build
 

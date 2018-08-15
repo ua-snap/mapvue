@@ -7,7 +7,7 @@
   <map-list></map-list>
   <p>
     Map development by <a href="https://www.snap.uaf.edu" target="_blank" rel="noopener">SNAP</a>.<br/>
-    Source code for this project is available on <a target="_blank" rel="noopener" href="https://github.com/ua-snap/mapventure">GitHub</a>.<br/>
+    Source code for this project is available on <a target="_blank" rel="noopener" href="https://github.com/ua-snap/mapvue">GitHub</a>.<br/>
     Questions? <span>uaf-mapventure@alaska.edu</span>
   </p>
   <h4 class="tools"><a target="_blank" rel="noopener"  href="https://www.snap.uaf.edu/tools-and-data/all-analysis-tools">See all SNAP climate + weather analysis tools</a></h4>
