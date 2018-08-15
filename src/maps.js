@@ -1,7 +1,6 @@
 export default {
   'aaokh': {
-    draft: true,
-    title: 'AAOKH (Draft)'
+    title: 'Alaska Arctic Observatory and Knowledge Hub'
   },
   'snap-data-intro': {
     title: 'SNAP Data for a Changing Climate'
