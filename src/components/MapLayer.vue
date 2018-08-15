@@ -102,7 +102,7 @@ export default {
 }
 .split-map-controls {
   display: inline-block;
-  margin-left: 1em;
+  margin-left: 1ex;
 }
 .visible {
   font-weight: 900;

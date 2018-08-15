@@ -5,7 +5,7 @@
       <div class="abstract" v-html="abstract"></div>
       <div v-show="loadingData" class="loading-data">
         <img src="../assets/safari-spinner.svg" />
-        <p style="display: inline-block">
+        <p>
           Almost ready, still loading all the data for this map!
         </p>
       </div>
@@ -105,22 +105,25 @@ export default {
     }
 
     .loading-data {
-      margin: 1em;
       background-color: rgba(255, 255, 225, 0.9);
       display: inline-block;
       padding-right: 15px;
+      border-radius: 1ex;
+      margin-left: 1em;
 
       p {
         position: relative;
-        top: .4ex;
+        top: -2.6ex;
         left: -.5ex;
         padding: 2ex 0 0 0 !important;
         font-size: 18px;
+        display: inline;
       }
 
       img {
-        display: inline-block;
+        display: inline;
         margin: 1em 1em .25em 1em;
+        padding: 0;
         height: 3em;
       }
     }
@@ -128,6 +131,8 @@ export default {
     .buttons {
       button {
         margin-right: 1.5rem;
+        font-size: 1.2rem;
+        font-weight: 500;
       }
       a {
         cursor: pointer;

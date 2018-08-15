@@ -74,7 +74,7 @@ export default {
     // static i.e. non-Vue reactive.
     this.$options.participatingCommunitiesLeft = this.participating_communities()
     this.$options.participatingCommunitiesLeft.addTo(this.$refs.map.primaryMapObject)
-    this.$options.participatingCommunitiesRight = this.participating_communities(-32)
+    this.$options.participatingCommunitiesRight = this.participating_communities()
     this.$options.participatingCommunitiesRight.addTo(this.$refs.map.secondaryMapObject)
     this.toggleCommunityTooltips() // hide the tooltips to start with
   },
@@ -207,7 +207,7 @@ export default {
       return [
         {
           text: 'Get involved!',
-          glyphicon: 'share-alt',
+          classes: 'button',
           callback: this.openGetInvolved
         }
       ]

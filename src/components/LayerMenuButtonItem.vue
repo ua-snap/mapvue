@@ -1,8 +1,10 @@
 <template>
-<a :class="[classes]"
-  @click="callback">
-  {{ text }}
-</a>
+<div class="layer-menu-button-item">
+  <a class="button pseudo" :class="[classes]"
+    @click="callback">
+    {{ text }}
+  </a>
+</div>
 </template>
 
 <script>
@@ -17,12 +19,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-a {
-  cursor: pointer;
-  cursor: hand;
-  display: block;
-  margin: 1ex 0;
-  text-align: left;
-  width: 16em;
+.layer-menu-button-item {
+  margin: 0 0 -1em 0;
+  a {
+    cursor: pointer;
+    cursor: hand;
+    display: inline-block;
+    margin: 1ex 0;
+    text-align: left;
+
+    &.button.pseudo {
+      color: #0074d9;
+    }
+  }
 }
 </style>

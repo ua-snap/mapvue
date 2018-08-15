@@ -15,19 +15,19 @@
         <p>
 I understand that the observations compiled in this product were made by recognized local sea ice experts and are shared generously by the observers and their communities to help further education, scientific research, and communication between holders of local and indigenous knowledge and research scientists. I also understand that the observations were made in the context of sea ice knowledge and use specific to the different communities that are part of this project; any interpretation of the data should respect this context.
         </p>
-        <button type="button" class="mobile-hidden btn btn-lg btn-success" @click="userAgrees()">
-          <span class="glyphicon glyphicon-ok"></span>
+        <button class="mobile-hidden" @click="userAgrees()">
+          <span class="checkbox">&#x2713;&nbsp;</span>
           I agree
         </button>
-        <span class="nope">
+        <button class="nope pseudo">
           <router-link :to="{ name: 'Hello'}">No thank you, take me back to the main menu</router-link>
-        </span>
+        </button>
       </div>
       <div v-show="!loadingData && userAgreed" class="buttons">
-        <button type="button" class="mobile-hidden btn btn-lg btn-success" @click="startTour()">
+        <button class="mobile-hidden" @click="startTour()">
           <span v-show="!tourIsActive">Take a tour of this map&hellip;</span>
         </button>
-        <button @click="closeSplashAndEndTour()" class="btn btn-lg btn-default">
+        <button @click="closeSplashAndEndTour()">
           Show map
         </button>
       </div>
@@ -95,7 +95,7 @@ export default {
 
   .user-agreement {
     padding: 1em;
-    background: rgba(255, 255, 255, .75);
+    background: rgba(255, 255, 255, .85);
     border-radius: 1ex;
     p {
       font-size: 10pt;
@@ -177,6 +177,8 @@ export default {
     .buttons {
       button {
         margin-right: 1.5rem;
+        font-size: 1.2rem;
+        font-weight: 500;
       }
       a {
         cursor: pointer;

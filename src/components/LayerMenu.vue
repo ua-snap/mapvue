@@ -119,12 +119,6 @@ export default {
 
   .map-tools {
     margin: 1em 0;
-    label, a {
-      display: block;
-      margin: 1ex 0;
-      text-align: left !important;
-      width: 16em;
-    }
 
     /deep/ {
       .dual-maps {

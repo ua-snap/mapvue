@@ -29,10 +29,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#page-footer {
-
-}
-
 .footer {
   position: absolute;
   bottom: 0;

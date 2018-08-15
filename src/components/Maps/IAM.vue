@@ -316,7 +316,7 @@ export default {
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', {
-              first: ['mammals']
+              first: ['iam:mammals']
             })
             this.$ga.event({
               eventCategory: 'Tour Step: Overlapping areas',
@@ -346,11 +346,19 @@ export default {
         classes: 'shepherd-theme-square-dark',
         when: {
           show: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: ['iam:comm_subs', 'iam:trans', 'iam:birds']
+            })
+            this.primaryMapObject.setView([63.72769765422989, -170.51282701847276], 4)
             this.$ga.event({
               eventCategory: 'Tour Step: Hotspots',
               eventAction: 'show',
               eventLabel: 'IAM Tour'
             })
+          },
+          hide: () => {
+            this.primaryMapObject.setView([64, -165], 0)
+            this.$store.commit('showOnlyLayers', {first: []})
           }
         },
         buttons: [
@@ -436,7 +444,13 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
 </style>
 <style lang="scss">
 // Not scoped so we can modify some Tour styles
-.iam-tour.shepherd-step .shepherd-text h4 {
-  color: #efefef;
+.iam-tour.shepherd-step .shepherd-text {
+  ul {
+    margin-top: 0;
+  }
+  h4 {
+    color: #efefef;
+  }
 }
+
 </style>
