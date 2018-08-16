@@ -538,11 +538,6 @@ table.rcp6-legend.logs {
   }
 }
 
-div.centered {
-  display: block;
-  text-align: center;
-}
-
 table.downscaling {
   width: 556px;
 
