@@ -14,6 +14,7 @@
           classes="mobile-hidden"
           :callback="toggleDualMaps"
           text="Show two maps"
+          :disabled='tourIsActive'
         ></layer-menu-button-item>
         <layer-menu-button-item
           :class="{ 'enabled': syncMaps }"

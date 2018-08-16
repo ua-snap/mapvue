@@ -69,8 +69,7 @@ export default {
     // Necessary to see the markers.
     this.$L.Icon.Default.imagePath = 'static/'
 
-    // Magic number -32 is the number of pixels so the tooltips on the 2nd
-    // map object are properly aligned.  Adding to $options makes these objects
+    // Adding to $options makes these objects
     // static i.e. non-Vue reactive.
     this.$options.participatingCommunitiesLeft = this.participating_communities()
     this.$options.participatingCommunitiesLeft.addTo(this.$refs.map.primaryMapObject)
@@ -80,7 +79,7 @@ export default {
   },
   data () {
     return {
-      // tooltipOffset is needed because the 2nd map pane was showing
+      // tooltipOffset may be needed because the 2nd map pane was showing
       // offset tooltips by a consistent amount.
       participating_communities (tooltipOffset = 0) {
         var geojsonMarkerOptions = {
