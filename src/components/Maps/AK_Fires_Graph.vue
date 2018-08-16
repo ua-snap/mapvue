@@ -6,7 +6,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
       <div ref="plotly"></div>
-      <p>This graph compares the current year to all of the years when more than 1 million acres burned since daily tally records began in 2004.<br/>Source: <a target="_blank" href="https://fire.ak.blm.gov/">Alaska Interagency Coordination Center (AICC)</a>.</p>
+      <p>This graph compares the current year to all of the years when more than 1 million acres burned since daily tally records began in 2004.<br/>Source: <a target="_blank" rel="noopener" href="https://fire.ak.blm.gov/">Alaska Interagency Coordination Center (AICC)</a>.</p>
     </div>
   </div>
 </div>
@@ -14,10 +14,7 @@
 </template>
 <script>
 import moment from 'moment'
-
-// This is imported a little oddly to bypass a bug, see:
-// https://www.reddit.com/r/vuejs/comments/6psu78/a_simple_vuejs_example_with_plolyjs/
-import Plotly from 'plotly.js/dist/plotly' // eslint-disable-line
+import Plotly from 'plotly.js/lib/index-basic' // eslint-disable-line
 
 var lineColors = {
   2004: '#7fc97f',

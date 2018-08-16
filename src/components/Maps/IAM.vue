@@ -96,7 +96,7 @@ export default {
       title: 'Integrated Arctic Management',
       abstract: `
 <h1>What areas of the Arctic are &ldquo;important&rdquo;?</h1>
-<p>One challenge that managers and policy makers often face is the conflict of interests among groups. This was evident when the <a target="_blank" href="https://www.snap.uaf.edu">Scenarios Network for Alaska and Arctic Planning</a> was asked to identify specific geographic &ldquo;areas of environmental, economic, and cultural importance&rdquo; in Arctic Alaska for a 2013 report to the President of the United states on <a target="_blank" href="https://www.afsc.noaa.gov/publications/misc_pdf/iamreport.pdf">Integrated Arctic Management</a> (IAM).
+<p>One challenge that managers and policy makers often face is the conflict of interests among groups. This was evident when the <a target="_blank" href="https://www.snap.uaf.edu" rel="noopener">Scenarios Network for Alaska and Arctic Planning</a> was asked to identify specific geographic &ldquo;areas of environmental, economic, and cultural importance&rdquo; in Arctic Alaska for a 2013 report to the President of the United states on <a target="_blank" href="https://www.afsc.noaa.gov/publications/misc_pdf/iamreport.pdf" rel="noopener">Integrated Arctic Management</a> (IAM).
 </p>
 <p>While many groups have an answer to this question, the answer depends on the perspective and interests of the group. As a proof of concept, SNAP took an objective approach to identifying important areas by displaying existing geospatial datasets that fit into the environmental, economic, and cultural categories to see where they overlap. Based upon available data, this can illustrate the relative importance of those areas, identify potential areas of conflict, and highlight gaps in Arctic geospatial data.
 </p>
@@ -125,49 +125,49 @@ export default {
       ],
       layers: [
         {
-          'abstract': 'This layer shows cultural sites and buildings, as well as protected areas in the IAM area. Arctic Alaska has a long history of inhabitants, settlers, and traders since the earliest families crossed the Bering Land Bridge some 20,000 years ago. Cultural sites and structures are important artifacts. “Protected areas” are defined here as areas designated to preserve cultural and/or recreational features and activities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
+          'abstract': 'This layer shows cultural sites and buildings, as well as protected areas in the IAM area. Arctic Alaska has a long history of inhabitants, settlers, and traders since the earliest families crossed the Bering Land Bridge some 20,000 years ago. Cultural sites and structures are important artifacts. “Protected areas” are defined here as areas designated to preserve cultural and/or recreational features and activities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
           'name': 'iam:cult_rec',
           'title': 'Cultural & protected areas',
           'legend': false
         },
         {
-          'abstract': 'This layer shows the communities and subsistence areas within the IAM area. People living in Arctic Alaska impact, and are being impacted by, the environmental, economic, and cultural features and changes in their area.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
+          'abstract': 'This layer shows the communities and subsistence areas within the IAM area. People living in Arctic Alaska impact, and are being impacted by, the environmental, economic, and cultural features and changes in their area.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
           'name': 'iam:comm_subs',
           'title': 'Communities & subsistence',
           'legend': false
         },
         {
-          'abstract': 'This layer displays oil and natural gas wells, offshore leasing areas, and portions of the TransAlaska pipeline located in the IAM area. The oil industry plays an important economic role in the Arctic and has both positive and negative environmental and cultural impacts.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
+          'abstract': 'This layer displays oil and natural gas wells, offshore leasing areas, and portions of the TransAlaska pipeline located in the IAM area. The oil industry plays an important economic role in the Arctic and has both positive and negative environmental and cultural impacts.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
           'name': 'iam:oil_infra',
           'title': 'Oil infrastructure',
           'legend': false
         },
         {
-          'abstract': 'The transportation layer shows locations of airports, marine ports, road system, shipping routes, and general transportation infrastructure in the IAM area. It highlights areas where there are multiple means of transportation for various cultural and economic reasons.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
+          'abstract': 'The transportation layer shows locations of airports, marine ports, road system, shipping routes, and general transportation infrastructure in the IAM area. It highlights areas where there are multiple means of transportation for various cultural and economic reasons.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
           'name': 'iam:trans',
           'title': 'Transportation',
           'legend': false
         },
         {
-          'abstract': 'This layer shows the distribution of five fish species and the combined distribution of marine, estuarine, anadromous, and freshwater fish species in the IAM area. All of the fish species are a significant food source in Arctic marine food webs and in the lives of people in coastal communities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
+          'abstract': 'This layer shows the distribution of five fish species and the combined distribution of marine, estuarine, anadromous, and freshwater fish species in the IAM area. All of the fish species are a significant food source in Arctic marine food webs and in the lives of people in coastal communities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
           'name': 'iam:fish',
           'title': 'Fish',
           'legend': false
         },
         {
-          'abstract': 'This layer shows locations of Important Bird Areas (IBAs) and murre colonies in the IAM area. IBAs are identified as vital habitats for birds and other wildlife using an internationally developed set of criteria. These areas are both critical to ecosystem biodiversity and sensitive to possible disturbances from increased use of Arctic areas. Murres, being one of the most numerous Arctic seabirds, play an important role in Arctic marine food webs and in the lives of people in nearby communities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
+          'abstract': 'This layer shows locations of Important Bird Areas (IBAs) and murre colonies in the IAM area. IBAs are identified as vital habitats for birds and other wildlife using an internationally developed set of criteria. These areas are both critical to ecosystem biodiversity and sensitive to possible disturbances from increased use of Arctic areas. Murres, being one of the most numerous Arctic seabirds, play an important role in Arctic marine food webs and in the lives of people in nearby communities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
           'name': 'iam:birds',
           'title': 'Birds',
           'legend': false
         },
         {
-          'abstract': 'This layer shows the distribution of ten mammal species including whales, seals, walrus, polar bear, and caribou. These species represent some of the most abundant in the Arctic and the IAM area. Besides being an important part of the Arctic ecosystem, they all have significant economic and cultural value to Alaska Native communities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
+          'abstract': 'This layer shows the distribution of ten mammal species including whales, seals, walrus, polar bear, and caribou. These species represent some of the most abundant in the Arctic and the IAM area. Besides being an important part of the Arctic ecosystem, they all have significant economic and cultural value to Alaska Native communities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
           'name': 'iam:mammals',
           'title': 'Mammals',
           'legend': false
         },
         {
-          'abstract': 'This layer shows ecologically significant areas identified by two separate sources. These areas highlight the important habitats for sustaining a diversity of marine wildlife.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank">More info and data access</a>',
+          'abstract': 'This layer shows ecologically significant areas identified by two separate sources. These areas highlight the important habitats for sustaining a diversity of marine wildlife.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
           'name': 'iam:impareas',
           'title': 'Significant ecological areas',
           'legend': false
@@ -316,7 +316,7 @@ export default {
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', {
-              first: ['mammals']
+              first: ['iam:mammals']
             })
             this.$ga.event({
               eventCategory: 'Tour Step: Overlapping areas',
@@ -346,11 +346,19 @@ export default {
         classes: 'shepherd-theme-square-dark',
         when: {
           show: () => {
+            this.$store.commit('showOnlyLayers', {
+              first: ['iam:comm_subs', 'iam:trans', 'iam:birds']
+            })
+            this.primaryMapObject.setView([63.72769765422989, -170.51282701847276], 4)
             this.$ga.event({
               eventCategory: 'Tour Step: Hotspots',
               eventAction: 'show',
               eventLabel: 'IAM Tour'
             })
+          },
+          hide: () => {
+            this.primaryMapObject.setView([64, -165], 0)
+            this.$store.commit('showOnlyLayers', {first: []})
           }
         },
         buttons: [
@@ -436,7 +444,13 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
 </style>
 <style lang="scss">
 // Not scoped so we can modify some Tour styles
-.iam-tour.shepherd-step .shepherd-text h4 {
-  color: #efefef;
+.iam-tour.shepherd-step .shepherd-text {
+  ul {
+    margin-top: 0;
+  }
+  h4 {
+    color: #efefef;
+  }
 }
+
 </style>

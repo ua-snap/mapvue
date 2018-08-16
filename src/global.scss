@@ -1,20 +1,12 @@
-
-/*
-IMPORTANT: Main global styles only!  Styles specific to a component
-or map should be contained within those files, as appropriate.
-*/
-
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
-@import "../node_modules/balloon-css/balloon.css";
-
 /* Coolors Exported Palette - coolors.co/6a7173-96a73a-dcedff-94b0da-343f3e */
-
 $snapGray: #6a7173; //rgba(106, 113, 115, 100)
 $snapGreen: #96a73a; //rgba(150, 167, 58, 100)
 $lightBlue: #dcedff; //rgba(220, 237, 255, 100)
 $mediumBlue: #94b0da; //rgba(148, 176, 218, 100)
 $darkGray: #343f3e; //rgba(52, 63, 62, 100)
+
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900&subset=latin-ext');
+@import '../node_modules/picnic/src/picnic';
 
 html, body {
   color: $darkGray;
@@ -29,12 +21,21 @@ html, body {
 h1, h2, h3, h4 {
   color: $snapGray;
   font-family: 'Lato', serif;
-  font-weight: bold;
 }
 
 body {
-  background: transparent url("./assets/grid.png") repeat;
+  background: transparent url("/static/absurdidad.png") repeat;
   background-screen-mode: darken;
+}
+
+/* Styles common to all maps can be put here. */
+.map-title {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, .9);
+  margin: 0;
+  padding: .5ex;
 }
 
 // Needs to be in global scope because the Shepherd

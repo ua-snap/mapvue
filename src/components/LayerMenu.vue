@@ -14,6 +14,7 @@
           classes="mobile-hidden"
           :callback="toggleDualMaps"
           text="Show two maps"
+          :disabled='tourIsActive'
         ></layer-menu-button-item>
         <layer-menu-button-item
           :class="{ 'enabled': syncMaps }"
@@ -32,11 +33,13 @@
       </div>
 
       <layer-menu-button-item
+        :disabled="tourIsActive"
         :callback="showSplash"
         text="About this map"
       ></layer-menu-button-item>
 
       <layer-menu-button-item
+        :disabled="tourIsActive"
         classes="mobile-hidden"
         :callback="startTour"
         text="Take a tour of this map"
@@ -50,6 +53,7 @@
 <script>
 import LayerList from './LayerList'
 import LayerMenuButtonItem from './LayerMenuButtonItem'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'LayerMenu',
@@ -59,6 +63,9 @@ export default {
     'layer-menu-button-item': LayerMenuButtonItem
   },
   computed: {
+    ...mapGetters({
+      tourIsActive: 'tourIsActive'
+    }),
     dualMaps () {
       return this.$store.state.dualMaps
     },
@@ -114,17 +121,11 @@ export default {
   min-width: 20em; /* prevent horizontal resize if possible */
 
   .custom-buttons {
-    margin: 2em 0;
+    margin: 1em 0;
   }
 
   .map-tools {
     margin: 1em 0;
-    label, a {
-      display: block;
-      margin: 1ex 0;
-      text-align: left !important;
-      width: 16em;
-    }
 
     /deep/ {
       .dual-maps {

@@ -4,18 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import L from 'leaflet'
-import p4l from 'proj4leaflet' // eslint-disable-line
-import leaflet_sidebar from 'leaflet-sidebar' // eslint-disable-line
-import leaflet_sync from '../node_modules/leaflet.sync/L.Map.Sync.js' // eslint-disable-line
-import leaflet_awesome_markers from '../node_modules/leaflet.awesome-markers/dist/leaflet.awesome-markers.js' // eslint-disable-line
-import shepherd from 'tether-shepherd'
-import moment from 'moment'
 import VueAnalytics from 'vue-analytics'
-
-// Polyfill needed for IE11 to work properly with Axios.
-require('es6-promise').polyfill()
-var axios = require('axios')
+import Loading from '@/components/Loading'
 
 Vue.use(VueAnalytics, {
   id: [process.env.MV_GOOGLE_ANALYTICS_TOKEN],
@@ -29,27 +19,12 @@ Vue.use(VueAnalytics, {
 
 // Attach 3rd party libraries to Vue instance objects
 // https://vuejsdevelopers.com/2017/04/22/vue-js-libraries-plugins/
-Object.defineProperty(Vue.prototype, '$L', { value: L })
-Object.defineProperty(Vue.prototype, '$axios', { value: axios })
-Object.defineProperty(Vue.prototype, '$shepherd', { value: shepherd })
-Object.defineProperty(Vue.prototype, '$moment', { value: moment })
-
-// Wire in two listeners that will keep track of open
-// HTTP requests.
-Vue.prototype.$axios.interceptors.request.use(function (config) {
-  store.commit('incrementPendingHttpRequest')
-  return config
-}, function (error) {
-  return Promise.reject(error)
-})
-
-// Add a response interceptor
-Vue.prototype.$axios.interceptors.response.use(function (response) {
-  store.commit('decrementPendingHttpRequest')
-  return response
-}, function (error) {
-  return Promise.reject(error)
-})
+Object.defineProperty(Vue.prototype, 'Loading', { value: Loading })
+Object.defineProperty(Vue.prototype, 'loadingDefaults', { value: {
+  loading: Loading,
+  delay: 200,
+  timeout: 10000
+}})
 
 // Disable nag
 Vue.config.productionTip = false

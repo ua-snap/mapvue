@@ -1,13 +1,13 @@
 <template>
-<div class="footer navbar-fixed-bottom">
-  <div class="container-fluid">
+<div>
+  <div class="footer">
     <p>
       <router-link to="/">About this site &amp; other maps&hellip;</router-link>
       <span class="identity">
         <span class="version">
           V<span class="number">{{ version }}</span>
         </span>
-        <a href="https://www.snap.uaf.edu/expertise/expertise" target="_blank">
+        <a href="https://www.snap.uaf.edu/expertise/expertise" rel="noopener" target="_blank">
           Copyright &copy; {{ year }} SNAP / IARC / UAF
         </a>
       </span>
@@ -30,10 +30,14 @@ export default {
 
 <style lang="scss" scoped>
 .footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.8em;
+  z-index: 500;
   color: #777;
   background-color: rgba(225, 225, 225, .8);
   padding: 1ex;
-  z-index: 500;
   border-top: 1px solid #e5e5e5;
 
   p {
