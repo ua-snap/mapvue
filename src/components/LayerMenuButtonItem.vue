@@ -1,9 +1,9 @@
 <template>
 <div class="layer-menu-button-item">
-  <a class="button pseudo" :class="[classes]"
+  <button class="pseudo" :class="[classes]" :disabled="disabled"
     @click="callback">
     {{ text }}
-  </a>
+  </button>
 </div>
 </template>
 
@@ -13,23 +13,29 @@ export default {
   props: [
     'classes',
     'callback',
-    'text'
+    'text',
+    'disabled'
   ]
 }
 </script>
 
 <style lang="scss" scoped>
 .layer-menu-button-item {
-  margin: 0 0 -1em 0;
-  a {
+  margin: 0 0 -1.2ex 0;
+  button {
     cursor: pointer;
     cursor: hand;
     display: inline-block;
-    margin: 1ex 0;
     text-align: left;
 
-    &.button.pseudo {
+    &.pseudo {
       color: #0074d9;
+      &[disabled="disabled"] {
+        color: #b8b8b8;
+        text-decoration: line-through;
+        cursor: not-allowed;
+        background: none;
+      }
     }
   }
 }
