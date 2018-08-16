@@ -74,7 +74,7 @@ export default {
     background-color: rgba(0, 0, 0, .8);
     color: rgba(0, 0, 0, 1);
     width: 80%;
-    margin: 4rem auto;
+    margin: 2rem auto;
 
     a {
       color: #86bffe;

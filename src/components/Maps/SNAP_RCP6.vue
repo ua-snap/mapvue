@@ -231,7 +231,7 @@ export default {
       tour.addStep({
         title: 'What makes SNAP data different from “regular” GCM data?',
         text: `
-        <div><table class="downscaling"><tr><td>Original Data</td><td>Downscaled Data</td></tr></table><p class="downscaling_image"><img src='static/snap_downscaling.png'/></p></div>
+        <div align="center"><table class="downscaling"><tr><td>Original Data</td><td>Downscaled Data</td></tr></table><p class="downscaling_image"><img src='static/snap_downscaling.png'/></p></div>
         <p></p><p>SNAP downscales climate data from global models to generate locally relevant data at higher resolutions. The downscaling process connects global-scale projections with smaller-scale dynamics to create regionally specific projections.</p>
         <p>SNAP data adds value to GCM projections by making them more relevant and useful for making decisions about climate change.</p>
         <p><a href='https://www.snap.uaf.edu/methods/downscaling' target='_blank'>Learn more about our downscaling process</a></p>
@@ -479,11 +479,13 @@ export default {
 .annotation_text {
   font-size: 12px !important;
   margin-bottom: 0px !important;
+  text-align: center;
 }
 
 .downscaling_image {
   width: 556px;
   height: 253px;
+  text-align: center;
 }
 
 .atmos_conc_image {
@@ -534,6 +536,11 @@ table.rcp6-legend.logs {
       &.log-9 { background-color: #267300; }
     }
   }
+}
+
+div.centered {
+  display: block;
+  text-align: center;
 }
 
 table.downscaling {
