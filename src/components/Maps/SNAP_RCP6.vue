@@ -212,7 +212,10 @@ export default {
         <p><a href="https://www.snap.uaf.edu/methods/models" target="_blank">Learn more about how we select our models</a></p>
         <p class="tour_step_number"><b>(1/9)</b></p>`,
         classes: 'shepherd-theme-square-dark',
-        buttons: buttons,
+        buttons: [{
+          text: 'Next',
+          action: tour.next
+        }],
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
@@ -231,7 +234,7 @@ export default {
       tour.addStep({
         title: 'What makes SNAP data different from “regular” GCM data?',
         text: `
-        <div align="center"><table class="downscaling"><tr><td>Original Data</td><td>Downscaled Data</td></tr></table><p class="downscaling_image"><img src='static/snap_downscaling.png'/></p></div>
+        <div class="downscaling-wrapper"><table class="downscaling"><tr><td>Original Data</td><td>Downscaled Data</td></tr></table><p class="downscaling_image"><img src='static/snap_downscaling.png'/></p></div>
         <p></p><p>SNAP downscales climate data from global models to generate locally relevant data at higher resolutions. The downscaling process connects global-scale projections with smaller-scale dynamics to create regionally specific projections.</p>
         <p>SNAP data adds value to GCM projections by making them more relevant and useful for making decisions about climate change.</p>
         <p><a href='https://www.snap.uaf.edu/methods/downscaling' target='_blank'>Learn more about our downscaling process</a></p>
@@ -538,6 +541,10 @@ table.rcp6-legend.logs {
   }
 }
 
+.downscaling-wrapper {
+  width: 556px;
+  margin: auto;
+}
 table.downscaling {
   width: 556px;
 
