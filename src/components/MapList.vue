@@ -1,9 +1,12 @@
 <template>
   <ul class="map-list">
     <li v-for="(map, key) in maps" v-if="!map.draft">
-      <router-link :to="{ name: 'map', params: { slug: key }}">
+      <router-link :to="{ name: 'map', params: { slug: key }}" v-if="!map.path">
         {{ map.title}}
       </router-link>
+      <a v-else v-bind:href="map.path">
+        {{ map.title}}
+      </a>
     </li>
   </ul>
 </template>
