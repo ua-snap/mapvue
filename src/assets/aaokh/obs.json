@@ -1,6 +1,293 @@
 [
   {
     "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -159.877373,
+        70.705987
+      ]
+    },
+    "properties": {
+      "observer": "Steven Patkotak",
+      "observation": "Yesterday the lead out front could be seen. The right way out to leads edge is shortest trail and only close to landfast but one days wait after storm. One calm day wait then next day drive out but never without someone. Watching or along with you but take a small boat. Snow on tundra so hard it takes snow saw to ease digging. Need to find a spot at wainwright inlet also lagoon ice crack for sensor reading. East wind at 8 mph. Temps. at 0. 30.04 barometer. High overhead shows spring ocean current bring thaw but young and gray ice cover may show fast melt. Leads edge is white and blue open lead. First photo is North by 2 miles facing west. Hope soon the trail for subsistence season starts soon. Second photo is facing nnw. 1.5 -2 miles from edge.",
+      "obs_date": "2018-04-18",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/18-04-2018-1.png"
+        },
+        {
+          "fullsize_url": "/static/aaokh/18-04-2018-2.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -160.030798,
+        70.652636
+      ]
+    },
+    "properties": {
+      "observer": "Steven Patkotak",
+      "observation": "May and June is always a busy time up here.Hunting and camping is always short due to distance and timing.Overheat of trail is always a alarming hazard but people careful as can be. 40 miles inland through KUK. river drainage and it's slopes of Brooks range makes for spring ice break-up. Seen the swamps and tundra flats forming rain also drainage flows.Highest hills above drainage always a start towards the oceans inlet sw at wainwright.Only the river 80 miles to sw has any trout. 130-07 wind and bearing. 26 dgf.and rising by day to just above 32 dgf.Pressure at 29.91 also light rain and sleet frozen atop the snow. Loaded up early before any weather happens. Thought I was too bored so I took some photos also [CTD] drop twice. Could see the village near and up right of photos. Possible 35- 40 drop to sea floor. Had to be very quiet around camp away from people but an easy ride and mostly rare calm for mothers day shoot. Look like saline water at 26 but also polar ice all busted up along with old floes.",
+      "obs_date": "2018-05-13",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/13-05-2018-1.png"
+        },
+        {
+          "fullsize_url": "/static/aaokh/13-05-2018-2.png"
+        },
+        {
+          "fullsize_url": "/static/aaokh/13-05-2018-3.png"
+        },
+        {
+          "fullsize_url": "/static/aaokh/13-05-2018-4.png"
+        },
+        {
+          "fullsize_url": "/static/aaokh/13-05-2018-5.png"
+        },
+        {
+          "fullsize_url": "/static/aaokh/13-05-2018-6.png"
+        },
+        {
+          "fullsize_url": "/static/aaokh/13-05-2018-7.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -160.011456,
+        70.651870
+      ]
+    },
+    "properties": {
+      "observer": "Steven Patkotak",
+      "observation": "24 hour sun today and north pole lights up the horizon. Hope to rest and wait for shorefast failure after nw-winds. Slowest thaw still ongoing but slow and steady. Mostly ice powder for snow cover and it holds up nothing just light things. Slowed down from mountain range to just short of coast. [Photo] faces west at midtown towards inlet",
+      "obs_date": "2018-06-21",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/21-06-2018-1.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -159.99244,
+        70.629439
+      ]
+    },
+    "properties": {
+      "observer": "Steven Patkotak",
+      "observation": "Out front and west of village. Ocean current flow strong to NE and remaining ice from lagoon taken out. Someone tried boating out of inlet but rough water and tide waves higher than the norm. Cool weather and no bugs. Gillnetting out back in lagoon with salmon coming in the inlet. NE at 10 and 35 dgf. 10 mi.vis. Not more than 4 days past month the days been calm enough for short boating. The ice came in making it difficult after whaling ended early june. The silver and king salmon also Cisco begin to show with help from incoming current but violent and strong at inlet. So much weather and cold and soggy been happening past weeks. Look a little less murky than last summer. Got to take photos of my net and hope for [CTD] drop only by 17 ft. KAYAK. No real change in fish just very few smelt in winter ice fishing but inland birds have migrated to coast. Small ducks and hawks and the others. Inland fish must be elsewhere like west drainages and small rivers. No out of place just differ in size.",
+      "obs_date": "2018-07-09",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/09-07-2018-1.png"
+        },
+        {
+          "fullsize_url": "/static/aaokh/09-07-2018-2.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -160.049344,
+        70.634615
+      ]
+    },
+    "properties": {
+      "observer": "Steven Patkotak",
+      "observation": "Location, just south of town on shore. Early high surf and strong current, no CTD cast. Rainy season this time of the year changing to August storms from west and inland boating only. Just short boating on oceanside. Beach driving when crossing is possible to NE. Hope enough calm day soon for [CTD] drop. 170-12   54dgf.   29.99 inhg.   Vis. 10 mi.",
+      "obs_date": "2018-07-29",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/29-07-2018-1.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -168.091,
+        65.608
+      ]
+    },
+    "properties": {
+      "observer": "Robert Tokeinna, Jr",
+      "observation": "Observation: This week we had persistent Northerly winds with finally south wind at this present moment. Open water for the most part of this week with continued melt of snow. Not very much action on the ice as we laid to rest one our young adult. The local snow plow crew plowed snow to the main street and airport road. Local creek opened up and is running. Thanks to Mother Nature otherwise locals would need to shovel a trench for it to run, ever so often it chooses to open on its own. This concludes my observation.",
+      "obs_date": "2017-04-28",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/28-04-2017-1.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -168.091,
+        65.608
+      ]
+    },
+    "properties": {
+      "observer": "Robert Tokeinna, Jr",
+      "observation": "As you can see in the photo you can see slot of open water with cakes of ice and pressure ridges along the edge from last week's southerly push of ice and form of young ice during north winds",
+      "obs_date": "2017-04-12",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/12-04-2017-1.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -168.091,
+        65.608
+      ]
+    },
+    "properties": {
+      "observer": "Robert Tokeinna, Jr",
+      "observation": "In the photo as you can see, we have very jagged shorefast ice to approximately 150 to 200 feet from out shoreline because it did not freeze over until late December and early January. After a period of time with prominent North to Northeast winds left slush to freeze flat with intermittent or little movement until a complete freeze. On the outer edge of the shorefast ice there are pressure ridges ranging from residual ice to collection of ice from current from the ocean or winds. Pressure ridges from a foot to 50 feet or more can be seen in front of the community. In front of the community approximately a mile or two, you can notice open water or moving ice flow as seen on the horizon of this photo. Where the ice ridges to the free ice indicates a steady current that lies in this area. We have two currents and switches directions in the Spring and Fall time. Lately, there has been a handful of local ice fisherman trying to hug for Blue Cod fish on the south side of our community on the other side of what is know as 'the point' which is a prime location for small fish, number of seals, and historically a crabbing site also. We are approaching hunting of the Bowhead Whale and Walrus to follow while seeing seals amongst them. ",
+      "obs_date": "2017-03-16",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/16-03-2017-1.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -166.736,
+        68.344
+      ]
+    },
+    "properties": {
+      "observer": "Jack Lane",
+      "observation": "Moving ice on the south side, along with the north. Lots of snow same temperature as January. Lots of snow in town, first time we have walls of snow in a long time along the roads. No power(?) ridges along the beaches. Covering up peoples doors over night, having a fun time shoveling the next morning",
+      "obs_date": "2018-02-01",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/01-02-2018-1.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -166.739,
+        68.348
+      ]
+    },
+    "properties": {
+      "observer": "Jack Lane",
+      "observation": "First snow fall, late freezing. 1 inch layer ice in ponds. Around -32f. 3rd week of snow fall, rivers and lakes frozen. No ice in north or south side oceans.",
+      "obs_date": "2017-10-31",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/31-10-2017-1.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -166.18666,
+        68.69446
+      ]
+    },
+    "properties": {
+      "observer": "Jack Lane",
+      "observation": "North side has ice floating, south side floating away from beach. Ice leaving, no more piled up on the beaches. Temperature around 49f, people going up the coast to work on cabins and pick eggs. Using the remaining ice not he beach for ice cellars and to keep fresh eggs fresh.",
+      "obs_date": "2017-07-31",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/31-07-2017-1.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -166.82,
+        68.347
+      ]
+    },
+    "properties": {
+      "observer": "Jack Lane",
+      "observation": "Temperatures rising to 32-38F. People catching whales, so far they have caught 10 whales on the south side. On the ninth whale, ice starting to get weaker causing it to crack and pieces to break off. Temperatures around 40F, bad ice conditions towards the end of the month. North side of ice starting to float out.",
+      "obs_date": "2017-05-31",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/31-05-2017-1.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -166.736,
+        68.344
+      ]
+    },
+    "properties": {
+      "observer": "Jack Lane",
+      "observation": "The weather been the same. The ice is not to safe this year 8 in to 2 feet. Chasing lots of ducks but the ice is thin. The ice is not safe this year. No power ridges. One whale yet bad ice lots of snow",
+      "obs_date": "2018-04-19",
+      "multimedia": [
+        {
+          "fullsize_url": "/static/aaokh/19-04-2018-1.png"
+        },
+        {
+          "fullsize_url": "/static/aaokh/19-04-2018-2.png"
+        }
+      ]
+    }
+  },
+  {
+    "type": "Feature",
     "id": "UTQAD1806070722",
     "geometry": {
       "type": "Point",

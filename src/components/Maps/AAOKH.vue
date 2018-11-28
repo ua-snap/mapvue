@@ -142,7 +142,7 @@ export default {
         {
           'abstract': `
             <p>The Utqiagvik marine radar is mounted on top of the 4-story bank building in downtown Utqiagvik. It detects sea ice up to 6 miles out and acquires a new image every 5 minutes for near real-time results. Ice appears white in the image due to the radar signals reflecting off it. Ridges in the sea ice also appear as bright linear objects, but buildings, fences, and cars on the land can also return strong signals. Darker regions in the image can indicate open water, smooth ice, or shadows.  The image shown here is from April 2, 2016.</p>
-            <p><a target="_blank" target="_blank" rel="noopener"  href="http://seaice.alaska.edu/gi/observatories/barrow_radar">Access and learn more about these data</a>.</p>`,
+            <p><a target="_blank" rel="noopener"  href="http://seaice.alaska.edu/gi/observatories/barrow_radar">Access and learn more about these data</a>.</p>`,
           'name': 'aaokh:barrow_radar',
           'title': 'Utqia&#289;vik Marine Radar',
           'legend': false
@@ -151,6 +151,22 @@ export default {
           'abstract': '<p>Trails built by Utqia&#289;vik whaling crews for the 2017 spring whaling season were mapped by Matthew Druckenmiller (National Snow and Ice Data Center) and Josh Jones (AAOKH) in late April 2017.</p>',
           'name': 'aaokh:aa_whaling_trails',
           'title': 'Spring 2017 Whaling Trails',
+          'legend': false
+        },
+        {
+          'abstract': `<p>Trails built by Utqia&#289;vik whaling crews for the 2018 spring whaling season were mapped by Matthew Druckenmiller (National Snow and Ice Data Center) and Josh Jones (AAOKH) in late April / early May 2018.  The team uses GPS to map trails. They also continuously measure ice thickness with a special instrument called an
+electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href="https://arctic-aok.org/data/whaling-trail-mapping/">See more information and access data</a> on the AAOKH project web site.</p>
+            <table class="aaokh-sidebar-legend whaling_trails_2018"><!-- quantile / equal count classification -->
+              <caption>Ice thickness (ft)</caption>
+              <tr><td><div class="class-1"></div></td><td>0.2&mdash;0.3</td></tr>
+              <tr><td><div class="class-2"></div></td><td>0.3&mdash;2.6</td></tr>
+              <tr><td><div class="class-3"></div></td><td>2.6&mdash;3.5</td></tr>
+              <tr><td><div class="class-4"></div></td><td>3.5&mdash;4.9</td></tr>
+              <tr><td><div class="class-5"></div></td><td>4.9&mdash;7.4</td></tr>
+              <tr><td><div class="class-6"></div></td><td>7.4&mdash;38.9</td></tr>
+            </table>`,
+          'name': 'aaokh:utiqiagvik_ice_trail_em_surveys_2018',
+          'title': 'Spring 2018 Whaling Trails',
           'legend': false
         },
         {
@@ -182,7 +198,7 @@ export default {
           'legend': false
         },
         {
-          'abstract': `<p>Electronic CTD (conductivity, temperature and depth) devices can examine water properties to detect how the conductivity and temperature of the water column change relative to depth.  Scientists analyze CTD data make inferences about the occurrence of certain biological processes, such as the growth of algae. The figure shown here is from May 6, 2017.</p>
+          'abstract': `<p>Electronic CTD (conductivity, temperature and depth) devices can examine water properties to detect how the conductivity and temperature of the water column change relative to depth.  Scientists analyze CTD data make inferences about the occurrence of certain biological processes, such as the growth of algae.</p>
           </p><p>For more information and to access these data, visit the <a href="https://arctic-aok.org/observations/coastal-water-profiles/" target="_blank" target="_blank" rel="noopener">AAOKH Coastal Water Profiles page.</p>`,
           'name': 'ctd',
           'title': 'CTD',
@@ -395,12 +411,11 @@ export default {
         }
       })
 
-      let imagePath = require('@/assets/aaokh/CTD_Utqiagvik.png')
       tour.addStep({
         title: 'Coastal Water Profiles and CTD Data',
         text: `<p>Electronic CTD (conductivity, temperature and depth) devices can examine water properties to detect how the conductivity and temperature of the water column change relative to depth.  Scientists analyze CTD data to make inferences about the occurrence of certain biological processes, such as the growth of algae.
         </p>
-        <div><img style="max-width: 100%; min-height: 262px;" src="${imagePath}"/></div>`,
+        <div><img style="max-width: 100%; min-height: 262px;" src="/static/aaokh/CTD_Utqiagvik.png"/></div>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         buttons: buttons,
         tetherOptions: {
@@ -508,13 +523,34 @@ export default {
       window.open('https://arctic-aok.org/get-involved/', '_blank')
     },
     setupCtd () {
-      let imagePath = require('@/assets/aaokh/CTD_Utqiagvik.png')
-
-      var getCtdLayer = () => {
-        return this.$L.layerGroup([this.$L.marker({lat: 71.290556, lon: -156.788611}).bindPopup(`<img style="width: 300px;" src="${imagePath}"/>`)])
-      }
-      ctdLayer = getCtdLayer()
-      ctdLayerRight = getCtdLayer()
+      var ctdObs = [
+        {
+          lat: 71.290556,
+          lon: -156.788611,
+          image: 'CTD_Utqiagvik.png'
+        },
+        {
+          lat: 70.3875,
+          lon: -148.5167,
+          image: 'PrudhoeBay_20180614.png'
+        },
+        {
+          lat: 70.6451,
+          lon: -160.035,
+          image: 'Wainwright_20180805.png'
+        }
+      ]
+      var ctdMarkers = []
+      _.each(ctdObs, ob => {
+        ctdMarkers.push(this.$L.marker(
+          {
+            lat: ob.lat, lon: ob.lon
+          }).bindPopup(`<img style="width: 300px;" src="/static/aaokh/${ob.image}"/>`)
+        )
+      })
+      console.log(ctdMarkers)
+      ctdLayer = this.$L.layerGroup(ctdMarkers)
+      ctdLayerRight = this.$L.layerGroup(ctdMarkers)
     },
     setupObservations () {
       var observationPopupTemplate = _.template(`
@@ -528,18 +564,21 @@ export default {
   <% if(multimedia) { %>
     <div class="multimedia">
     <% _.each(multimedia, item => { %>
-      <figure>
-        <img src="<%= item.fullsize_url %>"/>
-        <figcaption><%= item.description %></figcaption>
-      </figure>
+
+      <img src="<%= item.fullsize_url %>"/>
+      <p class="caption"><%= item.description %></p>
+
     <% }) %>
     </div>
+  <% } %>
+  <% if(observation) { %>
+    <p class="observation"><%= observation %></p>
   <% } %>
 </div>
         `)
 
-      let formatDate = (obsDate, obsTime) => {
-        return moment(obsDate + ' ' + obsTime).format('MMMM Do, YYYY [at] h:m A')
+      let formatDate = (obsDate) => {
+        return moment(obsDate).format('MMMM Do, YYYY')
       }
 
       var getObservationLayer = () => {
@@ -548,8 +587,9 @@ export default {
             return this.$L.marker(latlng).bindPopup(observationPopupTemplate(
               {
                 multimedia: feature.properties.multimedia,
-                datetime: formatDate(feature.properties.obs_date, feature.properties.obs_time),
-                observer: feature.properties.observer
+                datetime: formatDate(feature.properties.obs_date),
+                observer: feature.properties.observer,
+                observation: feature.properties.observation
               })
             )
           }
@@ -630,15 +670,12 @@ div.aaokh__observation {
     color: #666;
   }
   .multimedia {
-    min-width: 300px;
-    figure {
-      margin-bottom: 1em;
-      img {
-        max-width: 300px;
-      }
+    img {
+      max-width: 300px;
     }
-    max-height: 450px;
-    overflow-y: auto;
+
+    max-height: 350px;
+    overflow: auto;
   }
 }
 
@@ -664,13 +701,16 @@ table.aaokh-sidebar-legend {
   }
 }
 
-table.aaokh-sidebar-legend.ice-concentration {
-
+table.aaokh-sidebar-legend {
   td {
     padding: 0 1ex 0 0;
-
     div {
       border: none;
+    }
+  }
+
+  &.ice-concentration {
+    div {
       // Styles for Ice Concentration
       &.conc-19 { background-color: #f7fcfd; opacity: 0.1; border: 1px solid #000; }
       &.conc-39 { background-color: #e0ecf4; opacity: 0.6;}
@@ -682,7 +722,24 @@ table.aaokh-sidebar-legend.ice-concentration {
       &.conc-100 { background-color: #6e016b; opacity: 1;}
     }
   }
+
+  &.whaling_trails_2018 {
+    margin-top: 1em;
+    caption {
+      width: 10em;
+      font-weight: bold;
+      text-align: left;
+      margin-bottom: 1ex;
+    }
+    .class-1 { background-color: #d7191c; }
+    .class-2 { background-color: #f69053; }
+    .class-3 { background-color: #0ddf9a; }
+    .class-4 { background-color: #def2b4; }
+    .class-5 { background-color: #91cba9; }
+    .class-6 { background-color: #2b83ba; }
+  }
 }
+
 
 .shepherd-text p a {
   font-weight: 600;
