@@ -70,3 +70,7 @@ body {
   color: red !important;
   min-width: 40em !important;
 }
+
+tr:nth-child(even) {
+  background: transparent;
+}
