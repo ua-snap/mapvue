@@ -4,9 +4,9 @@ Simple OSS framework for interactive, narrative tours of geospatial data.
 
 ## Build Setup
 
-Uses `nodejs@~8.5`, `npm@~5.4`.
+Uses `nodejs@~8.5`, `npm@~6.4`.
 
-### Web application
+### Local development
 
 ``` bash
 # install dependencies
@@ -33,24 +33,6 @@ If these variables are set in your environment, they'll be used in the applicati
  * `FIRE_FEATURES_URL`: Fire feature GeoJSON endpoint
  * `FIRE_TIME_SERIES_URL`: Fire time series GeoJSON endpoint
  * `MV_GOOGLE_ANALYTICS_TOKEN`: Google analytics token
-
-### Geoserver instance for local development
-
-Fetch the needed Docker image:
-
-```bash
-docker pull oscarfonts/geoserver
-```
-
-Obtain a copy of the data/extensions directories, and unzip it to some specific location, referred to as `unzipped_data_and_exts_location` below.
-
-To run:
-
-``` bash
-docker run -d -p 8080:8080 -v unzipped_data_and_exts_location/data:/var/local/geoserver -v unzipped_data_and_exts_location/exts:/var/local/geoserver-exts/ --name=geoserver oscarfonts/geoserver
-```
-
-The instance will be available at `localhost:8080` after a few moments.
 
 # Deploying
 
