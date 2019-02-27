@@ -51,6 +51,15 @@ export default {
     },
     secondaryMapObject () {
       return maps.right.map
+    },
+    wmsLayerOptions () {
+      return _.extend({
+        continuousWorld: true,
+        transparent: true,
+        tiled: 'true',
+        format: 'image/png',
+        version: '1.3'
+      }, this.baseLayerOptions)
     }
   },
   mounted () {
@@ -106,36 +115,53 @@ export default {
   methods: {
     // Instantiate the Leaflet layer objects
     addLayers () {
-      var wmsLayerOptions = _.extend({
-        continuousWorld: true,
-        transparent: true,
-        tiled: 'true',
-        format: 'image/png',
-        version: '1.3'
-      }, this.baseLayerOptions)
-
       // Create or obtain actual Leaflet objects, and add them
       // to the maps.
       _.each(this.layers, (layer) => {
-        // If the layer is a normal GeoServer layer, create
-        // and add it here.
-        if (layer.local !== true) {
-          let layerConfiguration = _.extend(wmsLayerOptions,
-            {
-              layers: [layer.layerName ? layer.layerName : layer.name],
-              styles: layer.styles ? layer.styles : ''
-            })
-          maps.left.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
-          maps.right.layers[layer.name] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
-        } else {
-          // Otherwise, fetch the layer from the list
-          // of local layers maintained in this map.
-          maps.left.layers[layer.name] = this.localLayers[layer.name].first
-          maps.right.layers[layer.name] = this.localLayers[layer.name].second
-        }
+        this.updateLayer(layer)
       })
     },
+    // Adds WMS layer, removing a prior layer if present.
+    addWmsLayer (layer) {
+      let layerConfiguration = _.extend(this.wmsLayerOptions,
+        {
+          layers: [layer.wms],
+          styles: layer.styles ? layer.styles : ''
+        }
+      )
+      if (layer.time) {
+        _.extend(layerConfiguration, {
+          time: layer.time
+        })
+      }
+
+      // Remove old layers if present
+      if (maps.left.layers[layer.id]) {
+        maps.left.map.removeLayer(maps.left.layers[layer.id])
+        maps.right.map.removeLayer(maps.right.layers[layer.id])
+      }
+
+      maps.left.layers[layer.id] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
+      maps.right.layers[layer.id] = this.$L.tileLayer.wms(process.env.GEOSERVER_WMS_URL, layerConfiguration)
+    },
+    // Triggered when a configurable layer has changed, and
+    // when setting up the map.  Defines the WMS properties for the layer.
+    updateLayer (layer) {
+      // If the layer is a normal GeoServer layer, create
+      // and add it here.
+      if (layer.local !== true) {
+        this.addWmsLayer(layer)
+      } else {
+        // Otherwise, fetch the layer from the list
+        // of local layers maintained in this map.
+        maps.left.layers[layer.id] = this.localLayers[layer.id].first
+        maps.right.layers[layer.id] = this.localLayers[layer.id].second
+      }
+    },
     // Reorder & update layer visibility
+    // REFACTOR We should split this into 3 parts,
+    // managing the smallest amount of change possible -- this
+    // sort of rebuilds the whole map.
     refreshLayers (layers) {
       layers = layers || this.layers
 
@@ -147,17 +173,21 @@ export default {
           map.removeLayer(layer)
         }
       }
+
       _.each(layers, (layer, index) => {
-        let leftLayerObj = maps.left.layers[layer.name]
-        let rightLayerObj = maps.right.layers[layer.name]
+        // TBD -- this should only update the specific layer that changed
+        // REFACTOR BEFORE MERGE TO MASTER
+        if (_.isFunction(layer.wmsLayerName)) {
+          this.addWmsLayer(layer)
+        }
 
         // Explicitly order the list so that topmost layers
         // have the highest z-index
-        leftLayerObj.setZIndex(100 - index)
-        rightLayerObj.setZIndex(100 - index)
+        maps.left.layers[layer.id].setZIndex(100 - index)
+        maps.right.layers[layer.id].setZIndex(100 - index)
 
-        toggleLayerVisibility(layer.visible, maps.left.map, leftLayerObj)
-        toggleLayerVisibility(layer.secondVisible, maps.right.map, rightLayerObj)
+        toggleLayerVisibility(layer.visible, maps.left.map, maps.left.layers[layer.id])
+        toggleLayerVisibility(layer.secondVisible, maps.right.map, maps.right.layers[layer.id])
       })
     },
     getBaseMapAndLayers () {

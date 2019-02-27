@@ -2,15 +2,12 @@
   <div id="top_item">
     <draggable v-model="layers" id="layer-list" class="layer-list">
       <transition-group name="list-complete">
-        <div class="list-complete-item" v-for="layer in layers" :key="layer.name">
+        <div class="list-complete-item" v-for="layer in layers" :key="layer.id">
           <map-layer
-            :name="layer.name"
-            :title="layer.title"
-            :abstract="layer.abstract"
-            :visible="layer.visible"
-            :secondVisible="layer.secondVisible"
+            :id="layer.id"
             :nodata="layer.nodata"
             :nodataMessage="layer.nodataMessage"
+            :controls="layer.controls"
           ></map-layer>
         </div>
       </transition-group>
