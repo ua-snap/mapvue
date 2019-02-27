@@ -23,6 +23,12 @@ import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
 import Tour from '../Tour'
 
+var rcps = {
+  'rcp45': 'RCP 4.5',
+  'rcp60': 'RCP 6.0',
+  'rcp85': 'RCP 8.5'
+}
+
 export default {
   name: 'SNAP_RCP6',
   extends: MapInstance,
@@ -62,9 +68,21 @@ export default {
             <tr><td><div class="log-9"></div></td><td>331 - 365 days</td></tr>
           </table>
           This layer shows the decadal average length of growing season in the 2010s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.`,
-          'name': 'snap_rcp:logs_2010_rcp6',
+          'id': 'snap_rcp:logs_2010_rcp6',
+          wmsLayerName (params) {
+            return {
+              name: `logs_5modelAvg_${params.scenario}`,
+              time: `${params.decade}-01-01T00:00:00Z`,
+              title: `${params.decade}s Length of Growing Season, ${rcps[params.scenario]}`
+            }
+          },
+          'defaults': {
+            decade: 2010,
+            scenario: 'rcp60'
+          },
           'title': '2010s Length of Growing Season, RCP 6.0',
-          'legend': false
+          'legend': false,
+          'controls': true
         },
         {
           'abstract': `
@@ -80,9 +98,21 @@ export default {
             <tr><td><div class="log-9"></div></td><td>331 - 365 days</td></tr>
           </table>
           This layer shows the decadal average length of growing season in the 2090s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.`,
-          'name': 'snap_rcp:logs_2090_rcp6',
+          'id': 'snap_rcp:logs_2090_rcp6',
+          wmsLayerName (params) {
+            return {
+              name: `logs_5modelAvg_${params.scenario}`,
+              time: `${params.decade}-01-01T00:00:00Z`,
+              title: `${params.decade}s Length of Growing Season, ${rcps[params.scenario]}`
+            }
+          },
+          'defaults': {
+            decade: 2090,
+            scenario: 'rcp60'
+          },
           'title': '2090s Length of Growing Season, RCP 6.0',
-          'legend': false
+          'legend': false,
+          'controls': true
         },
         {
           'abstract': `<table class="rcp6-legend tas">
@@ -103,9 +133,21 @@ export default {
             <tr><td><div class="tas-15"></div></td><td>5.1 ºC and warmer</td></tr>
           </table>
           This layer shows projected, downscaled mean decadal temperature for 2010 using a five-model average.  The spatial resolution of this dataset is 771m.   The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.`,
-          'name': 'snap_rcp:tas_2010_rcp6',
+          'id': 'snap_rcp:tas_2010_rcp6',
+          wmsLayerName (params) {
+            return {
+              name: `tas_decadal_mean_annual_mean_5modelAvg_${params.scenario}`,
+              time: `${params.decade}-01-01T00:00:00Z`,
+              title: `${params.decade}s Mean Annual Temperature, ${rcps[params.scenario]}`
+            }
+          },
+          'defaults': {
+            decade: 2010,
+            scenario: 'rcp60'
+          },
           'title': '2010s Mean Annual Temperature, RCP 6.0',
-          'legend': false
+          'legend': false,
+          'controls': true
         },
         {
           'abstract': `<table class="rcp6-legend tas">
@@ -126,9 +168,21 @@ export default {
             <tr><td><div class="tas-15"></div></td><td>5.1 ºC and warmer</td></tr>
           </table>
           This layer shows projected, downscaled mean decadal temperature for 2090 using a five-model average. The spatial resolution of this dataset is 771m. The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.`,
-          'name': 'snap_rcp:tas_2090_rcp6',
+          'id': 'snap_rcp:tas_2090_rcp6',
+          wmsLayerName (params) {
+            return {
+              name: `tas_decadal_mean_annual_mean_5modelAvg_${params.scenario}`,
+              time: `${params.decade}-01-01T00:00:00Z`,
+              title: `${params.decade}s Mean Annual Temperature, ${rcps[params.scenario]}`
+            }
+          },
+          'defaults': {
+            decade: 2090,
+            scenario: 'rcp60'
+          },
           'title': '2090s Mean Annual Temperature, RCP 6.0',
-          'legend': false
+          'legend': false,
+          'controls': true
         }
       ]
     }

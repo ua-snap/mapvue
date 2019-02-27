@@ -1,5 +1,5 @@
 <template>
-<div  :id="name"
+<div  :id="id"
       class="layer"
       :class="{'nodata':nodata}"
       data-toggle="buttons"
@@ -12,7 +12,7 @@
   <span class="reorder"><svg xmlns="https://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path stroke="#888" fill="#888" d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"/></svg></span>
 
   <!-- Information about layer button -->
-  <a class="info" @click="showLayerInformation(name)">&#9432;</a>
+  <a class="info" @click="showLayerInformation(id)">&#9432;</a>
 
   <!-- Dual map controls -->
   <a
@@ -21,16 +21,16 @@
   >
     <a
       class="left-right"
-      :class="{'visible':visible}"
-      @click.prevent="toggleLayer(name)"
+      :class="{'visible':layer.visible}"
+      @click.prevent="toggleLayer(id)"
     >
       Left
     </a>
     &#47;
     <a
       class="left-right"
-      :class="{'visible':secondVisible}"
-      @click.prevent="toggleLayer(name, 'second')"
+      :class="{'visible':layer.secondVisible}"
+      @click.prevent="toggleLayer(id, 'second')"
     >
       Right
     </a>
@@ -39,34 +39,63 @@
   <!-- Layer title! -->
   <span class="layer-title">
     <a
-      @click.prevent="toggleLayer(name)"
+      @click.prevent="toggleLayer(id)"
     >
-      <span v-if="visible || (dualMaps && secondVisible)" >&#10003;</span>
+      <span v-if="layer.visible || (dualMaps && layer.secondVisible)" >&#10003;</span>
       <span
-        v-html="title"
-        :class=" { 'visible': visible || (dualMaps && secondVisible) }">
+        v-html="layer.title"
+        :class=" { 'visible': layer.visible || (dualMaps && layer.secondVisible) }">
       </span>
     </a>
+  </span>
+
+  <!-- If there is a custom layer configuration renderer, show here. -->
+  <span v-if="controls && (layer.visible || layer.secondVisible)">
+    <keep-alive>
+      <component
+        v-bind:is="customConfigurationRenderer"
+        @change="handleLayerConfigChange"
+        :defaults="rendererDefaults"
+      ></component>
+    </keep-alive>
   </span>
 </div>
 </template>
 
 <script>
 
+// Import custom widgets that may be used.
+import DateScenarioSelector from '@/components/DateScenarioSelector'
+import _ from 'lodash'
+
 export default {
   name: 'MapLayer',
-  props: ['name', 'title', 'abstract', 'visible', 'secondVisible', 'nodata', 'nodataMessage'],
+  props: ['id', 'nodata', 'nodataMessage', 'controls'],
   computed: {
+    layer () {
+      // Helper to return a layer from the ordered array of layers.
+      let targetLayerIndex = _.findIndex(
+        this.$store.state.layers,
+        layer => layer.id === this.id
+      )
+      return this.$store.state.layers[targetLayerIndex]
+    },
     dualMaps () {
       return this.$store.state.dualMaps
+    },
+    customConfigurationRenderer () {
+      return DateScenarioSelector
+    },
+    rendererDefaults () {
+      return this.layer.defaults
     }
   },
   methods: {
-    toggleLayer (layerName, mapPane) {
+    toggleLayer (name, mapPane) {
       // If the layer has data, toggle on/off!
       if (!this.nodata) {
         this.$store.commit('toggleLayerVisibility', {
-          layer: layerName,
+          id: this.id,
           mapPane: mapPane
         })
         this.$ga.event({
@@ -84,6 +113,12 @@ export default {
         eventCategory: 'View ' + this.title + ' layer information',
         eventAction: 'toggle',
         eventLabel: 'Map Layer Info'
+      })
+    },
+    handleLayerConfigChange (data) {
+      this.$store.commit('updateLayer', {
+        layer: this.id,
+        properties: data
       })
     }
   }
