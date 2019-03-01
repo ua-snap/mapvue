@@ -81,9 +81,6 @@ export default new Vuex.Store({
     // Are dual maps being shown?
     dualMaps: false,
 
-    // Should the dual maps be kept in sync?
-    syncMaps: false,
-
     // True if tour is active
     tourIsActive: false
   },
