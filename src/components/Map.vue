@@ -1,6 +1,6 @@
 <template>
 <div id="map">
-  <div map id="map--leaflet-map" class="leaflet-container"></div>
+  <div id="map--leaflet-map" class="leaflet-container"></div>
 </div>
 </template>
 
