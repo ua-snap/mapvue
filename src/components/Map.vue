@@ -106,9 +106,6 @@ export default {
         let left = getFilteredLayerList('visible')
         let right = getFilteredLayerList('secondVisible')
 
-        console.log('left', left)
-        console.log('right', right)
-
         this.$options.leaflet.sideBySideControl = this.$L.control.sideBySide(left, right).addTo(this.$options.leaflet.map)
       }
     },
