@@ -42,10 +42,10 @@ export default {
       <p class="middle">It also gives context for two SNAP climate datasets - <b>temperature and length of growing season</b> - and highlights their usefulness in making meaningful projections of climate in Alaska.</p>
       <p class="bottom">Finally, you’ll learn where to find more details on tour topics, and where to go to download SNAP data for your own work.</p>`,
       mapOptions: {
-        zoom: 1,
+        zoom: 0,
         minZoom: 0,
-        maxZoom: 6,
-        center: [64, -160]
+        maxZoom: 5,
+        center: [62, -135]
       },
       baseLayerOptions: {
         transparent: true,
@@ -189,24 +189,26 @@ export default {
   },
   computed: {
     crs () {
-      return new this.$L.Proj.CRS('EPSG:3338',
-      '+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs',
+      // We need to modify the default pan-Arctic
+      // projection to avoid a bug.
+      var proj = new this.$L.Proj.CRS('EPSG:3572',
+        '+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs',
         {
           resolutions: [4096, 2048, 1024, 512, 256, 128, 64],
-
-          // Origin should be lower-left coordinate
-          // in projected space.  Use GeoServer to
-          // find this:
-          // TileSet > Gridset Bounds > compute from maximum extent of SRS
-          origin: [-4648005.934316417, 444809.882955059]
+          origin: [-4889334.802954878, -4889334.802954878]
         }
       )
+
+      // This value needs to be set for tile requests at the north pole to
+      // work properly.
+      proj.projection._proj.oProj.phi0 = 1.5708
+      return proj
     },
     baseLayer () {
       return new this.$L.tileLayer.wms(
         process.env.GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
-          layers: 'alaska_osm'
+          layers: 'arctic_osm_3572'
         })
       )
     },
@@ -215,7 +217,7 @@ export default {
         process.env.GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
           zIndex: 101,
-          layers: 'alaska_places_osm_3338'
+          layers: 'arctic_places_osm_3572'
         })
       )
     },
