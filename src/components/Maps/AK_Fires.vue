@@ -328,7 +328,8 @@ export default {
       },
       layers: [
         {
-          'name': 'fires',
+          'id': 'fires',
+          'wmsLayerName': 'fires',
           'title': '2018 Wildfires',
           'local': true,
           'legend': false,
@@ -336,7 +337,8 @@ export default {
           'abstract': '<img src="static/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p><p>We update our map each hour from the source data available at the <a href="https://fire.ak.blm.gov" target="_blank" rel="noopener" rel="external">AICC</a> web site.</p><p><em>Where do most fires occur?  Where do most of the large fires occur?</em></p>'
         },
         {
-          'name': 'postgis_lightning',
+          'id': 'postgis_lightning',
+          'wmsLayerName': 'postgis_lightning',
           'title': 'Lightning strikes, last 36 hours',
           'layerName': 'alaska_wildfires:postgis_lightning',
           'legend': false,
@@ -349,7 +351,8 @@ export default {
             <p>This layer shows the last 36 hours of lightning activity, with older lightning strikes fading out to be more opaque the older they are.  Both <href target="_blank" rel="noopener"  href="https://www.weather.gov/jetstream/positive">positive and negative lightning</a> strikes are shown.  Positive lightning is often stronger and may be more closely associated with wildfires, and is shown with a red outline.  Negative lightning is shown with a black outline.</p>`
         },
         {
-          'name': 'viirs',
+          'id': 'viirs',
+          'wmsLayerName': 'viirs',
           'title': 'Hotspots, last 48 hours',
           'local': true,
           'legend': false,
@@ -375,7 +378,8 @@ export default {
             <tr><td><div class="l-15"></div></td><td>Snow and ice</td></tr>
           </table>
           <p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank" rel="noopener">Commission for Environmental Cooperation</a></p>.`,
-          'name': 'alaska_wildfires:alaska_landcover_2010',
+          'id': 'alaska_wildfires:alaska_landcover_2010',
+          'wmsLayerName': 'alaska_wildfires:alaska_landcover_2010',
           'title': 'Land cover, 2010',
           'legend': false
         },
@@ -387,8 +391,8 @@ export default {
             <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2017</td></tr>
           </table>
           <p>This layer shows historical fire perimeters from 1940&mdash;2017. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank" rel="noopener">AICC</a>.</p>`,
-          'name': 'historical_fire_perimiters',
-          'layerName': 'alaska_wildfires:historical_fire_perimiters',
+          'id': 'historical_fire_perimiters',
+          'wmsLayerName': 'historical_fire_perimiters',
           'title': 'All Historical Fires',
           'legend': false
         },
@@ -403,8 +407,8 @@ export default {
             <tr><td><div class="bf2015"></div></td><td>2015</td></tr>
           </table>
           <p>This layer shows the extent of the largest recent fire seasons.</p>`,
-          'name': 'alaska_wildfires:big_fire_perimiters',
-          'layerName': 'alaska_wildfires:historical_fire_perimiters',
+          'id': 'alaska_wildfires:big_fire_perimiters',
+          'wmsLayerName': 'alaska_wildfires:historical_fire_perimiters',
           'styles': 'alaska_wildfires:big_fire_years',
           'title': 'Recent Large Fire Years',
           'legend': false
@@ -413,8 +417,8 @@ export default {
           'abstract': `
           <p>This layer shows the results of a wildfire model, ALFRESCO, that shows the <a target="_blank" rel="noopener"  href="http://ckan.snap.uaf.edu/dataset/alfresco-model-outputs-relative-flammability">projected relative flammability</a>.  The darker red, the more likely that that area may burn in the future according to this model.  This layer includes data from the <a target="_blank" rel="noopener"  href="https://www.snap.uaf.edu/projects/iem">Integrated Ecosystem Management</a> project and assumes
           <a target="_blank" rel="noopener"  href="https://link.springer.com/article/10.1007/s10584-011-0149-y">comparatively high greenhouse gas emissions (RCP8.5)</a>.</p><p>This is a different type of data from other kinds on this map.  Instead of being directly observed current or historical data, this layer shows the result of computer models that take many different things into consideration to give an estimate about how future climate conditions may impact flammability.  This information can be useful for communities and decision makers.  To find out more about this type of data, visit the <a href="https://www.snap.uaf.edu" target="_blank" rel="noopener">SNAP web site</a>.</p>`,
-          'name': 'alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099',
-          'layerName': 'alaska_wildfires:alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099',
+          'id': 'alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099',
+          'wmsLayerName': 'alaska_wildfires:alfresco_relative_flammability_NCAR-CCSM4_rcp85_2000_2099',
           'title': 'Future flammability, 2000-2099',
           'legend': false
         }
