@@ -70,7 +70,7 @@ export default {
   },
   watch: {
     dualMaps () {
-      this.updateSideBySideMap()
+      this.toggleSideBySideMap()
     },
     // When layer visibility or order changes, re-render
     layers: {
@@ -81,6 +81,19 @@ export default {
     }
   },
   methods: {
+    // Enable/disable side-by-side map.
+    toggleSideBySideMap () {
+      if (this.dualMaps === true) {
+        this.$options.leaflet.sideBySideControl = this.$L.control.sideBySide().addTo(this.$options.leaflet.map)
+        this.updateSideBySideMap()
+      } else {
+        // Only remove if it's already been added.
+        if (this.$options.leaflet.sideBySideControl) {
+          this.$options.leaflet.sideBySideControl.remove()
+          this.refreshLayers()
+        }
+      }
+    },
     // Filter layers by left/right side of map visibility,
     // Add or remove the split map control.
     updateSideBySideMap () {
@@ -97,16 +110,13 @@ export default {
         })
       }
 
-      if (this.$options.leaflet.sideBySideControl) {
-        this.$options.leaflet.sideBySideControl.remove()
-      }
-
-      if (this.dualMaps === true) {
-        // Activate split map control!
+      // Only set layers if we're in split map mode and the
+      // control is initialized.
+      if (this.dualMaps === true && this.$options.leaflet.sideBySideControl) {
         let left = getFilteredLayerList('visible')
         let right = getFilteredLayerList('secondVisible')
-
-        this.$options.leaflet.sideBySideControl = this.$L.control.sideBySide(left, right).addTo(this.$options.leaflet.map)
+        this.$options.leaflet.sideBySideControl.setLeftLayers(left)
+        this.$options.leaflet.sideBySideControl.setRightLayers(right)
       }
     },
     // Instantiate the Leaflet layer objects
