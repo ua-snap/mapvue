@@ -554,7 +554,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
           }).bindPopup(`<img style="width: 300px;" src="/static/aaokh/${ob.image}"/>`)
         )
       })
-      console.log(ctdMarkers)
       ctdLayer = this.$L.layerGroup(ctdMarkers)
       ctdLayerRight = this.$L.layerGroup(ctdMarkers)
     },

@@ -51,7 +51,6 @@ export default {
           e.latlng.lat,
           e.latlng.lng
         ])
-        // $scope.activateAllLayers();
       }).addTo(this.$refs.map.primaryMapObject)
     })
 
