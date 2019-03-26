@@ -171,7 +171,7 @@ export default {
           'id': 'snap_rcp:tas_2090_rcp6',
           wmsLayerName (params) {
             return {
-              name: `snap_rcs:tas_decadal_mean_annual_mean_5modelAvg_${params.scenario}`,
+              name: `snap_rcp:tas_decadal_mean_annual_mean_5modelAvg_${params.scenario}`,
               time: `${params.decade}-01-01T00:00:00Z`,
               title: `${params.decade}s Mean Annual Temperature, ${rcps[params.scenario]}`
             }
