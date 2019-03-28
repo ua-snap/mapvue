@@ -4,6 +4,18 @@ import _ from 'lodash'
 
 Vue.use(Vuex)
 
+// Helper function to set WMS properties for a layer.
+var setWmsProperties = (state, layer, properties) => {
+  if (_.isFunction(layer.wmsLayerName)) {
+    Vue.set(layer, 'wms', layer.wmsLayerName(properties).name)
+    Vue.set(layer, 'time', layer.wmsLayerName(properties).time)
+    Vue.set(layer, 'title', layer.wmsLayerName(properties).title)
+  } else {
+    // Don't need to ensure deep watchers see this change -- static layer name
+    layer.wms = layer.wmsLayerName
+  }
+}
+
 // Helper function to toggle visiblity properties on the
 // store for either left or right map pane
 var swapVisibility = (state, targetLayer, targetLayerIndex, propName, value, raceCondition = false) => {
@@ -34,6 +46,15 @@ var swapVisibility = (state, targetLayer, targetLayerIndex, propName, value, rac
   }
 }
 
+// Helper to return a layer from the ordered array of layers.
+var getLayerIndexById = (state, id) => {
+  let targetLayerIndex = _.findIndex(
+    state.layers,
+    layer => layer.id === id
+  )
+  return targetLayerIndex
+}
+
 export default new Vuex.Store({
   state: {
     // Layers is an array of objects which
@@ -60,9 +81,6 @@ export default new Vuex.Store({
     // Are dual maps being shown?
     dualMaps: false,
 
-    // Should the dual maps be kept in sync?
-    syncMaps: false,
-
     // True if tour is active
     tourIsActive: false
   },
@@ -76,15 +94,15 @@ export default new Vuex.Store({
         // Default visibility on left/right maps to off
         layer.visible = layer.visible || false
         layer.secondVisible = layer.visible
-
+        setWmsProperties(state, layer, layer.defaults)
         restructuredlayers.push(layer)
       })
       state.layers = restructuredlayers
     },
     /* Payload is an object with these properties:
     {
-      // layer: Layer name
-      layer: '',
+      // id: Layer id
+      id: '',
 
       // mapPane: if 'second', applies to 2nd map
       mapPane: 'second',
@@ -96,18 +114,25 @@ export default new Vuex.Store({
     } */
     toggleLayerVisibility (state, payload) {
       // Identify the layer in the array
-      let targetLayerIndex = _.findIndex(
-        state.layers,
-        layer => layer.name === payload.layer
-      )
-      let targetLayer = state.layers[targetLayerIndex]
-
+      let targetLayerIndex = getLayerIndexById(state, payload.id)
       if (payload.mapPane !== 'second') {
         // Swap visibility flag
-        swapVisibility(state, targetLayer, targetLayerIndex, 'visible', payload.setTo)
+        swapVisibility(state, state.layers[targetLayerIndex], targetLayerIndex, 'visible', payload.setTo)
       } else {
-        swapVisibility(state, targetLayer, targetLayerIndex, 'secondVisible', payload.setTo)
+        swapVisibility(state, state.layers[targetLayerIndex], targetLayerIndex, 'secondVisible', payload.setTo)
       }
+    },
+    /*
+
+    Triggered when a parameterized layer's configuration changes.
+
+    payload.layer is the layer name
+    payload.properties is whatever the configuration GUI presents.
+
+    */
+    updateLayer (state, payload) {
+      let layer = state.layers[getLayerIndexById(state, payload.layer)]
+      setWmsProperties(state, layer, payload.properties)
     },
     /*
     Here, `payload` is an object with this structure:
@@ -127,7 +152,7 @@ export default new Vuex.Store({
         if (_.isArray(payload.first)) {
           let ifShowFirst = _.find(
             payload.first,
-            name => name === layer.name
+            name => name === layer.id
           )
           swapVisibility(state, layer, index, 'visible', ifShowFirst !== undefined, (_.isArray(payload.first) && _.isArray(payload.second)))
         }
@@ -135,7 +160,7 @@ export default new Vuex.Store({
         if (_.isArray(payload.second)) {
           let ifShowSecond = _.find(
             payload.second,
-            name => name === layer.name
+            name => name === layer.id
           )
           swapVisibility(state, layer, index, 'secondVisible', ifShowSecond !== undefined, (_.isArray(payload.first) && _.isArray(payload.second)))
         }
@@ -148,7 +173,7 @@ export default new Vuex.Store({
     showSidebar (state, payload) {
       let targetLayer = _.find(
         state.layers,
-        layer => layer.name === payload.layer
+        layer => layer.id === payload.layer
       )
       state.sidebarContent = targetLayer
       state.sidebarVisibility = true

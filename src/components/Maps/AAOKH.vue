@@ -134,7 +134,8 @@ export default {
       layers: [
         {
           'abstract': '<p>Local observers in coastal communities provide observations on sea ice, weather, wildlife, and subsistence activities throughout the year, particularly in relation to the seasonal cycle. Participating communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqiagvik, and Wales.</p><p>Visit the <a href="https://arctic-aok.org/observations/" target="_blank" rel="noopener">AAOKH observations web site</a> for more information about observations. Data are stored and can be accessed through a collaboration with the <a href="https://eloka-arctic.org/sizonet/" target="_external">ELOKA</a> project.</p>',
-          'name': 'observations',
+          'id': 'observations',
+          'wmsLayerName': 'observations',
           'title': 'Observations',
           'legend': false,
           'local': true
@@ -143,13 +144,15 @@ export default {
           'abstract': `
             <p>The Utqiagvik marine radar is mounted on top of the 4-story bank building in downtown Utqiagvik. It detects sea ice up to 6 miles out and acquires a new image every 5 minutes for near real-time results. Ice appears white in the image due to the radar signals reflecting off it. Ridges in the sea ice also appear as bright linear objects, but buildings, fences, and cars on the land can also return strong signals. Darker regions in the image can indicate open water, smooth ice, or shadows.  The image shown here is from April 2, 2016.</p>
             <p><a target="_blank" rel="noopener"  href="http://seaice.alaska.edu/gi/observatories/barrow_radar">Access and learn more about these data</a>.</p>`,
-          'name': 'aaokh:barrow_radar',
+          'wmsLayerName': 'aaokh:barrow_radar',
+          'id': 'aaokh:barrow_radar',
           'title': 'Utqia&#289;vik Marine Radar',
           'legend': false
         },
         {
           'abstract': '<p>Trails built by Utqia&#289;vik whaling crews for the 2017 spring whaling season were mapped by Matthew Druckenmiller (National Snow and Ice Data Center) and Josh Jones (AAOKH) in late April 2017.</p>',
-          'name': 'aaokh:aa_whaling_trails',
+          'wmsLayerName': 'aaokh:aa_whaling_trails',
+          'id': 'aaokh:aa_whaling_trails',
           'title': 'Spring 2017 Whaling Trails',
           'legend': false
         },
@@ -165,7 +168,8 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
               <tr><td><div class="class-5"></div></td><td>4.9&mdash;7.4</td></tr>
               <tr><td><div class="class-6"></div></td><td>7.4&mdash;38.9</td></tr>
             </table>`,
-          'name': 'aaokh:utiqiagvik_ice_trail_em_surveys_2018',
+          'wmsLayerName': 'aaokh:utiqiagvik_ice_trail_em_surveys_2018',
+          'id': 'aaokh:utiqiagvik_ice_trail_em_surveys_2018',
           'title': 'Spring 2018 Whaling Trails',
           'legend': false
         },
@@ -176,7 +180,8 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
           <tr><td><div class="fast-ice"></div></td><td>Fast Ice</td></tr>
           </table>
           <p>Produced by the National Ice Center and updated daily (although we are only showing a single previous point in time with this example, from December 5, 2017), this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds.</p><p>See the <a target="_blank" href="http://www.natice.noaa.gov/products/daily_products.html">National Ice Center</a> and the <a target="_blank" target="_blank" rel="noopener"  href="https://www.polarview.aq/arctic">Polar View</a> web sites for more information.</p>`,
-          'name': 'aaokh:sea_ice_extent',
+          'wmsLayerName': 'aaokh:sea_ice_extent',
+          'id': 'aaokh:sea_ice_extent',
           'title': 'Sea Ice Extent',
           'legend': false
         },
@@ -193,7 +198,8 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             <tr><td><div class="conc-100"></div></td><td>100%</td></tr>
           </table>
           <p>Sea ice concentration is approximated by imagery from the Advanced Microwave Scanning Radiometer 2 (AMSR-2) instrument on JAXA’s GCOM-W1 satellite. The data layer shown here is from March 6, 2018.</p><p>Find more information and data at the <a target="_blank"  href="https://earthdata.nasa.gov/earth-observation-data/near-real-time/download-nrt-data/amsr2-nrt">NASA AMSR-2 near-real-time data products page</a>, and the <a target="_blank" target="_blank" rel="noopener" href="https://www.polarview.aq/arctic">Polar View web site</a>.</p>`,
-          'name': 'aaokh:sea_ice_concentration',
+          'wmsLayerName': 'aaokh:sea_ice_concentration',
+          'id': 'aaokh:sea_ice_concentration',
           'title': 'Sea Ice Concentration',
           'legend': false
         },
@@ -548,7 +554,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
           }).bindPopup(`<img style="width: 300px;" src="/static/aaokh/${ob.image}"/>`)
         )
       })
-      console.log(ctdMarkers)
       ctdLayer = this.$L.layerGroup(ctdMarkers)
       ctdLayerRight = this.$L.layerGroup(ctdMarkers)
     },

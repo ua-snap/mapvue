@@ -17,13 +17,6 @@
           :disabled='tourIsActive'
         ></layer-menu-button-item>
         <layer-menu-button-item
-          :class="{ 'enabled': syncMaps }"
-          classes="dual-maps"
-          v-show="dualMaps"
-          :callback="toggleSyncMaps"
-          text="Link maps"
-        ></layer-menu-button-item>
-        <layer-menu-button-item
           v-for="(button, index) in buttons"
           :key="index"
           :classes="button.classes"
@@ -69,9 +62,6 @@ export default {
     dualMaps () {
       return this.$store.state.dualMaps
     },
-    syncMaps () {
-      return this.$store.state.syncMaps
-    },
     layerMenuVisibility () {
       return this.$store.state.layerMenuVisibility
     }
@@ -95,14 +85,6 @@ export default {
       this.$store.commit('toggleDualMaps')
       this.$ga.event({
         eventCategory: 'Toggle Dual Maps',
-        eventAction: 'toggle',
-        eventLabel: 'Dual Maps'
-      })
-    },
-    toggleSyncMaps () {
-      this.$store.commit('toggleSyncMaps')
-      this.$ga.event({
-        eventCategory: 'Synchronize dual maps',
         eventAction: 'toggle',
         eventLabel: 'Dual Maps'
       })

@@ -35,7 +35,7 @@ export default {
   mounted () {
     // The DOM needs to be ready before we can reference
     // this.$refs, so this needs to be in a mounted() hook.
-    this.primaryMapObject = this.$refs.map.primaryMapObject
+    this.primaryMapObject = this.$refs.map.$options.leaflet.map
   }
 }
 
