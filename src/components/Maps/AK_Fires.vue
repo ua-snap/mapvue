@@ -13,7 +13,7 @@
     :local-layers="localLayers"
   ></mv-map>
   <sidebar
-    :mapObj="primaryMapObject"
+    :mapObj="map"
     :templateVars="templateVars"
   ></sidebar>
   <tour :tour="tour"></tour>
@@ -48,11 +48,6 @@ var firePolygons
 var fireMarkers
 var fireLayerGroup
 var viirsLayerGroup
-
-var secondFirePolygons
-var secondFireMarkers
-var secondFireLayerGroup
-var secondViirsLayerGroup
 
 // Define the store methods that will be used here
 const fireStore = { // eslint-disable-line no-unused-vars
@@ -111,14 +106,8 @@ export default {
     },
     localLayers () {
       return {
-        'fires': {
-          first: fireLayerGroup,
-          second: secondFireLayerGroup
-        },
-        'viirs': {
-          first: viirsLayerGroup,
-          second: secondViirsLayerGroup
-        }
+        'fires': fireLayerGroup,
+        'viirs': viirsLayerGroup
       }
     },
     // Custom buttons for menu
@@ -433,9 +422,7 @@ export default {
 
     // This will be the container for the fire markers & popups.
     fireLayerGroup = this.$L.layerGroup()
-    secondFireLayerGroup = this.$L.layerGroup()
     viirsLayerGroup = this.$L.layerGroup()
-    secondViirsLayerGroup = this.$L.layerGroup()
   },
   mounted () {
     this.fetchFireData()
@@ -461,7 +448,6 @@ export default {
         }
         let viirsPoints = this.getViirsMarkers(data)
         viirsLayerGroup.addLayer(viirsPoints)
-        secondViirsLayerGroup.addLayer(viirsPoints)
       }
 
       return new Promise((resolve, reject) => {
@@ -510,16 +496,11 @@ export default {
       var processFireData = (data) => {
         firePolygons = this.getGeoJsonLayer(data)
         fireMarkers = this.getFireMarkers(data)
-        secondFirePolygons = this.getGeoJsonLayer(data)
-        secondFireMarkers = this.getFireMarkers(data)
 
         // Add layers to the LayerGroup we're using here.
         fireLayerGroup
           .addLayer(firePolygons)
           .addLayer(fireMarkers)
-        secondFireLayerGroup
-          .addLayer(secondFirePolygons)
-          .addLayer(secondFireMarkers)
       }
 
       return new Promise((resolve, reject) => {
