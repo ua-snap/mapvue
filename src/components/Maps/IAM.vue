@@ -14,7 +14,7 @@
     :crs="crs"
     :mapOptions="mapOptions"
   ></mv-map>
-  <sidebar :mapObj="primaryMapObject"></sidebar>
+  <sidebar :mapObj="map"></sidebar>
   <tour class="tour" :tour="tour"></tour>
   <mv-footer></mv-footer>
 </div>
@@ -47,11 +47,11 @@ export default {
           maxWidth: 600
         }
       ).on('click', (e) => {
-        this.$refs.map.primaryMapObject.setView([
+        this.$refs.map.map.setView([
           e.latlng.lat,
           e.latlng.lng
         ])
-      }).addTo(this.$refs.map.primaryMapObject)
+      }).addTo(this.$refs.map.map)
     })
 
     // Usually-invisible marker that will be
@@ -64,14 +64,14 @@ export default {
       {
         className: 'tour_marker'
       }
-    ).addTo(this.$refs.map.primaryMapObject)
+    ).addTo(this.$refs.map.map)
 
     placeMarker = this.$L.circleMarker(
       this.hotspots[0].latlng,
       {
         className: 'place_marker'
       }
-    ).addTo(this.$refs.map.primaryMapObject)
+    ).addTo(this.$refs.map.map)
   },
   data () {
     return {
@@ -356,7 +356,7 @@ export default {
             this.$store.commit('showOnlyLayers', {
               first: ['iam:comm_subs', 'iam:trans', 'iam:birds']
             })
-            this.primaryMapObject.setView([63.72769765422989, -170.51282701847276], 4)
+            this.map.setView([63.72769765422989, -170.51282701847276], 4)
             this.$ga.event({
               eventCategory: 'Tour Step: Hotspots',
               eventAction: 'show',
@@ -364,7 +364,7 @@ export default {
             })
           },
           hide: () => {
-            this.primaryMapObject.setView([64, -165], 0)
+            this.map.setView([64, -165], 0)
             this.$store.commit('showOnlyLayers', {first: []})
           }
         },
