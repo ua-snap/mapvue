@@ -25,7 +25,7 @@ export default {
     return {
       // Will be specified once the DOM is ready & we have
       // the actual reference to the map object
-      primaryMapObject: undefined
+      map: undefined
     }
   },
   created () {
@@ -35,7 +35,7 @@ export default {
   mounted () {
     // The DOM needs to be ready before we can reference
     // this.$refs, so this needs to be in a mounted() hook.
-    this.primaryMapObject = this.$refs.map.$options.leaflet.map
+    this.map = this.$refs.map.map
   }
 }
 
