@@ -11,7 +11,7 @@
     :crs="crs"
     :mapOptions="mapOptions"
   ></mv-map>
-  <sidebar :mapObj="primaryMapObject"></sidebar>
+  <sidebar :mapObj="map"></sidebar>
   <tour :tour="tour"></tour>
   <mv-footer></mv-footer>
 </div>
@@ -403,7 +403,7 @@ export default {
               first: ['snap_rcp:tas_2010_rcp6'],
               second: ['snap_rcp:tas_2090_rcp6']
             })
-            this.primaryMapObject.setView([68.009, -153.554], 2)
+            this.map.setView([68.009, -153.554], 2)
             this.$ga.event({
               eventCategory: 'Tour Step: Side-by-side maps showing changes in temperature',
               eventAction: 'show',
@@ -430,7 +430,7 @@ export default {
               first: ['snap_rcp:logs_2010_rcp6'],
               second: ['snap_rcp:logs_2090_rcp6']
             })
-            this.primaryMapObject.setView([60.994, -148.69], 2)
+            this.map.setView([60.994, -148.69], 2)
             this.$ga.event({
               eventCategory: 'Tour Step: Side-by-side maps showing changes in growing season length',
               eventAction: 'show',
@@ -454,7 +454,7 @@ export default {
               first: ['snap_rcp:logs_2010_rcp6'],
               second: ['snap_rcp:logs_2090_rcp6']
             })
-            this.primaryMapObject.setView([60.994, -148.69], 2)
+            this.map.setView([60.994, -148.69], 2)
             this.$store.commit('showSidebar', {
               layer: 'snap_rcp:logs_2090_rcp6'
             })
@@ -482,7 +482,7 @@ export default {
         <p class="tour_step_number"><b>(9/9)</b></p>`,
         when: {
           show: () => {
-            this.primaryMapObject.setView([64, -160], 1)
+            this.map.setView([64, -160], 1)
             this.$store.commit('hideDualMaps')
             this.$store.commit('disableSyncMaps')
             this.$store.commit('showLayerMenu')
