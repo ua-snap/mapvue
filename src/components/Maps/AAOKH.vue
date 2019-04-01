@@ -13,7 +13,7 @@
     :mapOptions='mapOptions'
     :local-layers="localLayers"
   ></mv-map>
-  <sidebar :mapObj='primaryMapObject'></sidebar>
+  <sidebar :mapObj='map'></sidebar>
   <tour class='tour' :tour='tour'></tour>
   <div id='bottom-center'></div>
   <mv-footer></mv-footer>
@@ -49,9 +49,7 @@ const aaokhStore = { // eslint-disable-line no-unused-vars
 
 // Will have references to DOM objects used in the tour
 var observationLayer // eslint-disable-line no-unused-vars
-var observationLayerRight // eslint-disable-line no-unused-vars
 var ctdLayer // eslint-disable-line no-unused-vars
-var ctdLayerRight // eslint-disable-line no-unused-vars
 
 export default {
   name: 'aaokh',
@@ -71,10 +69,9 @@ export default {
 
     // Adding to $options makes these objects
     // static i.e. non-Vue reactive.
-    this.$options.participatingCommunitiesLeft = this.participating_communities()
-    this.$options.participatingCommunitiesLeft.addTo(this.$refs.map.primaryMapObject)
-    this.$options.participatingCommunitiesRight = this.participating_communities()
-    this.$options.participatingCommunitiesRight.addTo(this.$refs.map.secondaryMapObject)
+    this.$options.participatingCommunities = this.participating_communities()
+    console.log(this.$refs.map.map)
+    this.$options.participatingCommunities.addTo(this.$refs.map.map)
     this.toggleCommunityTooltips() // hide the tooltips to start with
   },
   data () {
@@ -207,6 +204,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
           'abstract': `<p>Electronic CTD (conductivity, temperature and depth) devices can examine water properties to detect how the conductivity and temperature of the water column change relative to depth.  Scientists analyze CTD data make inferences about the occurrence of certain biological processes, such as the growth of algae.</p>
           </p><p>For more information and to access these data, visit the <a href="https://arctic-aok.org/observations/coastal-water-profiles/" target="_blank" target="_blank" rel="noopener">AAOKH Coastal Water Profiles page.</p>`,
           'name': 'ctd',
+          'id': 'ctd',
           'title': 'CTD',
           'legend': false,
           'local': true
@@ -214,6 +212,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
         {
           'abstract': '<p>Synthetic Aperture Radar (SAR) image from Sentinel-1 satellite acquired on May 1, 2017. SAR is an active microwave remote sensing platform, particularly useful in Alaska due to its ability to penetrate clouds and acquire images during the day or night.</p><p>Learn about and access SAR data from the <a target="_blank"  href="https://vertex.daac.asf.alaska.edu">Alaska Satellite Facility</a> data portal.</p>',
           'name': 'aaokh:Sentinel1A_01May2017_overviews_transparent',
+          'id': 'aaokh:Sentinel1A_01May2017_overviews_transparent',
           'title': 'Sentinel-1 SAR image',
           'legend': false
         }
@@ -266,14 +265,8 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
     },
     localLayers () {
       return {
-        'observations': {
-          first: observationLayer,
-          second: observationLayerRight
-        },
-        'ctd': {
-          first: ctdLayer,
-          second: ctdLayerRight
-        }
+        'observations': observationLayer,
+        'ctd': ctdLayer
       }
     },
     tour () {
@@ -315,7 +308,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             this.$store.commit('showOnlyLayers', {
               first: []
             })
-            this.$refs.map.primaryMapObject.setView([65.7835000982029, -170.03220962071967], 1, { animate: false })
+            this.$refs.map.map.setView([65.7835000982029, -170.03220962071967], 1, { animate: false })
           }
         },
         beforeShowPromise: () => {
@@ -342,17 +335,12 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             this.$store.commit('disableSyncMaps')
             this.$store.commit('hideLayerMenu')
             this.$store.commit('showOnlyLayers', {
-              first: ['aaokh:sea_ice_concentration']
-            })
-            this.$store.commit('showOnlyLayers', {
+              first: ['aaokh:sea_ice_concentration'],
               second: ['aaokh:sea_ice_concentration']
             })
 
             // Point Hope
-            this.$refs.map.primaryMapObject.setView([65.77107106796926, -166.41565997885598], 3, { animate: false })
-
-            // Kaktovik
-            this.$refs.map.secondaryMapObject.setView([68.69278629127302, -164.77517269036156], 3, { animate: false })
+            this.$refs.map.map.setView([65.77107106796926, -166.41565997885598], 3, { animate: false })
           },
           hide: () => {
             this.$store.commit('hideDualMaps')
@@ -382,8 +370,8 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
 
             let popup = observationLayer.getLayers()[4].getPopup()
             popup.setLatLng([71.3195, -156.7051])
-            this.$refs.map.primaryMapObject.setView([71.43902096076037, -157.22073662565657], 6, { animate: false })
-            this.$refs.map.primaryMapObject.openPopup(popup)
+            this.$refs.map.map.setView([71.43902096076037, -157.22073662565657], 6, { animate: false })
+            this.$refs.map.map.openPopup(popup)
             setTimeout(() => { resolve() }, 250)
           })
           return p
@@ -401,7 +389,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             this.$store.commit('showOnlyLayers', {
               first: ['aaokh:sea_ice_extent']
             })
-            this.$refs.map.primaryMapObject.setView([65.66768261334428, -170.23812752033535], 1, { animate: false })
+            this.$refs.map.map.setView([65.66768261334428, -170.23812752033535], 1, { animate: false })
           },
           hide: () => {
             this.$store.commit('showOnlyLayers', {
@@ -441,13 +429,13 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             this.$store.commit('showOnlyLayers', {
               first: ['aaokh:barrow_radar']
             })
-            this.$refs.map.primaryMapObject.setView([71.30456041085161, -157.3716677124989], 6, { animate: false })
+            this.$refs.map.map.setView([71.30456041085161, -157.3716677124989], 6, { animate: false })
           },
           hide: () => {
             this.$store.commit('showOnlyLayers', {
               first: []
             })
-            this.$refs.map.primaryMapObject.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
+            this.$refs.map.map.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
           }
         },
         buttons: buttons,
@@ -473,13 +461,13 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             this.$store.commit('toggleLayerVisibility', {
               layer: 'aaokh:aa_whaling_trails'
             })
-            this.$refs.map.primaryMapObject.setView([71.30456041085161, -157.3716677124989], 6, { animate: false })
+            this.$refs.map.map.setView([71.30456041085161, -157.3716677124989], 6, { animate: false })
           },
           hide: () => {
             this.$store.commit('showOnlyLayers', {
               first: []
             })
-            this.$refs.map.primaryMapObject.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
+            this.$refs.map.map.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
           }
         },
         buttons: buttons,
@@ -498,7 +486,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', [])
-            this.$refs.map.primaryMapObject.setView([71.2906, -156.7886], 4, { animate: false })
+            this.$refs.map.map.setView([71.2906, -156.7886], 4, { animate: false })
           }
         },
         buttons: [
@@ -518,10 +506,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
   },
   methods: {
     toggleCommunityTooltips () {
-      this.$options.participatingCommunitiesLeft.eachLayer((layer) => {
-        layer.toggleTooltip()
-      })
-      this.$options.participatingCommunitiesRight.eachLayer((layer) => {
+      this.$options.participatingCommunities.eachLayer((layer) => {
         layer.toggleTooltip()
       })
     },
@@ -555,7 +540,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
         )
       })
       ctdLayer = this.$L.layerGroup(ctdMarkers)
-      ctdLayerRight = this.$L.layerGroup(ctdMarkers)
     },
     setupObservations () {
       var observationPopupTemplate = _.template(`
@@ -602,7 +586,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
       }
 
       observationLayer = getObservationLayer()
-      observationLayerRight = getObservationLayer()
     }
   }
 }
