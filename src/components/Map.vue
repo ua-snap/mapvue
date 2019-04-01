@@ -42,6 +42,9 @@ export default {
         format: 'image/png',
         version: '1.3'
       }, this.baseLayerOptions)
+    },
+    map () {
+      return this.$options.leaflet.map
     }
   },
   mounted () {
@@ -159,7 +162,7 @@ export default {
       } else {
         // Otherwise, fetch the layer from the list
         // of local layers maintained in this map.
-        this.$options.leaflet.layers[layer.id] = this.localLayers[layer.id].first
+        this.$options.leaflet.layers[layer.id] = this.localLayers[layer.id]
       }
     },
     // Reorder & update layer visibility
