@@ -8,6 +8,22 @@
 
 import _ from 'lodash'
 
+var getFilteredLayers = (layers, propertyName) => {
+  return _.filter(layers, layer => {
+    return layer[propertyName]
+  })
+}
+
+// Helper to filter layers
+var getFilteredLayerObjects = (layers, layerObjs, propertyName) => {
+  let filteredLayers = getFilteredLayers(layers, propertyName)
+  return _.map(filteredLayers, layerProps => {
+    return _.find(layerObjs, layerObj => {
+      return layerObj.options.id === layerProps.id
+    })
+  })
+}
+
 export default {
   name: 'mv-map',
   props: [
@@ -107,24 +123,11 @@ export default {
     // Filter layers by left/right side of map visibility,
     // Add or remove the split map control.
     updateSideBySideMap () {
-      // Helper to filter layers
-      var getFilteredLayerList = (propertyName) => {
-        let layers = _.filter(this.layers, layer => {
-          return layer[propertyName]
-        })
-
-        return _.map(layers, layerProps => {
-          return _.find(this.$options.leaflet.layers, layerObj => {
-            return layerObj.options.id === layerProps.id
-          })
-        })
-      }
-
       // Only set layers if we're in split map mode and the
       // control is initialized.
       if (this.dualMaps === true && this.$options.leaflet.sideBySideControl) {
-        let left = getFilteredLayerList('visible')
-        let right = getFilteredLayerList('secondVisible')
+        let left = getFilteredLayerObjects(this.layers, this.$options.leaflet.layers, 'visible')
+        let right = getFilteredLayerObjects(this.layers, this.$options.leaflet.layers, 'secondVisible')
         this.$options.leaflet.sideBySideControl.setLeftLayers(left)
         this.$options.leaflet.sideBySideControl.setRightLayers(right)
       }
@@ -216,7 +219,15 @@ export default {
         // have the highest z-index
         this.$options.leaflet.layers[layer.id].setZIndex(100 - index)
 
-        toggleLayerVisibility(layer.visible || layer.secondVisible, this.$options.leaflet.map, this.$options.leaflet.layers[layer.id])
+        // The layer is visible (added to Leaflet map) if:
+        // single map mode -- 'visible' flag set
+        // dual map mode -- 'visible' or 'secondVisible' flag set
+        let layerVisibility = this.dualMaps
+          ? layer.visible || layer.secondVisible // dual maps, either side...
+          : layer.visible // single map, left side only.
+
+        console.log('toggling', layer.id, layerVisibility)
+        toggleLayerVisibility(layerVisibility, this.$options.leaflet.map, this.$options.leaflet.layers[layer.id])
       })
 
       this.updateSideBySideMap()
