@@ -84,6 +84,13 @@ export default {
     }
   },
   methods: {
+    // Returns the Leaflet object corresponding to the
+    // requested layer ID, or, undefined if not present
+    findLayerById (id) {
+      return _.find(this.$options.leaflet.layers, layerObj => {
+        return layerObj.options.id === id
+      })
+    },
     // Enable/disable side-by-side map.
     toggleSideBySideMap () {
       if (this.dualMaps === true) {
@@ -131,10 +138,12 @@ export default {
       })
     },
     // Adds WMS layer, removing a prior layer if present.
+    // Some of these properties are assigned in the vue store,
+    // like layer.time and layer.wms.
     addWmsLayer (layer) {
       let layerConfiguration = _.extend(this.wmsLayerOptions,
         {
-          layers: [layer.wms],
+          layers: layer.wms,
           styles: layer.styles ? layer.styles : '',
           id: layer.id
         }
@@ -166,9 +175,7 @@ export default {
       }
     },
     // Reorder & update layer visibility
-    // REFACTOR We should split this into 3 parts,
-    // managing the smallest amount of change possible -- this
-    // sort of rebuilds the whole map.
+    // TODO: issue #134, consider if we can only update what's changed here.
     refreshLayers (layers) {
       layers = layers || this.layers
 
@@ -183,16 +190,26 @@ export default {
 
       // Refresh map layer contents and visibility
       _.each(layers, (layer, index) => {
-        // TBD -- this should only update the specific layer that changed
-        // REFACTOR BEFORE MERGE TO MASTER
         if (_.isFunction(layer.wmsLayerName)) {
-          // This is really forcing a reload of a specific layer to
-          // get an updated WMS endpoint.  Just changing the properties and
-          // calling redraw() didn't seem to work, unsure why -- this should
-          // be tested and fixed before final merge.  Placeholder code!
-          // TODO fix this
-          // REFACTOR
-          this.addWmsLayer(layer)
+          // Update layer parameters
+          let layerObj = this.findLayerById(layer.id)
+          if (layerObj) {
+            let newParams = {
+              layers: layer.wms
+            }
+
+            if (layer.styles) {
+              _.extend(newParams, { styles: layer.styles })
+            }
+
+            if (layer.time) {
+              _.extend(newParams, { time: layer.time })
+            }
+
+            // This will re-request tiles in case any of the params
+            // are different.
+            layerObj.setParams(newParams)
+          }
         }
 
         // Explicitly order the list so that topmost layers
