@@ -173,7 +173,7 @@ export default {
       tour.addStep({
         title: 'Fires in History',
         attachTo: '#top_item right',
-        text: 'This layer shows all mapped fire perimeters from 1940 to 2017. It can be interesting to look for areas of repeated burn, or where a fire is burning today compared to older fire scars.',
+        text: 'This layer shows all mapped fire perimeters from 1940 to 2018. It can be interesting to look for areas of repeated burn, or where a fire is burning today compared to older fire scars.',
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
@@ -319,7 +319,7 @@ export default {
         {
           'id': 'fires',
           'wmsLayerName': 'fires',
-          'title': '2018 Wildfires',
+          'title': '2019 Wildfires',
           'local': true,
           'legend': false,
           'visible': true,
@@ -377,9 +377,9 @@ export default {
           <table class="alaska-wildfires-legend historical-fire-perimeters">
             <tr><td><div class="h-40-69"></div></td><td>1940&mdash;1969</td></tr>
             <tr><td><div class="h-70-99"></div></td><td>1970&mdash;1999</td></tr>
-            <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2017</td></tr>
+            <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2018</td></tr>
           </table>
-          <p>This layer shows historical fire perimeters from 1940&mdash;2017. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank" rel="noopener">AICC</a>.</p>`,
+          <p>This layer shows historical fire perimeters from 1940&mdash;2018. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank" rel="noopener">AICC</a>.</p>`,
           'id': 'historical_fire_perimiters',
           'wmsLayerName': 'historical_fire_perimiters',
           'title': 'All Historical Fires',
