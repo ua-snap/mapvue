@@ -116,9 +116,9 @@ export default {
         // Only remove if it's already been added.
         if (this.$options.leaflet.sideBySideControl) {
           this.$options.leaflet.sideBySideControl.remove()
-          this.refreshLayers()
         }
       }
+      this.refreshLayers()
     },
     // Filter layers by left/right side of map visibility,
     // Add or remove the split map control.
