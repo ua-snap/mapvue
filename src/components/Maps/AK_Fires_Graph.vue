@@ -2,9 +2,7 @@
 <div class="graph-screen" v-show="visible">
   <div>
     <div class="graph-content">
-      <button type="button" @click="hideGraph()" class="close" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+      <button @click="hideGraph()">&times;</button>
       <div ref="plotly"></div>
       <p>This graph compares the current year to all of the years when more than 1 million acres burned since daily tally records began in 2004.<br/>Source: <a target="_blank" rel="noopener" href="https://fire.ak.blm.gov/">Alaska Interagency Coordination Center (AICC)</a>.</p>
     </div>
@@ -188,13 +186,6 @@ export default {
     .graph-content {
       background-color: rgba(255, 255, 255, 1.0);
       padding: 1em 2em;
-    }
-
-    button {
-      position: relative;
-      top: -1.5em;
-      right: -1.75em;
-      font-size: 25pt;
     }
   }
 }
