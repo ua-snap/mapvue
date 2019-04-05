@@ -187,6 +187,10 @@ export default {
       background-color: rgba(255, 255, 255, 1.0);
       padding: 1em 2em;
     }
+
+    button {
+      font-size: 150%;
+    }
   }
 }
 </style>
