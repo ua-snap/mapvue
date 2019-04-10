@@ -476,7 +476,7 @@ export default {
         <p>We hope this tour has shown how SNAP data fits into the larger contexts of climate modeling. Data visualizations such as this interactive map help show the impacts that a changing climate may have on all Alaska species — including ourselves — and form an important starting point for discussions about how to respond and adapt to a new Alaska.</p>
         <p><b>Download our data</b></p>
         <ul><li>Download our data <a href="https://www.snap.uaf.edu/tools/data-downloads" target="_blank">here</a></li>
-        <li>Need data for a specific community? Try our <a href="https://www.snap.uaf.edu/sites/all/modules/snap_community_charts/charts.php" target="_blank">Community Charts Tool</a>.</li>
+        <li>Need data for a specific community? Try our <a href="https://www.snap.uaf.edu/tools/community-charts" target="_blank">Community Charts Tool</a>.</li>
         <li>Need a spatial subset of data for your area of interest? <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon" target="_blank">This R script</a> can be adapted to subset a timeseries of this dataset for a region specified by a shapefile, producing CSV output that can the be graphed or visualized in other ways.</li></ul>
         <p>If you have feedback, we’d love to hear from you — <a href="mailto:uaf-mapventure@alaska.edu">please contact us.</a></p>
         <p class="tour_step_number"><b>(9/9)</b></p>`,
@@ -513,7 +513,7 @@ export default {
   },
   methods: {
     openCommCharts () {
-      window.open('https://www.snap.uaf.edu/sites/all/modules/snap_community_charts/charts.php', '_blank')
+      window.open('https://www.snap.uaf.edu/tools/community-charts', '_blank')
     },
     openDownloadData () {
       window.open('https://www.snap.uaf.edu/tools/data-downloads', '_blank')
