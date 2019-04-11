@@ -70,7 +70,6 @@ export default {
     // Adding to $options makes these objects
     // static i.e. non-Vue reactive.
     this.$options.participatingCommunities = this.participating_communities()
-    console.log(this.$refs.map.map)
     this.$options.participatingCommunities.addTo(this.$refs.map.map)
     this.toggleCommunityTooltips() // hide the tooltips to start with
   },

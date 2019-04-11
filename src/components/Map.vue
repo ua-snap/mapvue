@@ -226,7 +226,6 @@ export default {
           ? layer.visible || layer.secondVisible // dual maps, either side...
           : layer.visible // single map, left side only.
 
-        console.log('toggling', layer.id, layerVisibility)
         toggleLayerVisibility(layerVisibility, this.$options.leaflet.map, this.$options.leaflet.layers[layer.id])
       })
 
