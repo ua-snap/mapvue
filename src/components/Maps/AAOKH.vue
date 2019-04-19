@@ -108,10 +108,10 @@ export default {
         })
         return this.$L.layerGroup(communities)
       },
-      title: 'Alaska Arctic Observatory &amp; Knowledge Hub',
+      title: 'Alaska Arctic Observatory &amp; Knowledge Hub (AAOKH)',
       abstract: `
-<h1>Alaska Arctic Observatory &amp; Knowledge Hub</h1>
-<p><strong>The Alaska Arctic Observatory and Knowledge Hub</strong> (AAOKH) facilitates the sharing of sea ice conditions in combination with observations collected by members of coastal communities in the context of a changing seasonal cycle. This approach can help track environmental change from a community perspective. The tour below will give you a idea of the types of curated data AAOKH helps to share and make accessible.
+<h1>Alaska Arctic Observatory &amp; Knowledge Hub (AAOKH)</h1>
+<p>We track environmental change from a community perspective by aiding the sharing of sea ice conditions and local observations, which are growing in importance as seasonal cycles change. Take our short tour to learn about the data we help provide.
 </p>
 `,
       mapOptions: {
@@ -210,7 +210,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
         },
         {
           'abstract': '<p>Synthetic Aperture Radar (SAR) image from Sentinel-1 satellite acquired on May 1, 2017. SAR is an active microwave remote sensing platform, particularly useful in Alaska due to its ability to penetrate clouds and acquire images during the day or night.</p><p>Learn about and access SAR data from the <a target="_blank"  href="https://vertex.daac.asf.alaska.edu">Alaska Satellite Facility</a> data portal.</p>',
-          'name': 'aaokh:Sentinel1A_01May2017_overviews_transparent',
+          'wmsLayerName': 'aaokh:Sentinel1A_01May2017_overviews_transparent',
           'id': 'aaokh:Sentinel1A_01May2017_overviews_transparent',
           'title': 'Sentinel-1 SAR image',
           'legend': false
@@ -294,7 +294,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
         }
       ]
 
-      // 1. participating communities
       tour.addStep({
         title: 'Participating communities',
         attachTo: '#top_item right',
@@ -322,37 +321,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
         }
       })
 
-      // 2. comparing changes
-      tour.addStep({
-        title: 'Compare data between places',
-        text: `<p>See larger-scale data for all communities participating in the AAOKH project. In this split-map view showing Wales (left) and Point Lay (right), community members can see how ice conditions compare at other locations.</p>`,
-        classes: 'shepherd-theme-square-dark adjust-tour-panel',
-        buttons: buttons,
-        when: {
-          show: () => {
-            this.$store.commit('showDualMaps')
-            this.$store.commit('disableSyncMaps')
-            this.$store.commit('hideLayerMenu')
-            this.$store.commit('showOnlyLayers', {
-              first: ['aaokh:sea_ice_concentration'],
-              second: ['aaokh:sea_ice_concentration']
-            })
-
-            // Point Hope
-            this.$refs.map.map.setView([65.77107106796926, -166.41565997885598], 3, { animate: false })
-          },
-          hide: () => {
-            this.$store.commit('hideDualMaps')
-            this.$store.commit('showLayerMenu')
-            this.$store.commit('showOnlyLayers', {
-              first: [],
-              second: []
-            })
-          }
-        }
-      })
-
-      // 3. Participate in research
       tour.addStep({
         title: 'Actively participate in research',
         attachTo: 'div.leaflet-popup-content-wrapper right',
@@ -458,7 +426,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             })
             // Hack to ensure the whale trail is on top
             this.$store.commit('toggleLayerVisibility', {
-              layer: 'aaokh:aa_whaling_trails'
+              id: 'aaokh:aa_whaling_trails'
             })
             this.$refs.map.map.setView([71.30456041085161, -157.3716677124989], 6, { animate: false })
           },
@@ -479,8 +447,8 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
 
       tour.addStep({
         title: 'Get involved!',
-        text: `<p>There are many ways to contribute to the Alaska Arctic Observatory & Knowledge Hub. Anyone in coastal communities can provide an observation of coastal conditions or wildlife. We hire new observers, support youth and outreach activities, and are guided by a Steering Group of community representatives and scientists. Learn more on <a href="https://arctic-aok.org">our website</a>.
-        </p><p><a class="get-involved" target="_blank" href="https://arctic-aok.org/get-involved/" rel="noopener" role="button">Get involved!</a>`,
+        text: `<p>There are many ways to contribute to the Alaska Arctic Observatory & Knowledge Hub. Anyone in coastal communities can provide an observation of coastal conditions or wildlife. We hire new observers, support youth and outreach activities, and are guided by a Steering Group of community representatives and scientists. Learn more on <a href="https://arctic-aok.org/get-involved/" target="_blank" rel="noopener">our website</a>.
+        </p>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
