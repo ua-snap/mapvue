@@ -28,6 +28,7 @@ import Tour from '../Tour'
 // Will have references to DOM objects used in the tour
 var tourMarker // eslint-disable-line no-unused-vars
 var placeMarker // eslint-disable-line no-unused-vars
+var extentMarker // eslint-disable-line no-unused-vars
 
 export default {
   name: 'IAM',
@@ -72,6 +73,16 @@ export default {
         className: 'place_marker'
       }
     ).addTo(this.$refs.map.map)
+
+    extentMarker = this.$L.circleMarker(
+      [
+        65,
+        -175
+      ],
+      {
+        className: 'extent_marker'
+      }
+    ).addTo(this.$refs.map.map)
   },
   data () {
     return {
@@ -95,9 +106,7 @@ export default {
       title: 'Integrated Arctic Management',
       abstract: `
 <h1>What areas of the Arctic are &ldquo;important&rdquo;?</h1>
-<p>One challenge that managers and policy makers often face is the conflict of interests among groups. This was evident when the <a target="_blank" href="https://www.snap.uaf.edu" rel="noopener">Scenarios Network for Alaska and Arctic Planning</a> was asked to identify specific geographic &ldquo;areas of environmental, economic, and cultural importance&rdquo; in Arctic Alaska for a 2013 report to the President of the United states on <a target="_blank" href="https://www.afsc.noaa.gov/publications/misc_pdf/iamreport.pdf" rel="noopener">Integrated Arctic Management</a> (IAM).
-</p>
-<p>While many groups have an answer to this question, the answer depends on the perspective and interests of the group. As a proof of concept, SNAP took an objective approach to identifying important areas by displaying existing geospatial datasets that fit into the environmental, economic, and cultural categories to see where they overlap. Based upon available data, this can illustrate the relative importance of those areas, identify potential areas of conflict, and highlight gaps in Arctic geospatial data.
+<p>The meaning of “important” depends on the perspective and interests of a group. This <a target="_blank" href="https://www.afsc.noaa.gov/publications/misc_pdf/iamreport.pdf" rel="noopener">Integrated Arctic Management (IAM)</a> map displays existing geospatial datasets that fit into various environmental, economic, and cultural categories to see where they overlap. This approach illustrates the relative importance of those areas, identifies potential areas of conflict, and highlights gaps in Arctic geospatial data.
 </p>
 <p class="photo-credit">UAF Photo by Todd Paris</p>
 `,
@@ -246,8 +255,8 @@ export default {
       tour.addStep({
         title: 'The IAM study area',
         text: `
-        <p>The IAM study area covers a subset of the northern Arctic within US jurisdiction. The Bering Strait region and the Chukchi and Beaufort seas are characterized by diminishing seasonal sea ice and are thus vulnerable to significant changes. This tool allows you to explore some of the environmental, economic, and cultural geospatial data available in the study area.</p>
-        <p>Areas with overlapping datasets highlight zones of overlapping, and potentially competing, interests or concerns.</p>`,
+        <p>The Bering Strait region, Chukchi Sea, and Beaufort Sea are experiencing diminishing seasonal sea ice and are thus vulnerable to significant changes. Use this tool to explore some of the environmental, economic, and cultural geospatial data available in this region. Areas with overlapping datasets highlight zones of overlapping—and potentially competing—interests or concerns.</p>`,
+        attachTo: '.extent_marker left',
         classes: 'shepherd-theme-square-dark',
         when: {
           show: () => {
@@ -266,7 +275,7 @@ export default {
       })
       tour.addStep({
         title: 'What does this map show?',
-        attachTo: '#layer-list right',
+        attachTo: '.layer-list right',
         text: `
         <p>Each layer contains multiple datasets grouped by:</p>
         <h4>Environmental</h4>
@@ -380,8 +389,8 @@ export default {
         ]
       })
       tour.addStep({
-        title: 'End of tour!',
-        text: `Thanks for checking out the IAM map! Tools like this help to visualize the impact our development can have on a variety of species in Alaska, which represents an important talking point for decision makers and citizens alike.<p><p> If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
+        title: 'Thanks for checking out the IAM map!',
+        text: `This map helps show the impacts that development can have on Alaska’s plants, animals, and ecosystems, and provides a common point of discussion for everyone concerned.  Please <a href="mailto:uaf-mapventure@alaska.edu">contact us</a> with any feedback.`,
         when: {
           show: () => {
             this.$ga.event({
@@ -423,7 +432,7 @@ div /deep/ .leaflet-popup-content-wrapper {
     font-size: 10pt;
   }
 }
-div /deep/ .tour_marker, div /deep/ .place_marker {
+div /deep/ .tour_marker, div /deep/ .place_marker, div /deep/ .extent_marker {
   visibility: hidden;
 }
 // The `/deep/` syntax allows for modifying
@@ -457,6 +466,12 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
   }
   h4 {
     color: #efefef;
+    margin: 0.6em 0 0;
+    padding: 0;
+  }
+  li {
+    margin: 0;
+    padding: 0;
   }
 }
 
