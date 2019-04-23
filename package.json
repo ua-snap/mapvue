@@ -66,6 +66,7 @@
     "opn": "^5.4.0",
     "optimize-css-assets-webpack-plugin": "^2.0.0",
     "ora": "^1.4.0",
+    "prettier": "^1.7.1",
     "rimraf": "^2.6.3",
     "sass-loader": "^6.0.7",
     "selenium-server": "^3.141.59",
