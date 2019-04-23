@@ -857,17 +857,20 @@ table.alaska-wildfires-legend.big-fire-years {
   h1 {
     font-size: 16pt;
     color: #322323;
-    margin: 1rem 0 .5rem;
+    margin: .5rem 0 .25rem;
+    padding: 0;
   }
 
   h2 {
     font-size: 1rem;
     margin: .5rem 0;
+    padding: 0;
   }
 
   h3 {
     font-size: .75rem;
     margin-bottom: 0;
+    padding: 0;
 
     &.discovered {
       margin-top: 0;
