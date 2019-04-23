@@ -38,39 +38,7 @@ body {
   padding: .5ex;
 }
 
-// Needs to be in global scope because the Shepherd
-// library writes the DOM outside of the scope of the
-// Map component.
-.shepherd-content {
-  border-radius: 5px !important;
-}
-
-.adjust-tour-panel {
-  top: 14px !important;
-  left: 10px !important;
-}
-
-.adjust-for-images {
-  max-width: 750px !important;
-  max-height: 700px !important;
-}
-
-.shepherd-content header {
-  h3, a {
-    color: rgba(255, 255, 255, 1) !important;
-    opacity: 1 !important;
-  }
-  border-top-left-radius: 5px !important;
-  border-top-right-radius: 5px !important;
-}
-.shepherd-text p {
-  font-weight: 300;
-}
-.tour-wide {
-  color: red !important;
-  min-width: 40em !important;
-}
-
+/* Override zebra table from Picnic */
 tr:nth-child(even) {
   background: transparent;
 }

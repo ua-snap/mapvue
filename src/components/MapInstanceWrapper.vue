@@ -16,7 +16,7 @@ import leaflet_side_by_side from 'leaflet-side-by-side' // eslint-disable-line
 import shepherd from 'shepherd.js'
 import moment from 'moment'
 import 'leaflet/dist/leaflet.css'
-import 'shepherd.js/dist/css/shepherd-theme-square-dark.css'
+import '@/shepherd.css'
 
 // Polyfill needed for IE11 to work properly with Axios.
 require('es6-promise').polyfill()
