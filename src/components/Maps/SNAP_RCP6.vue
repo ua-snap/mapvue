@@ -268,7 +268,7 @@ export default {
         <p>SNAP <b>downscales</b> GCM climate data to “zoom in” and generate regionally relevant data at higher resolutions. Here, notice how the large-scale GCM data (L) have been converted to a scale that makes more sense for Alaska (R).</p>
         <p><b>Representative and Extended Concentration Pathways (RCPs and ECPs)</b> describe possible future climates based on atmospheric greenhouse gas concentrations. RCPs (projections to 2100) and ECPs (projections beyond 2100) provide a basis for comparison and a “common language” for modelers to share their work.</p>
         <p>This tool uses an RCP value of 6.0, which assumes that greenhouse gas emissions peak in 2080 and then decline.</p>
-        <h2>Learn more</h2>
+        <p><b>Learn more</b></p>
         <ul>
   <li>
     <a href="https://www.snap.uaf.edu/methods/models">SNAP&rsquo;s model selection process </a>
@@ -305,7 +305,7 @@ export default {
       })
       tour.addStep({
         title: 'Climate Data Example 1: Changes in temperature for the 2010s (L) and 2090s (R)',
-        text: `<p>This is a decadal average of mean annual temperature for the 2010s and 2090s. Viewed side-by-side with the same color scale, it’s apparent that mean annual temperature is projected to increase.  </p>
+        text: `<p>This background shows a decadal average of mean annual temperature for the 2010s and 2090s. Viewed side-by-side with the same color scale, it’s apparent that mean annual temperature is projected to increase.  </p>
 <p><b>The shift is most notable in northern Alaska</b>:  See how the colors transition to lighter shades of blue or to red, denoting warmer temperatures. </p>
 <p><b>What do the colors mean?</b> Use the ⓘ Info button by the name of each layer to see more details and a legend. </p>`,
         classes: 'shepherd-theme-square-dark adjust-for-images',
@@ -353,12 +353,13 @@ export default {
         }
       })
       tour.addStep({
-        title: 'Use our Community Charts tool to see temperature and precipitation projections for hundreds of communities across Alaska and Canada.',
+        title: 'Use our Community Charts tool (left) to see temperature and precipitation projections for communities across Alaska and Canada',
         text: `
-        <p>Browse and download all SNAP data <a href="https://www.snap.uaf.edu/tools/data-downloads">here</a></p>
+        <p>Browse and download SNAP data <a href="https://www.snap.uaf.edu/tools/data-downloads">here</a></p>
 
-<p>Need a spatial subset of data? <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon">This R script</a> can be adapted to subset a time series of this dataset for a region specified by a shapefile, producing CSV output that can then be graphed or visualized in other ways.</p>
-<p>Thanks for your time! SNAP uses data visualizations like these to help show the impacts that a changing climate may have on Alaska—and foster discussions about how to respond and adapt. <a href="mailto:nlfresco@alaska.edu">Please contact us</a> with questions or feedback.</p>`,
+<p><b>Need a spatial subset of data?</b> <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon">This R script</a> can be adapted to subset a time series of this dataset for a region specified by a shapefile, producing CSV output that can then be graphed or visualized in other ways.</p>
+
+<p><b>Thanks for your time!</b> <a href="mailto:nlfresco@alaska.edu">Please contact us</a> with questions or feedback.</p>`,
         classes: 'shepherd-theme-square-dark',
         buttons: buttons,
         when: {
