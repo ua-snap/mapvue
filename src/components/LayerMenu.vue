@@ -19,6 +19,7 @@
         <layer-menu-button-item
           v-for="(button, index) in buttons"
           :key="index"
+          :id="button.id"
           :classes="button.classes"
           :callback="button.callback"
           :text="button.text"
