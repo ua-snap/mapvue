@@ -266,7 +266,7 @@ export default {
         text: `
         <p><b>A Global Climate Model (GCM)</b> is a type of General Circulation Model that focuses on projections of climate change by simulating how Earth’s physical processes respond to increasing greenhouse gas concentrations. <a href="https://www.snap.uaf.edu/methods/models" target="_blank">SNAP projections use 5 GCMs that perform best in the Arctic</a>, as well as a 5-model average.</p>
         <img class="downscaling" src="static/downscale-background_optim.jpg"/>
-        <p>SNAP <a href="https://www.snap.uaf.edu/methods/downscaling" target="_blank"><b>downscales</b></a> GCM climate data to “zoom in” and generate regionally relevant data at higher resolutions. Here, notice how the large-scale GCM data (L) have been converted to a scale that makes more sense for Alaska (R).</p>
+        <p>SNAP <a href="https://www.snap.uaf.edu/methods/downscaling" target="_blank"><b>downscales</b></a> GCM climate data to “zoom in” and generate regionally relevant data at higher resolutions. Here, notice how the coarser, global-scale GCM data (L) have been converted to a more detailed scale that makes better sense for Alaska (R).</p>
         <p><a target="_blank" href="https://www.cicero.oslo.no/en/posts/news/a-guide-to-representative-concentration-pathways"><b>Representative and Extended Concentration Pathways (RCPs and ECPs)</b></a> describe possible future climates based on atmospheric greenhouse gas concentrations. RCPs (projections to 2100) and ECPs (projections beyond 2100) provide a <a href="http://www.pik-potsdam.de/~mmalte/rcps/" target="_blank">basis for comparison and a “common language”</a> for modelers to share their work.</p>`,
         classes: 'downscaling-image',
         buttons: [{
