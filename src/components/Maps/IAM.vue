@@ -106,9 +106,9 @@ export default {
       title: 'Integrated Arctic Management',
       abstract: `
 <h1>What areas of the Arctic are &ldquo;important&rdquo;?</h1>
-<p>The meaning of “important” depends on the perspective and interests of a group. This <a target="_blank" href="https://www.afsc.noaa.gov/publications/misc_pdf/iamreport.pdf" rel="noopener">Integrated Arctic Management (IAM)</a> map displays existing geospatial datasets that fit into various environmental, economic, and cultural categories to see where they overlap. This approach illustrates the relative importance of those areas, identifies potential areas of conflict, and highlights gaps in Arctic geospatial data.
+<p>The meaning of “important” depends on the perspective and interests of a group. This Integrated Arctic Management map displays geospatial datasets from various environmental, economic, and cultural categories to see where they overlap. This approach illustrates the relative importance of those areas, identifies potential areas of conflict, and highlights gaps in Arctic geospatial data.
 </p>
-<p class="photo-credit">UAF Photo by Todd Paris</p>
+<p class="photo-credit">UAF Photo by JR Ancheta</p>
 `,
       mapOptions: {
         zoom: 0,
@@ -264,8 +264,8 @@ export default {
       ]
       tour.addStep({
         title: 'The IAM study area',
-        text: `
-        <p>The Bering Strait region, Chukchi Sea, and Beaufort Sea are experiencing diminishing seasonal sea ice and are thus vulnerable to significant changes. Use this tool to explore some of the environmental, economic, and cultural geospatial data available in this region. Areas with overlapping datasets highlight zones of overlapping—and potentially competing—interests or concerns.</p>`,
+        text: `<p>The Bering Strait region, Chukchi Sea, and Beaufort Sea are experiencing diminishing seasonal sea ice and are thus vulnerable to significant changes. Here, you can explore some of the environmental, economic, and cultural geospatial data available in this region.</p>
+        <p>Areas with overlapping datasets highlight zones of overlapping—and potentially competing—interests or concerns.</p>`,
         attachTo: '.extent_marker left',
         classes: 'shepherd-theme-square-dark',
         when: {
@@ -302,9 +302,9 @@ export default {
         buttons: buttons
       })
       tour.addStep({
-        title: 'Information about the datasets',
+        title: 'About the datasets',
         attachTo: '.iam-dataset-info right',
-        text: `Click this button to see a list of all included datasets. This provides a short description of the dataset and shows where to get more information.`,
+        text: `See a list of all included datasets and where to get more information.`,
         classes: 'shepherd-theme-square-dark',
         when: {
           show: () => {
@@ -320,7 +320,7 @@ export default {
       tour.addStep({
         title: 'Overlapping areas',
         attachTo: '.tour_marker bottom',
-        text: `Datasets are semi-transparent. The more datasets that overlap, the darker the area.`,
+        text: `Datasets are semi-transparent. Darker areas indicate more overlapping datasets.`,
         classes: 'shepherd-theme-square-dark',
         when: {
           show: () => {
@@ -340,32 +340,8 @@ export default {
         buttons: buttons
       })
       tour.addStep({
-        title: 'Hotspots',
-        attachTo: '.place_marker right',
-        text: `We identified &ldquo;hot spots&rdquo; as locations with the greatest number of overlapping environmental, economic, and cultural datasets. Three example hot spots are shown on the map. Selecting a marker lists the datasets at that location.`,
-        classes: 'shepherd-theme-square-dark',
-        when: {
-          show: () => {
-            this.$store.commit('showOnlyLayers', {
-              first: ['iam:comm_subs', 'iam:trans', 'iam:birds']
-            })
-            this.map.setView([63.72769765422989, -170.51282701847276], 4)
-            this.$ga.event({
-              eventCategory: 'Tour Step: Hotspots',
-              eventAction: 'show',
-              eventLabel: 'IAM Tour'
-            })
-          },
-          hide: () => {
-            this.map.setView([64, -165], 0)
-            this.$store.commit('showOnlyLayers', {first: []})
-          }
-        },
-        buttons: buttons
-      })
-      tour.addStep({
-        title: 'Thanks for checking out the IAM map!',
-        text: `This map helps show the impacts that development can have on Alaska’s plants, animals, and ecosystems, and provides a common point of discussion for everyone concerned.  Please <a href="mailto:uaf-mapventure@alaska.edu">contact us</a> with any feedback.`,
+        title: 'Thanks for your time',
+        text: `This map helps show the impacts that development can have on Alaska’s plants, animals, and ecosystems, and provides a common point of discussion for everyone concerned.  Please <a href="mailto:uaf-mapventure@alaska.edu">contact us</a> with feedback.`,
         when: {
           show: () => {
             this.$ga.event({
@@ -415,10 +391,10 @@ div /deep/ .tour_marker, div /deep/ .place_marker, div /deep/ .extent_marker {
 // https://vue-loader.vuejs.org/en/features/scoped-css.html
 .splash-screen /deep/ .billboard {
   max-width: 933px;
-  background: url("~@/assets/uaf-todd-paris-iam.jpg") white top left / cover no-repeat;
+  background: url("~@/assets/kotzebue_jrancheta.jpg") white top left / cover no-repeat;
   h1 {
     color: #ffffee;
-    padding-top: 2em; // A little extra to position correctly on photo
+    padding-top: 1em; // A little extra to position correctly on photo
   }
   p {
     font-size: 14pt;
