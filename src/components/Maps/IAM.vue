@@ -252,6 +252,16 @@ export default {
           showCancelLink: true
         }
       })
+      let buttons = [
+        {
+          text: 'Back',
+          action: tour.back
+        },
+        {
+          text: 'Next',
+          action: tour.next
+        }
+      ]
       tour.addStep({
         title: 'The IAM study area',
         text: `
@@ -271,7 +281,8 @@ export default {
               eventLabel: 'IAM Tour'
             })
           }
-        }
+        },
+        buttons: buttons
       })
       tour.addStep({
         title: 'What does this map show?',
@@ -288,16 +299,7 @@ export default {
         when: {
           show: () => {}
         },
-        buttons: [
-          {
-            text: 'Back',
-            action: tour.back
-          },
-          {
-            text: 'Next',
-            action: tour.next
-          }
-        ]
+        buttons: buttons
       })
       tour.addStep({
         title: 'Information about the datasets',
@@ -313,16 +315,7 @@ export default {
             })
           }
         },
-        buttons: [
-          {
-            text: 'Back',
-            action: tour.back
-          },
-          {
-            text: 'Next',
-            action: tour.next
-          }
-        ]
+        buttons: buttons
       })
       tour.addStep({
         title: 'Overlapping areas',
@@ -344,16 +337,7 @@ export default {
             this.$store.commit('showOnlyLayers', {first: []})
           }
         },
-        buttons: [
-          {
-            text: 'Back',
-            action: tour.back
-          },
-          {
-            text: 'Next',
-            action: tour.next
-          }
-        ]
+        buttons: buttons
       })
       tour.addStep({
         title: 'Hotspots',
@@ -377,16 +361,7 @@ export default {
             this.$store.commit('showOnlyLayers', {first: []})
           }
         },
-        buttons: [
-          {
-            text: 'Back',
-            action: tour.back
-          },
-          {
-            text: 'Next',
-            action: tour.next
-          }
-        ]
+        buttons: buttons
       })
       tour.addStep({
         title: 'Thanks for checking out the IAM map!',
