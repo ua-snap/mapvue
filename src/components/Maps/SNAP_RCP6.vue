@@ -38,17 +38,16 @@ export default {
   data () {
     return {
       title: 'SNAP Data for a Changing Climate',
-      abstract: `<h1>SNAP Data for a Changing Climate</h1><div class="abstractWrapper">
-      <h2>Take our short (less than 10 minute) tour and learn:</h1>
-      <li class="top">Basic terms used in climate modeling, including Global Climate Models, downscaling, Representative and Extended Concentration Pathways</li>
-      <li class="middle">Example SNAP climate data visualizations for temperature and length of growing season, and how they are useful for making meaningful projections of climate in Alaska</li>
-      <li class="middle">Links to more information</li>
-      <li class="bottom">How to download SNAP data for your own work</li>`,
+      abstract: `
+<h1>SNAP Data for a Changing Climate</h1>
+<div class="abstractWrapper">
+  <p>This map showcases some popular climate projection data from the Scenarios Network for Alaska + Arctic Planning group at the University of Alaska, Fairbanks.  A short tour of the map introduces basic terms used in climate modeling, including Global Climate Models, downscaling, and Representative/Extended Concentration Pathways.  The interactive map lets you explore temperature and length of growing season data from three different climate scenarios for 2010&mdash;2090.</p>
+`,
       mapOptions: {
         zoom: 0,
         minZoom: 0,
         maxZoom: 5,
-        center: [62, -135]
+        center: [62.94840214681834, -149.7961770609005]
       },
       baseLayerOptions: {
         transparent: true,
