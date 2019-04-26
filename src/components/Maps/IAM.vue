@@ -248,10 +248,10 @@ export default {
       let tour
       tour = new this.$shepherd.Tour({
         defaults: {
-          classes: 'shepherd-theme-square-dark',
           showCancelLink: true
         }
       })
+
       let buttons = [
         {
           text: 'Back',
@@ -262,12 +262,12 @@ export default {
           action: tour.next
         }
       ]
+
       tour.addStep({
         title: 'The IAM study area',
         text: `<p>The Bering Strait region, Chukchi Sea, and Beaufort Sea are experiencing diminishing seasonal sea ice and are thus vulnerable to significant changes. Here, you can explore some of the environmental, economic, and cultural geospatial data available in this region.</p>
         <p>Areas with overlapping datasets highlight zones of overlapping—and potentially competing—interests or concerns.</p>`,
         attachTo: '.extent_marker left',
-        classes: 'shepherd-theme-square-dark',
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
@@ -275,29 +275,28 @@ export default {
             this.$store.commit('showOnlyLayers', {
               first: []
             })
-            this.$ga.event({
-              eventCategory: 'Tour Step: The IAM study area',
-              eventAction: 'show',
-              eventLabel: 'IAM Tour'
-            })
           }
         },
-        buttons: buttons
+        buttons: [
+          {
+            text: 'Cancel',
+            action: tour.cancel
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
       })
+
       tour.addStep({
         title: 'Overlapping areas',
         attachTo: '.tour_marker bottom',
         text: `Datasets are semi-transparent. Darker areas indicate more overlapping datasets.`,
-        classes: 'shepherd-theme-square-dark',
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', {
               first: ['iam:mammals']
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: Overlapping areas',
-              eventAction: 'show',
-              eventLabel: 'IAM Tour'
             })
           },
           hide: () => {
@@ -306,34 +305,18 @@ export default {
         },
         buttons: buttons
       })
+
       tour.addStep({
         title: 'About the datasets',
         attachTo: '.iam-dataset-info right',
         text: `See a list of all included datasets, descriptions, and where to get more information.`,
-        classes: 'shepherd-theme-square-dark',
-        when: {
-          show: () => {
-            this.$ga.event({
-              eventCategory: 'Tour Step: Information about the datasets',
-              eventAction: 'show',
-              eventLabel: 'IAM Tour'
-            })
-          }
-        },
+        highlightClass: 'tour-highlighted',
         buttons: buttons
       })
+
       tour.addStep({
         title: 'Thanks for your time',
         text: `This map helps show the impacts that development can have on Alaska’s plants, animals, and ecosystems, and provides a common point of discussion for everyone concerned.  </p><p>Please <a href="mailto:uaf-mapventure@alaska.edu">contact us</a> with feedback.`,
-        when: {
-          show: () => {
-            this.$ga.event({
-              eventCategory: 'Tour Step: Finished the IAM tour!',
-              eventAction: 'show',
-              eventLabel: 'IAM Tour'
-            })
-          }
-        },
         buttons: [
           {
             text: 'Back',
@@ -380,6 +363,7 @@ div /deep/ .tour_marker, div /deep/ .place_marker, div /deep/ .extent_marker {
     padding-top: 1em; // A little extra to position correctly on photo
   }
   p {
+    margin-left: 1em;
     font-size: 14pt;
     color: #ffffee;
     a {
@@ -388,6 +372,7 @@ div /deep/ .tour_marker, div /deep/ .place_marker, div /deep/ .extent_marker {
     &.photo-credit {
       font-size: 10pt;
       color: #cfcfc0;
+      padding-left: .25em;
     }
   }
 }
