@@ -41,7 +41,7 @@ export default {
       abstract: `
 <h1>SNAP Data for a Changing Climate</h1>
 <div class="abstractWrapper">
-  <p>This map showcases some popular climate projection data from the Scenarios Network for Alaska + Arctic Planning group at the University of Alaska, Fairbanks.  A short tour of the map introduces basic terms used in climate modeling, including Global Climate Models, downscaling, and Representative/Extended Concentration Pathways.  The interactive map lets you explore temperature and length of growing season data from three different climate scenarios for 2010&mdash;2090.</p>
+  <p>This map showcases some climate projection data from the Scenarios Network for Alaska + Arctic Planning group at the University of Alaska Fairbanks.</p></p>  A short tour introduces basic terms used in climate modeling, including Global Climate Models (GCMs), downscaling, and Representative & Extended Concentration Pathways (RCPs and ECPs).  </p></p>Use this interactive map to explore temperature and length of growing season data from three different climate scenarios for 2010-2090.</p>
 `,
       mapOptions: {
         zoom: 0,
@@ -69,7 +69,7 @@ export default {
             <tr><td><div class="log-8"></div></td><td>301 - 330 days</td></tr>
             <tr><td><div class="log-9"></div></td><td>331 - 365 days</td></tr>
           </table>
-          This layer shows the decadal average length of growing season in the 2010s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.`,
+          <p>This layer shows the average length of growing season for the decade of the 2010s. "Length" refers to the number of days between the days of freeze and thaw.</p><p>\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses 0°C.</p><p>\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.</p>`,
           'id': 'snap_rcp:logs_2010_rcp6',
           wmsLayerName (params) {
             return {
@@ -99,7 +99,7 @@ export default {
             <tr><td><div class="log-8"></div></td><td>301 - 330 days</td></tr>
             <tr><td><div class="log-9"></div></td><td>331 - 365 days</td></tr>
           </table>
-          This layer shows the decadal average length of growing season in the 2090s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.`,
+          <p>This layer shows the average length of growing season for the decade of the 2010s. "Length" refers to the number of days between the days of freeze and thaw.</p><p>\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.</p><p>\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.</p>`,
           'id': 'snap_rcp:logs_2090_rcp6',
           wmsLayerName (params) {
             return {
@@ -134,7 +134,7 @@ export default {
             <tr><td><div class="tas-14"></div></td><td>4.1 to 5 ºC</td></tr>
             <tr><td><div class="tas-15"></div></td><td>5.1 ºC and warmer</td></tr>
           </table>
-          This layer shows projected, downscaled mean decadal temperature for 2010 using a five-model average.  The spatial resolution of this dataset is 771m.   The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.`,
+          <p>This layer shows projected and downscaled mean decadal temperature for 2010 using a five-model average.  </p><p>The spatial resolution of this dataset is 771m.   The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990. </p><p>\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.</p>`,
           'id': 'snap_rcp:tas_2010_rcp6',
           wmsLayerName (params) {
             return {
@@ -169,7 +169,7 @@ export default {
             <tr><td><div class="tas-14"></div></td><td>4.1 to 5 ºC</td></tr>
             <tr><td><div class="tas-15"></div></td><td>5.1 ºC and warmer</td></tr>
           </table>
-          This layer shows projected, downscaled mean decadal temperature for 2090 using a five-model average. The spatial resolution of this dataset is 771m. The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.`,
+          <P>This layer shows projected, downscaled mean decadal temperature for 2090 using a five-model average.  </p><p>The spatial resolution of this dataset is 771m. The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990. </p><p>\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.</p>`,
           'id': 'snap_rcp:tas_2090_rcp6',
           wmsLayerName (params) {
             return {
@@ -342,7 +342,7 @@ export default {
 
       tour.addStep({
         title: 'Community Charts',
-        text: `Use our Community Charts tool (left) to see temperature and precipitation projections for communities across Alaska and Canada.`,
+        text: `Use the SNAP Community Charts tool to see temperature and precipitation projections for communities across Alaska and Canada.`,
         attachTo: '#community-charts-button>button right',
         highlightClass: 'tour-highlighted',
         buttons: buttons,
@@ -359,7 +359,7 @@ export default {
       tour.addStep({
         title: 'Accessing SNAP data',
         text: `
-<p>Access all SNAP data <a href="https://www.snap.uaf.edu/tools/data-downloads" target="_blank">here</a>.</p>
+<p>Browse and download SNAP data <a href="https://www.snap.uaf.edu/tools/data-downloads" target="_blank">here</a>.</p>
 <p><b>Need a spatial subset of data?</b> <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon" target="_blank">This R script</a> can be adapted to subset a time series of this dataset for a region specified by a shapefile, producing CSV output that can then be graphed or visualized in other ways.</p>
 <p><b>Thanks for your time!</b> <a href="mailto:nlfresco@alaska.edu">Please contact us</a> with questions or feedback.</p>`,
         buttons: buttons
@@ -397,6 +397,7 @@ export default {
 table.rcp6-legend.logs {
   margin-bottom: 10px;
   td {
+    padding: 0;
     font-size: 10pt;
     div {
       height: 2em;
@@ -420,6 +421,7 @@ table.rcp6-legend.logs {
 table.rcp6-legend.tas {
   margin-bottom: 10px;
   td {
+    padding: 0;
     font-size: 10pt;
     div {
       height: 2em;
@@ -447,12 +449,14 @@ table.rcp6-legend.tas {
 }
 
 .splash-screen .billboard {
-  background: url("~@/assets/mountains.jpg") white top left / cover no-repeat;
+  background: url("~@/assets/campus_jrancheta.jpg") white top left / cover no-repeat;
   h1 {
-    width: 75%;
-    font-size: 30pt;
-    padding: 1ex;
-    color: #000;
+    width: 80%;
+    font-size: 28pt;
+    padding: .5em;
+    color: #fff;
+    letter-spacing: .02em;
+    line-height: 1.3;
   }
   color: #222;
   a {

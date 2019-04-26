@@ -82,7 +82,7 @@ export default {
     float: right;
   }
   h3 {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
   }
   h4 {
     margin-top: 2rem;
