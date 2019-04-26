@@ -481,6 +481,15 @@ table.rcp6-legend.tas {
   }
 
   .abstractWrapper {
+    background: rgba(255, 255, 255, .8);
+    border-radius: 1ex;
+    margin: 1em;
+    padding: .25rem 1rem;
+
+    @media screen and (min-width: 769px) {
+      max-width: 75%;
+    }
+
     @media screen and (max-width: 768px) {
       width: 75%;
       border-radius: 0;
@@ -490,12 +499,6 @@ table.rcp6-legend.tas {
         margin-right: 1em;
       }
     }
-    @media screen and (min-width: 769px) {
-      max-width: 75%;
-    }
-    background: rgba(255, 255, 255, .8);
-    border-radius: 1ex;
-    margin: 1em;
   }
   .buttons {
     margin: 1em;
