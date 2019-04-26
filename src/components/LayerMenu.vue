@@ -98,6 +98,7 @@ export default {
 .layer-menu {
   z-index: 500;
   background-color: rgba(255, 255, 255, .9);
+  box-shadow: inset 0 5px 5px -5px rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 4em;
   padding: 1em;
