@@ -41,7 +41,7 @@ export default {
       abstract: `
 <h1>SNAP Data for a Changing Climate</h1>
 <div class="abstractWrapper">
-  <p>This map showcases some climate projection data from the Scenarios Network for Alaska + Arctic Planning group at the University of Alaska Fairbanks.</p></p>  A short tour introduces basic terms used in climate modeling, including Global Climate Models (GCMs), downscaling, and Representative & Extended Concentration Pathways (RCPs and ECPs).  </p></p>Use this interactive map to explore temperature and length of growing season data from three different climate scenarios for 2010-2090.</p>
+  <p>This map showcases some climate projection data from the Scenarios Network for Alaska + Arctic Planning, located at the University of Alaska Fairbanks.</p></p>  A short tour introduces basic terms used in climate modeling, including Global Climate Models (GCMs), downscaling, and Representative & Extended Concentration Pathways (RCPs and ECPs).  </p></p>Use this interactive map to explore temperature and length of growing season data from three different climate scenarios for 2010-2090.</p><p><i><small>UAF photo by JR Ancheta</small></p>
 `,
       mapOptions: {
         zoom: 0,
