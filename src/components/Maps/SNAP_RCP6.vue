@@ -506,7 +506,10 @@ table.rcp6-legend.tas {
     font-weight: 700;
   }
   .logos {
+    background: rgba(0, 0, 0, 0.45);
+    display: inline-block;
     margin: -1em 0 1em 1em;
+    padding: .5ex 1em;
   }
 }
 </style>
