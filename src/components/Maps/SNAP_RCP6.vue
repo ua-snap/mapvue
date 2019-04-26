@@ -394,10 +394,6 @@ export default {
   width: 500px;
 }
 
-.tour-highlighted {
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-}
-
 table.rcp6-legend.logs {
   margin-bottom: 10px;
   td {

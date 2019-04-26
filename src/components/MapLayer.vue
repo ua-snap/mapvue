@@ -157,6 +157,10 @@ export default {
 
 a.info {
   font-weight: 900;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 0 5px;
+  margin: 0 -5px;
   &:hover { text-decoration: none; }
 }
 

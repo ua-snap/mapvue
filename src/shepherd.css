@@ -1,4 +1,10 @@
 @charset "UTF-8";
+
+/* For highlighted elements */
+.tour-highlighted {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
 #shepherdModalOverlayContainer {
     -ms-filter: "progid:dximagetransform.microsoft.gradient.alpha(Opacity=50)";
     filter: alpha(opacity=50);
@@ -86,7 +92,7 @@
     box-sizing: border-box
 }
 .shepherd-element {
-    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, .2))
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, .75))
 }
 .shepherd-element.shepherd-has-title .shepherd-content header {
     background: #e6e6e6;
