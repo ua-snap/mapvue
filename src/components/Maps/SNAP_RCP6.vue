@@ -362,7 +362,16 @@ export default {
 <p>Browse and download SNAP data <a href="https://www.snap.uaf.edu/tools/data-downloads" target="_blank">here</a>.</p>
 <p><b>Need a spatial subset of data?</b> <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon" target="_blank">This R script</a> can be adapted to subset a time series of this dataset for a region specified by a shapefile, producing CSV output that can then be graphed or visualized in other ways.</p>
 <p><b>Thanks for your time!</b> <a href="mailto:nlfresco@alaska.edu">Please contact us</a> with questions or feedback.</p>`,
-        buttons: buttons
+        buttons: [
+          {
+            text: 'Back',
+            action: tour.back
+          },
+          {
+            text: 'Done!',
+            action: tour.complete
+          }
+        ]
       })
       return tour
     }
