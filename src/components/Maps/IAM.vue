@@ -106,7 +106,7 @@ export default {
       title: 'Integrated Arctic Management',
       abstract: `
 <h1>What areas of the Arctic are &ldquo;important&rdquo;?</h1>
-<p>The meaning of “important” depends on the perspective and interests of a group. This Integrated Arctic Management map displays geospatial datasets from various environmental, economic, and cultural categories to see where they overlap. This approach illustrates the relative importance of those areas, identifies potential areas of conflict, and highlights gaps in Arctic geospatial data.
+<p>What makes an arctic area "important" depends on the perspective and interests of a group. One challenge that managers and policy makers often face is the conflict of interests among groups.</p><p>The Integrated Arctic Management map was created by the UAF Scenarios Network for Alaska + Arctic Planning. It displays geospatial datasets from various environmental, economic, and cultural categories to see where they overlap. This approach illustrates the relative importance of those areas, identifies potential areas of conflict, and highlights gaps in Arctic geospatial data.
 </p>
 <p class="photo-credit">UAF Photo by JR Ancheta</p>
 `,
@@ -265,8 +265,7 @@ export default {
 
       tour.addStep({
         title: 'The IAM study area',
-        text: `<p>The Bering Strait region, Chukchi Sea, and Beaufort Sea are experiencing diminishing seasonal sea ice and are thus vulnerable to significant changes. Here, you can explore some of the environmental, economic, and cultural geospatial data available in this region.</p>
-        <p>Areas with overlapping datasets highlight zones of overlapping—and potentially competing—interests or concerns.</p>`,
+        text: `<p>The Bering Strait region, Chukchi Sea, and Beaufort Sea are experiencing diminishing seasonal sea ice and are thus vulnerable to significant changes. </p><p>Here, you can explore some of the environmental, economic, and cultural geospatial data available in this region.</p>`,
         attachTo: '.extent_marker left',
         when: {
           show: () => {
@@ -292,7 +291,7 @@ export default {
       tour.addStep({
         title: 'Overlapping areas',
         attachTo: '.tour_marker bottom',
-        text: `Datasets are semi-transparent. Darker areas indicate more overlapping datasets.`,
+        text: `<p>Datasets are semi-transparent. Darker areas indicate more overlapping datasets, and reveal zones of overlapping—and potentially competing—interests or concerns.</p>`,
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', {
@@ -309,7 +308,7 @@ export default {
       tour.addStep({
         title: 'About the datasets',
         attachTo: '.iam-dataset-info right',
-        text: `See a list of all included datasets, descriptions, and where to get more information.`,
+        text: `See a list of all included datasets, descriptions, and where to get more information. You can download any dataset to help provide spatial context for your own research`,
         highlightClass: 'tour-highlighted',
         buttons: buttons
       })
