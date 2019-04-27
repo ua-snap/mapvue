@@ -177,10 +177,10 @@ export default {
   background-color: rgba(150, 168, 48, 0.8);
   z-index: 3000;
   > div {
-    padding: 2rem;
+    padding: 1rem;
     background-color: rgba(255, 255, 255, .8);
     width: 80%;
-    margin: 4rem auto;
+    margin: 2rem auto;
     box-shadow: 0px 10px 40px 0px rgba(0,0,0,0.75);
 
     .graph-content {
@@ -189,7 +189,7 @@ export default {
     }
 
     button {
-      font-size: 150%;
+      font-size: 120%;
     }
   }
 }
