@@ -117,6 +117,7 @@ export default {
           text: 'Compare this year to others',
           glyphicon: 'signal',
           classes: 'mobile-hidden',
+          id: 'fire-graph',
           callback: this.showFireGraph
         }
       ]
@@ -222,15 +223,9 @@ export default {
 
       tour.addStep({
         title: 'How does this year compare to others?',
+        attachTo: '#fire-graph right',
+        highlightClass: 'tour-highlighted',
         text: `This graph compares this year to all of the years when more than 1 million acres burned since daily records began in 2004. Are we on track for another big year?`,
-        when: {
-          show: () => {
-            this.$store.commit('showFireGraph')
-          },
-          hide: () => {
-            this.$store.commit('hideFireGraph')
-          }
-        },
         buttons: buttons
       })
       tour.addStep({
