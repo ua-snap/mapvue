@@ -275,6 +275,10 @@ export default {
   z-index: 499;
 }
 
+.leaflet-top .leaflet-control {
+  margin-top: 55px;
+}
+
 .leaflet-container {
   background-color: #fff;
 }
