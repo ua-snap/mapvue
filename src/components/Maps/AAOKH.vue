@@ -141,14 +141,14 @@ export default {
             <p>The Utqiagvik marine radar is mounted on top of the 4-story bank building in downtown Utqiagvik. It detects sea ice up to 6 miles out and acquires a new image every 5 minutes for near real-time results. Ice appears white in the image due to the radar signals reflecting off it. Ridges in the sea ice also appear as bright linear objects, but buildings, fences, and cars on the land can also return strong signals. Darker regions in the image can indicate open water, smooth ice, or shadows.  The image shown here is from April 2, 2016.</p>
             <p><a target="_blank" rel="noopener"  href="http://seaice.alaska.edu/gi/observatories/barrow_radar">Access and learn more about these data</a>.</p>`,
           'wmsLayerName': 'aaokh:barrow_radar',
-          'id': 'aaokh:barrow_radar',
+          'id': 'barrow_radar',
           'title': 'Utqia&#289;vik Marine Radar',
           'legend': false
         },
         {
           'abstract': '<p>Trails built by Utqia&#289;vik whaling crews for the 2017 spring whaling season were mapped by Matthew Druckenmiller (National Snow and Ice Data Center) and Josh Jones (AAOKH) in late April 2017.</p>',
           'wmsLayerName': 'aaokh:aa_whaling_trails',
-          'id': 'aaokh:aa_whaling_trails',
+          'id': 'aa_whaling_trails',
           'title': 'Spring 2017 Whaling Trails',
           'legend': false
         },
@@ -177,7 +177,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
           </table>
           <p>Produced by the National Ice Center and updated daily (although we are only showing a single previous point in time with this example, from December 5, 2017), this layer shows the sea ice edge and delineates the marginal ice zone from fast ice. Fast ice or shorefast ice is anchored to land and relatively stable. The marginal ice zone is the transition between fast ice and the open ocean. It can consist of drifting ice floes, or compact floes at the head of fast ice, but is subject to deformation from ocean processes. This portion of the ice cover is the most biologically diverse and is an essential habitat for many species including marine mammals, fish, and birds.</p><p>See the <a target="_blank" href="http://www.natice.noaa.gov/products/daily_products.html">National Ice Center</a> and the <a target="_blank" target="_blank" rel="noopener"  href="https://www.polarview.aq/arctic">Polar View</a> web sites for more information.</p>`,
           'wmsLayerName': 'aaokh:sea_ice_extent',
-          'id': 'aaokh:sea_ice_extent',
+          'id': 'sea_ice_extent',
           'title': 'Sea Ice Extent',
           'legend': false
         },
@@ -227,6 +227,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
         {
           text: 'Get involved!',
           classes: 'button',
+          id: 'aaokh-get-involved',
           callback: this.openGetInvolved
         }
       ]
@@ -271,7 +272,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
     tour () {
       let tour = new this.$shepherd.Tour({
         defaults: {
-          classes: 'shepherd-theme-square-dark',
           showCancelLink: true
         }
       })
@@ -296,13 +296,12 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
 
       tour.addStep({
         title: 'Participating communities',
-        attachTo: '#top_item right',
+        attachTo: 'path.leaflet-interactive:nth-of-type(7) left',
         text: `<p>Participating AAOKH communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqia&#289;vik, and Wales.</p>`,
         classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
             this.$store.commit('showOnlyLayers', {
               first: []
             })
@@ -316,21 +315,26 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
           })
           return p
         },
-        tetherOptions: {
-          offset: '32px 0'
-        }
+        buttons: [
+          {
+            text: 'Cancel',
+            action: tour.cancel
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
       })
 
       tour.addStep({
         title: 'Actively participate in research',
         attachTo: 'div.leaflet-popup-content-wrapper right',
         text: `<p>Your observations and pictures help everyone! Communities are at the front lines of changing conditions, seeing changes in action before measurements can be made by scientists and often in places otherwise inaccessible to scientific instruments. </p>`,
-        classes: 'shepherd-theme-square-dark adjust-tour-panel',
         buttons: buttons,
         beforeShowPromise: () => {
           var p = new Promise((resolve, reject) => {
             this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
             this.$store.commit('showOnlyLayers', {
               first: ['observations']
             })
@@ -347,14 +351,14 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
 
       tour.addStep({
         title: 'See shoreline and offshore ice types',
-        attachTo: '#top_item right',
+        attachTo: '#sea_ice_extent right',
+        highlightClass: 'tour-highlighted',
         text: `<p>Knowing the locations of different ice types can help people figure out how safe it is to travel, indicate habitats for marine life, and show areas of potential coastal erosion. The marginal ice zone is the transition between the open ocean and more stable landfast ice that is anchored to the coastline or the seafloor. This zone is very dynamic due to the influence of the weather and rapid changes.
         </p>`,
-        classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', {
-              first: ['aaokh:sea_ice_extent']
+              first: ['sea_ice_extent']
             })
             this.$refs.map.map.setView([65.66768261334428, -170.23812752033535], 1, { animate: false })
           },
@@ -364,37 +368,29 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             })
           }
         },
-        buttons: buttons,
-        tetherOptions: {
-          attachment: 'top left',
-          targetAttachment: 'left right',
-          offset: '32px 0'
-        }
+        buttons: buttons
       })
 
       tour.addStep({
         title: 'Coastal Water Profiles and CTD Data',
+        attachTo: '#ctd right',
+        highlightClass: 'tour-highlighted',
         text: `<p>Electronic CTD (conductivity, temperature and depth) devices can examine water properties to detect how the conductivity and temperature of the water column change relative to depth.  Scientists analyze CTD data to make inferences about the occurrence of certain biological processes, such as the growth of algae.
         </p>
         <div><img style="max-width: 100%; min-height: 262px;" src="/static/aaokh/CTD_Utqiagvik.png"/></div>`,
-        classes: 'shepherd-theme-square-dark adjust-tour-panel',
-        buttons: buttons,
-        tetherOptions: {
-          attachment: 'middle center',
-          targetAttachment: 'middle center'
-        }
+        buttons: buttons
       })
 
       tour.addStep({
         title: 'Inform your activities with near real-time data',
-        attachTo: '#top_item right',
+        attachTo: '#barrow_radar right',
+        highlightClass: 'tour-highlighted',
         text: `<p>Marine radar is valuable for locating the ice edge near Utqia&#289;vik for subsistence activities, search and rescue, and maritime navigation. Black areas are open water and ice appears white.
         </p>`,
-        classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', {
-              first: ['aaokh:barrow_radar']
+              first: ['barrow_radar']
             })
             this.$refs.map.map.setView([71.30456041085161, -157.3716677124989], 6, { animate: false })
           },
@@ -405,20 +401,14 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             this.$refs.map.map.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
           }
         },
-        buttons: buttons,
-        tetherOptions: {
-          attachment: 'top left',
-          targetAttachment: 'left right',
-          offset: '32px 0'
-        }
+        buttons: buttons
       })
 
       tour.addStep({
         title: 'Inform your activities with near real-time data',
-        attachTo: '#top_item right',
+        attachTo: '#aa_whaling_trails right',
         text: `<p>This map shows another way that data can inform activities.  A recording of whaling trails from 2017 are shown on a coastal image of Synthetic Aperture Radar (SAR), where open water is dark and reflecting surfaces (such as ice) are lighter.
         </p>`,
-        classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', {
@@ -426,7 +416,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             })
             // Hack to ensure the whale trail is on top
             this.$store.commit('toggleLayerVisibility', {
-              id: 'aaokh:aa_whaling_trails'
+              id: 'aa_whaling_trails'
             })
             this.$refs.map.map.setView([71.30456041085161, -157.3716677124989], 6, { animate: false })
           },
@@ -437,23 +427,19 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             this.$refs.map.map.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
           }
         },
-        buttons: buttons,
-        tetherOptions: {
-          attachment: 'top left',
-          targetAttachment: 'left right',
-          offset: '32px 0'
-        }
+        buttons: buttons
       })
 
       tour.addStep({
         title: 'Get involved!',
+        attachTo: '#aaokh-get-involved right',
+        highlightClass: 'tour-highlighted',
         text: `<p>There are many ways to contribute to the Alaska Arctic Observatory & Knowledge Hub. Anyone in coastal communities can provide an observation of coastal conditions or wildlife. We hire new observers, support youth and outreach activities, and are guided by a Steering Group of community representatives and scientists. Learn more on <a href="https://arctic-aok.org/get-involved/" target="_blank" rel="noopener">our website</a>.
         </p>`,
-        classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', [])
-            this.$refs.map.map.setView([71.2906, -156.7886], 4, { animate: false })
+            this.$refs.map.map.setView([68.2906, -156.7886], 3, { animate: false })
           }
         },
         buttons: [
