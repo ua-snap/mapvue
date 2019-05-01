@@ -201,7 +201,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
         },
         {
           'abstract': `<p>Electronic CTD (conductivity, temperature and depth) devices can examine water properties to detect how the conductivity and temperature of the water column change relative to depth.  Scientists analyze CTD data make inferences about the occurrence of certain biological processes, such as the growth of algae.</p>
-          </p><p>For more information and to access these data, visit the <a href="https://arctic-aok.org/observations/coastal-water-profiles/" target="_blank" target="_blank" rel="noopener">AAOKH Coastal Water Profiles page.</p>`,
+          </p><p>For more information and to access these data, visit the <a href="https://arctic-aok.org/data/ctd/" target="_blank" rel="noopener">AAOKH Coastal Water Profiles page.</p>`,
           'name': 'ctd',
           'id': 'ctd',
           'title': 'CTD',
