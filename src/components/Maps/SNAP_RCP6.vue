@@ -268,10 +268,16 @@ export default {
         <p>SNAP <a href="https://www.snap.uaf.edu/methods/downscaling" target="_blank"><b>downscales</b></a> GCM climate data to “zoom in” and generate regionally relevant data at higher resolutions. Here, notice how the coarser, global-scale GCM data (L) have been converted to a more detailed scale that makes better sense for Alaska (R).</p>
         <p><a target="_blank" href="https://www.cicero.oslo.no/en/posts/news/a-guide-to-representative-concentration-pathways"><b>Representative and Extended Concentration Pathways (RCPs and ECPs)</b></a> describe possible future climates based on atmospheric greenhouse gas concentrations. RCPs (projections to 2100) and ECPs (projections beyond 2100) provide a <a href="http://www.pik-potsdam.de/~mmalte/rcps/" target="_blank">basis for comparison and a “common language”</a> for modelers to share their work.</p>`,
         classes: 'downscaling-image',
-        buttons: [{
-          text: 'Next',
-          action: tour.next
-        }],
+        buttons: [
+          {
+            text: 'Cancel',
+            action: tour.cancel
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ],
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
