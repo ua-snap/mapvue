@@ -163,7 +163,6 @@ export default {
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
           }
         },
         buttons: [

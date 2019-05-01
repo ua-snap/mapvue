@@ -275,7 +275,6 @@ export default {
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
             this.$store.commit('hideLayerMenu')
             this.$store.commit('showOnlyLayers', {
               first: []
@@ -293,7 +292,6 @@ export default {
         when: {
           show: () => {
             this.$store.commit('showDualMaps')
-            this.$store.commit('enableSyncMaps')
             this.$store.commit('hideLayerMenu')
             this.$store.commit('showOnlyLayers', {
               first: ['snap_rcp:tas_2010_rcp6'],
@@ -329,7 +327,6 @@ export default {
         when: {
           show: () => {
             this.$store.commit('showDualMaps')
-            this.$store.commit('enableSyncMaps')
             this.$store.commit('hideLayerMenu')
             this.$store.commit('showOnlyLayers', {
               first: ['snap_rcp:logs_2010_rcp6'],
