@@ -27,7 +27,7 @@ var lineColors = {
 // We declare the static properties of the graph outside the Vue
 // object because they don't need to be reactive
 var graphLayout = {
-  title: 'Cumulative Acres Burned, May 1 - Sept 30',
+  title: 'Cumulative Acres Burned, April 1 - Sept 30',
   titlefont: {
     size: 20
   },
@@ -42,6 +42,7 @@ var graphLayout = {
     type: 'category',
     ticks: 'array',
     tickvals: [
+      'April 1',
       'May 1',
       'June 1',
       'July 1',
@@ -49,6 +50,7 @@ var graphLayout = {
       'September 1'
     ],
     ticktext: [
+      'April',
       'May',
       'June',
       'July',
