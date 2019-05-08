@@ -28,6 +28,7 @@ import Tour from '../Tour'
 // Will have references to DOM objects used in the tour
 var tourMarker // eslint-disable-line no-unused-vars
 var placeMarker // eslint-disable-line no-unused-vars
+var extentMarker // eslint-disable-line no-unused-vars
 
 export default {
   name: 'IAM',
@@ -72,6 +73,16 @@ export default {
         className: 'place_marker'
       }
     ).addTo(this.$refs.map.map)
+
+    extentMarker = this.$L.circleMarker(
+      [
+        65,
+        -175
+      ],
+      {
+        className: 'extent_marker'
+      }
+    ).addTo(this.$refs.map.map)
   },
   data () {
     return {
@@ -95,11 +106,9 @@ export default {
       title: 'Integrated Arctic Management',
       abstract: `
 <h1>What areas of the Arctic are &ldquo;important&rdquo;?</h1>
-<p>One challenge that managers and policy makers often face is the conflict of interests among groups. This was evident when the <a target="_blank" href="https://www.snap.uaf.edu" rel="noopener">Scenarios Network for Alaska and Arctic Planning</a> was asked to identify specific geographic &ldquo;areas of environmental, economic, and cultural importance&rdquo; in Arctic Alaska for a 2013 report to the President of the United states on <a target="_blank" href="https://www.afsc.noaa.gov/publications/misc_pdf/iamreport.pdf" rel="noopener">Integrated Arctic Management</a> (IAM).
+<p>What makes an arctic area "important" depends on the perspective and interests of a group. One challenge that managers and policy makers often face is the conflict of interests among groups.</p><p>The Integrated Arctic Management map was created by the UAF Scenarios Network for Alaska + Arctic Planning. It displays geospatial datasets from various environmental, economic, and cultural categories to see where they overlap. This approach illustrates the relative importance of those areas, identifies potential areas of conflict, and highlights gaps in Arctic geospatial data.
 </p>
-<p>While many groups have an answer to this question, the answer depends on the perspective and interests of the group. As a proof of concept, SNAP took an objective approach to identifying important areas by displaying existing geospatial datasets that fit into the environmental, economic, and cultural categories to see where they overlap. Based upon available data, this can illustrate the relative importance of those areas, identify potential areas of conflict, and highlight gaps in Arctic geospatial data.
-</p>
-<p class="photo-credit">UAF Photo by Todd Paris</p>
+<p class="photo-credit">UAF Photo by JR Ancheta</p>
 `,
       mapOptions: {
         zoom: 0,
@@ -124,56 +133,56 @@ export default {
       ],
       layers: [
         {
-          'abstract': 'This layer shows cultural sites and buildings, as well as protected areas in the IAM area. Arctic Alaska has a long history of inhabitants, settlers, and traders since the earliest families crossed the Bering Land Bridge some 20,000 years ago. Cultural sites and structures are important artifacts. “Protected areas” are defined here as areas designated to preserve cultural and/or recreational features and activities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
+          'abstract': '<p>Cultural sites, structures, and protected areas in the IAM area. Arctic Alaska has a long history of inhabitants, settlers, and traders since the earliest families crossed the Bering Land Bridge some 20,000 years ago. </p><p>Cultural sites and structures are important artifacts. “Protected areas” are defined here as areas designated to preserve cultural and/or recreational features and activities.</p><p>\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a><p>',
           'id': 'iam:cult_rec',
           'wmsLayerName': 'iam:cult_rec',
           'title': 'Cultural & protected areas',
           'legend': false
         },
         {
-          'abstract': 'This layer shows the communities and subsistence areas within the IAM area. People living in Arctic Alaska impact, and are being impacted by, the environmental, economic, and cultural features and changes in their area.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
+          'abstract': '<p>Communities and subsistence areas within the IAM area. People living in Arctic Alaska impact, and are being impacted by, the environmental, economic, and cultural features and changes in their area.</p><p>\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a></p>',
           'id': 'iam:comm_subs',
           'wmsLayerName': 'iam:comm_subs',
           'title': 'Communities & subsistence',
           'legend': false
         },
         {
-          'abstract': 'This layer displays oil and natural gas wells, offshore leasing areas, and portions of the TransAlaska pipeline located in the IAM area. The oil industry plays an important economic role in the Arctic and has both positive and negative environmental and cultural impacts.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
+          'abstract': '<p>Oil and natural gas wells, offshore leasing areas, and portions of the TransAlaska pipeline located in the IAM area. </p><p>The oil industry plays an important economic role in the Arctic, with both positive and negative environmental and cultural impacts.</p><p>\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a></p>',
           'id': 'iam:oil_infra',
           'wmsLayerName': 'iam:oil_infra',
           'title': 'Oil infrastructure',
           'legend': false
         },
         {
-          'abstract': 'The transportation layer shows locations of airports, marine ports, road system, shipping routes, and general transportation infrastructure in the IAM area. It highlights areas where there are multiple means of transportation for various cultural and economic reasons.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
+          'abstract': '<p>Locations of airports, marine ports, roads, shipping routes, and other transportation infrastructure in the IAM area. This layer highlights areas where multiple means of transportation exist for cultural and economic reasons.</p><p>\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a></p>',
           'id': 'iam:trans',
           'wmsLayerName': 'iam:trans',
           'title': 'Transportation',
           'legend': false
         },
         {
-          'abstract': 'This layer shows the distribution of five fish species and the combined distribution of marine, estuarine, anadromous, and freshwater fish species in the IAM area. All of the fish species are a significant food source in Arctic marine food webs and in the lives of people in coastal communities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
+          'abstract': '<p>Distribution of five fish species and the combined distribution of marine, estuarine, anadromous, and freshwater fish species in the IAM area. </p><p>All of the fish species are a significant food source in Arctic marine food webs and in the lives of people in coastal communities.</p><p>\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a></p>',
           'wmsLayerName': 'iam:fish',
           'id': 'iam:fish',
           'title': 'Fish',
           'legend': false
         },
         {
-          'abstract': 'This layer shows locations of Important Bird Areas (IBAs) and murre colonies in the IAM area. IBAs are identified as vital habitats for birds and other wildlife using an internationally developed set of criteria. These areas are both critical to ecosystem biodiversity and sensitive to possible disturbances from increased use of Arctic areas. Murres, being one of the most numerous Arctic seabirds, play an important role in Arctic marine food webs and in the lives of people in nearby communities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
+          'abstract': '<p>Locations of Important Bird Areas (IBAs) and murre colonies in the IAM area. Defined using using an internationally developed set of criteria, IBAs are identified as vital habitats for birds and other wildlife. These areas are critical to ecosystem biodiversity and sensitive to possible disturbances from increased use of Arctic areas. </p><p>Murres, for example, being one of the most numerous Arctic seabirds, play an important role in Arctic marine food webs and in the lives of people in nearby communities.</p><p>\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a></p>',
           'id': 'iam:birds',
           'wmsLayerName': 'iam:birds',
           'title': 'Birds',
           'legend': false
         },
         {
-          'abstract': 'This layer shows the distribution of ten mammal species including whales, seals, walrus, polar bear, and caribou. These species represent some of the most abundant in the Arctic and the IAM area. Besides being an important part of the Arctic ecosystem, they all have significant economic and cultural value to Alaska Native communities.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
+          'abstract': '<p>Distribution of ten mammal species including whales, seals, walrus, polar bear, and caribou. These species represent some of the most abundant in the Arctic and the IAM area. </p><p>Besides being an important part of the Arctic ecosystem, they all have significant economic and cultural value to Alaska Native communities.</p><p>\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a></p>',
           'id': 'iam:mammals',
           'wmsLayerName': 'iam:mammals',
           'title': 'Mammals',
           'legend': false
         },
         {
-          'abstract': 'This layer shows ecologically significant areas identified by two separate sources. These areas highlight the important habitats for sustaining a diversity of marine wildlife.\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a>',
+          'abstract': '<p>Ecologically significant areas identified by two separate sources. These areas highlight the important habitats for sustaining a diversity of marine wildlife.</p><p>\n\n<a href="https://docs.google.com/document/u/1/d/1MayMZ6fIfz40tBLhftiisQVpHoGPJuFKxEtkMMcLi88/pub" target="_blank" rel="noopener">More info and data access</a></p>',
           'id': 'iam:impareas',
           'wmsLayerName': 'iam:impareas',
           'title': 'Significant ecological areas',
@@ -239,50 +248,37 @@ export default {
       let tour
       tour = new this.$shepherd.Tour({
         defaults: {
-          classes: 'shepherd-theme-square-dark',
           showCancelLink: true
         }
       })
+
+      let buttons = [
+        {
+          text: 'Back',
+          action: tour.back
+        },
+        {
+          text: 'Next',
+          action: tour.next
+        }
+      ]
+
       tour.addStep({
         title: 'The IAM study area',
-        text: `
-        <p>The IAM study area covers a subset of the northern Arctic within US jurisdiction. The Bering Strait region and the Chukchi and Beaufort seas are characterized by diminishing seasonal sea ice and are thus vulnerable to significant changes. This tool allows you to explore some of the environmental, economic, and cultural geospatial data available in the study area.</p>
-        <p>Areas with overlapping datasets highlight zones of overlapping, and potentially competing, interests or concerns.</p>`,
-        classes: 'shepherd-theme-square-dark',
+        text: `<p>The Bering Strait region, Chukchi Sea, and Beaufort Sea are experiencing diminishing seasonal sea ice and are thus vulnerable to significant changes. </p><p>Here, you can explore some of the environmental, economic, and cultural geospatial data available in this region.</p>`,
+        attachTo: '.extent_marker left',
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
             this.$store.commit('showOnlyLayers', {
               first: []
             })
-            this.$ga.event({
-              eventCategory: 'Tour Step: The IAM study area',
-              eventAction: 'show',
-              eventLabel: 'IAM Tour'
-            })
           }
-        }
-      })
-      tour.addStep({
-        title: 'What does this map show?',
-        attachTo: '#layer-list right',
-        text: `
-        <p>Each layer contains multiple datasets grouped by:</p>
-        <h4>Environmental</h4>
-        <ul><li>Signficant ecological areas</li><li>Mammals</li><li>Birds</li><li>Fish</li></ul>
-        <h4>Economic</h4>
-        <ul><li>Transportation</li><li>Oil infrastructure</li></ul>
-        <h4>Cultural</h4>
-        <ul><li>Communities and subsistence areas</li><li>Cultural and protected areas</li></ul>`,
-        classes: 'shepherd-theme-square-dark iam-tour',
-        when: {
-          show: () => {}
         },
         buttons: [
           {
-            text: 'Back',
-            action: tour.back
+            text: 'Cancel',
+            action: tour.cancel
           },
           {
             text: 'Next',
@@ -290,107 +286,35 @@ export default {
           }
         ]
       })
-      tour.addStep({
-        title: 'Information about the datasets',
-        attachTo: '.iam-dataset-info right',
-        text: `Click this button to see a list of all included datasets. This provides a short description of the dataset and shows where to get more information.`,
-        classes: 'shepherd-theme-square-dark',
-        when: {
-          show: () => {
-            this.$ga.event({
-              eventCategory: 'Tour Step: Information about the datasets',
-              eventAction: 'show',
-              eventLabel: 'IAM Tour'
-            })
-          }
-        },
-        buttons: [
-          {
-            text: 'Back',
-            action: tour.back
-          },
-          {
-            text: 'Next',
-            action: tour.next
-          }
-        ]
-      })
+
       tour.addStep({
         title: 'Overlapping areas',
         attachTo: '.tour_marker bottom',
-        text: `Datasets are semi-transparent. The more datasets that overlap, the darker the area.`,
-        classes: 'shepherd-theme-square-dark',
+        text: `<p>Datasets are semi-transparent. Darker areas indicate more overlapping datasets, and reveal zones of overlapping—and potentially competing—interests or concerns.</p>`,
         when: {
           show: () => {
             this.$store.commit('showOnlyLayers', {
               first: ['iam:mammals']
             })
-            this.$ga.event({
-              eventCategory: 'Tour Step: Overlapping areas',
-              eventAction: 'show',
-              eventLabel: 'IAM Tour'
-            })
           },
           hide: () => {
             this.$store.commit('showOnlyLayers', {first: []})
           }
         },
-        buttons: [
-          {
-            text: 'Back',
-            action: tour.back
-          },
-          {
-            text: 'Next',
-            action: tour.next
-          }
-        ]
+        buttons: buttons
       })
+
       tour.addStep({
-        title: 'Hotspots',
-        attachTo: '.place_marker right',
-        text: `We identified &ldquo;hot spots&rdquo; as locations with the greatest number of overlapping environmental, economic, and cultural datasets. Three example hot spots are shown on the map. Selecting a marker lists the datasets at that location.`,
-        classes: 'shepherd-theme-square-dark',
-        when: {
-          show: () => {
-            this.$store.commit('showOnlyLayers', {
-              first: ['iam:comm_subs', 'iam:trans', 'iam:birds']
-            })
-            this.map.setView([63.72769765422989, -170.51282701847276], 4)
-            this.$ga.event({
-              eventCategory: 'Tour Step: Hotspots',
-              eventAction: 'show',
-              eventLabel: 'IAM Tour'
-            })
-          },
-          hide: () => {
-            this.map.setView([64, -165], 0)
-            this.$store.commit('showOnlyLayers', {first: []})
-          }
-        },
-        buttons: [
-          {
-            text: 'Back',
-            action: tour.back
-          },
-          {
-            text: 'Next',
-            action: tour.next
-          }
-        ]
+        title: 'About the datasets',
+        attachTo: '.iam-dataset-info right',
+        text: `See a list of all included datasets, descriptions, and where to get more information. You can download any dataset to help provide spatial context for your own research`,
+        highlightClass: 'tour-highlighted',
+        buttons: buttons
       })
+
       tour.addStep({
-        title: 'End of tour!',
-        text: `Thanks for checking out the IAM map! Tools like this help to visualize the impact our development can have on a variety of species in Alaska, which represents an important talking point for decision makers and citizens alike.<p><p> If you have feedback, we’d love to hear from you at uaf-mapventure@alaska.edu!`,
-        when: {
-          show: () => {
-            this.$ga.event({
-              eventCategory: 'Tour Step: Finished the IAM tour!',
-              eventAction: 'show',
-              eventLabel: 'IAM Tour'
-            })
-          }
-        },
+        title: 'Thanks for your time',
+        text: `This map helps show the impacts that development can have on Alaska’s plants, animals, and ecosystems, and provides a common point of discussion for everyone concerned.  </p><p>Please <a href="mailto:uaf-mapventure@alaska.edu">contact us</a> with feedback.`,
         buttons: [
           {
             text: 'Back',
@@ -423,7 +347,7 @@ div /deep/ .leaflet-popup-content-wrapper {
     font-size: 10pt;
   }
 }
-div /deep/ .tour_marker, div /deep/ .place_marker {
+div /deep/ .tour_marker, div /deep/ .place_marker, div /deep/ .extent_marker {
   visibility: hidden;
 }
 // The `/deep/` syntax allows for modifying
@@ -431,12 +355,13 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
 // https://vue-loader.vuejs.org/en/features/scoped-css.html
 .splash-screen /deep/ .billboard {
   max-width: 933px;
-  background: url("~@/assets/uaf-todd-paris-iam.jpg") white top left / cover no-repeat;
+  background: url("~@/assets/kotzebue_jrancheta.jpg") white top left / cover no-repeat;
   h1 {
     color: #ffffee;
-    padding-top: 2em; // A little extra to position correctly on photo
+    padding-top: 1em; // A little extra to position correctly on photo
   }
   p {
+    margin-left: 1em;
     font-size: 14pt;
     color: #ffffee;
     a {
@@ -445,6 +370,7 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
     &.photo-credit {
       font-size: 10pt;
       color: #cfcfc0;
+      padding-left: .25em;
     }
   }
 }
@@ -457,6 +383,12 @@ div /deep/ .tour_marker, div /deep/ .place_marker {
   }
   h4 {
     color: #efefef;
+    margin: 0.6em 0 0;
+    padding: 0;
+  }
+  li {
+    margin: 0;
+    padding: 0;
   }
 }
 

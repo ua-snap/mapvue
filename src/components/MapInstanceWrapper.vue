@@ -13,13 +13,10 @@ import L from 'leaflet'
 import p4l from 'proj4leaflet' // eslint-disable-line
 import leaflet_sidebar from 'leaflet-sidebar' // eslint-disable-line
 import leaflet_side_by_side from 'leaflet-side-by-side' // eslint-disable-line
-import shepherd from 'tether-shepherd'
+import shepherd from 'shepherd.js'
 import moment from 'moment'
 import 'leaflet/dist/leaflet.css'
-import 'tether/dist/css/tether.css'
-import 'tether/dist/css/tether-theme-arrows-dark.css'
-import 'tether-shepherd/dist/css/shepherd-theme-square-dark.css'
-import 'balloon-css/balloon.css'
+import '@/shepherd.css'
 
 // Polyfill needed for IE11 to work properly with Axios.
 require('es6-promise').polyfill()

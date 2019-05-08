@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       year: 2019,
-      version: '2.0'
+      version: '2.1'
     }
   }
 }

@@ -117,6 +117,7 @@ export default {
           text: 'Compare this year to others',
           glyphicon: 'signal',
           classes: 'mobile-hidden',
+          id: 'fire-graph',
           callback: this.showFireGraph
         }
       ]
@@ -125,7 +126,6 @@ export default {
       let tour
       tour = new this.$shepherd.Tour({
         defaults: {
-          classes: 'shepherd-theme-square-dark',
           showCancelLink: true
         }
       })
@@ -142,118 +142,89 @@ export default {
         }
       ]
 
-      // Reuse for Tether
-      let tetherTopRight = {
-        attachment: 'top left',
-        targetAttachment: 'top right',
-        offset: '32px 0'
+      // Helper to delay the display of the tour stop.
+      let delay = (layer) => {
+        var p = new Promise((resolve, reject) => {
+          this.$store.commit('showLayerMenu')
+          this.$store.commit('showOnlyLayers', {
+            first: [layer]
+          })
+          setTimeout(() => { resolve() }, 160)
+        })
+        return p
       }
 
       tour.addStep({
         title: 'This season&rsquo;s fires',
-        attachTo: '#top_item right',
+        attachTo: '#fires right',
+        highlightClass: 'tour-highlighted',
         text: `<img src="/static/legend3.svg"/><p>This layer shows fires that occurred or are actively burning this year.</p>`,
-        classes: 'shepherd-theme-square-dark adjust-tour-panel',
+        beforeShowPromise: delay.bind(null, 'fires'),
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
-            this.$store.commit('showOnlyLayers', {
-              first: ['fires']
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: This Season\'s Fires',
-              eventAction: 'show',
-              eventLabel: 'AK Fires Tour'
-            })
           }
         },
-        tetherOptions: tetherTopRight
+        buttons: [
+          {
+            text: 'Cancel',
+            action: tour.cancel
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ]
       })
+
       tour.addStep({
         title: 'Fires in History',
-        attachTo: '#top_item right',
+        attachTo: '#historical_fire_perimiters right',
+        highlightClass: 'tour-highlighted',
         text: 'This layer shows all mapped fire perimeters from 1940 to 2018. It can be interesting to look for areas of repeated burn, or where a fire is burning today compared to older fire scars.',
-        classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
-            this.$store.commit('showOnlyLayers', {
-              first: ['historical_fire_perimiters']
-            })
             this.$ga.event({
               eventCategory: 'Tour Step: Fires in History',
               eventAction: 'show',
               eventLabel: 'AK Fires Tour'
             })
-          },
-          hide () {
-            //
           }
         },
-        buttons: buttons,
-        tetherOptions: tetherTopRight
+        beforeShowPromise: delay.bind(null, 'historical_fire_perimiters'),
+        buttons: buttons
       })
+
       tour.addStep({
         title: 'Land cover from 2010',
-        attachTo: '#top_item right',
+        attachTo: '#alaska_landcover_2010 right',
         text: `This layer provides a generalized view of the vegetation and type of land at a spatial resolution of 250 meters. Vegetation types affect the flammability of an area.`,
-        classes: 'shepherd-theme-square-dark adjust-tour-panel',
         when: {
           show: () => {
-            this.$store.commit('showOnlyLayers', {
-              first: ['alaska_wildfires:alaska_landcover_2010']
-            })
             this.$ga.event({
               eventCategory: 'Tour Step: Land cover from 2010',
               eventAction: 'show',
               eventLabel: 'AK Fires Tour'
             })
-          },
-          hide () {
-            //
           }
         },
-        buttons: buttons,
-        tetherOptions: tetherTopRight
-      })
-      tour.addStep({
-        title: 'What do the colors mean?',
-        text: `Use the <span class="fire-tour-info">&#9432;</span> Info button by the name of each layer to see more details and a legend.`,
-        when: {
-          show: () => {
-            this.$store.commit('showSidebar', {
-              layer: 'alaska_wildfires:alaska_landcover_2010'
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: What do the colors mean?',
-              eventAction: 'show',
-              eventLabel: 'AK Fires Tour'
-            })
-          },
-          hide: () => {
-            this.$store.commit('hideSidebar')
-          }
-        },
+        beforeShowPromise: delay.bind(null, 'alaska_landcover_2010'),
         buttons: buttons
       })
+
+      tour.addStep({
+        title: 'What do the colors mean?',
+        attachTo: 'a.info bottom',
+        highlightClass: 'tour-highlighted',
+        text: `Use the <span class="fire-tour-info">&#9432;</span> Info button by the name of each layer to see a legend and additional information about the layer.`,
+        buttons: buttons
+      })
+
       tour.addStep({
         title: 'How does this year compare to others?',
-        attachTo: '.legend left',
+        attachTo: '#fire-graph right',
+        highlightClass: 'tour-highlighted',
         text: `This graph compares this year to all of the years when more than 1 million acres burned since daily records began in 2004. Are we on track for another big year?`,
-        // Modify DOM before showing step
-        when: {
-          show: () => {
-            this.$store.commit('showFireGraph')
-            this.$ga.event({
-              eventCategory: 'Tour Step: Fire Graph',
-              eventAction: 'show',
-              eventLabel: 'AK Fires Tour'
-            })
-          },
-          hide: () => {
-            this.$store.commit('hideFireGraph')
-          }
-        },
         buttons: buttons
       })
       tour.addStep({
@@ -265,7 +236,7 @@ export default {
             action: tour.back
           },
           {
-            text: 'Done',
+            text: 'Done!',
             action: tour.complete
           }
         ],
@@ -273,11 +244,6 @@ export default {
           show: () => {
             this.$store.commit('showOnlyLayers', {
               first: ['fires']
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: Finished the AK Fires Tour!',
-              eventAction: 'show',
-              eventLabel: 'AK Fires Tour'
             })
           }
         }
@@ -367,7 +333,7 @@ export default {
             <tr><td><div class="l-15"></div></td><td>Snow and ice</td></tr>
           </table>
           <p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank" rel="noopener">Commission for Environmental Cooperation</a></p>.`,
-          'id': 'alaska_wildfires:alaska_landcover_2010',
+          'id': 'alaska_landcover_2010',
           'wmsLayerName': 'alaska_wildfires:alaska_landcover_2010',
           'title': 'Land cover, 2010',
           'legend': false
@@ -763,9 +729,7 @@ export default {
   span.fire-tour-info {
     display: inline-block;
     padding: 0 .1ex;
-    background-color: #fff;
     color: #333;
-    font-size: 16pt !important;
     font-weight: bold;
   }
 
@@ -857,17 +821,20 @@ table.alaska-wildfires-legend.big-fire-years {
   h1 {
     font-size: 16pt;
     color: #322323;
-    margin: 1rem 0 .5rem;
+    margin: .5rem 0 .25rem;
+    padding: 0;
   }
 
   h2 {
     font-size: 1rem;
     margin: .5rem 0;
+    padding: 0;
   }
 
   h3 {
     font-size: .75rem;
     margin-bottom: 0;
+    padding: 0;
 
     &.discovered {
       margin-top: 0;
@@ -930,12 +897,13 @@ div.leaflet-marker-icon span {
     color: #438bca;
   }
   p {
-    padding: 1em;
-  }
-  ul {
-    li {
-    }
-    margin-bottom: 1em;
+    margin: 1em;
+    &:first-of-type {
+      padding-top: 1em;
+    };
+    &:last-of-type {
+      padding-bottom: 1em;
+    };
   }
   .abstractWrapper {
     @media screen and (max-width: 768px) {

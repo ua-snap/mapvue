@@ -38,14 +38,16 @@ export default {
   data () {
     return {
       title: 'SNAP Data for a Changing Climate',
-      abstract: `<h1>SNAP Data for a Changing Climate</h1><div class="abstractWrapper"><p class="top">The tour for this map provides a basic explanation of terms used in climate modeling, such as General Circulation Models, downscaling, and Representative Concentration Pathways.</p>
-      <p class="middle">It also gives context for two SNAP climate datasets - <b>temperature and length of growing season</b> - and highlights their usefulness in making meaningful projections of climate in Alaska.</p>
-      <p class="bottom">Finally, you’ll learn where to find more details on tour topics, and where to go to download SNAP data for your own work.</p>`,
+      abstract: `
+<h1>SNAP Data for a Changing Climate</h1>
+<div class="abstractWrapper">
+  <p>This map showcases some climate projection data from the Scenarios Network for Alaska + Arctic Planning, located at the University of Alaska Fairbanks.</p></p>  A short tour introduces basic terms used in climate modeling, including Global Climate Models (GCMs), downscaling, and Representative & Extended Concentration Pathways (RCPs and ECPs).  </p></p>Use this interactive map to explore temperature and length of growing season data from three different climate scenarios for 2010-2090.</p><p><i><small>UAF photo by JR Ancheta</small></p>
+`,
       mapOptions: {
         zoom: 0,
         minZoom: 0,
         maxZoom: 5,
-        center: [62, -135]
+        center: [62.94840214681834, -149.7961770609005]
       },
       baseLayerOptions: {
         transparent: true,
@@ -67,7 +69,7 @@ export default {
             <tr><td><div class="log-8"></div></td><td>301 - 330 days</td></tr>
             <tr><td><div class="log-9"></div></td><td>331 - 365 days</td></tr>
           </table>
-          This layer shows the decadal average length of growing season in the 2010s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.`,
+          <p>This layer shows the average length of growing season for the decade of the 2010s. "Length" refers to the number of days between the days of freeze and thaw.</p><p>\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses 0°C.</p><p>\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.</p>`,
           'id': 'snap_rcp:logs_2010_rcp6',
           wmsLayerName (params) {
             return {
@@ -97,7 +99,7 @@ export default {
             <tr><td><div class="log-8"></div></td><td>301 - 330 days</td></tr>
             <tr><td><div class="log-9"></div></td><td>331 - 365 days</td></tr>
           </table>
-          This layer shows the decadal average length of growing season in the 2090s, which refers to the number of days between the days of thaw and freeze.\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.`,
+          <p>This layer shows the average length of growing season for the decade of the 2010s. "Length" refers to the number of days between the days of freeze and thaw.</p><p>\n\nEstimated days of freeze and thaw are calculated by assuming a linear change in temperature between consecutive months.  When consecutive monthly midpoints have opposite sign temperatures, the day of transition (freeze or thaw) is the day between them on which temperature crosses zero degrees C.</p><p>\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-derived-dof-dot-logs-771m-cmip5-ar5" target="_blank">Read more about this dataset</a>, including the algorithms used to generate this data layer.</p>`,
           'id': 'snap_rcp:logs_2090_rcp6',
           wmsLayerName (params) {
             return {
@@ -132,7 +134,7 @@ export default {
             <tr><td><div class="tas-14"></div></td><td>4.1 to 5 ºC</td></tr>
             <tr><td><div class="tas-15"></div></td><td>5.1 ºC and warmer</td></tr>
           </table>
-          This layer shows projected, downscaled mean decadal temperature for 2010 using a five-model average.  The spatial resolution of this dataset is 771m.   The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.`,
+          <p>This layer shows projected and downscaled mean decadal temperature for 2010 using a five-model average.  </p><p>The spatial resolution of this dataset is 771m.   The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990. </p><p>\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.</p>`,
           'id': 'snap_rcp:tas_2010_rcp6',
           wmsLayerName (params) {
             return {
@@ -167,7 +169,7 @@ export default {
             <tr><td><div class="tas-14"></div></td><td>4.1 to 5 ºC</td></tr>
             <tr><td><div class="tas-15"></div></td><td>5.1 ºC and warmer</td></tr>
           </table>
-          This layer shows projected, downscaled mean decadal temperature for 2090 using a five-model average. The spatial resolution of this dataset is 771m. The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990.\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.`,
+          <P>This layer shows projected, downscaled mean decadal temperature for 2090 using a five-model average.  </p><p>The spatial resolution of this dataset is 771m. The downscaling process for this layer utilizes PRISM climatological datasets from 1961-1990. </p><p>\n\n<a href="http://ckan.snap.uaf.edu/dataset/projected-monthly-and-derived-temperature-products-771m-cmip5-ar5" target="_blank">Download data</a> for this layer, and other related products.</p>`,
           'id': 'snap_rcp:tas_2090_rcp6',
           wmsLayerName (params) {
             return {
@@ -229,6 +231,7 @@ export default {
         },
         {
           text: 'View Community Charts',
+          id: 'community-charts-button',
           callback: this.openCommCharts
         },
         {
@@ -241,7 +244,6 @@ export default {
       let tour
       tour = new this.$shepherd.Tour({
         defaults: {
-          classes: 'shepherd-theme-square-dark',
           showCancelLink: true
         }
       })
@@ -259,251 +261,117 @@ export default {
       ]
 
       tour.addStep({
-        title: 'What is a General Circulation Model (GCM)?',
+        title: 'Climate Modeling Basics: GCMs, Downscaling, and RCPs',
         text: `
-        <p>GCMs represent physical processes in the atmosphere, ocean, cryosphere, and land surface. They are the most advanced tools currently available for simulating the response of the global climate system to increasing greenhouse gas concentrations.</p>
-        <p><b>SNAP uses GCMs strategically</b></p>
-        <p>Projecting into the future using GCM data will always include uncertainties. To address this, SNAP provides 5 GCMs that perform best over the Arctic, as well as an average of those 5 models.</p>
-        <p>This "5 Model Average" is generally more statistically robust than any individual model; however, the average value does smooth out extreme values. If extreme values are of interest, it's best to use a series of individual GCMs.</p>
-        <p><a href="https://www.snap.uaf.edu/methods/models" target="_blank">Learn more about how we select our models</a></p>
-        <p class="tour_step_number"><b>(1/9)</b></p>`,
-        classes: 'shepherd-theme-square-dark',
-        buttons: [{
-          text: 'Next',
-          action: tour.next
-        }],
+        <p><b>A Global Climate Model (GCM)</b> is a type of General Circulation Model that focuses on projections of climate change by simulating how Earth’s physical processes respond to increasing greenhouse gas concentrations. <a href="https://www.snap.uaf.edu/methods/models" target="_blank">SNAP projections use 5 GCMs that perform best in the Arctic</a>, as well as a 5-model average.</p>
+        <img class="downscaling" src="static/downscale-background_optim.jpg"/>
+        <p>SNAP <a href="https://www.snap.uaf.edu/methods/downscaling" target="_blank"><b>downscales</b></a> GCM climate data to “zoom in” and generate regionally relevant data at higher resolutions. Here, notice how the coarser, global-scale GCM data (L) have been converted to a more detailed scale that makes better sense for Alaska (R).</p>
+        <p><a target="_blank" href="https://www.cicero.oslo.no/en/posts/news/a-guide-to-representative-concentration-pathways"><b>Representative and Extended Concentration Pathways (RCPs and ECPs)</b></a> describe possible future climates based on atmospheric greenhouse gas concentrations. RCPs (projections to 2100) and ECPs (projections beyond 2100) provide a <a href="http://www.pik-potsdam.de/~mmalte/rcps/" target="_blank">basis for comparison and a “common language”</a> for modelers to share their work.</p>`,
+        classes: 'downscaling-image',
+        buttons: [
+          {
+            text: 'Cancel',
+            action: tour.cancel
+          },
+          {
+            text: 'Next',
+            action: tour.next
+          }
+        ],
         when: {
           show: () => {
             this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
+            this.$store.commit('hideLayerMenu')
             this.$store.commit('showOnlyLayers', {
               first: []
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: What is a General Circulation Model?',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
             })
           }
         }
       })
       tour.addStep({
-        title: 'What makes SNAP data different from “regular” GCM data?',
+        title: 'Changes in temperature',
         text: `
-        <div class="downscaling-wrapper"><table class="downscaling"><tr><td>Original Data</td><td>Downscaled Data</td></tr></table><p class="downscaling_image"><img src='static/snap_downscaling.png'/></p></div>
-        <p></p><p>SNAP downscales climate data from global models to generate locally relevant data at higher resolutions. The downscaling process connects global-scale projections with smaller-scale dynamics to create regionally specific projections.</p>
-        <p>SNAP data adds value to GCM projections by making them more relevant and useful for making decisions about climate change.</p>
-        <p><a href='https://www.snap.uaf.edu/methods/downscaling' target='_blank'>Learn more about our downscaling process</a></p>
-        <p class="tour_step_number"><b>(2/9)</b></p>`,
-        classes: 'shepherd-theme-square-dark adjust-for-images',
-        buttons: buttons,
-        when: {
-          show: () => {
-            this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
-            this.$store.commit('showOnlyLayers', {
-              first: []
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: What makes SNAP data different from “regular” GCM data?',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
-          }
-        }
-      })
-      tour.addStep({
-        title: `<p>What are Representative Concentration</p>
-         <p>Pathways and how are they useful?</p>`,
-        text: `
-        <p>Just as it’s good to use multiple GCMs, it’s also good to look at multiple scenarios when using climate data, in order to show the most complete picture of possible future climate trends.</p>
-        <p>The Intergovernmental Panel on Climate Change describes 4 potential future scenarios known as Representative Concentration Pathways (RCPs).</p>
-        <p>RCPs are used by those running GCMs to model what the climate might be like in the future, and to ensure that modelers start from the same place and agree on the same assumptions. RCPs provide a “common language” for comparing results and sharing findings.</p>
-        <p class="tour_step_number"><b>(3/9)</b></p>`,
-        classes: 'shepherd-theme-square-dark',
-        buttons: buttons,
-        when: {
-          show: () => {
-            this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
-            this.$store.commit('showOnlyLayers', {
-              first: []
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: What are Representative Concentration Pathways and how are they useful?',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
-          }
-        }
-      })
-      tour.addStep({
-        title: 'RCPs illustrate 3 major values',
-        text: `
-        <p><b>1) Radiative forcing</b> — how much energy is at the Earth’s surface, measured in watts per square meter, by the year 2100. This is the metric that the RCP numbers are based upon, i.e. RCP 2.6, 4.5, 6.0, and 8.5.</p>
-        <p><b>2) Emission rates</b> — how fast we add greenhouse gases into the atmosphere
-        <p><b>3) Emission concentrations</b> — measured in parts per million for CO<sub>2</sub>, methane, and other greenhouse gases
-        <p class="tour_step_number"><b>(4/9)</b></p>`,
-        classes: 'shepherd-theme-square-dark',
-        buttons: buttons,
-        when: {
-          show: () => {
-            this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
-            this.$store.commit('showOnlyLayers', {
-              first: []
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: RCPs illustrate',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
-          }
-        }
-      })
-      tour.addStep({
-        title: 'RCPs simulate results of climate-warming mitigation efforts',
-        text: `
-        <p><b>RCP 2.6: Strong mitigation efforts.</b> Forcing peaks at ~3 W / m<sup>2</sup> mid-century and drops to 2.6 W / m<sup>2</sup> by 2100. Greenhouse gas emissions drop substantially over time. </p>
-        <p><b>RCPs 4.5 and 6.0: Moderate mitigation efforts.</b> Forcing stabilizes soon after 2100 at 4.5 and 6.0 W / m<sup>2</sup>, respectively, due to efforts that curb emissions.</p>
-        <p><b>RCP 8.5: "Business as usual."</b> Forcing values reach 8.5 W / m<sup>2</sup> by 2100 and continue to rise into the next century. Very high greenhouse gas concentrations.</p>
-        <div><p class="atmos_conc_image"><img src='static/atmos_concent.png' </img></p>
-        <p class="annotation_text"><i>CO<sub>2</sub> equivalent atmospheric concentrations for RCP scenarios.</p><p class="annotation_text">Visit <a href='http://www.pik-potsdam.de/~mmalte/rcps/' target='_blank'>details and data</a> for additional information or <a href="http://sedac.ipcc-data.org/ddc/ar5_scenario_process/RCPs.html" target="_blank">learn more about RCPs</a></p></i></div>
-        <p class="tour_step_number"><b>(5/9)</b></p>`,
-        classes: 'shepherd-theme-square-dark adjust-for-images',
-        buttons: buttons,
-        when: {
-          show: () => {
-            this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
-            this.$store.commit('showOnlyLayers', {
-              first: []
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: RCPs simulate results of climate-warming mitigation efforts',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
-          }
-        }
-      })
-      tour.addStep({
-        title: 'Side-by-side maps showing changes in temperature',
-        text: `
-        <p>Example of a decadal average of mean annual temperature for the 2010s and 2090s. Viewed side-by-side with the same color scale, it’s apparent that mean annual temperature is projected to increase. This is most notable in northern Alaska—where blue colors transition to lighter shades of blue or to red, denoting warmer temperatures.</p>
-        <p class="tour_step_number"><b>(6/9)</b></p>`,
-        classes: 'shepherd-theme-square-dark',
+<p>These layers show a decadal average of mean annual temperature for the 2010s (left) and 2090s (right). Viewed side-by-side with the same color scale, it&rsquo;s apparent that mean annual temperature is projected to increase.</p>
+<p><b>The shift is most notable in northern Alaska</b>:  See how the colors transition to lighter shades of blue or to red, denoting warmer temperatures.</p>
+`,
         buttons: buttons,
         when: {
           show: () => {
             this.$store.commit('showDualMaps')
-            this.$store.commit('enableSyncMaps')
             this.$store.commit('hideLayerMenu')
             this.$store.commit('showOnlyLayers', {
               first: ['snap_rcp:tas_2010_rcp6'],
               second: ['snap_rcp:tas_2090_rcp6']
             })
             this.map.setView([68.009, -153.554], 2)
-            this.$ga.event({
-              eventCategory: 'Tour Step: Side-by-side maps showing changes in temperature',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
           }
         }
       })
+
       tour.addStep({
-        title: 'Side-by-side maps showing changes in growing season length',
+        title: 'What do the colors mean?',
+        attachTo: 'a.info bottom',
+        buttons: buttons,
+        text: '<p>Use the ⓘ Info button by the name of each layer to see more details and a legend.</p>',
+        highlightClass: 'tour-highlighted',
+        when: {
+          show: () => {
+            this.$store.commit('showLayerMenu')
+          },
+          hide: () => {
+            this.$store.commit('hideLayerMenu')
+          }
+        }
+      })
+
+      tour.addStep({
+        title: 'Changes in growing season length',
         text: `
-        <p>A shift in climate patterns is illustrated by the length of the growing season, measured in days. Length of growing season approximates the ice-free season and is defined by the dates between when the mean temperature crosses 0°C in the spring and fall.</p>
-        <p>Look at the right-hand map. By the 2090s, the growing season shows a strong warming trend with a longer ice-free season, as shown by darker shades of green. This trend is most notable in the southern area of the map, where the growing season increases by as much as 30 days.</p>
-        <p>Map colors are explained in the next tour stop.</p>
-        <p class="tour_step_number"><b>(7/9)</b></p>`,
-        classes: 'shepherd-theme-square-dark',
+        <p>These layers use the length of the growing season to illustrate a shift in climate patterns. Length of growing season approximates the ice-free season. It&rsquo;s defined by the dates between when the mean temperature crosses 0°C in the spring and fall.</p>
+        <p><b>Look at the right-hand map. </b>By the 2090s, the growing season shows a strong warming trend with a longer ice-free season, as shown by darker shades of green. This trend is most notable in the southern area of the map, where the growing season increases by as much as 30 days.</p>`,
         buttons: buttons,
         when: {
           show: () => {
             this.$store.commit('showDualMaps')
-            this.$store.commit('enableSyncMaps')
             this.$store.commit('hideLayerMenu')
             this.$store.commit('showOnlyLayers', {
               first: ['snap_rcp:logs_2010_rcp6'],
               second: ['snap_rcp:logs_2090_rcp6']
             })
             this.map.setView([60.994, -148.69], 2)
-            this.$ga.event({
-              eventCategory: 'Tour Step: Side-by-side maps showing changes in growing season length',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
           }
         }
       })
+
       tour.addStep({
-        title: 'What do the colors mean?',
-        text: `
-        <p>Use the <span>&#9432;</span> Info button by the name of each layer to see more details and a legend.</p>
-        <p>Layer colors represent the length of the growing season. Dark brown means less than 120 days. At the other end of the scale, the darkest green represents a year round growing season.</p>
-        <p class="tour_step_number"><b>(8/9)</b></p>`,
+        title: 'Community Charts',
+        text: `Use the SNAP Community Charts tool to see temperature and precipitation projections for communities across Alaska and Canada.`,
+        attachTo: '#community-charts-button>button right',
+        highlightClass: 'tour-highlighted',
+        buttons: buttons,
         when: {
           show: () => {
-            this.$store.commit('showDualMaps')
-            this.$store.commit('enableSyncMaps')
-            this.$store.commit('hideLayerMenu')
-            this.$store.commit('showOnlyLayers', {
-              first: ['snap_rcp:logs_2010_rcp6'],
-              second: ['snap_rcp:logs_2090_rcp6']
-            })
-            this.map.setView([60.994, -148.69], 2)
-            this.$store.commit('showSidebar', {
-              layer: 'snap_rcp:logs_2090_rcp6'
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: What do the colors mean?',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
+            this.$store.commit('showLayerMenu')
           },
           hide: () => {
-            this.$store.commit('hideSidebar')
+            this.$store.commit('hideLayerMenu')
           }
-        },
-        buttons: buttons
+        }
       })
+
       tour.addStep({
-        title: 'End of tour - thanks for your time!',
+        title: 'Accessing SNAP data',
         text: `
-        <p>We hope this tour has shown how SNAP data fits into the larger contexts of climate modeling. Data visualizations such as this interactive map help show the impacts that a changing climate may have on all Alaska species — including ourselves — and form an important starting point for discussions about how to respond and adapt to a new Alaska.</p>
-        <p><b>Download our data</b></p>
-        <ul><li>Download our data <a href="https://www.snap.uaf.edu/tools/data-downloads" target="_blank">here</a></li>
-        <li>Need data for a specific community? Try our <a href="https://www.snap.uaf.edu/tools/community-charts" target="_blank">Community Charts Tool</a>.</li>
-        <li>Need a spatial subset of data for your area of interest? <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon" target="_blank">This R script</a> can be adapted to subset a timeseries of this dataset for a region specified by a shapefile, producing CSV output that can the be graphed or visualized in other ways.</li></ul>
-        <p>If you have feedback, we’d love to hear from you — <a href="mailto:uaf-mapventure@alaska.edu">please contact us.</a></p>
-        <p class="tour_step_number"><b>(9/9)</b></p>`,
-        when: {
-          show: () => {
-            this.map.setView([64, -160], 1)
-            this.$store.commit('hideDualMaps')
-            this.$store.commit('disableSyncMaps')
-            this.$store.commit('showLayerMenu')
-            this.$store.commit('showOnlyLayers', {
-              first: [''],
-              second: ['']
-            })
-            this.$ga.event({
-              eventCategory: 'Tour Step: Finished the SNAP RCP 6.0 tour!',
-              eventAction: 'show',
-              eventLabel: 'SNAP RCP 6.0'
-            })
-          }
-        },
+<p>Browse and download SNAP data <a href="https://www.snap.uaf.edu/tools/data-downloads" target="_blank">here</a>.</p>
+<p><b>Need a spatial subset of data?</b> <a href="https://github.com/ua-snap/data-recipes/tree/master/extract_by_polygon" target="_blank">This R script</a> can be adapted to subset a time series of this dataset for a region specified by a shapefile, producing CSV output that can then be graphed or visualized in other ways.</p>
+<p><b>Thanks for your time!</b> <a href="mailto:nlfresco@alaska.edu">Please contact us</a> with questions or feedback.</p>`,
         buttons: [
           {
             text: 'Back',
             action: tour.back
           },
           {
-            text: 'Done',
+            text: 'Done!',
             action: tour.complete
           }
         ]
@@ -525,58 +393,23 @@ export default {
 }
 </script>
 <style lang="scss">
-#legend {
+
+.shepherd-element.downscaling-image {
+  width: 200%;
+  position: relative;
+  left: -50%;
+}
+
+.downscaling {
   display: block;
-  padding-bottom: 1em;
-}
-
-.tour_step_number {
-  font-size: 12px;
-  text-align: right;
-}
-
-.annotation_text {
-  font-size: 12px !important;
-  margin-bottom: 0px !important;
-  text-align: center;
-}
-
-.downscaling_image {
-  width: 556px;
-  height: 253px;
-  text-align: center;
-}
-
-.atmos_conc_image {
-  text-align: center;
-  img {
-    max-width: 500px;
-  }
-}
-
-.shepherd-theme-square-dark sub,sup {
-  font-size: 75% !important;
-}
-
-.shepherd-theme-square-dark a {
-  color: #0099ff;
-}
-
-.shepherd-theme-square-dark li {
-  line-height: 1.35em !important;
-}
-
-.shepherd-title {
-  font-size: 16px !important;
-}
-
-.shepherd-text {
-  font-size: 14px !important;
+  margin: 1em auto;
+  width: 500px;
 }
 
 table.rcp6-legend.logs {
   margin-bottom: 10px;
   td {
+    padding: 0;
     font-size: 10pt;
     div {
       height: 2em;
@@ -597,22 +430,10 @@ table.rcp6-legend.logs {
   }
 }
 
-.downscaling-wrapper {
-  width: 556px;
-  margin: auto;
-}
-table.downscaling {
-  width: 556px;
-
-  td {
-    text-align: center;
-    width: 278px;
-  }
-}
-
 table.rcp6-legend.tas {
   margin-bottom: 10px;
   td {
+    padding: 0;
     font-size: 10pt;
     div {
       height: 2em;
@@ -640,12 +461,14 @@ table.rcp6-legend.tas {
 }
 
 .splash-screen .billboard {
-  background: url("~@/assets/mountains.jpg") white top left / cover no-repeat;
+  background: url("~@/assets/campus_jrancheta.jpg") white top left / cover no-repeat;
   h1 {
-    width: 75%;
-    font-size: 30pt;
-    padding: 1ex;
-    color: #000;
+    width: 80%;
+    font-size: 28pt;
+    padding: .5em;
+    color: #fff;
+    letter-spacing: .02em;
+    line-height: 1.3;
   }
   color: #222;
   a {
@@ -670,6 +493,15 @@ table.rcp6-legend.tas {
   }
 
   .abstractWrapper {
+    background: rgba(255, 255, 255, .8);
+    border-radius: 1ex;
+    margin: 1em;
+    padding: .25rem 1rem;
+
+    @media screen and (min-width: 769px) {
+      max-width: 75%;
+    }
+
     @media screen and (max-width: 768px) {
       width: 75%;
       border-radius: 0;
@@ -679,12 +511,6 @@ table.rcp6-legend.tas {
         margin-right: 1em;
       }
     }
-    @media screen and (min-width: 769px) {
-      max-width: 75%;
-    }
-    background: rgba(255, 255, 255, .8);
-    border-radius: 1ex;
-    margin: 1em;
   }
   .buttons {
     margin: 1em;
@@ -692,7 +518,10 @@ table.rcp6-legend.tas {
     font-weight: 700;
   }
   .logos {
+    background: rgba(0, 0, 0, 0.45);
+    display: inline-block;
     margin: -1em 0 1em 1em;
+    padding: .5ex 1em;
   }
 }
 </style>

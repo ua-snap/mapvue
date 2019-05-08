@@ -15,12 +15,7 @@ export default {
     var completeTour = (event) => {
       this.$store.commit('endTour')
       this.$store.commit('hideDualMaps')
-      this.$store.commit('disableSyncMaps')
       this.$store.commit('showLayerMenu')
-      this.$store.commit('showOnlyLayers', {
-        first: [''],
-        second: ['']
-      })
     }
     this.tour.on('complete', completeTour)
     this.tour.on('cancel', completeTour)

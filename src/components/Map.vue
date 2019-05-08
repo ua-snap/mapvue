@@ -68,7 +68,7 @@ export default {
     this.$options.leaflet.map = this.$L.map('map--leaflet-map', this.getBaseMapAndLayers())
 
     // Put the (left) map center in the console to assist with coding
-    if (process.env.DEBUG === true) {
+    if (process.env.DEBUG === 'true') {
       this.$options.leaflet.map.on('zoomend', () => {
         console.log('Map zoom: ', this.$options.leaflet.map.getZoom())
       })
@@ -273,6 +273,10 @@ export default {
 
 .leaflet-top, .leaflet-bottom {
   z-index: 499;
+}
+
+.leaflet-top .leaflet-control {
+  margin-top: 55px;
 }
 
 .leaflet-container {

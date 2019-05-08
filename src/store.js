@@ -212,15 +212,6 @@ export default new Vuex.Store({
     hideDualMaps (state) {
       state.dualMaps = false
     },
-    toggleSyncMaps (state) {
-      state.syncMaps = !state.syncMaps
-    },
-    enableSyncMaps (state) {
-      state.syncMaps = true
-    },
-    disableSyncMaps (state) {
-      state.syncMaps = false
-    },
     incrementPendingHttpRequest (state) {
       state.pendingHttpRequests++
     },
@@ -231,7 +222,6 @@ export default new Vuex.Store({
     // Called when a map is destroyed, such as when
     // user navigates between maps.
     resetState (state) {
-      this.commit('disableSyncMaps')
       this.commit('hideDualMaps')
       this.commit('endTour')
       this.commit('hideSidebar')

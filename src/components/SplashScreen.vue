@@ -143,21 +143,22 @@ export default {
     }
 
     .logos {
-      margin-top: 1em;
+      margin-top: 2em;
       .snap {
-        height: 3em;
+        height: 2em;
+        margin-bottom: .6ex;
       }
       .iarc {
-        height: 4em;
+        height: 3em;
       }
       .uaf {
         display: inline-block;
         position: relative;
         top: .5ex;
-        height: 5em;
+        height: 3.5em;
       }
       .snap, .iarc {
-        margin-right: 2em;
+        margin-right: 1em;
       }
     }
   }

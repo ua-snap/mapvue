@@ -39,11 +39,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list-complete-item {
-  transition: all .35s;
-}
 
 .list-complete-enter, .list-complete-leave-active {
   opacity: 0;
 }
+
 </style>
