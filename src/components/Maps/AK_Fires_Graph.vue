@@ -4,7 +4,7 @@
     <div class="graph-content">
       <button @click="hideGraph()">&times;</button>
       <div ref="plotly"></div>
-      <p>This graph compares the current year to all of the years when more than 1 million acres burned since daily tally records began in 2004.<br/>Source: <a target="_blank" rel="noopener" href="https://fire.ak.blm.gov/">Alaska Interagency Coordination Center (AICC)</a>.</p>
+      <p>This graph compares the current year to all of the years when more than 1 million acres burned since daily tally records began in 2004.  Average is computed between 2004&mdash;2018.<br/>Source: <a target="_blank" rel="noopener" href="https://fire.ak.blm.gov/">Alaska Interagency Coordination Center (AICC)</a>.</p>
     </div>
   </div>
 </div>
@@ -14,20 +14,22 @@
 import moment from 'moment'
 import Plotly from 'plotly.js/lib/index-basic' // eslint-disable-line
 
+// These keys are defined in the mv-aicc-fire-shim code.
 var lineColors = {
-  2004: '#7fc97f',
-  2005: '#beaed4',
-  2009: '#fdc086',
-  2010: '#aaaa55',
-  2013: '#386cb0',
-  2015: '#f0027f',
-  2018: '#333344'
+  2004: '#a65628',
+  2005: '#ffd92f',
+  2009: '#ff7f00',
+  2010: '#984ea3',
+  2013: '#4daf4a',
+  2015: '#377eb8',
+  'Average, 2004-2018': '#ccc',
+  2019: '#e41a1c'
 }
 
 // We declare the static properties of the graph outside the Vue
 // object because they don't need to be reactive
 var graphLayout = {
-  title: 'Cumulative Acres Burned, April 1 - Sept 30',
+  title: 'Cumulative Acres Burned, April 1-Sept 30',
   titlefont: {
     size: 20
   },
@@ -36,7 +38,8 @@ var graphLayout = {
   },
   margin: {
     l: 120,
-    r: 120
+    r: 120,
+    t: -100
   },
   xaxis: {
     type: 'category',
@@ -103,6 +106,21 @@ export default {
 
     var processGraphData = (data) => {
       let timeSeries = data
+
+      // First, add the average so it's below the other traces.
+      var averageName = 'Average, 2004-2018'
+      graphData.push({
+        name: averageName,
+        x: timeSeries[averageName].dates,
+        y: timeSeries[averageName].acres,
+        line: {
+          color: lineColors[averageName],
+          width: 6
+        }
+      })
+      delete timeSeries[averageName]
+
+      // Add remaining data
       for (let year in timeSeries) {
         if (timeSeries.hasOwnProperty(year)) {
           var yearData = {
