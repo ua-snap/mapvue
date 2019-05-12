@@ -39,7 +39,7 @@ var graphLayout = {
     l: 50,
     r: 50,
     t: 75,
-    b: 0,
+    b: 25,
     pad: 0
   },
   xaxis: {
