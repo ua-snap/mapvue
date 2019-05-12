@@ -1,10 +1,10 @@
 <template>
 <div class="graph-screen" v-show="visible">
   <div>
-    <div class="graph-content">
-      <button @click="hideGraph()">&times;</button>
+    <div ref="graph" class="graph-content">
       <div ref="plotly"></div>
-      <p>This graph compares the current year to all of the years when more than 1 million acres burned since daily tally records began in 2004.  Average is computed between 2004&mdash;2018.<br/>Source: <a target="_blank" rel="noopener" href="https://fire.ak.blm.gov/">Alaska Interagency Coordination Center (AICC)</a>.</p>
+      <p>This graph compares the current year to all high fire years (> 1 million acres burned) since daily tally records began in 2004. Average line computed across years 2004 through last year.  Source: <a target="_blank" rel="noopener" href="https://fire.ak.blm.gov/">Alaska Interagency Coordination Center (AICC)</a>.</p>
+      <button @click="hideGraph()">Close</button>
     </div>
   </div>
 </div>
@@ -26,8 +26,6 @@ var lineColors = {
   2019: '#e41a1c'
 }
 
-// We declare the static properties of the graph outside the Vue
-// object because they don't need to be reactive
 var graphLayout = {
   title: 'Cumulative Acres Burned, April 1-Sept 30',
   titlefont: {
@@ -36,10 +34,13 @@ var graphLayout = {
   font: {
     family: 'Lato'
   },
+  height: 380,
   margin: {
-    l: 120,
-    r: 120,
-    t: -100
+    l: 50,
+    r: 50,
+    t: 75,
+    b: 0,
+    pad: 0
   },
   xaxis: {
     type: 'category',
@@ -164,7 +165,7 @@ export default {
       this.$store.commit('hideFireGraph')
     },
     drawGraph () {
-      Plotly.plot(
+      Plotly.react(
         this.$refs.plotly,
         graphData,
         graphLayout,
@@ -174,11 +175,6 @@ export default {
     },
     resizeGraph () {
       Plotly.Plots.resize(this.$refs.plotly)
-      this.$ga.event({
-        eventCategory: 'Show large fire season graph',
-        eventAction: 'show',
-        eventLabel: 'Fire Graph'
-      })
     }
   },
   beforeDestroy () {
@@ -197,20 +193,28 @@ export default {
   background-color: rgba(150, 168, 48, 0.8);
   z-index: 3000;
   > div {
-    padding: 1rem;
     background-color: rgba(255, 255, 255, .8);
-    width: 80%;
+    width: 800px;
+    height: 550px;
     margin: 2rem auto;
     box-shadow: 0px 10px 40px 0px rgba(0,0,0,0.75);
 
     .graph-content {
       background-color: rgba(255, 255, 255, 1.0);
-      padding: 1em 2em;
-    }
+      padding: 1em;
+      height: 550px;
 
-    button {
-      font-size: 120%;
+      button {
+        float: right;
+      }
     }
+  }
+}
+
+@media (max-height: 550px) {
+  button {
+    position: relative;
+    bottom: 2em;
   }
 }
 </style>
