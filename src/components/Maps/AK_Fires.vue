@@ -734,7 +734,7 @@ export default {
   }
 
 </style>
-<style lang="scss">
+<style scoped lang="scss">
 path.leaflet-interactive.viirs-hotspot {
   animation: colors 2s infinite;
 }
@@ -884,18 +884,22 @@ div.leaflet-marker-icon span {
   opacity: 10%;
 }
 
-.splash-screen .billboard {
+// /deep/ applies these styles to the child component
+/deep/ .splash-screen .billboard {
   background: url("~@/assets/scott-fire-fade.jpg") white bottom left / cover no-repeat;
+  color: #222;
+
   h1 {
     width: 75%;
     font-size: 20pt;
     padding: 1ex;
     color: #000;
   }
-  color: #222;
+
   a {
     color: #438bca;
   }
+
   p {
     margin: 1em;
     &:first-of-type {
@@ -905,6 +909,7 @@ div.leaflet-marker-icon span {
       padding-bottom: 1em;
     };
   }
+
   .abstractWrapper {
     @media screen and (max-width: 768px) {
       width: 100%;
@@ -922,17 +927,16 @@ div.leaflet-marker-icon span {
     border-radius: 1ex;
     margin: 1em;
   }
+
   .buttons {
     margin: 1em;
-    padding-bottom: 1em;
     font-weight: 700;
   }
+
   .logos {
-    margin: -1em 0 1em 1em;
+    margin: 0 0 0 1em !important;
   }
 }
-
-
 
 // Tour styles
 .shepherd-step a {
