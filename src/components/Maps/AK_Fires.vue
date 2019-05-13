@@ -724,26 +724,90 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-// Not scoped, for editing tour styles
-  span.fire-tour-info {
-    display: inline-block;
-    padding: 0 .1ex;
-    color: #333;
-    font-weight: bold;
-  }
 
-</style>
-<style scoped lang="scss">
+<style lang="scss">
+// Not scoped, for editing tour / leaflet styles
+span.fire-tour-info {
+  display: inline-block;
+  padding: 0 .1ex;
+  color: #333;
+  font-weight: bold;
+}
+
 path.leaflet-interactive.viirs-hotspot {
   animation: colors 2s infinite;
 }
 
 @keyframes colors {
-    50% {
-      fill: #F9EA31;
-      fill-opacity: 0.5;
+  50% {
+    fill: #F9EA31;
+    fill-opacity: 0.5;
+  }
+}
+
+.leaflet-popup-content {
+  z-index: 1000;
+
+  h1 {
+    font-size: 16pt;
+    color: #322323;
+    margin: .5rem 0 .25rem;
+    padding: 0;
+  }
+
+  h2 {
+    font-size: 1rem;
+    margin: .5rem 0;
+    padding: 0;
+  }
+
+  h3 {
+    font-size: .75rem;
+    margin-bottom: 0;
+    padding: 0;
+
+    &.discovered {
+      margin-top: 0;
+      font-weight: 500;
     }
+  }
+
+  p.updated {
+    margin-top: .25ex;
+    font-weight: 300;
+    color: #988989;
+  }
+
+  p.out {
+    font-weight: 700;
+    margin: 0;
+  }
+}
+
+div.leaflet-marker-icon span {
+  color: white;
+  font-weight: bold;
+  border-radius: 1em;
+  margin: 1ex;
+  padding: .5ex;
+
+  &.active {
+    background-color: rgba(200, 56, 20, .85);
+    z-index: 10000;
+  }
+
+  &.inactive {
+    background-color: rgba(100, 100, 100, .6);
+    z-index: 500;
+  }
+
+  &.small {
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    z-index: 300;
+  }
 }
 
 table.alaska-wildfires-legend.lightning {
@@ -815,74 +879,9 @@ table.alaska-wildfires-legend.big-fire-years {
   }
 }
 
-.leaflet-popup-content {
-  z-index: 1000;
+</style>
 
-  h1 {
-    font-size: 16pt;
-    color: #322323;
-    margin: .5rem 0 .25rem;
-    padding: 0;
-  }
-
-  h2 {
-    font-size: 1rem;
-    margin: .5rem 0;
-    padding: 0;
-  }
-
-  h3 {
-    font-size: .75rem;
-    margin-bottom: 0;
-    padding: 0;
-
-    &.discovered {
-      margin-top: 0;
-      font-weight: 500;
-    }
-  }
-
-  p.updated {
-    margin-top: .25ex;
-    font-weight: 300;
-    color: #988989;
-  }
-
-  p.out {
-    font-weight: 700;
-    margin: 0;
-  }
-}
-
-div.leaflet-marker-icon span {
-  color: white;
-  font-weight: bold;
-  border-radius: 1em;
-  margin: 1ex;
-  padding: .5ex;
-
-  &.active {
-    background-color: rgba(200, 56, 20, .85);
-    z-index: 10000;
-  }
-
-  &.inactive {
-    background-color: rgba(100, 100, 100, .6);
-    z-index: 500;
-  }
-
-  &.small {
-    border-radius: 50%;
-    width: 1em;
-    height: 1em;
-    display: inline-block;
-    z-index: 300;
-  }
-}
-
-.old {
-  opacity: 10%;
-}
+<style scoped lang="scss">
 
 // /deep/ applies these styles to the child component
 /deep/ .splash-screen .billboard {
@@ -938,9 +937,4 @@ div.leaflet-marker-icon span {
   }
 }
 
-// Tour styles
-.shepherd-step a {
-  font-weight: 900;
-  color: #67aBe5;
-}
 </style>
