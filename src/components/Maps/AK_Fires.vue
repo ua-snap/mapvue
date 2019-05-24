@@ -311,7 +311,9 @@ export default {
           'title': 'Hotspots, last 48 hours',
           'local': true,
           'legend': false,
-          'abstract': `VIIRS, a <a href="https://jointmission.gsfc.nasa.gov/viirs.html" target="_blank" rel="noopener">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank" rel="noopener">Suomi satellite</a>, can see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.`
+          'abstract': `<p>VIIRS, a <a href="https://jointmission.gsfc.nasa.gov/viirs.html" target="_blank" rel="noopener">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank" rel="noopener">Suomi satellite</a>, can see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.</p>
+            <p>Because VIIRS picks up elevated temperatures, it can detect other phenomena which are not wildfire-related.  For example, the flare stacks at oil drilling facilities on the North Slope of Alaska frequently show up as hotspots with this instrument, even though there are no wildfires at that location.</p>
+            `
         },
         {
           'abstract': `
