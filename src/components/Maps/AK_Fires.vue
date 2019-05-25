@@ -263,7 +263,7 @@ export default {
    <p>For the most current fire management information, visit:</p>
    <ul>
      <li><a href="https://fire.ak.blm.gov" target="_blank" rel="noopener">Alaska Interagency Coordination Center (AICC)</a></li>
-     <li><a href="http://fire.ak.blm.gov/content/aicc/sitreport/current.pdf" target="_blank" rel="noopener">Current AICC Situation Report</a></li>
+     <li><a href="https://fire.ak.blm.gov/content/aicc/sitreport/AICC%20Situation%20Report.pdf" target="_blank" rel="noopener">Current AICC Situation Report</a></li>
      <li><a href="https://akfireinfo.com/" target="_blank" rel="noopener">Alaska Wildland Fire Information</a></li>
    </ul>
    <p>We thank the Alaska Fire Service, State of Alaska, and the Alaska Interagency Coordination Center for their hard work fighting fires and maintaining the fire data.</p>
