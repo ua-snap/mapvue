@@ -49,6 +49,9 @@ var fireMarkers
 var fireLayerGroup
 var viirsLayerGroup
 
+// Current time zone offset (used in parseDate below).
+var offset = new Date().getTimezoneOffset()
+
 // Define the store methods that will be used here
 const fireStore = { // eslint-disable-line no-unused-vars
   state: {
@@ -408,6 +411,13 @@ export default {
       this.$store.commit('showFireGraph')
     },
 
+    // Helper function to format incoming UNIX timestamps
+    // relative to brower's local time zone.  Returns Moment
+    // object for formatting relevant in context.
+    parseDate (t) {
+      return this.$moment(t).utcOffset(offset)
+    },
+
     fetchViirsData () {
       var processViirsData = data => {
         if (data.features.length === 0) {
@@ -676,13 +686,15 @@ export default {
       // Convert updated to "days ago" format; not all fires have
       // updated info, in which case, leave that blank.
       var updated = ''
+
       if (fireInfo.updated) {
-        updated = '<p class="updated">Updated ' + this.$moment(fireInfo.updated, 'MMMM DD, h:m a').fromNow() + '.</p>'
+        updated = '<p class="updated">Updated ' + this.parseDate(fireInfo.updated).fromNow() + '.</p>'
       }
+
       var acres = fireInfo.acres + ' acres'
-      var out = fireInfo.outdate ? '<p class="out">Out date: ' + this.$moment.utc(this.$moment.unix(fireInfo.outdate / 1000)).format('MMMM Do, h:mm a') + '</p>' : ''
+      var out = fireInfo.outdate ? '<p class="out">Out date: ' + this.parseDate(fireInfo.outdate).format('MMMM D, h:mm a') + '</p>' : ''
       var cause = fireInfo.cause ? '<h3>Cause: ' + fireInfo.cause + '</h3>' : ''
-      var discovered = fireInfo.discovered ? '<h3 class="discovered">Discovered ' + fireInfo.discovered + '</h3>' : ''
+      var discovered = fireInfo.discovered ? '<h3 class="discovered">Discovered ' + this.parseDate(fireInfo.discovered).format('MMMM D, h:mm a') + '</h3>' : ''
 
       return _.template(`
   <h1><%= title %></h1>
