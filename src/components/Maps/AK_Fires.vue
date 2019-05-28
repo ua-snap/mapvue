@@ -692,9 +692,9 @@ export default {
       }
 
       var acres = fireInfo.acres + ' acres'
-      var out = fireInfo.outdate ? '<p class="out">Out date: ' + this.parseDate(fireInfo.outdate).format('MMMM D, h:mm a') + '</p>' : ''
+      var out = fireInfo.outdate ? '<p class="out">Out date: ' + this.parseDate(fireInfo.outdate).format('MMMM D') + '</p>' : ''
       var cause = fireInfo.cause ? '<h3>Cause: ' + fireInfo.cause + '</h3>' : ''
-      var discovered = fireInfo.discovered ? '<h3 class="discovered">Discovered ' + this.parseDate(fireInfo.discovered).format('MMMM D, h:mm a') + '</h3>' : ''
+      var discovered = fireInfo.discovered ? '<h3 class="discovered">Discovered ' + this.parseDate(fireInfo.discovered).format('MMMM D') + '</h3>' : ''
 
       return _.template(`
   <h1><%= title %></h1>
