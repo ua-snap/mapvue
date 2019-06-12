@@ -42,3 +42,7 @@ cd /path/to/mapvue
 npm run build
 cd dist && aws s3 sync . s3://mapventure.org
 ```
+
+## Some maintenance notes
+
+When updating the yearly Fire map, you need to look for and adjust some hardcoded date ranges in both the AK_Fires_Graph and also the repo mv-aicc-fire-shim to ensure the chart updates correctly.

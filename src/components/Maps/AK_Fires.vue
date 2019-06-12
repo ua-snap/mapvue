@@ -49,6 +49,9 @@ var fireMarkers
 var fireLayerGroup
 var viirsLayerGroup
 
+// Current time zone offset (used in parseDate below).
+var offset = new Date().getTimezoneOffset()
+
 // Define the store methods that will be used here
 const fireStore = { // eslint-disable-line no-unused-vars
   state: {
@@ -263,7 +266,7 @@ export default {
    <p>For the most current fire management information, visit:</p>
    <ul>
      <li><a href="https://fire.ak.blm.gov" target="_blank" rel="noopener">Alaska Interagency Coordination Center (AICC)</a></li>
-     <li><a href="http://fire.ak.blm.gov/content/aicc/sitreport/current.pdf" target="_blank" rel="noopener">Current AICC Situation Report</a></li>
+     <li><a href="https://fire.ak.blm.gov/content/aicc/sitreport/AICC%20Situation%20Report.pdf" target="_blank" rel="noopener">Current AICC Situation Report</a></li>
      <li><a href="https://akfireinfo.com/" target="_blank" rel="noopener">Alaska Wildland Fire Information</a></li>
    </ul>
    <p>We thank the Alaska Fire Service, State of Alaska, and the Alaska Interagency Coordination Center for their hard work fighting fires and maintaining the fire data.</p>
@@ -311,7 +314,9 @@ export default {
           'title': 'Hotspots, last 48 hours',
           'local': true,
           'legend': false,
-          'abstract': `VIIRS, a <a href="https://jointmission.gsfc.nasa.gov/viirs.html" target="_blank" rel="noopener">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank" rel="noopener">Suomi satellite</a>, can see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.`
+          'abstract': `<p>VIIRS, a <a href="https://jointmission.gsfc.nasa.gov/viirs.html" target="_blank" rel="noopener">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank" rel="noopener">Suomi satellite</a>, can see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.</p>
+            <p>Because VIIRS picks up elevated temperatures, it can detect other phenomena which are not wildfire-related.  For example, the flare stacks at oil drilling facilities on the North Slope of Alaska frequently show up as hotspots with this instrument, even though there are no wildfires at that location.</p>
+            `
         },
         {
           'abstract': `
@@ -404,6 +409,13 @@ export default {
   methods: {
     showFireGraph () {
       this.$store.commit('showFireGraph')
+    },
+
+    // Helper function to format incoming UNIX timestamps
+    // relative to brower's local time zone.  Returns Moment
+    // object for formatting relevant in context.
+    parseDate (t) {
+      return this.$moment(t).utcOffset(offset)
     },
 
     fetchViirsData () {
@@ -674,13 +686,15 @@ export default {
       // Convert updated to "days ago" format; not all fires have
       // updated info, in which case, leave that blank.
       var updated = ''
+
       if (fireInfo.updated) {
-        updated = '<p class="updated">Updated ' + this.$moment(fireInfo.updated, 'MMMM DD, h:m a').fromNow() + '.</p>'
+        updated = '<p class="updated">Updated ' + this.parseDate(fireInfo.updated).fromNow() + '.</p>'
       }
+
       var acres = fireInfo.acres + ' acres'
-      var out = fireInfo.outdate ? '<p class="out">Out date: ' + this.$moment.utc(this.$moment.unix(fireInfo.outdate / 1000)).format('MMMM Do, h:mm a') + '</p>' : ''
+      var out = fireInfo.outdate ? '<p class="out">Out date: ' + this.parseDate(fireInfo.outdate).format('MMMM D') + '</p>' : ''
       var cause = fireInfo.cause ? '<h3>Cause: ' + fireInfo.cause + '</h3>' : ''
-      var discovered = fireInfo.discovered ? '<h3 class="discovered">Discovered ' + fireInfo.discovered + '</h3>' : ''
+      var discovered = fireInfo.discovered ? '<h3 class="discovered">Discovered ' + this.parseDate(fireInfo.discovered).format('MMMM D') + '</h3>' : ''
 
       return _.template(`
   <h1><%= title %></h1>
@@ -724,26 +738,90 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-// Not scoped, for editing tour styles
-  span.fire-tour-info {
-    display: inline-block;
-    padding: 0 .1ex;
-    color: #333;
-    font-weight: bold;
-  }
 
-</style>
 <style lang="scss">
+// Not scoped, for editing tour / leaflet styles
+span.fire-tour-info {
+  display: inline-block;
+  padding: 0 .1ex;
+  color: #333;
+  font-weight: bold;
+}
+
 path.leaflet-interactive.viirs-hotspot {
   animation: colors 2s infinite;
 }
 
 @keyframes colors {
-    50% {
-      fill: #F9EA31;
-      fill-opacity: 0.5;
+  50% {
+    fill: #F9EA31;
+    fill-opacity: 0.5;
+  }
+}
+
+.leaflet-popup-content {
+  z-index: 1000;
+
+  h1 {
+    font-size: 16pt;
+    color: #322323;
+    margin: .5rem 0 .25rem;
+    padding: 0;
+  }
+
+  h2 {
+    font-size: 1rem;
+    margin: .5rem 0;
+    padding: 0;
+  }
+
+  h3 {
+    font-size: .75rem;
+    margin-bottom: 0;
+    padding: 0;
+
+    &.discovered {
+      margin-top: 0;
+      font-weight: 500;
     }
+  }
+
+  p.updated {
+    margin-top: .25ex;
+    font-weight: 300;
+    color: #988989;
+  }
+
+  p.out {
+    font-weight: 700;
+    margin: 0;
+  }
+}
+
+div.leaflet-marker-icon span {
+  color: white;
+  font-weight: bold;
+  border-radius: 1em;
+  margin: 1ex;
+  padding: .5ex;
+
+  &.active {
+    background-color: rgba(200, 56, 20, .85);
+    z-index: 10000;
+  }
+
+  &.inactive {
+    background-color: rgba(100, 100, 100, .6);
+    z-index: 500;
+  }
+
+  &.small {
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    z-index: 300;
+  }
 }
 
 table.alaska-wildfires-legend.lightning {
@@ -815,87 +893,26 @@ table.alaska-wildfires-legend.big-fire-years {
   }
 }
 
-.leaflet-popup-content {
-  z-index: 1000;
+</style>
 
-  h1 {
-    font-size: 16pt;
-    color: #322323;
-    margin: .5rem 0 .25rem;
-    padding: 0;
-  }
+<style scoped lang="scss">
 
-  h2 {
-    font-size: 1rem;
-    margin: .5rem 0;
-    padding: 0;
-  }
-
-  h3 {
-    font-size: .75rem;
-    margin-bottom: 0;
-    padding: 0;
-
-    &.discovered {
-      margin-top: 0;
-      font-weight: 500;
-    }
-  }
-
-  p.updated {
-    margin-top: .25ex;
-    font-weight: 300;
-    color: #988989;
-  }
-
-  p.out {
-    font-weight: 700;
-    margin: 0;
-  }
-}
-
-div.leaflet-marker-icon span {
-  color: white;
-  font-weight: bold;
-  border-radius: 1em;
-  margin: 1ex;
-  padding: .5ex;
-
-  &.active {
-    background-color: rgba(200, 56, 20, .85);
-    z-index: 10000;
-  }
-
-  &.inactive {
-    background-color: rgba(100, 100, 100, .6);
-    z-index: 500;
-  }
-
-  &.small {
-    border-radius: 50%;
-    width: 1em;
-    height: 1em;
-    display: inline-block;
-    z-index: 300;
-  }
-}
-
-.old {
-  opacity: 10%;
-}
-
-.splash-screen .billboard {
+// /deep/ applies these styles to the child component
+/deep/ .splash-screen .billboard {
   background: url("~@/assets/scott-fire-fade.jpg") white bottom left / cover no-repeat;
+  color: #222;
+
   h1 {
     width: 75%;
     font-size: 20pt;
     padding: 1ex;
     color: #000;
   }
-  color: #222;
+
   a {
     color: #438bca;
   }
+
   p {
     margin: 1em;
     &:first-of-type {
@@ -905,6 +922,7 @@ div.leaflet-marker-icon span {
       padding-bottom: 1em;
     };
   }
+
   .abstractWrapper {
     @media screen and (max-width: 768px) {
       width: 100%;
@@ -922,21 +940,15 @@ div.leaflet-marker-icon span {
     border-radius: 1ex;
     margin: 1em;
   }
+
   .buttons {
     margin: 1em;
-    padding-bottom: 1em;
     font-weight: 700;
   }
+
   .logos {
-    margin: -1em 0 1em 1em;
+    margin: 0 0 0 1em !important;
   }
 }
 
-
-
-// Tour styles
-.shepherd-step a {
-  font-weight: 900;
-  color: #67aBe5;
-}
 </style>
