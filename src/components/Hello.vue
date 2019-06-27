@@ -31,6 +31,9 @@ import MapList from './MapList'
 
 export default {
   name: 'hello',
+  metaInfo: {
+    title: 'Interactive Maps of Alaska and Arctic Data'
+  },
   components: {
     'map-list': MapList
   },

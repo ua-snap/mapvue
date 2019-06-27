@@ -72,6 +72,9 @@ var mapSlugComponentMapper = {
 
 export default {
   name: 'MapInstanceWrapper',
+  metaInfo: {
+    titleTemplate: 'MapVentures: %s'
+  },
   props: [
     'slug' // "slug" name (key) for map component to use here
   ],

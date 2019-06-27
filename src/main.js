@@ -6,6 +6,9 @@ import router from './router'
 import store from './store'
 import VueAnalytics from 'vue-analytics'
 import Loading from '@/components/Loading'
+import Meta from 'vue-meta'
+
+Vue.use(Meta)
 
 Vue.use(VueAnalytics, {
   id: [process.env.MV_GOOGLE_ANALYTICS_TOKEN],
