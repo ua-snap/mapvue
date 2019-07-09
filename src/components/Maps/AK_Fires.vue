@@ -353,6 +353,7 @@ export default {
           <p>This layer shows historical fire perimeters from 1940&mdash;2018. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank" rel="noopener">AICC</a>.</p>`,
           'id': 'historical_fire_perimiters',
           'wmsLayerName': 'historical_fire_perimiters',
+          'styles': 'historical_fire_polygon_buckets',
           'title': 'Historical fire perimeters, 1940&mdash;2018',
           'legend': false
         },
@@ -843,9 +844,9 @@ table.alaska-wildfires-legend {
   }
 
   &.historical-fire-perimeters {
-    .h-40-69 { background-color: #FFF7BC; }
-    .h-70-99 { background-color: #fec44f; }
-    .h-00-17 { background-color: #d95f0e; }
+    .h-40-69 { background-color: #CBD1CE; border: 2px solid #98a09c;}
+    .h-70-99 { background-color: #8F9693; border: 2px solid #5b6360;}
+    .h-00-17 { background-color: #5F6462; border: 2px solid #2b3131; }
   }
 }
 
