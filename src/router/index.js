@@ -18,6 +18,12 @@ export default new Router({
       name: 'map',
       component: MapInstanceWrapper,
       props: true
+    },
+    {
+      path: '/map/:slug/:overlay',
+      name: 'map',
+      component: MapInstanceWrapper,
+      props: true
     }
   ]
 })
