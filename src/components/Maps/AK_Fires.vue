@@ -122,6 +122,11 @@ export default {
           classes: 'mobile-hidden',
           id: 'fire-graph',
           callback: this.showFireGraph
+        },
+        {
+          text: 'How clean is the air?',
+          id: 'air-quality',
+          callback: this.openAQI
         }
       ]
     },
@@ -230,6 +235,15 @@ export default {
         text: `This graph compares this year to all of the years when more than 1 million acres burned since daily records began in 2004. Are we on track for another big year?`,
         buttons: buttons
       })
+
+      tour.addStep({
+        title: 'How clean is the air?',
+        attachTo: '#air-quality right',
+        highlightClass: 'tour-highlighted',
+        text: `What is the current air quality like?  This link goes to a site that explains current air quality conditions throughout Alaska.`,
+        buttons: buttons
+      })
+
       tour.addStep({
         title: 'End of tour!',
         text: `Thanks for checking this out! This map is for general information only. If you need the newest information on current fires, <a target="_blank" rel="noopener"  href="http://afsmaps.blm.gov/imf_fire/imf.jsp?site=fire">visit the AICC web map</a>.  If you have feedback, we’d love to hear it&mdash;please <a href="mailto:uaf-mapventure@alaska.edu?subject=Alaska Wildfire map feedback">contact us!</a>`,
@@ -407,6 +421,9 @@ export default {
     this.$store.unregisterModule('fire')
   },
   methods: {
+    openAQI () {
+      window.open('https://fires.airfire.org/outlooks/Alaska', '_blank')
+    },
     showFireGraph () {
       this.$store.commit('showFireGraph')
     },
