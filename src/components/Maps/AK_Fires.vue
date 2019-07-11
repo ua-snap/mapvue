@@ -451,23 +451,20 @@ export default {
       })
     },
     getViirsMarkers (geoJson) {
-      var viirsMarkers = []
+      var geojsonMarkerOptions = {
+        radius: 5,
+        fillColor: '#FBF10A',
+        color: '#FB7202',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+      }
 
-      _.each(geoJson.features, feature => {
-        viirsMarkers.push(
-          this.$L.circleMarker(
-            new this.$L.latLng([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]),
-            {
-              radius: 5,
-              fillColor: '#F9382B',
-              fillOpacity: 1,
-              stroke: false,
-              className: 'viirs-hotspot'
-            }
-          )
-        )
+      return this.$L.geoJSON(geoJson, {
+        pointToLayer: (feature, latlng) => {
+          return this.$L.circleMarker(latlng, geojsonMarkerOptions)
+        }
       })
-      return this.$L.layerGroup(viirsMarkers)
     },
     fetchFireData () {
       // Helper function to rebuild Leaflet objects
@@ -746,17 +743,6 @@ span.fire-tour-info {
   padding: 0 .1ex;
   color: #333;
   font-weight: bold;
-}
-
-path.leaflet-interactive.viirs-hotspot {
-  animation: colors 2s infinite;
-}
-
-@keyframes colors {
-  50% {
-    fill: #F9EA31;
-    fill-opacity: 0.5;
-  }
 }
 
 .leaflet-popup-content {
