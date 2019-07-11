@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import VueAnalytics from 'vue-analytics'
 import Loading from '@/components/Loading'
+import VueMobileDetection from 'vue-mobile-detection'
 import Meta from 'vue-meta'
 
 Vue.use(Meta)
@@ -19,6 +20,9 @@ Vue.use(VueAnalytics, {
     sendHitTask: true
   }
 })
+
+// Exposes Vue.$isMobile()
+Vue.use(VueMobileDetection)
 
 // Attach 3rd party libraries to Vue instance objects
 // https://vuejsdevelopers.com/2017/04/22/vue-js-libraries-plugins/

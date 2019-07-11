@@ -1,10 +1,10 @@
 <template>
   <ul class="map-list">
     <li v-for="(map, key) in maps" v-if="!map.draft">
-      <router-link :to="{ name: 'map', params: { slug: key }}" v-if="!map.path">
+      <router-link class="button" :to="{ name: 'map', params: { slug: key }}" v-if="!map.path">
         {{ map.title}}
       </router-link>
-      <a v-else v-bind:href="map.path">
+      <a class="button" v-else v-bind:href="map.path">
         {{ map.title}}
       </a>
     </li>
@@ -28,15 +28,12 @@ export default {
 <style lang="scss" scoped>
 
 .map-list {
-  padding: 0;
+  padding: 1em;
   margin: 0;
   list-style: none;
   & li {
-    cursor: pointer;
-    font-size: 18pt;
-    padding: 0;
-    margin: 0 0 .75ex 0;
-    line-height: .92;
+    font-size: 150%;
+    line-height: 1.2;
   }
 }
 </style>
