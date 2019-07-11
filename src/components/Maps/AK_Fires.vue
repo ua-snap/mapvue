@@ -476,18 +476,20 @@ export default {
       })
     },
     getViirsMarkers (geoJson) {
-      var geojsonMarkerOptions = {
-        radius: 5,
-        fillColor: '#FBF10A',
-        color: '#FB7202',
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
-      }
-
-      return this.$L.geoJSON(geoJson, {
-        pointToLayer: (feature, latlng) => {
-          return this.$L.circleMarker(latlng, geojsonMarkerOptions)
+      // reverse lat/lng for this plugin
+      var coords = []
+      _.each(geoJson.features[0].geometry.coordinates, e => {
+        coords.push([
+          e[1],
+          e[0]
+        ])
+      })
+      return this.$L.heatLayer(coords, {
+        radius: 15,
+        blur: 10,
+        gradient: {
+          0: '#FBF10A',
+          1: '#FB7202'
         }
       })
     },
