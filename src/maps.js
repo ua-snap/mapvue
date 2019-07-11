@@ -1,4 +1,7 @@
 export default {
+  'fires': {
+    title: 'Alaska Wildfires: Past and Present'
+  },
   'aaokh': {
     title: 'Alaska Arctic Observatory and Knowledge Hub'
   },
@@ -7,9 +10,6 @@ export default {
   },
   'iam': {
     title: 'Integrated Arctic Management'
-  },
-  'fires': {
-    title: 'Alaska Wildfires: Past and Present'
   },
   'environmental-impacts-access': {
     title: 'Living off the Land: Environmental impacts to access in Interior Alaska',
