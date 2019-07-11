@@ -18,7 +18,7 @@ var setWmsProperties = (state, layer, properties) => {
 
 // Helper function to toggle visiblity properties on the
 // store for either left or right map pane
-var swapVisibility = (state, targetLayer, targetLayerIndex, propName, value, raceCondition = false) => {
+var swapVisibility = (state, targetLayer, targetLayerIndex, propName, value) => {
   // If we're explicitly setting the value, do so.
   if (value === true || value === false) {
     targetLayer[propName] = value
@@ -27,23 +27,7 @@ var swapVisibility = (state, targetLayer, targetLayerIndex, propName, value, rac
     targetLayer[propName] = !targetLayer[propName]
   }
 
-  // Gotcha here: because we are replacing
-  // the property in an array element,
-  // we need to ensure that Vue is aware of the
-  // change.
-  //
-  // See: https://vuejs.org/v2/guide/list.html#Caveats
-  // If the layer is being turned on
-  // pull it to the top of the list
-  if (targetLayer[propName] === true && raceCondition === false) {
-    state.layers.splice(targetLayerIndex, 1)
-    state.layers.unshift(targetLayer)
-  } else {
-    // Otherwise, just replace it in-place to ensure
-    // that reactivity rules see the changes and
-    // propagate this change to watchers.
-    Vue.set(state.layers, targetLayerIndex, targetLayer)
-  }
+  Vue.set(state.layers, targetLayerIndex, targetLayer)
 }
 
 // Helper to return a layer from the ordered array of layers.
