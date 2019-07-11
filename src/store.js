@@ -93,7 +93,7 @@ export default new Vuex.Store({
       _.each(layers, layer => {
         // Default visibility on left/right maps to off
         layer.visible = layer.visible || false
-        layer.secondVisible = layer.visible
+        layer.secondVisible = false
         setWmsProperties(state, layer, layer.defaults)
         restructuredlayers.push(layer)
       })

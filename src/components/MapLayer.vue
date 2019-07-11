@@ -17,7 +17,7 @@
   <!-- Dual map controls -->
   <a
     class="split-map-controls"
-    v-if="dualMaps"
+    v-if="dualMaps && !layer.local"
   >
     <a
       class="left-right"
