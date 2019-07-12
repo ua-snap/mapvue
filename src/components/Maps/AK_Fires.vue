@@ -498,8 +498,8 @@ export default {
 
         // Add layers to the LayerGroup we're using here.
         fireLayerGroup
-          .addLayer(firePolygons)
           .addLayer(fireMarkers)
+          .addLayer(firePolygons)
       }
 
       return new Promise((resolve, reject) => {
@@ -585,6 +585,25 @@ export default {
       var popupOptions = {
         maxWidth: 200
       }
+
+      // Compute largest to scale fire bubbles
+      var smallest
+      var largest = 0
+      _.each(geoJson.features, feature => {
+        let size = parseInt(feature.properties.acres, 10)
+        if (smallest === undefined) {
+          smallest = size
+        }
+        if (smallest > size) {
+          smallest = feature.properties.acres
+        }
+        if (largest < size) {
+          largest = size
+        }
+      })
+      // Pixel scale factor.
+      var scaleFactor = 100 / largest
+
       _.each(geoJson.features, feature => {
         if (feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon') {
           // If this is a MultiPolygon, we need to "flatten" the
@@ -597,8 +616,8 @@ export default {
             : feature.geometry.coordinates[0]
 
           // Icon size needs to be proportionate to fire size, max 100px.
-          var iconCandidateSize = 0.0025 * (feature.properties.acres + 15000) + 25
-          var iconSize = (iconCandidateSize > 100) ? 100 : iconCandidateSize
+          var iconCandidateSize = feature.properties.acres * scaleFactor
+          var iconSize = (iconCandidateSize < 25) ? 25 : iconCandidateSize
 
           // Reverse order from what we need
           var coords = this.getCentroid2(polygonCoordinates)
@@ -809,14 +828,16 @@ span.fire-tour-info {
 }
 
 div.leaflet-marker-icon span {
+  font-size: 85%;
   color: white;
-  font-weight: bold;
+  font-weight: 500;
   border-radius: 1em;
   margin: 1ex;
   padding: .5ex;
 
   &.active {
-    background-color: rgba(200, 56, 20, .85);
+    background-color: rgba(200, 56, 20, .55);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
     z-index: 10000;
   }
 
