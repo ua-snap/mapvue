@@ -330,6 +330,7 @@ export default {
           'legend': false,
           'abstract': `<p>VIIRS, a <a href="https://jointmission.gsfc.nasa.gov/viirs.html" target="_blank" rel="noopener">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank" rel="noopener">Suomi satellite</a>, can see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.</p>
             <p>Because VIIRS picks up elevated temperatures, it can detect other phenomena which are not wildfire-related.  For example, the flare stacks at oil drilling facilities on the North Slope of Alaska frequently show up as hotspots with this instrument, even though there are no wildfires at that location.</p>
+            <p>This layer is shown as a heatmap, clustering individual VIIRS hotspot detections into a smooth visual gradient.  Greater density of hotspots translates into darker areas in the heatmap.</p>
             `
         },
         {
@@ -477,14 +478,17 @@ export default {
           e[0]
         ])
       })
-      return this.$L.heatLayer(coords, {
-        radius: 15,
-        blur: 10,
+      var heatLayer = this.$L.heatLayer(coords, {
+        minOpacity: 0.6,
+        radius: 12,
+        blur: 8,
         gradient: {
           0: '#FBF10A',
-          1: '#FB7202'
+          0.9: '#FB7202',
+          1: '#5F200E'
         }
       })
+      return heatLayer
     },
     fetchFireData () {
       // Helper function to rebuild Leaflet objects
