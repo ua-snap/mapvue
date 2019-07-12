@@ -105,6 +105,13 @@ export default {
     // Attach global listener
     window.addEventListener('resize', this.resizeGraph)
 
+    // Is there a "graph" fragment in the query params?  If so,
+    // show the fire graph right away!
+    if (this.$route.query.overlay === 'graph') {
+      this.$store.commit('showFireGraph')
+      this.$store.commit('hideSplash')
+    }
+
     var processGraphData = (data) => {
       let timeSeries = data
 
@@ -158,6 +165,28 @@ export default {
     } else {
       processGraphData(this.fireTimeSeries)
       this.drawGraph()
+    }
+  },
+  watch: {
+    visible (value) {
+      if (value === true) {
+        this.$router.replace({
+          name: 'map',
+          params: {
+            slug: 'fires'
+          },
+          query: {
+            overlay: 'graph'
+          }
+        })
+      } else {
+        this.$router.replace({
+          name: 'map',
+          params: {
+            slug: 'fires'
+          }
+        })
+      }
     }
   },
   methods: {

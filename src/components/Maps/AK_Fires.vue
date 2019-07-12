@@ -414,13 +414,6 @@ export default {
     this.fetchFireData()
     this.fetchViirsData()
 
-    // Is there a "graph" fragment in the query params?  If so,
-    // show the fire graph right away!
-    if (this.$route.params.overlay === 'graph') {
-      this.$store.commit('hideSplash')
-      this.showFireGraph()
-    }
-
     // Remove any stray localStorage.
     localStorage.clear()
   },
