@@ -31,6 +31,9 @@ import MapList from './MapList'
 
 export default {
   name: 'hello',
+  metaInfo: {
+    title: 'Interactive Maps of Alaska and Arctic Data'
+  },
   components: {
     'map-list': MapList
   },
@@ -45,10 +48,6 @@ export default {
 <style lang="scss" scoped>
 * {
   text-align: center;
-}
-
-h1 {
-  margin-top: 1em;
 }
 
 p {
@@ -70,33 +69,19 @@ img.snap {
 
 h1 {
   font-weight: 900;
-  font-size: 3.8rem;
+  font-size: 300%;
   margin: 2rem 0 0 0;
   padding: 0;
 }
+
 h2 {
-  font-size: 2rem;
-  color: #999;
-  margin: 0 0 2rem 0;
-  padding: 0;
-  font-weight: 700;
+  font-size: 200%;
+  margin: 0 0 1rem 0;
+  line-height: 1;
 }
 
 h4 {
   margin: 2em 0;
-}
-
-.mapList {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  & li {
-    cursor: pointer;
-    font-size: 18pt;
-    padding: 0;
-    margin: 0 0 .75ex 0;
-    line-height: .92;
-  }
 }
 
 .eeo {

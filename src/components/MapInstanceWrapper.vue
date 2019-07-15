@@ -13,6 +13,7 @@ import L from 'leaflet'
 import p4l from 'proj4leaflet' // eslint-disable-line
 import leaflet_sidebar from 'leaflet-sidebar' // eslint-disable-line
 import leaflet_side_by_side from 'leaflet-side-by-side' // eslint-disable-line
+import leaflet_heat from 'leaflet.heat' // eslint-disable-line
 import shepherd from 'shepherd.js'
 import moment from 'moment'
 import 'leaflet/dist/leaflet.css'
@@ -72,6 +73,9 @@ var mapSlugComponentMapper = {
 
 export default {
   name: 'MapInstanceWrapper',
+  metaInfo: {
+    titleTemplate: 'MapVentures: %s'
+  },
   props: [
     'slug' // "slug" name (key) for map component to use here
   ],

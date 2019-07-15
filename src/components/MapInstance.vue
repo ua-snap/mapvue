@@ -21,6 +21,15 @@ export default {
     'sidebar': Sidebar,
     'splash-screen': SplashScreen
   },
+  // Update page title.
+  // TODO: if we migrate to statically-generated via Nuxt,
+  // we can also update the OpenGraph tags for improved
+  // social media previews.
+  metaInfo () {
+    return {
+      title: this.title
+    }
+  },
   data () {
     return {
       // Will be specified once the DOM is ready & we have

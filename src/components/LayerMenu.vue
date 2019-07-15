@@ -56,6 +56,11 @@ export default {
     'layer-list': LayerList,
     'layer-menu-button-item': LayerMenuButtonItem
   },
+  mounted () {
+    if (this.$isMobile()) {
+      this.$store.commit('hideLayerMenu')
+    }
+  },
   computed: {
     ...mapGetters({
       tourIsActive: 'tourIsActive'
@@ -100,9 +105,8 @@ export default {
   background-color: rgba(255, 255, 255, .9);
   box-shadow: inset 0 5px 5px -5px rgba(0, 0, 0, 0.5);
   position: absolute;
-  top: 4em;
+  top: 6.5vh;
   padding: 1em;
-  min-width: 20em; /* prevent horizontal resize if possible */
 
   .custom-buttons {
     margin: 1em 0;

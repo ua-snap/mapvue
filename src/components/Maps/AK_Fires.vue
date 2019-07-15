@@ -122,6 +122,11 @@ export default {
           classes: 'mobile-hidden',
           id: 'fire-graph',
           callback: this.showFireGraph
+        },
+        {
+          text: 'How clean is the air?',
+          id: 'air-quality',
+          callback: this.openAQI
         }
       ]
     },
@@ -230,6 +235,15 @@ export default {
         text: `This graph compares this year to all of the years when more than 1 million acres burned since daily records began in 2004. Are we on track for another big year?`,
         buttons: buttons
       })
+
+      tour.addStep({
+        title: 'How clean is the air?',
+        attachTo: '#air-quality right',
+        highlightClass: 'tour-highlighted',
+        text: `What is the current air quality like?  This link goes to a site that explains current air quality conditions throughout Alaska.`,
+        buttons: buttons
+      })
+
       tour.addStep({
         title: 'End of tour!',
         text: `Thanks for checking this out! This map is for general information only. If you need the newest information on current fires, <a target="_blank" rel="noopener"  href="http://afsmaps.blm.gov/imf_fire/imf.jsp?site=fire">visit the AICC web map</a>.  If you have feedback, we’d love to hear it&mdash;please <a href="mailto:uaf-mapventure@alaska.edu?subject=Alaska Wildfire map feedback">contact us!</a>`,
@@ -316,6 +330,7 @@ export default {
           'legend': false,
           'abstract': `<p>VIIRS, a <a href="https://jointmission.gsfc.nasa.gov/viirs.html" target="_blank" rel="noopener">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank" rel="noopener">Suomi satellite</a>, can see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.</p>
             <p>Because VIIRS picks up elevated temperatures, it can detect other phenomena which are not wildfire-related.  For example, the flare stacks at oil drilling facilities on the North Slope of Alaska frequently show up as hotspots with this instrument, even though there are no wildfires at that location.</p>
+            <p>This layer is shown as a heatmap, clustering individual VIIRS hotspot detections into a smooth visual gradient.  Greater density of hotspots translates into darker areas in the heatmap.</p>
             `
         },
         {
@@ -353,7 +368,8 @@ export default {
           <p>This layer shows historical fire perimeters from 1940&mdash;2018. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank" rel="noopener">AICC</a>.</p>`,
           'id': 'historical_fire_perimiters',
           'wmsLayerName': 'historical_fire_perimiters',
-          'title': 'All Historical Fires',
+          'styles': 'historical_fire_polygon_buckets',
+          'title': 'Historical fire perimeters, 1940&mdash;2018',
           'legend': false
         },
         {
@@ -407,6 +423,9 @@ export default {
     this.$store.unregisterModule('fire')
   },
   methods: {
+    openAQI () {
+      window.open('https://fires.airfire.org/outlooks/AlaskaNorth', '_blank')
+    },
     showFireGraph () {
       this.$store.commit('showFireGraph')
     },
@@ -451,23 +470,25 @@ export default {
       })
     },
     getViirsMarkers (geoJson) {
-      var viirsMarkers = []
-
-      _.each(geoJson.features, feature => {
-        viirsMarkers.push(
-          this.$L.circleMarker(
-            new this.$L.latLng([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]),
-            {
-              radius: 5,
-              fillColor: '#F9382B',
-              fillOpacity: 1,
-              stroke: false,
-              className: 'viirs-hotspot'
-            }
-          )
-        )
+      // reverse lat/lng for this plugin
+      var coords = []
+      _.each(geoJson.features[0].geometry.coordinates, e => {
+        coords.push([
+          e[1],
+          e[0]
+        ])
       })
-      return this.$L.layerGroup(viirsMarkers)
+      var heatLayer = this.$L.heatLayer(coords, {
+        minOpacity: 0.6,
+        radius: 12,
+        blur: 8,
+        gradient: {
+          0: '#FBF10A',
+          0.9: '#FB7202',
+          1: '#5F200E'
+        }
+      })
+      return heatLayer
     },
     fetchFireData () {
       // Helper function to rebuild Leaflet objects
@@ -477,8 +498,8 @@ export default {
 
         // Add layers to the LayerGroup we're using here.
         fireLayerGroup
-          .addLayer(firePolygons)
           .addLayer(fireMarkers)
+          .addLayer(firePolygons)
       }
 
       return new Promise((resolve, reject) => {
@@ -564,6 +585,25 @@ export default {
       var popupOptions = {
         maxWidth: 200
       }
+
+      // Compute largest to scale fire bubbles
+      var smallest
+      var largest = 0
+      _.each(geoJson.features, feature => {
+        let size = parseInt(feature.properties.acres, 10)
+        if (smallest === undefined) {
+          smallest = size
+        }
+        if (smallest > size) {
+          smallest = feature.properties.acres
+        }
+        if (largest < size) {
+          largest = size
+        }
+      })
+      // Pixel scale factor.
+      var scaleFactor = 100 / largest
+
       _.each(geoJson.features, feature => {
         if (feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon') {
           // If this is a MultiPolygon, we need to "flatten" the
@@ -576,8 +616,8 @@ export default {
             : feature.geometry.coordinates[0]
 
           // Icon size needs to be proportionate to fire size, max 100px.
-          var iconCandidateSize = 0.0025 * (feature.properties.acres + 15000) + 25
-          var iconSize = (iconCandidateSize > 100) ? 100 : iconCandidateSize
+          var iconCandidateSize = feature.properties.acres * scaleFactor
+          var iconSize = (iconCandidateSize < 25) ? 25 : iconCandidateSize
 
           // Reverse order from what we need
           var coords = this.getCentroid2(polygonCoordinates)
@@ -748,17 +788,6 @@ span.fire-tour-info {
   font-weight: bold;
 }
 
-path.leaflet-interactive.viirs-hotspot {
-  animation: colors 2s infinite;
-}
-
-@keyframes colors {
-  50% {
-    fill: #F9EA31;
-    fill-opacity: 0.5;
-  }
-}
-
 .leaflet-popup-content {
   z-index: 1000;
 
@@ -799,14 +828,16 @@ path.leaflet-interactive.viirs-hotspot {
 }
 
 div.leaflet-marker-icon span {
+  font-size: 85%;
   color: white;
-  font-weight: bold;
+  font-weight: 500;
   border-radius: 1em;
   margin: 1ex;
   padding: .5ex;
 
   &.active {
-    background-color: rgba(200, 56, 20, .85);
+    background-color: rgba(200, 56, 20, .55);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
     z-index: 10000;
   }
 
@@ -843,9 +874,9 @@ table.alaska-wildfires-legend {
   }
 
   &.historical-fire-perimeters {
-    .h-40-69 { background-color: #FFF7BC; }
-    .h-70-99 { background-color: #fec44f; }
-    .h-00-17 { background-color: #d95f0e; }
+    .h-40-69 { background-color: #CBD1CE; border: 2px solid #98a09c;}
+    .h-70-99 { background-color: #8F9693; border: 2px solid #5b6360;}
+    .h-00-17 { background-color: #5F6462; border: 2px solid #2b3131; }
   }
 }
 
