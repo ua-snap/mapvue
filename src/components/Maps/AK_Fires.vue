@@ -424,7 +424,7 @@ export default {
   },
   methods: {
     openAQI () {
-      window.open('https://fires.airfire.org/outlooks/Alaska', '_blank')
+      window.open('https://fires.airfire.org/outlooks/AlaskaNorth', '_blank')
     },
     showFireGraph () {
       this.$store.commit('showFireGraph')
