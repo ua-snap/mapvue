@@ -1,5 +1,5 @@
 <template>
-  <div class="layer--date-scenario-selector">
+  <div class="layer--selector">
 
     <select v-model="decade" @change="notifyParent">
       <option value="2010">2010s</option>
@@ -60,11 +60,4 @@ export default {
 
 <style lang="scss">
 
-.layer--date-scenario-selector {
-  text-align: right;
-  select {
-    width: 7em;
-    font-size: 80%;
-  }
-}
 </style>

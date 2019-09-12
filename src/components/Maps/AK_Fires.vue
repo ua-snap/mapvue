@@ -68,6 +68,8 @@ const fireStore = { // eslint-disable-line no-unused-vars
   }
 }
 
+import moment from 'moment'
+
 export default {
   name: 'AK_Fires',
   extends: MapInstance,
@@ -321,6 +323,26 @@ export default {
               <tr><td><div class="cloud2cloud">•</div></td><td>Cloud to cloud</td></tr>
             </table>
             <p>This layer shows the last 36 hours of lightning activity, with older lightning strikes fading out to be more opaque the older they are.  Both <href target="_blank" rel="noopener"  href="https://www.weather.gov/jetstream/positive">positive and negative lightning</a> strikes are shown.  Positive lightning is often stronger and may be more closely associated with wildfires, and is shown with a red outline.  Negative lightning is shown with a black outline.</p>`
+        },
+        {
+          'id': 'gridded_lightning',
+          wmsLayerName (params) {
+            var monthName = moment.months(params.month - 1)
+            return {
+              name: `alaska_wildfires:lightning`,
+              time: `2015-${params.month}-01T00:00:00Z`,
+              title: `Average lightning strikes, ${monthName}, 1986-2015`
+            }
+          },
+          'controls': 'months',
+          'defaults': {
+            month: 5
+          },
+          // 'title': 'Monthly lightning, 1986-2015',
+          // 'layerName': 'geoserver:lightning-4326',
+          'legend': false,
+          'abstract': `
+            <p>This is a gridded cumulative count of lightning strike density per month.</p>`
         },
         {
           'id': 'viirs',
