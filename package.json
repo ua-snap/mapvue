@@ -23,7 +23,6 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "picnic": "^6.5.0",
-    "plotly.js": "^1.48.3",
     "proj4leaflet": "1.0.2",
     "shepherd.js": "^2.6.0",
     "vue": "^2.5.22",
