@@ -18,7 +18,7 @@
   <p class="eeo">The <a target="_blank" rel="noopener" href="http://uaf.edu/">University of Alaska Fairbanks</a> is an AA/EO employer and educational institution and prohibits illegal discrimination against any individual: Learn more about UA's <a href="https://www.alaska.edu/titleIXcompliance/nondiscrimination/">notice of nondiscrimination</a>.</p>
 
   <p>
-    <a href="https://www.snap.uaf.edu/content/our-expertise" target="_blank">
+    <a href="https://www.snap.uaf.edu/our-work/our-work" rel="noopener" target="_blank">
       Copyright &copy; {{ year }} SNAP / IARC / UAF
     </a>
   </p>
