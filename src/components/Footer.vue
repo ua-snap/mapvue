@@ -7,7 +7,7 @@
         <span class="version">
           V<span class="number">{{ version }}</span>
         </span>
-        <a href="https://www.snap.uaf.edu/content/our-expertise" target="_blank">
+        <a href="https://www.snap.uaf.edu/our-work/our-work"  rel="noopener" target="_blank">
           Copyright &copy; {{ year }} SNAP / IARC / UAF
         </a>
       </span>

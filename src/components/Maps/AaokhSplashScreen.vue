@@ -32,9 +32,9 @@ I understand that the observations compiled in this product were made by recogni
         </button>
       </div>
       <div class="logos align-middle">
-        <a href="https://snap.uaf.edu" target="_blank"><img src="../../assets/snap_acronym_white.svg" class="snap"></a>
-        <a href="https://uaf-iarc.org" target="_blank"><img src="../../assets/IARC_gray_square_reversed_acronym.svg" class="iarc"></a>
-        <a href="https://uaf.edu" target="_blank"><img src="../../assets/UAFLogo_A_nofill.svg" class="uaf"></a>
+        <a href="https://snap.uaf.edu" rel="noopener" target="_blank"><img src="../../assets/snap_acronym_white.svg" class="snap"></a>
+        <a href="https://uaf-iarc.org" rel="noopener" target="_blank"><img src="../../assets/IARC_gray_square_reversed_acronym.svg" class="iarc"></a>
+        <a href="https://uaf.edu" rel="noopener" target="_blank"><img src="../../assets/UAFLogo_A_nofill.svg" class="uaf"></a>
       </div>
     </div>
   </div>
