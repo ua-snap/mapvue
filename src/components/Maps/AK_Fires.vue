@@ -18,7 +18,6 @@
   ></sidebar>
   <tour :tour="tour"></tour>
   <mv-footer></mv-footer>
-  <graph></graph>
 </div>
 </template>
 
@@ -27,7 +26,6 @@
 /* eslint new-cap: "off" */
 import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
-import AKFiresGraph from './AK_Fires_Graph'
 import Tour from '../Tour'
 import Vue from 'vue'
 const { detect } = require('detect-browser')
@@ -52,29 +50,12 @@ var viirsLayerGroup
 // Current time zone offset (used in parseDate below).
 var offset = new Date().getTimezoneOffset()
 
-// Define the store methods that will be used here
-const fireStore = { // eslint-disable-line no-unused-vars
-  state: {
-    // True if the fire graph is visible
-    fireGraphVisible: false
-  },
-  mutations: {
-    showFireGraph (state) {
-      state.fireGraphVisible = true
-    },
-    hideFireGraph (state) {
-      state.fireGraphVisible = false
-    }
-  }
-}
-
 import moment from 'moment'
 
 export default {
   name: 'AK_Fires',
   extends: MapInstance,
   components: {
-    'graph': AKFiresGraph,
     'tour': Tour
   },
   computed: {
@@ -426,9 +407,6 @@ export default {
     }
   },
   created () {
-    // Register this map's store with the global store
-    this.$store.registerModule('fire', fireStore)
-
     // This will be the container for the fire markers & popups.
     fireLayerGroup = this.$L.layerGroup()
     viirsLayerGroup = this.$L.layerGroup()
@@ -449,7 +427,7 @@ export default {
       window.open('https://fires.airfire.org/outlooks/AlaskaNorth', '_blank')
     },
     showFireGraph () {
-      this.$store.commit('showFireGraph')
+      window.open('https://snap.uaf.edu/tools/daily-fire-tally', '_blank')
     },
 
     // Helper function to format incoming UNIX timestamps
