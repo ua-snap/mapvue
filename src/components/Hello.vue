@@ -12,13 +12,13 @@
   </p>
   <h4 class="tools"><a target="_blank" rel="noopener"  href="https://www.snap.uaf.edu/tools-and-data/all-analysis-tools">See all SNAP climate + weather analysis tools</a></h4>
   <div class="sponsors">
-    <a href="https://web.iarc.uaf.edu" rel="noopener" target="_blank"><img alt="IARC Logo" src="../assets/IARC_color_square.png"/></a>
+    <a href="https://uaf-iarc.org" rel="noopener" target="_blank"><img alt="IARC Logo" src="../assets/IARC_color_square.png"/></a>
     <a href="http://www.uaf.edu" rel="noopener" target="_blank"><img alt="UAF Logo" src="../assets/UAFLogo_A_647.svg"/></a>
   </div>
   <p class="eeo">The <a target="_blank" rel="noopener" href="http://uaf.edu/">University of Alaska Fairbanks</a> is an AA/EO employer and educational institution and prohibits illegal discrimination against any individual: Learn more about UA's <a href="https://www.alaska.edu/titleIXcompliance/nondiscrimination/">notice of nondiscrimination</a>.</p>
 
   <p>
-    <a href="https://www.snap.uaf.edu/expertise/expertise" rel="noopener" target="_blank">
+    <a href="https://www.snap.uaf.edu/our-work/our-work" rel="noopener" target="_blank">
       Copyright &copy; {{ year }} SNAP / IARC / UAF
     </a>
   </p>

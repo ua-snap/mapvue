@@ -28,6 +28,7 @@ import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
 import Tour from '../Tour'
 import Vue from 'vue'
+import moment from 'moment'
 const { detect } = require('detect-browser')
 const browser = detect()
 
@@ -49,8 +50,6 @@ var viirsLayerGroup
 
 // Current time zone offset (used in parseDate below).
 var offset = new Date().getTimezoneOffset()
-
-import moment from 'moment'
 
 export default {
   name: 'AK_Fires',
