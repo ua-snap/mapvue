@@ -66,6 +66,7 @@
 
 // Import custom widgets that may be used.
 import DateScenarioSelector from '@/components/DateScenarioSelector'
+import MonthSelector from '@/components/MonthSelector'
 import _ from 'lodash'
 
 export default {
@@ -84,7 +85,14 @@ export default {
       return this.$store.state.dualMaps
     },
     customConfigurationRenderer () {
-      return DateScenarioSelector
+      // Right now, there's two custom renderers for
+      // selecting time slices.  If needed, refactor
+      // this to be more general later!
+      if (this.controls === 'months') {
+        return MonthSelector
+      } else {
+        return DateScenarioSelector
+      }
     },
     rendererDefaults () {
       return this.layer.defaults
@@ -185,6 +193,15 @@ a.info {
   }
   span.reorder {
     visibility: hidden;
+  }
+}
+
+/* Used by DateScenarioSelector and MonthSelector */
+/deep/ .layer--selector {
+  text-align: right;
+  select {
+    width: 7em;
+    font-size: 80%;
   }
 }
 

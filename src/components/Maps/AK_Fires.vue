@@ -18,7 +18,6 @@
   ></sidebar>
   <tour :tour="tour"></tour>
   <mv-footer></mv-footer>
-  <graph></graph>
 </div>
 </template>
 
@@ -27,7 +26,6 @@
 /* eslint new-cap: "off" */
 import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
-import AKFiresGraph from './AK_Fires_Graph'
 import Tour from '../Tour'
 import Vue from 'vue'
 const { detect } = require('detect-browser')
@@ -52,27 +50,12 @@ var viirsLayerGroup
 // Current time zone offset (used in parseDate below).
 var offset = new Date().getTimezoneOffset()
 
-// Define the store methods that will be used here
-const fireStore = { // eslint-disable-line no-unused-vars
-  state: {
-    // True if the fire graph is visible
-    fireGraphVisible: false
-  },
-  mutations: {
-    showFireGraph (state) {
-      state.fireGraphVisible = true
-    },
-    hideFireGraph (state) {
-      state.fireGraphVisible = false
-    }
-  }
-}
+import moment from 'moment'
 
 export default {
   name: 'AK_Fires',
   extends: MapInstance,
   components: {
-    'graph': AKFiresGraph,
     'tour': Tour
   },
   computed: {
@@ -302,7 +285,7 @@ export default {
         {
           'id': 'fires',
           'wmsLayerName': 'fires',
-          'title': '2019 Wildfires',
+          'title': '2020 Wildfires',
           'local': true,
           'legend': false,
           'visible': true,
@@ -321,6 +304,25 @@ export default {
               <tr><td><div class="cloud2cloud">•</div></td><td>Cloud to cloud</td></tr>
             </table>
             <p>This layer shows the last 36 hours of lightning activity, with older lightning strikes fading out to be more opaque the older they are.  Both <href target="_blank" rel="noopener"  href="https://www.weather.gov/jetstream/positive">positive and negative lightning</a> strikes are shown.  Positive lightning is often stronger and may be more closely associated with wildfires, and is shown with a red outline.  Negative lightning is shown with a black outline.</p>`
+        },
+        {
+          'id': 'gridded_lightning',
+          wmsLayerName (params) {
+            var monthName = moment.months(params.month - 1)
+            return {
+              name: `geoserver:lightning-monthly-climatology`,
+              time: `2015-${params.month}-01T00:00:00Z`,
+              title: `Historical lightning strikes in ${monthName}`
+            }
+          },
+          'controls': 'months',
+          'defaults': {
+            month: 5
+          },
+          'legend': false,
+          'abstract': `
+            <p>Average number of lightning strikes per pixel</p><div><img src="static/lightning-legend.png" style="height: 200px"/></div>
+            <p>This layer represents a 30 year (1986&ndash;2015) average of observed lightning strikes for the months of May, June, July, and August, our historical wildfire season. It was computed by averaging all strikes within a 20 x 20 km pixel for each month across 30 years. The data source was obtained from the <a href="https://fire.ak.blm.gov/predsvcs/maps.php" rel="noopener " target="_blank">Alaska Interagency Coordination Center</a>.</p>`
         },
         {
           'id': 'viirs',
@@ -386,7 +388,7 @@ export default {
           'id': 'alaska_wildfires:big_fire_perimiters',
           'wmsLayerName': 'alaska_wildfires:historical_fire_perimiters',
           'styles': 'alaska_wildfires:big_fire_years',
-          'title': 'Recent Large Fire Years',
+          'title': 'Recent large fire years',
           'legend': false
         },
         {
@@ -404,9 +406,6 @@ export default {
     }
   },
   created () {
-    // Register this map's store with the global store
-    this.$store.registerModule('fire', fireStore)
-
     // This will be the container for the fire markers & popups.
     fireLayerGroup = this.$L.layerGroup()
     viirsLayerGroup = this.$L.layerGroup()
@@ -427,7 +426,7 @@ export default {
       window.open('https://fires.airfire.org/outlooks/AlaskaNorth', '_blank')
     },
     showFireGraph () {
-      this.$store.commit('showFireGraph')
+      window.open('https://snap.uaf.edu/tools/daily-fire-tally', '_blank')
     },
 
     // Helper function to format incoming UNIX timestamps
