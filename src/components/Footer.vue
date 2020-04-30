@@ -7,7 +7,7 @@
         <span class="version">
           V<span class="number">{{ version }}</span>
         </span>
-        <a href="https://www.snap.uaf.edu/expertise/expertise" rel="noopener" target="_blank">
+        <a href="https://www.snap.uaf.edu/our-work/our-work"  rel="noopener" target="_blank">
           Copyright &copy; {{ year }} SNAP / IARC / UAF
         </a>
       </span>
@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       year: 2019,
-      version: '2.1'
+      version: '2.2'
     }
   }
 }

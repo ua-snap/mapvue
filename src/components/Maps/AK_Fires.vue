@@ -50,8 +50,6 @@ var viirsLayerGroup
 // Current time zone offset (used in parseDate below).
 var offset = new Date().getTimezoneOffset()
 
-import moment from 'moment'
-
 export default {
   name: 'AK_Fires',
   extends: MapInstance,
