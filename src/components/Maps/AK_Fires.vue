@@ -285,7 +285,7 @@ export default {
         {
           'id': 'fires',
           'wmsLayerName': 'fires',
-          'title': '2019 Wildfires',
+          'title': '2020 Wildfires',
           'local': true,
           'legend': false,
           'visible': true,
@@ -312,18 +312,17 @@ export default {
             return {
               name: `geoserver:lightning-monthly-climatology`,
               time: `2015-${params.month}-01T00:00:00Z`,
-              title: `Average lightning strikes, ${monthName}, 1986-2015`
+              title: `Historical lightning strikes in ${monthName}`
             }
           },
           'controls': 'months',
           'defaults': {
             month: 5
           },
-          // 'title': 'Monthly lightning, 1986-2015',
-          // 'layerName': 'geoserver:lightning-4326',
           'legend': false,
           'abstract': `
-            <p>This is a gridded cumulative count of lightning strike density per month.</p>`
+            <p>Average number of lightning strikes per pixel</p><div><img src="static/lightning-legend.png" style="height: 200px"/></div>
+            <p>This layer represents a 30 year (1986&ndash;2015) average of observed lightning strikes for the months of May, June, July, and August, our historical wildfire season. It was computed by averaging all strikes within a 20 x 20 km pixel for each month across 30 years. The data source was obtained from the <a href="https://fire.ak.blm.gov/predsvcs/maps.php" rel="noopener " target="_blank">Alaska Interagency Coordination Center</a>.</p>`
         },
         {
           'id': 'viirs',
@@ -389,7 +388,7 @@ export default {
           'id': 'alaska_wildfires:big_fire_perimiters',
           'wmsLayerName': 'alaska_wildfires:historical_fire_perimiters',
           'styles': 'alaska_wildfires:big_fire_years',
-          'title': 'Recent Large Fire Years',
+          'title': 'Recent large fire years',
           'legend': false
         },
         {
