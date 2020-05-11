@@ -318,7 +318,7 @@ export default {
           'legend': false,
           'abstract': `
             <p>Average number of lightning strikes per pixel</p><div><img src="static/lightning-legend.png" style="height: 200px"/></div>
-            <p>This layer represents a 30 year (1986&ndash;2015) average of observed lightning strikes for the months of May, June, July, and August, our historical wildfire season. It was computed by averaging all strikes within a 20 x 20 km pixel for each month across 30 years. The data source was obtained from the <a href="https://fire.ak.blm.gov/predsvcs/maps.php" rel="noopener " target="_blank">Alaska Interagency Coordination Center</a>.</p>`
+            <p>This layer represents a 30 year (1986&ndash;2015) average of detected lightning strikes for the months of May, June, July, and August, our historical wildfire season. It was computed by averaging all strikes within a 20 x 20 km pixel for each month across 30 years. The data source was obtained from the <a href="https://fire.ak.blm.gov/predsvcs/maps.php" rel="noopener " target="_blank">Alaska Interagency Coordination Center</a>.</p>`
         },
         {
           'id': 'viirs',
