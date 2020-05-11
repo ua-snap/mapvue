@@ -5,7 +5,7 @@
 </template>
 
 <script>
-require('./global.scss')
+import './global.scss'
 
 export default {
   name: 'app'

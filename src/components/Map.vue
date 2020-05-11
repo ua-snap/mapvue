@@ -5,7 +5,7 @@
 </template>
 
 <script>
-
+/* global process */
 import _ from 'lodash'
 
 var getFilteredLayers = (layers, propertyName) => {
@@ -66,16 +66,6 @@ export default {
   mounted () {
     // Instantiate map objects
     this.$options.leaflet.map = this.$L.map('map--leaflet-map', this.getBaseMapAndLayers())
-
-    // Put the (left) map center in the console to assist with coding
-    if (process.env.DEBUG === 'true') {
-      this.$options.leaflet.map.on('zoomend', () => {
-        console.log('Map zoom: ', this.$options.leaflet.map.getZoom())
-      })
-      this.$options.leaflet.map.on('moveend', () => {
-        console.log('Map center: ', this.$options.leaflet.map.getCenter().lat, ', ', this.$options.leaflet.map.getCenter().lng)
-      })
-    }
 
     // Add zoom controls
     this.$L.control.zoom({

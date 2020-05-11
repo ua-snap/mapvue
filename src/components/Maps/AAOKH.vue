@@ -21,6 +21,7 @@
 </template>
 <script>
 /* eslint new-cap: 'off' */
+/* global process */
 import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
 import Tour from '../Tour'
@@ -276,10 +277,10 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
         }
       })
 
-      this.$shepherd.on('active', (tour) => {
+      this.$shepherd.on('active', () => {
         this.toggleCommunityTooltips()
       })
-      this.$shepherd.on('inactive', (tour) => {
+      this.$shepherd.on('inactive', () => {
         this.toggleCommunityTooltips()
       })
 
@@ -309,7 +310,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
           }
         },
         beforeShowPromise: () => {
-          var p = new Promise((resolve, reject) => {
+          var p = new Promise((resolve) => {
             this.$store.commit('showLayerMenu')
             setTimeout(() => { resolve() }, 100)
           })
@@ -333,7 +334,7 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
         text: `<p>Your observations and pictures help everyone! Communities are at the front lines of changing conditions, seeing changes in action before measurements can be made by scientists and often in places otherwise inaccessible to scientific instruments. </p>`,
         buttons: buttons,
         beforeShowPromise: () => {
-          var p = new Promise((resolve, reject) => {
+          var p = new Promise((resolve) => {
             this.$store.commit('hideDualMaps')
             this.$store.commit('showOnlyLayers', {
               first: ['observations']

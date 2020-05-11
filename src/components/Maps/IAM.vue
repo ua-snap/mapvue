@@ -21,6 +21,7 @@
 </template>
 <script>
 /* eslint new-cap: "off" */
+/* global process */
 import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
 import Tour from '../Tour'

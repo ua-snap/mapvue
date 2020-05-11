@@ -3,7 +3,7 @@
 </template>
 
 <script>
-
+/* global process */
 export default {
   props: ['mapObj', 'templateVars'],
   data () {

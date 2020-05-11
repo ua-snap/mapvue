@@ -23,6 +23,7 @@
 <script>
 // For Leaflet, whose constructors are often lowercase
 /* eslint new-cap: "off" */
+/* global process, require */
 import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
 import Tour from '../Tour'
@@ -133,7 +134,7 @@ export default {
 
       // Helper to delay the display of the tour stop.
       let delay = (layer) => {
-        var p = new Promise((resolve, reject) => {
+        var p = new Promise((resolve) => {
           this.$store.commit('showLayerMenu')
           this.$store.commit('showOnlyLayers', {
             first: [layer]
@@ -441,7 +442,7 @@ export default {
         viirsLayerGroup.addLayer(viirsPoints)
       }
 
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         if (!this.viirsJson) {
           this.$axios.get(process.env.VIIRS_URL, { timeout: 120000 })
             .then(res => {
@@ -451,10 +452,6 @@ export default {
                 this.$refs.map.refreshLayers()
                 resolve()
               }
-            },
-            err => {
-              console.error(err)
-              reject()
             })
         } else {
           processViirsData(this.viirsJson)
@@ -496,7 +493,7 @@ export default {
           .addLayer(firePolygons)
       }
 
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         if (!this.fireJson) {
           this.$axios.get(process.env.FIRE_FEATURES_URL, { timeout: 120000 })
             .then(res => {
@@ -518,10 +515,6 @@ export default {
                 }
                 resolve()
               }
-            },
-            err => {
-              console.error(err)
-              reject()
             })
         } else {
           processFireData(this.fireJson)

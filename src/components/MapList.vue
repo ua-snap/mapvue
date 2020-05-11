@@ -1,7 +1,7 @@
 <template>
   <ul class="map-list">
-    <li v-for="(map, key) in maps" v-if="!map.draft">
-      <router-link class="button" :to="{ name: 'map', params: { slug: key }}" v-if="!map.path">
+    <li v-for="map in maps" :key="map.id">
+      <router-link class="button" :to="{ name: 'map', params: { slug: map.id }}" v-if="!map.path">
         {{ map.title}}
       </router-link>
       <a class="button" v-else v-bind:href="map.path">

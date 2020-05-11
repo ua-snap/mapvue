@@ -20,6 +20,7 @@ import 'leaflet/dist/leaflet.css'
 import '@/shepherd.css'
 
 // Polyfill needed for IE11 to work properly with Axios.
+/* global require */
 require('es6-promise').polyfill()
 var axios = require('axios')
 
