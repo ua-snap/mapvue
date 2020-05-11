@@ -14,7 +14,6 @@
   ></mv-map>
   <sidebar
     :mapObj="map"
-    :templateVars="templateVars"
   ></sidebar>
   <tour :tour="tour"></tour>
   <mv-footer></mv-footer>
@@ -252,9 +251,6 @@ export default {
   },
   data () {
     return {
-      templateVars: {
-        totalStrikes: undefined
-      },
       title: 'Alaska Wildfires: Past and Present',
       abstract: `
 <h1>It’s important to study wildland fire and its relationship to humans and the ecosystems we share. Use this map to see locations and sizes of wildfires in relation to long-term fire history, land cover types, and more.</h1>
