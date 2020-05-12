@@ -306,7 +306,7 @@ export default {
           wmsLayerName (params) {
             var monthName = moment.months(params.month - 1)
             return {
-              name: `geoserver:lightning-monthly-climatology`,
+              name: `alaska_wildfires:lightning-monthly-climatology`,
               time: `2015-${params.month}-01T00:00:00Z`,
               title: `Historical lightning strikes in ${monthName}`
             }
