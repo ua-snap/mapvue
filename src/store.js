@@ -205,7 +205,7 @@ export default new Vuex.Store({
     // Reset the map to some defaults.
     // Called when a map is destroyed, such as when
     // user navigates between maps.
-    resetState (state) {
+    resetState () {
       this.commit('hideDualMaps')
       this.commit('endTour')
       this.commit('hideSidebar')

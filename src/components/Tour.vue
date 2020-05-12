@@ -1,4 +1,6 @@
-<template></template>
+<template>
+  <div></div>
+</template>
 
 <script>
 export default {
@@ -12,7 +14,7 @@ export default {
   mounted () {
     // Handle event when tour is finished, or user pushes
     // the "Close" button
-    var completeTour = (event) => {
+    var completeTour = () => {
       this.$store.commit('endTour')
       this.$store.commit('hideDualMaps')
       this.$store.commit('showLayerMenu')

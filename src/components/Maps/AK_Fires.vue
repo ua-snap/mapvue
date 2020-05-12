@@ -14,7 +14,6 @@
   ></mv-map>
   <sidebar
     :mapObj="map"
-    :templateVars="templateVars"
   ></sidebar>
   <tour :tour="tour"></tour>
   <mv-footer></mv-footer>
@@ -24,6 +23,7 @@
 <script>
 // For Leaflet, whose constructors are often lowercase
 /* eslint new-cap: "off" */
+/* global process, require */
 import _ from 'lodash'
 import MapInstance from '@/components/MapInstance'
 import Tour from '../Tour'
@@ -134,7 +134,7 @@ export default {
 
       // Helper to delay the display of the tour stop.
       let delay = (layer) => {
-        var p = new Promise((resolve, reject) => {
+        var p = new Promise((resolve) => {
           this.$store.commit('showLayerMenu')
           this.$store.commit('showOnlyLayers', {
             first: [layer]
@@ -252,9 +252,6 @@ export default {
   },
   data () {
     return {
-      templateVars: {
-        totalStrikes: undefined
-      },
       title: 'Alaska Wildfires: Past and Present',
       abstract: `
 <h1>It’s important to study wildland fire and its relationship to humans and the ecosystems we share. Use this map to see locations and sizes of wildfires in relation to long-term fire history, land cover types, and more.</h1>
@@ -309,7 +306,7 @@ export default {
           wmsLayerName (params) {
             var monthName = moment.months(params.month - 1)
             return {
-              name: `geoserver:lightning-monthly-climatology`,
+              name: `alaska_wildfires:lightning-monthly-climatology`,
               time: `2015-${params.month}-01T00:00:00Z`,
               title: `Historical lightning strikes in ${monthName}`
             }
@@ -321,7 +318,7 @@ export default {
           'legend': false,
           'abstract': `
             <p>Average number of lightning strikes per pixel</p><div><img src="static/lightning-legend.png" style="height: 200px"/></div>
-            <p>This layer represents a 30 year (1986&ndash;2015) average of observed lightning strikes for the months of May, June, July, and August, our historical wildfire season. It was computed by averaging all strikes within a 20 x 20 km pixel for each month across 30 years. The data source was obtained from the <a href="https://fire.ak.blm.gov/predsvcs/maps.php" rel="noopener " target="_blank">Alaska Interagency Coordination Center</a>.</p>`
+            <p>This layer represents a 30 year (1986&ndash;2015) average of detected lightning strikes for the months of May, June, July, and August, our historical wildfire season. It was computed by averaging all strikes within a 20 x 20 km pixel for each month across 30 years. The data source was obtained from the <a href="https://fire.ak.blm.gov/predsvcs/maps.php" rel="noopener " target="_blank">Alaska Interagency Coordination Center</a>.</p>`
         },
         {
           'id': 'viirs',
@@ -445,7 +442,7 @@ export default {
         viirsLayerGroup.addLayer(viirsPoints)
       }
 
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         if (!this.viirsJson) {
           this.$axios.get(process.env.VIIRS_URL, { timeout: 120000 })
             .then(res => {
@@ -455,10 +452,6 @@ export default {
                 this.$refs.map.refreshLayers()
                 resolve()
               }
-            },
-            err => {
-              console.error(err)
-              reject()
             })
         } else {
           processViirsData(this.viirsJson)
@@ -500,7 +493,7 @@ export default {
           .addLayer(firePolygons)
       }
 
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         if (!this.fireJson) {
           this.$axios.get(process.env.FIRE_FEATURES_URL, { timeout: 120000 })
             .then(res => {
@@ -522,10 +515,6 @@ export default {
                 }
                 resolve()
               }
-            },
-            err => {
-              console.error(err)
-              reject()
             })
         } else {
           processFireData(this.fireJson)
