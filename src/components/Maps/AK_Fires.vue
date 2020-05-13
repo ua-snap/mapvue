@@ -171,7 +171,7 @@ export default {
         title: 'Fires in History',
         attachTo: '#historical_fire_perimiters right',
         highlightClass: 'tour-highlighted',
-        text: 'This layer shows all mapped fire perimeters from 1940 to 2018. It can be interesting to look for areas of repeated burn, or where a fire is burning today compared to older fire scars.',
+        text: 'This layer shows all mapped fire perimeters from 1940 to 2019. It can be interesting to look for areas of repeated burn, or where a fire is burning today compared to older fire scars.',
         when: {
           show: () => {
             this.$ga.event({
@@ -361,13 +361,13 @@ export default {
           <table class="alaska-wildfires-legend historical-fire-perimeters">
             <tr><td><div class="h-40-69"></div></td><td>1940&mdash;1969</td></tr>
             <tr><td><div class="h-70-99"></div></td><td>1970&mdash;1999</td></tr>
-            <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2018</td></tr>
+            <tr><td><div class="h-00-17"></div></td><td>2000&mdash;2019</td></tr>
           </table>
-          <p>This layer shows historical fire perimeters from 1940&mdash;2018. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank" rel="noopener">AICC</a>.</p>`,
+          <p>This layer shows historical fire perimeters from 1940&mdash;2019. <i>More recent wildfires often stop fires from spreading due to the lack of fuel, but does this always hold true?</i></p><p>To access and learn more about this dataset, visit the <a href="https://fire.ak.blm.gov" target="_blank" rel="noopener">AICC</a>.</p>`,
           'id': 'historical_fire_perimiters',
           'wmsLayerName': 'historical_fire_perimiters',
           'styles': 'historical_fire_polygon_buckets',
-          'title': 'Historical fire perimeters, 1940&mdash;2018',
+          'title': 'Historical fire perimeters, 1940&mdash;2019',
           'legend': false
         },
         {
@@ -379,8 +379,9 @@ export default {
             <tr><td><div class="bf2010"></div></td><td>2010</td></tr>
             <tr><td><div class="bf2013"></div></td><td>2013</td></tr>
             <tr><td><div class="bf2015"></div></td><td>2015</td></tr>
+            <tr><td><div class="bf2019"></div></td><td>2019</td></tr>
           </table>
-          <p>This layer shows the extent of the largest recent fire seasons.</p>`,
+          <p>This layer shows the extent of the largest recent fire seasons, with total area burned greater than 1 million acres.</p>`,
           'id': 'alaska_wildfires:big_fire_perimiters',
           'wmsLayerName': 'alaska_wildfires:historical_fire_perimiters',
           'styles': 'alaska_wildfires:big_fire_years',
@@ -907,6 +908,7 @@ table.alaska-wildfires-legend.big-fire-years {
       &.bf2010 { background-color: #ffff99; }
       &.bf2013 { background-color: #386cb0; }
       &.bf2015 { background-color: #f0027f; }
+      &.bf2019 { background-color: #333333; }
     }
   }
 }
