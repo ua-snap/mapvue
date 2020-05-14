@@ -130,7 +130,7 @@ export default {
       },
       layers: [
         {
-          'abstract': '<p>Local observers in coastal communities provide observations on sea ice, weather, wildlife, and subsistence activities throughout the year, particularly in relation to the seasonal cycle. Participating communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqiagvik, and Wales.</p><p>Visit the <a href="https://arctic-aok.org/observations/" target="_blank" rel="noopener">AAOKH observations web site</a> for more information about observations. Data are stored and can be accessed through a collaboration with the <a href="https://eloka-arctic.org/sizonet/" target="_external">ELOKA</a> project.</p>',
+          'abstract': '<p>Local observers in coastal communities provide observations on sea ice, weather, wildlife, and subsistence activities throughout the year, particularly in relation to the seasonal cycle. Participating communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqiagvik, and Wales.</p><p>Visit the <a href="https://arctic-aok.org/data-sources/local-observations/" target="_blank" rel="noopener">AAOKH observations web site</a> for more information about observations. Data are stored and can be accessed through a collaboration with the <a href="https://eloka-arctic.org/sizonet/" target="_external">ELOKA</a> project.</p>',
           'id': 'observations',
           'wmsLayerName': 'observations',
           'title': 'Observations',

@@ -228,7 +228,7 @@ export default {
 
       tour.addStep({
         title: 'End of tour!',
-        text: `Thanks for checking this out! This map is for general information only. If you need the newest information on current fires, <a target="_blank" rel="noopener"  href="http://afsmaps.blm.gov/imf_fire/imf.jsp?site=fire">visit the AICC web map</a>.  If you have feedback, we’d love to hear it&mdash;please <a href="mailto:uaf-mapventure@alaska.edu?subject=Alaska Wildfire map feedback">contact us!</a>`,
+        text: `Thanks for checking this out! This map is for general information only. If you need the newest information on current fires, <a target="_blank" rel="noopener"  href="https://blm-egis.maps.arcgis.com/apps/MapSeries/index.html?appid=32ec4f34fb234ce58df6b1222a207ef1">visit the AICC web map</a>.  If you have feedback, we’d love to hear it&mdash;please <a href="mailto:uaf-mapventure@alaska.edu?subject=Alaska Wildfire map feedback">contact us!</a>`,
         buttons: [
           {
             text: 'Back',
@@ -326,7 +326,7 @@ export default {
           'title': 'Hotspots, last 48 hours',
           'local': true,
           'legend': false,
-          'abstract': `<p>VIIRS, a <a href="https://jointmission.gsfc.nasa.gov/viirs.html" target="_blank" rel="noopener">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank" rel="noopener">Suomi satellite</a>, can see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.</p>
+          'abstract': `<p>VIIRS, a <a href="https://ncc.nesdis.noaa.gov/VIIRS/" target="_blank" rel="noopener">scientific instrument</a> on the <a href="https://www.nasa.gov/mission_pages/NPP/main/index.html" target="_blank" rel="noopener">Suomi satellite</a>, can see hotspots where temperatures are higher than expected, which can mean that a wildfire has started. Fire managers can use this information to assess locations of new wildfires.</p>
             <p>Because VIIRS picks up elevated temperatures, it can detect other phenomena which are not wildfire-related.  For example, the flare stacks at oil drilling facilities on the North Slope of Alaska frequently show up as hotspots with this instrument, even though there are no wildfires at that location.</p>
             <p>This layer is shown as a heatmap, clustering individual VIIRS hotspot detections into a smooth visual gradient.  Greater density of hotspots translates into darker areas in the heatmap.</p>
             `
@@ -350,7 +350,7 @@ export default {
             <tr><td><div class="l-14"></div></td><td>Water</td></tr>
             <tr><td><div class="l-15"></div></td><td>Snow and ice</td></tr>
           </table>
-          <p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-2010" target="_blank" rel="noopener">Commission for Environmental Cooperation</a></p>.`,
+          <p>This layer provides a generalized view of the physical cover on land at a spatial resolution of 250 meters.  Land cover classifications are used by scientists to determine what is growing on the landscape. These are made by looking at satellite imagery and categorizing the images into land cover types.</p><p>The dominant land cover varies across the landscape and influences how flammable a region is. When wildfires burn, they often alter the dominant land cover. Many fires have occurred since this layer was created in 2010. <i>What landcover burns the most?</i></p><p>To access and learn more about this dataset, visit the <a href="http://www.cec.org/tools-and-resources/map-files/land-cover-30m-2015-landsat-and-rapideye" target="_blank" rel="noopener">Commission for Environmental Cooperation</a></p>.`,
           'id': 'alaska_landcover_2010',
           'wmsLayerName': 'alaska_wildfires:alaska_landcover_2010',
           'title': 'Land cover, 2010',
