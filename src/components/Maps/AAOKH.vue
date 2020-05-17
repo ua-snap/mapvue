@@ -1,7 +1,7 @@
 <template>
 <div class='aaokh'>
   <h1 class='map-title' v-html="title"></h1>
-  <layer-menu :buttons="buttons"></layer-menu>
+  <layer-menu></layer-menu>
   <aaokh-splash-screen
     :abstract='abstract'></aaokh-splash-screen>
   <mv-map
@@ -223,16 +223,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
     userAgreed () {
       return this.$store.userAgreed
     },
-    buttons () {
-      return [
-        {
-          text: 'Get involved!',
-          classes: 'button',
-          id: 'aaokh-get-involved',
-          callback: this.openGetInvolved
-        }
-      ]
-    },
     crs () {
       return new this.$L.Proj.CRS('EPSG:3338',
       '+proj=aea +lat_1=55 +lat_2=65 +lat_0=50 +lon_0=-154 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs',
@@ -428,21 +418,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             this.$refs.map.map.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
           }
         },
-        buttons: buttons
-      })
-
-      tour.addStep({
-        title: 'Get involved!',
-        attachTo: '#aaokh-get-involved right',
-        highlightClass: 'tour-highlighted',
-        text: `<p>There are many ways to contribute to the Alaska Arctic Observatory & Knowledge Hub. Anyone in coastal communities can provide an observation of coastal conditions or wildlife. We hire new observers, support youth and outreach activities, and are guided by a Steering Group of community representatives and scientists. Learn more on <a href="https://arctic-aok.org/get-involved/" target="_blank" rel="noopener">our website</a>.
-        </p>`,
-        when: {
-          show: () => {
-            this.$store.commit('showOnlyLayers', [])
-            this.$refs.map.map.setView([68.2906, -156.7886], 3, { animate: false })
-          }
-        },
         buttons: [
           {
             text: 'Back',
@@ -463,9 +438,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
       this.$options.participatingCommunities.eachLayer((layer) => {
         layer.toggleTooltip()
       })
-    },
-    openGetInvolved () {
-      window.open('https://arctic-aok.org/get-involved/', '_blank')
     },
     setupCtd () {
       var ctdObs = [
@@ -691,7 +663,4 @@ table.aaokh-sidebar-legend {
   }
 }
 
-a.get-involved {
-  margin-bottom: 1em;
-}
 </style>
