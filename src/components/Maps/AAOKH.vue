@@ -1,7 +1,7 @@
 <template>
 <div class='aaokh'>
   <h1 class='map-title' v-html="title"></h1>
-  <layer-menu :buttons="buttons"></layer-menu>
+  <layer-menu></layer-menu>
   <aaokh-splash-screen
     :abstract='abstract'></aaokh-splash-screen>
   <mv-map
@@ -130,7 +130,7 @@ export default {
       },
       layers: [
         {
-          'abstract': '<p>Local observers in coastal communities provide observations on sea ice, weather, wildlife, and subsistence activities throughout the year, particularly in relation to the seasonal cycle. Participating communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqiagvik, and Wales.</p><p>Visit the <a href="https://arctic-aok.org/observations/" target="_blank" rel="noopener">AAOKH observations web site</a> for more information about observations. Data are stored and can be accessed through a collaboration with the <a href="https://eloka-arctic.org/sizonet/" target="_external">ELOKA</a> project.</p>',
+          'abstract': '<p>Local observers in coastal communities provide observations on sea ice, weather, wildlife, and subsistence activities throughout the year, particularly in relation to the seasonal cycle. Participating communities include Kaktovik, Wainwright, Point Lay, Point Hope, Kotzebue, Utqiagvik, and Wales.</p><p>Visit the <a href="https://arctic-aok.org/data-sources/local-observations/" target="_blank" rel="noopener">AAOKH observations web site</a> for more information about observations. Data are stored and can be accessed through a collaboration with the <a href="https://eloka-arctic.org/sizonet/" target="_external">ELOKA</a> project.</p>',
           'id': 'observations',
           'wmsLayerName': 'observations',
           'title': 'Observations',
@@ -222,16 +222,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
   computed: {
     userAgreed () {
       return this.$store.userAgreed
-    },
-    buttons () {
-      return [
-        {
-          text: 'Get involved!',
-          classes: 'button',
-          id: 'aaokh-get-involved',
-          callback: this.openGetInvolved
-        }
-      ]
     },
     crs () {
       return new this.$L.Proj.CRS('EPSG:3338',
@@ -428,21 +418,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
             this.$refs.map.map.setView([67.87845438149375, -158.76816360952284], 1, { animate: false })
           }
         },
-        buttons: buttons
-      })
-
-      tour.addStep({
-        title: 'Get involved!',
-        attachTo: '#aaokh-get-involved right',
-        highlightClass: 'tour-highlighted',
-        text: `<p>There are many ways to contribute to the Alaska Arctic Observatory & Knowledge Hub. Anyone in coastal communities can provide an observation of coastal conditions or wildlife. We hire new observers, support youth and outreach activities, and are guided by a Steering Group of community representatives and scientists. Learn more on <a href="https://arctic-aok.org/get-involved/" target="_blank" rel="noopener">our website</a>.
-        </p>`,
-        when: {
-          show: () => {
-            this.$store.commit('showOnlyLayers', [])
-            this.$refs.map.map.setView([68.2906, -156.7886], 3, { animate: false })
-          }
-        },
         buttons: [
           {
             text: 'Back',
@@ -463,9 +438,6 @@ electromagnetic conductivity (EM) meter.  <a rel="noopener" target="_blank" href
       this.$options.participatingCommunities.eachLayer((layer) => {
         layer.toggleTooltip()
       })
-    },
-    openGetInvolved () {
-      window.open('https://arctic-aok.org/get-involved/', '_blank')
     },
     setupCtd () {
       var ctdObs = [
@@ -691,7 +663,4 @@ table.aaokh-sidebar-legend {
   }
 }
 
-a.get-involved {
-  margin-bottom: 1em;
-}
 </style>
