@@ -420,7 +420,7 @@ export default {
   },
   methods: {
     openAQI () {
-      window.open('https://fires.airfire.org/outlooks/AlaskaNorth', '_blank')
+      window.open('https://fire.ak.blm.gov/predsvcs/airquality.php', '_blank')
     },
     showFireGraph () {
       window.open('https://snap.uaf.edu/tools/daily-fire-tally', '_blank')
