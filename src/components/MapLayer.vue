@@ -124,6 +124,11 @@ export default {
       })
     },
     handleLayerConfigChange (data) {
+      // Update defaults so when
+      // the controls configuration changes,
+      // state is preserved when the
+      // control is rerendered (toggle layer)
+      this.layer.defaults = data
       this.$store.commit('updateLayer', {
         layer: this.id,
         properties: data
