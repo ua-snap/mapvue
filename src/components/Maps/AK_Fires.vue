@@ -173,13 +173,7 @@ export default {
         highlightClass: 'tour-highlighted',
         text: 'This layer shows all mapped fire perimeters from 1940 to 2019. It can be interesting to look for areas of repeated burn, or where a fire is burning today compared to older fire scars.',
         when: {
-          show: () => {
-            this.$ga.event({
-              eventCategory: 'Tour Step: Fires in History',
-              eventAction: 'show',
-              eventLabel: 'AK Fires Tour'
-            })
-          }
+          show: () => {}
         },
         beforeShowPromise: delay.bind(null, 'historical_fire_perimiters'),
         buttons: buttons
@@ -190,13 +184,7 @@ export default {
         attachTo: '#alaska_landcover_2010 right',
         text: `This layer provides a generalized view of the vegetation and type of land at a spatial resolution of 250 meters. Vegetation types affect the flammability of an area.`,
         when: {
-          show: () => {
-            this.$ga.event({
-              eventCategory: 'Tour Step: Land cover from 2010',
-              eventAction: 'show',
-              eventLabel: 'AK Fires Tour'
-            })
-          }
+          show: () => {}
         },
         beforeShowPromise: delay.bind(null, 'alaska_landcover_2010'),
         buttons: buttons
