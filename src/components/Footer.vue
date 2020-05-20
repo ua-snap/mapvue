@@ -4,12 +4,7 @@
     <p>
       <router-link to="/">About this site &amp; other maps&hellip;</router-link>
       <span class="identity">
-        <span class="version">
-          V<span class="number">{{ version }}</span>
-        </span>
-        <a href="https://www.snap.uaf.edu/our-work/our-work" rel="noopener" target="_blank">
-          Copyright &copy; {{ year }} SNAP / IARC / UAF
-        </a>
+          Copyright &copy; {{ year }} University of Alaska Fairbanks. All rights reserved.
       </span>
     </p>
   </div>
@@ -22,7 +17,6 @@ export default {
   data () {
     return {
       year: 2020,
-      version: '2.2.1'
     }
   }
 }
@@ -44,16 +38,12 @@ export default {
     margin: 0 0 0 1ex;
   }
 
-  & span.version span.number {
-    display: inline-block;
-    padding-right: 1em;
-    color: #333;
-  }
-
   & span.identity {
     float: right;
     display: inline-block;
     padding-right: 1em;
+    font-size: 70%;
+    margin-top: .4em;
   }
 
   @media (max-width: 768px) {

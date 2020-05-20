@@ -106,24 +106,19 @@ export default {
           id: this.id,
           mapPane: mapPane
         })
-        this.$ga.event({
-          eventCategory: 'Toggle ' + this.title + ' layer',
-          eventAction: 'toggle',
-          eventLabel: 'Map Layer Toggle'
-        })
       }
     },
     showLayerInformation (layer) {
       this.$store.commit('showSidebar', {
         layer: layer
       })
-      this.$ga.event({
-        eventCategory: 'View ' + this.title + ' layer information',
-        eventAction: 'toggle',
-        eventLabel: 'Map Layer Info'
-      })
     },
     handleLayerConfigChange (data) {
+      // Update defaults so when
+      // the controls configuration changes,
+      // state is preserved when the
+      // control is rerendered (toggle layer)
+      this.layer.defaults = data
       this.$store.commit('updateLayer', {
         layer: this.id,
         properties: data

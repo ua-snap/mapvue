@@ -19,7 +19,7 @@
 
   <p>
     <a href="https://www.snap.uaf.edu/our-work/our-work" rel="noopener" target="_blank">
-      Copyright &copy; {{ year }} SNAP / IARC / UAF
+      Copyright &copy; {{ year }} University of Alaska Fairbanks. All rights reserved.
     </a>
   </p>
 </div>

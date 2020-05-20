@@ -134,18 +134,15 @@ export default {
     // Some of these properties are assigned in the vue store,
     // like layer.time and layer.wms.
     addWmsLayer (layer) {
-      let layerConfiguration = _.extend(this.wmsLayerOptions,
+      let layerConfiguration = {}
+      layerConfiguration = _.extend(this.wmsLayerOptions,
         {
           layers: layer.wms,
           styles: layer.styles ? layer.styles : '',
+          time: layer.time ? layer.time : '',
           id: layer.id
         }
       )
-      if (layer.time) {
-        _.extend(layerConfiguration, {
-          time: layer.time
-        })
-      }
 
       // Remove old layers if present
       if (this.$options.leaflet.layers[layer.id]) {
