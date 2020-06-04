@@ -99,7 +99,7 @@ export default {
     buttons () {
       return [
         {
-          text: 'Compare this year to others',
+          text: 'Daily Fire Tally',
           glyphicon: 'signal',
           classes: 'mobile-hidden',
           id: 'fire-graph',
