@@ -21,7 +21,7 @@
     "leaflet-side-by-side": "ua-snap/leaflet-side-by-side#fix_multi_layer",
     "leaflet-sidebar": "0.2.0",
     "leaflet.heat": "^0.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "picnic": "^6.5.0",
     "proj4leaflet": "1.0.2",
