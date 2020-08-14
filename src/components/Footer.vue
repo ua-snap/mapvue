@@ -1,14 +1,20 @@
 <template>
-<div>
-  <div class="footer">
-    <p>
-      <router-link to="/">About this site &amp; other maps&hellip;</router-link>
-      <span class="identity">
-          Copyright &copy; {{ year }} University of Alaska Fairbanks. All rights reserved.
-      </span>
-    </p>
+<footer class="footer">
+  <div class="container">
+    <div class="wrapper is-size-6">
+        <img src="../assets/UAF.svg"/>
+        <div class="wrapped">
+          
+            <p>This tool was developed by the <a href="http://www.aoos.org/">Alaska Ocean Observing System</a> (AOOS), the <a href="https://uaf-accap.org">Alaska Center for Climate Assessment and Policy</a> (ACCAP), and the <a href="https://www.snap.uaf.edu/" title="👍">Scenarios Network for Alaska and Arctic Planning</a> (SNAP).</p>
+
+            <p>Funded by the National Ocean Service at the <a href="http://www.noaa.gov">National Oceanic and Atmospheric Administration</a> (NOAA) through AOOS grant #NA11NOS0120020. Work was performed at the <a href="https://uaf-iarc.org/">International Arctic Research Center</a> (IARC), at the <a href="https://uaf.edu/uaf/">University of Alaska Fairbanks</a>, with assistance from the University of Illinois, Urbana-Champaign.</p>
+
+            <p>Copyright &copy; {{ year }} University of Alaska Fairbanks.  All rights reserved.</p>
+            <p>UA is an AA/EO employer and educational institution and prohibits illegal discrimination against any individual.  <a href="https://www.alaska.edu/nondiscrimination/">Statement of Nondiscrimination</a></p>
+        </div>
+    </div>
   </div>
-</div>
+</footer>
 </template>
 
 <script>
@@ -16,7 +22,7 @@ export default {
   name: 'Footer',
   data () {
     return {
-      year: 2020,
+      year: new Date().getFullYear(),
     }
   }
 }
@@ -24,31 +30,36 @@ export default {
 
 <style lang="scss" scoped>
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.8em;
-  z-index: 500;
-  color: #777;
-  background-color: rgba(225, 225, 225, .8);
-  padding: 1ex;
-  border-top: 1px solid #e5e5e5;
+    box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.4);
+    font-family: "Open Sans";
+}
 
-  p {
-    margin: 0 0 0 1ex;
-  }
+.footer div.wrapper {
+        margin: 2rem auto;
+        display: flex;
+        height: 8rem;
+        max-height: 8rem;
+}
 
-  & span.identity {
-    float: right;
-    display: inline-block;
-    padding-right: 1em;
-    font-size: 70%;
-    margin-top: .4em;
-  }
 
-  @media (max-width: 768px) {
-    font-size: 8pt;
-    padding: .25ex;
-  }
+.footer img {
+        min-width: 12.5vw;
+        max-width: 150px;
+        padding: 0 1rem;
+        display: block;
+        position: relative;
+        top: .25rem;
+        object-fit: contain;
+    align-self: flex-start;
+}
+
+.footer p {
+        text-align: left;
+        font-size: 0.95rem;
+        margin: 0 1rem 1rem;
+}
+
+.footer div.wrapped {
+        flex: 1 1 auto;
 }
 </style>

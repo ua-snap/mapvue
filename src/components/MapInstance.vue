@@ -11,6 +11,7 @@ import SplashScreen from './SplashScreen'
 import MvMap from './Map'
 import LayerMenu from './LayerMenu'
 import Footer from './Footer'
+import Header from './Header'
 
 export default {
   name: 'MapInstance',
@@ -18,6 +19,7 @@ export default {
     'mv-map': MvMap,
     'layer-menu': LayerMenu,
     'mv-footer': Footer,
+    'mv-header': Header,
     'sidebar': Sidebar,
     'splash-screen': SplashScreen
   },

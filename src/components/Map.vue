@@ -56,7 +56,7 @@ export default {
         transparent: true,
         tiled: 'true',
         format: 'image/png',
-        version: '1.3'
+        version: '1.3.0'
       }, this.baseLayerOptions)
     },
     map () {
