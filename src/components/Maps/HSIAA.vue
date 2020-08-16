@@ -23,6 +23,7 @@
     <sidebar :mapObj="map"></sidebar>
     <section style="padding: 2rem 0;">
       <div class="container">
+        <Plotly :data="plotlyData" :layout="plotlyLayout" :display-mode-bar="false"></Plotly>
         <div class="content">
           <h2 class="title is-4">Challenges of data collection and interpretation</h2>
           <p>Collecting sea ice data has always been difficult and dangerous work. Interpreting data is not dangerous, but remains difficult due to differences in historic interpretations of ice concentration from modern protocols as well as instrument calibrations and sensors (human observation, radar, satellites) over time.</p>
@@ -51,6 +52,7 @@ import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/default.css'
 import moment from 'moment'
 import proj4 from 'proj4'
+import { Plotly } from 'vue-plotly'
 
 // Convert an integer (0 - end of data series)
 // into two strings: one for display,
@@ -63,11 +65,17 @@ var getDateFromInteger = function(num) {
   }
 }
 
+var xrange = []
+for(let x = 1850; x <= 2018; x++) {
+  xrange.push(x)
+}
+
 export default {
   name: 'HSIAA',
   extends: MapInstance,
   components: {
-    VueSlider
+    VueSlider,
+    Plotly
   },
   created() {
     this.debouncedUpdateAtlas = _.debounce(this.updateAtlas, 500)
@@ -97,7 +105,11 @@ export default {
         continuousWorld: true // needed for non-3857 projs
       },
       selectedDate: 0,
-      displayDate: ""
+      displayDate: "",
+      plotlyData: [],
+      plotlyLayout: {
+        title: 'Sea Ice Concentration, January',
+      }
     }
   },
   computed: {
@@ -161,12 +173,20 @@ export default {
     handleMapClick(event) {
       console.log(event)
       var coords = proj4('EPSG:4326', 'EPSG:3572', [event.latlng.lng, event.latlng.lat])
-      var query = "http://apollo.snap.uaf.edu:8080/rasdaman/ows?&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=hsia_arctic&SUBSET=X(-871158.8030749058)&SUBSET=Y(-2750676.678333864)&FORMAT=application/json"
+      console.log(coords)
+      var query = "http://apollo.snap.uaf.edu:8080/rasdaman/ows?&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=hsia_arctic&SUBSET=X(" + coords[0] + ")&SUBSET=Y(" + coords[1] + ")&FORMAT=application/json&RANGESUBSET=Gray"
 
       return new Promise((resolve) => {
         this.$axios.get(query, { timeout: 120000 }).then(res => {
           if (res) {
             console.log(res)
+            this.plotlyData = [{
+              x: xrange,
+              y: res.data.filter( (value, index) => {
+                return index % 12 === 0
+              }),
+              type: 'scatter'
+            }]
             resolve()
           }
         })
