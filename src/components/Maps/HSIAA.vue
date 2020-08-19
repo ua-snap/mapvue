@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mv-header></mv-header>
+    <mv-header logo="accap"></mv-header>
     <section class="section">
       <div class="container">
         <h1 class="title">Historical Sea Ice Atlas</h1>

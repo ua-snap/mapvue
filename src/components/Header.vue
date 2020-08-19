@@ -5,7 +5,7 @@
 
     <div class="navbar-brand">
       <a class="navbar-item" href="https://uaf-iarc.org">
-        <img src="../assets/ACCAP_wide.svg">
+        <img :src="image">
       </a>
 
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -34,8 +34,16 @@
 <script>
 export default {
   name: 'Header',
-  data () {
-    return {}
+  props: [
+    'logo'
+  ],
+  computed: {
+    image () {
+      if(this.logo == 'accap') {
+        return '/static/ACCAP_wide.svg'
+      }
+      return '/static/SNAP_color_all.png'
+    }
   }
 }
 </script>
