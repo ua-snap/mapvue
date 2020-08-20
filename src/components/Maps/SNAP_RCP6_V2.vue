@@ -11,7 +11,7 @@
     <section class="section map--section" style="position: relative;">
       <div class="date--display">
         <p class="date--display--date">{{ displayDate }}</p>
-        <vue-slider v-model="selectedDate" :height="15" :tooltip-formatter="dateFormatter" :max="1128" :hide-label="true" />
+        <vue-slider v-model="selectedDate" :height="15" :tooltip-formatter="dateFormatter" :max="2388" :hide-label="true" />
       </div>
       <mv-map ref="map" :baseLayerOptions="baseLayerOptions" :baseLayer="baseLayer" :placeLayer="placeLayer" :crs="crs" :mapOptions="mapOptions"></mv-map>
     </section>
@@ -43,15 +43,16 @@ import { Plotly } from 'vue-plotly'
 // into two strings: one for display,
 // and the other for the WMS request.
 var getDateFromInteger = function(num) {
-  var dateObj = moment({ day: 1, month: num % 12, year: 2006 + (Math.floor(num / 12)) })
+  var dateObj = moment({ day: 1, month: num % 12, year: 1901 + (Math.floor(num / 12)) })
   return {
     display: dateObj.format('MMMM, YYYY'),
     wms: '"' + dateObj.format('YYYY-MM-DDT00:00:00.000[Z]') + '"'
   }
 }
 
+// count by months since 1900
 var xrange = []
-for(let x = 2006; x <= 3134; x++) {
+for(let x = 1901; x <= 4289; x++) {
   xrange.push(x)
 }
 
@@ -141,7 +142,7 @@ export default {
       this.layer = this.$L.tileLayer.wms(
         'http://apollo.snap.uaf.edu:8080/rasdaman/ows?',
         _.extend(this.baseLayerOptions, {
-          layers: ['tas_mean_C_AR5_5modelAvg_rcp60'],
+          layers: ['tas'],
           styles: 'tas',
           version: '1.3.0',
           time: dates.wms,
@@ -158,7 +159,7 @@ export default {
       console.log(event)
       var coords = proj4('EPSG:4326', 'EPSG:3338', [event.latlng.lng, event.latlng.lat])
       console.log(coords)
-      var query = "http://apollo.snap.uaf.edu:8080/rasdaman/ows?&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=tas_mean_C_AR5_5modelAvg_rcp60&SUBSET=X(" + coords[0] + ")&SUBSET=Y(" + coords[1] + ")&FORMAT=application/json"
+      var query = "http://apollo.snap.uaf.edu:8080/rasdaman/ows?&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=tas&SUBSET=X(" + coords[0] + ")&SUBSET=Y(" + coords[1] + ")&FORMAT=application/json"
 
       return new Promise((resolve) => {
         this.$axios.get(query, { timeout: 120000 }).then(res => {
