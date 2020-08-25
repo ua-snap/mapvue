@@ -38,6 +38,7 @@ import 'vue-slider-component/theme/default.css'
 import moment from 'moment'
 import proj4 from 'proj4'
 import { Plotly } from 'vue-plotly'
+import querystring from 'querystring'
 
 // Convert an integer (0 - end of data series)
 // into two strings: one for display,
@@ -81,7 +82,7 @@ export default {
       },
       baseLayerOptions: {
         transparent: true,
-        srs: 'EPSG:3572',
+        srs: 'EPSG:3338',
         format: 'image/png',
         version: '1.3.0',
         continuousWorld: true // needed for non-3857 projs
@@ -143,9 +144,9 @@ export default {
         'http://apollo.snap.uaf.edu:8080/rasdaman/ows?',
         _.extend(this.baseLayerOptions, {
           layers: ['tas'],
-          styles: 'tas',
+          styles: 'delta',
           version: '1.3.0',
-          time: dates.wms,
+          // time: dates.wms,
           zIndex: 10,
         })
       )
@@ -159,13 +160,31 @@ export default {
       console.log(event)
       var coords = proj4('EPSG:4326', 'EPSG:3338', [event.latlng.lng, event.latlng.lat])
       console.log(coords)
-      var query = "http://apollo.snap.uaf.edu:8080/rasdaman/ows?&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=tas&SUBSET=X(" + coords[0] + ")&SUBSET=Y(" + coords[1] + ")&FORMAT=application/json"
+      // var query = "http://apollo.snap.uaf.edu:8080/rasdaman/ows?&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=tas&SUBSET=X(" + coords[0] + ")&SUBSET=Y(" + coords[1] + ")&FORMAT=application/json"
+
+      var queryBase = "http://apollo.snap.uaf.edu:8080/rasdaman/ows?&SERVICE=WCS&VERSION=2.0.1&REQUEST=ProcessCoverages&" + querystring.stringify({query:`for $c in (tas) return encode(
+  coverage k
+  over $y y(0:18)
+  values avg($c[X(${coords[0]}),Y(${coords[1]}),ansi(
+    ($y * 120):($y * 120) + 120)])
+, "json")`})
+
+      // GetCoverage&COVERAGEID=tas&SUBSET=X(" + coords[0] + ")&SUBSET=Y(" + coords[1] + ")&FORMAT=application/json"
 
       return new Promise((resolve) => {
-        this.$axios.get(query, { timeout: 120000 }).then(res => {
+        this.$axios.get(queryBase, { timeout: 120000 }).then(res => {
           if (res) {
             console.log(res)
             // Make a plot for each month!
+            var plots = [
+            {
+              x: [...Array(18).keys()].map(x => moment({year: (x*10) + 1900}).format('YYYY') + "'s"),
+              y: res.data.map(y => y.toFixed(2)),
+              type: 'scatter',
+              mode: 'markers+lines',
+              line: { shape: 'spline' }
+            }]
+            /*
             var plots = []
             for (let month = 0; month <= 11; month++) {
               plots.push({
@@ -179,6 +198,7 @@ export default {
                 name: moment({month: month}).format('MMMM')
               })
             }
+            */
             this.plotlyData = plots
             resolve()
           }
