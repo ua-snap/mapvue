@@ -33,7 +33,7 @@
     "vue-plotly": "^1.1.0",
     "vue-router": "~2.7.0",
     "vue-slider-component": "^3.2.5",
-    "vuedraggable": "~2.14.1",
+    "vuedraggable": "^2.23.2",
     "vuex": "~2.4.1"
   },
   "devDependencies": {

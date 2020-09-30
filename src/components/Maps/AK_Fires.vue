@@ -937,6 +937,13 @@ table.alaska-wildfires-legend.big-fire-years {
   }
 
   .abstractWrapper {
+    ul {
+      margin: 1rem;
+      padding-left: 3rem;
+      li {
+        list-style-type: disc;
+      }
+    }
     @media screen and (max-width: 768px) {
       width: 100%;
       border-radius: 0;

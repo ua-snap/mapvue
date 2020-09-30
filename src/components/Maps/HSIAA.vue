@@ -4,7 +4,7 @@
     <section class="section">
       <div class="container">
         <h1 class="title">Historical Sea Ice Atlas</h1>
-        <h2 class="subtitle">Alaska & Arctic sea ice, mid&ndash;1800s to the present.</h2>
+        <h2 class="subtitle">Alaska &amp; Arctic sea ice, mid&ndash;1800s to the present.</h2>
         <div class="content">
           <p><strong>We can plan for the future by studying the past.</strong></p>
           <p>If you live in an Alaska coastal community, hunt or fish in a marine environment, work in shipping or oil and gas, serve with the US Coast Guard, research Arctic ecosystems or are otherwise interested in Arctic sea ice data and climate change, this atlas is for you.</p>

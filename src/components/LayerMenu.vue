@@ -109,15 +109,15 @@ export default {
       .dual-maps {
         margin-left: 2em;
       }
-      .enabled {
-        color: #23527c;
-        font-weight: 900;
-        text-shadow: #FC0 1px 0 10px;
-      }
       .mobile-hidden {
         @media screen and (max-width: 768px) {
           display: none;
         }
+      }
+      &.enabled button {
+        color: #23527c;
+        font-weight: 700;
+        text-shadow: #FC0 1px 0 10px;
       }
     }
 

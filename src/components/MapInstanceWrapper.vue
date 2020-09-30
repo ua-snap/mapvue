@@ -62,7 +62,7 @@ const MvAaokh = () => (Object.assign({
 }, Vue.$loadingDefaults))
 
 const MvSnapRcp6 = () => (Object.assign({
-  component: import('@/components/Maps/SNAP_RCP6_V2')
+  component: import('@/components/Maps/SNAP_RCP6')
 }, Vue.$loadingDefaults))
 
 const MvHsiaa = () => (Object.assign({
