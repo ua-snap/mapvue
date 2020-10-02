@@ -65,11 +65,19 @@ const MvSnapRcp6 = () => (Object.assign({
   component: import('@/components/Maps/SNAP_RCP6')
 }, Vue.$loadingDefaults))
 
+const MvHsiaa = () => (Object.assign({
+  component: import('@/components/Maps/HSIAA')
+}, Vue.$loadingDefaults))
+
+// The keys in the key/value map below
+// need to match the "slug" that is defined
+// in the /src/maps.js file.
 var mapSlugComponentMapper = {
   'snap-data-intro': MvSnapRcp6,
   'iam': MvIam,
   'fires': MvAkFires,
-  'aaokh': MvAaokh
+  'aaokh': MvAaokh,
+  'historical-sea-ice-atlas': MvHsiaa
 }
 
 export default {

@@ -193,3 +193,10 @@
 .shepherd-element .shepherd-content footer .shepherd-buttons li .shepherd-button.shepherd-button-secondary:hover {
     background: #d5d8dc;
 }
+
+/* Tweaks from switching to Bulma */
+.shepherd-content header.shepherd-header > h3.shepherd-title {
+    color: #333;
+    font-weight: 700;
+    font-family: 'Open Sans';
+}

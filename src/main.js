@@ -9,6 +9,7 @@ import VueAnalytics from 'vue-analytics'
 import Loading from '@/components/Loading'
 import VueMobileDetection from 'vue-mobile-detection'
 import Meta from 'vue-meta'
+import 'bulma/css/bulma.css'
 
 Vue.use(Meta)
 

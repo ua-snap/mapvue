@@ -10,10 +10,10 @@
         </p>
       </div>
       <div v-show="!loadingData" class="buttons">
-        <button class="default" @click.prevent="startTour()">
+        <button class="button" @click.prevent="startTour()">
           <span v-show="!tourIsActive">Take a tour of this map&hellip;</span>
         </button>
-        <button @click.prevent="closeSplashAndEndTour()">
+        <button class="button" @click.prevent="closeSplashAndEndTour()">
           Show map
         </button>
       </div>

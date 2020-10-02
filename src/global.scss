@@ -5,41 +5,24 @@ $lightBlue: #dcedff; //rgba(220, 237, 255, 100)
 $mediumBlue: #94b0da; //rgba(148, 176, 218, 100)
 $darkGray: #343f3e; //rgba(52, 63, 62, 100)
 
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900&subset=latin-ext');
-@import '../node_modules/picnic/src/picnic';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Cardo:400,400i,700&subset=latin-ext');
 
 html, body {
-  color: $darkGray;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-  font-family: 'Lato', sans-serif;
+  font-size: 18px !important;
+  font-family: 'Cardo' !important;
 }
 
 h1, h2, h3, h4 {
-  color: $snapGray;
-  font-family: 'Lato', serif;
+  font-family: 'Open Sans';
 }
-
-body {
-  background: transparent url("/static/absurdidad.png") repeat;
-  background-screen-mode: darken;
-}
-
-/* Styles common to all maps can be put here. */
-.map-title {
-  position: absolute;
-  top: 0; left: 0;
-  z-index: 1000;
-  background-color: rgba(255, 255, 255, .9);
-  margin: 0;
-  padding: 1vh;
-  font-size: 3vh;
-}
-
-/* Override zebra table from Picnic */
-tr:nth-child(even) {
-  background: transparent;
+	
+.map-title {		
+position: absolute;		
+top: 0; left: 0;		
+z-index: 1000;		
+background-color: rgba(255, 255, 255, .9);		
+margin: 0;		
+padding: 1vh;		
+font-size: 3vh;		
 }

@@ -1,7 +1,14 @@
+// Slugs and titles for maps.
+// Slugs are shown in the URL fragments, and titles
+// are listed in a few spots.
 export default [
   {
     id: 'fires',
     title: 'Alaska Wildfires: Past and Present'
+  },
+  {
+    id: 'historical-sea-ice-atlas',
+    title: 'Historical Sea Ice Atlas of Alaska & the Arctic'
   },
   {
     id: 'aaokh',
