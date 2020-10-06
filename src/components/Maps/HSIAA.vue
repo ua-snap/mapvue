@@ -16,7 +16,7 @@
     <section class="section foldout">
       <div class="map--section--wrapper" >
         <div class="map--direct-wrapper" v-bind:class="{ sidelined: foldoutActive }" >
-          <div name="map" class="map--wrapper">
+          <div class="map--wrapper">
 
             <div class="report--show-current-button button" v-on:click="foldoutActive = true" v-bind:class="{ hidden: !validMapPixel }">
               <span class="text">
@@ -368,12 +368,19 @@ section.foldout {
   .map--direct-wrapper {
     position: relative;
     height: 100vh;
-
+    opacity: 1;
     transition: transform .5s ease;
 
     &.sidelined {
-      transform: translateX(-90vw);
-      -webkit-transform: translateX(-90vw);
+      opacity: 0.3;
+      transform: translateX(-95vw);
+      -webkit-transform: translateX(-95vw);
+
+      // Move the zoom control so it's hidden
+      // when the foldout is active
+      /deep/ .leaflet-right .leaflet-control.leaflet-control-zoom {
+        margin-right: 5vw;
+      }
     }
 
     .map--wrapper {
@@ -421,12 +428,13 @@ section.foldout {
     // we need to clip it.
     overflow-y: hidden;
     height: 100vh;
+    padding-left: 1.5rem;
 
     &.sidelined {
       height: auto;
       transition: transform .5s ease;
-      transform: translateX(-90vw);
-      -webkit-transform: translateX(-90vw);
+      transform: translateX(-95vw);
+      -webkit-transform: translateX(-95vw);
     }
 
     .loading-spinner {
