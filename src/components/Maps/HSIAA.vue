@@ -1,15 +1,19 @@
 <template>
   <div>
-    <mv-header logo="accap"></mv-header>
-    <section class="section">
+    <div class="header-wrapper">
+      <mv-header logo="accap" :buttons="navbuttons"></mv-header>
+    </div>
+    <section class="section lead">
       <div class="container">
-        <h1 class="title">Historical Sea Ice Atlas</h1>
-        <h2 class="subtitle">Alaska &amp; Arctic sea ice, mid&ndash;1800s to the present.</h2>
+        <div class="titles">
+          <h1 class="title">Historical Sea Ice Atlas</h1>
+          <h2 class="subtitle">Alaska &amp; Arctic sea ice, mid&ndash;1800s to the present.</h2>
+        </div>
         <div class="content">
-          <p><strong>We can plan for the future by studying the past.</strong></p>
-          <p>If you live in an Alaska coastal community, hunt or fish in a marine environment, work in shipping or oil and gas, serve with the US Coast Guard, research Arctic ecosystems or are otherwise interested in Arctic sea ice data and climate change, this atlas is for you.</p>
-          <p>Now you can simultaneously view multiple sources of historical sea ice data from the seas off northern Alaska. Choose a region and time of interest and inspect a map of data collected between the mid-1800s and today, to discover how ice extent and concentration have changed over time.</p>
-          <p>The Atlas shows “snapshots” in time, as well as historical trends in arctic sea ice cover and extent. It is not designed for forecasting or prediction, but can provide useful historical context for future planning efforts.</p>
+          <p class="is-size-5"><strong>We can plan for the future by studying the past.</strong></p>
+          <p class="is-size-5">If you live in an Alaska coastal community, hunt or fish in a marine environment, work in shipping or oil and gas, serve with the US Coast Guard, research Arctic ecosystems or are otherwise interested in Arctic sea ice data and climate change, this atlas is for you.</p>
+          <p class="is-size-6">Now you can simultaneously view multiple sources of historical sea ice data from the seas off northern Alaska. Choose a region and time of interest and inspect a map of data collected between the mid-1800s and today, to discover how ice extent and concentration have changed over time.</p>
+          <p class="is-size-6">The Atlas shows “snapshots” in time, as well as historical trends in arctic sea ice cover and extent. It is not designed for forecasting or prediction, but can provide useful historical context for future planning efforts.</p>
         </div>
       </div>
     </section>
@@ -199,7 +203,16 @@ export default {
       reportIsLoaded: false,
 
       // If true, the selected pixel on the map has data.
-      validMapPixel: false
+      validMapPixel: false,
+
+      // Nav buttons at top of screen used in header component.
+      navbuttons: [
+        {
+          title: "Download data",
+          href: "http://ckan.snap.uaf.edu/dataset/historical-sea-ice-atlas-observed-estimates-of-sea-ice-concentration-in-alaska-waters",
+          class: "is-default"
+        }
+      ]
     }
   },
   computed: {
@@ -351,6 +364,36 @@ export default {
 
 </script>
 <style lang="scss" scoped>
+
+.lead, .content, p, span {
+  font-family: "Open Sans", "Helvetica Neue", Calibri, Arial, sans-serif;
+}
+
+.header-wrapper {
+  background-color: #ebebeb;
+  /deep/ nav {
+    background-color: #ebebeb;
+  }
+}
+
+section.lead {
+  background: no-repeat top left url("../../../static/ice_montage_1900_satellite_duo.jpg");
+  .titles {
+      margin: -2rem 0 300px 6.5rem;
+    h1 {
+      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+      color: rgb(255, 246, 229);
+      font-weight: 500;
+      font-size: 2.75rem;
+    }
+    h2 {
+      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+      color: rgb(255, 246, 229);
+      font-size: 1.25rem;
+    }
+  }
+}
+
 section.foldout {
   padding: 3rem 0;
   position: relative;

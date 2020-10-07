@@ -19,6 +19,7 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
+            <a class="button" v-for="button in buttons" v-bind:class="button.class" v-bind:key="button.href" target="_blank" rel="noopener noreferrer" v-bind:href="button.href">{{ button.title }}</a>
             <a target="_blank" rel="noopener noreferrer" href="https://uaf-iarc.typeform.com/to/mN7J5cCK#tool=Historical%20Sea Ice%20Atlas%20for%20Alaska%20&%20The%20Arctic" class="button is-link">
               <strong>Feedback</strong>
             </a>
@@ -34,9 +35,10 @@
 <script>
 export default {
   name: 'Header',
-  props: [
-    'logo'
-  ],
+  props: {
+    logo: String,
+    buttons: Array,
+  },
   computed: {
     image () {
       if(this.logo == 'accap') {
