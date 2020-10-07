@@ -81,7 +81,9 @@
               
               <h3 class="title is-4">Sea ice, January, 1850&ndash;2018 at {{ latDeg }}&deg;N, {{ lngDeg }}&deg;E</h3>
               
-              <Plotly :data="plotlyData" :layout="plotlyLayout" :display-mode-bar="false"></Plotly>
+              <Plotly :data="concentrationPlotData" :layout="concentrationPlotLayout" :display-mode-bar="false"></Plotly>
+
+              <Plotly :data="thresholdChartData" :layout="thresholdChartLayout" :display-mode-bar="false"></Plotly>
 
               <!-- Placeholder box for the other open/close chart -->
               <div style="margin: 2rem 0; width: 80%; height: 500px; background-color: #aaa">Placeholder box for the open/close chart to show how this works in the page flow.</div>
@@ -181,9 +183,25 @@ export default {
       },
       selectedDate: 0,
       displayDate: "",
-      plotlyData: [],
-      plotlyLayout: {
-        title: 'Sea Ice Concentration, January',
+      concentrationPlotData: [],
+      concentrationPlotLayout: {
+        title: 'Sea Ice Concentration, 1850-2018, January',
+      },
+      thresholdChartData: [],
+      thresholdChartLayout: {
+        title: 'Sea Ice Concentration, 1850-2018',
+        height: 1000,
+        yaxis: {
+          type: 'category',
+          fixedrange: true,
+          range: xrange
+        },
+        xaxis: {
+          type: 'category',
+          tickmode: 'array',
+          tickvals: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+          ticktext: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        }
       },
       
       // Lat, lng of current point in EPSG:3857
@@ -344,12 +362,36 @@ export default {
             // with a place marker.
 
             // Draw the sea ice concentration plot.
-            this.plotlyData = [{
+            this.concentrationPlotData = [{
               x: xrange,
               y: res.data.filter( (value, index) => {
                 return index % 12 === 0
               }),
               type: 'scatter'
+            }]
+
+            var x=[]
+            var y=[]
+            
+            let months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+            xrange.forEach((year, index) => {
+              months.forEach(month => {
+                let dataIndex = ((year - 1850) * 12) + month
+                // Loop as many times as the %conc to fake the "histogram!"
+                for(let i = 0; i <= res.data[dataIndex]; i++) {
+                  x.push(month)
+                  y.push(year)
+                }  
+              })
+            })
+            this.thresholdChartData = [{
+              x: x,
+              y: y,
+              type: "histogram2d",
+              autocolorscale: false,
+              colorscale: [['0', 'rgb(0,105,148)'], ['100', 'rgb(255, 255, 255)']],
+              zmin: 0,
+              zmax: 100
             }]
             resolve()
           }
