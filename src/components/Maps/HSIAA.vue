@@ -78,15 +78,46 @@
 
             <!-- Report wrapper; hide unless there's data. -->
             <div class="report--charts" v-bind:class="{ hidden: !validMapPixel }">
-              
+
               <h3 class="title is-4">Sea ice, January, 1850&ndash;2018 at {{ latDeg }}&deg;N, {{ lngDeg }}&deg;E</h3>
               
+              <div class="form--controls">
+                <form>
+                  <div class="field">
+                    <label class="label">Choose month or season</label>
+                    <div class="control">
+                      <div class="select">
+                        <select v-model="selectedMonthOrSeason">
+                          <optgroup label="By season">
+                            <option value="winter">Winter</option>
+                            <option value="spring">Spring</option>
+                            <option value="summer">Summer</option>
+                            <option value="fall">Fall</option>
+                          </optgroup>
+                          <optgroup label="By month">
+                            <option value="0">January</option>
+                            <option value="1">February</option>
+                            <option value="2">March</option>
+                            <option value="3">April</option>
+                            <option value="4">May</option>
+                            <option value="5">June</option>
+                            <option value="6">July</option>
+                            <option value="7">August</option>
+                            <option value="8">September</option>
+                            <option value="9">October</option>
+                            <option value="10">November</option>
+                            <option value="11">December</option>
+                          </optgroup>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
               <Plotly :data="concentrationPlotData" :layout="concentrationPlotLayout" :display-mode-bar="false"></Plotly>
 
               <Plotly :data="thresholdChartData" :layout="thresholdChartLayout" :display-mode-bar="false"></Plotly>
-
-              <!-- Placeholder box for the other open/close chart -->
-              <div style="margin: 2rem 0; width: 80%; height: 500px; background-color: #aaa">Placeholder box for the open/close chart to show how this works in the page flow.</div>
 
             </div>
           </div>
@@ -139,9 +170,45 @@ var getDateFromInteger = function(num) {
   }
 }
 
+// Range of years
 var xrange = []
 for(let x = 1850; x <= 2018; x++) {
   xrange.push(x)
+}
+
+var months = {
+  0: 'January',
+  1: 'February',
+  2: 'March',
+  3: 'April',
+  4: 'May',
+  5: 'June',
+  6: 'July',
+  7: 'August',
+  8: 'September',
+  9: 'October',
+  10: 'November',
+  11: 'December',
+}
+
+// Mapping of seasons to month numbers
+var seasons = {
+  "winter": {
+    months: [11, 0, 1],
+    title: 'Winter (December, January, February)'
+  },
+  "spring": {
+    months: [2, 3, 4],
+    title: 'Spring (March, April, May)'
+  },
+  "summer": {
+    months: [5, 6, 7],
+    title: 'Summer (June, July, August)'
+  },
+  "fall": {
+    months: [8, 9, 10],
+    title: 'Fall (September, October, November)'
+  }
 }
 
 export default {
@@ -183,9 +250,22 @@ export default {
       },
       selectedDate: 0,
       displayDate: "",
-      concentrationPlotData: [],
+
+      // Updated when we get a successful timeseries back.
+      // Triggers repaint of Plotly charts.
+      timeseriesData: undefined,
+
+      // Actively selected month for concentration chart (0-11, ...)
+      selectedMonthOrSeason: 0,
+
+      // Plotly layout objects
+      concentrationPlotData: [], // default empty
       concentrationPlotLayout: {
         title: 'Sea Ice Concentration, 1850-2018, January',
+        yaxis: {
+          range: [0, 105],
+          fixedrange: true
+        }
       },
       thresholdChartData: [],
       thresholdChartLayout: {
@@ -197,7 +277,6 @@ export default {
           range: xrange
         },
         xaxis: {
-          type: 'category',
           tickmode: 'array',
           tickvals: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
           ticktext: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -262,14 +341,91 @@ export default {
     placeLayer() {
       // Not needed for this map since it's ocean.
       return
-    }
+    },
+    
   },
   watch: {
     selectedDate: function(prev, selected) {
       this.debouncedUpdateAtlas()
+    },
+    selectedMonthOrSeason (val) {
+      this.updateConcentrationPlot()
+    },
+    timeseriesData (data) {
+      this.updateConcentrationPlot()
+      this.updateThresholdPlot()
     }
   },
   methods: {
+    updateConcentrationPlot() {
+      if(this.timeseriesData) {
+        let traces = [];
+        let monthFragment = '';
+        // Month was selected
+        if (!isNaN(Number(this.selectedMonthOrSeason))) {
+          let y = this.timeseriesData.filter( (value, index) => {
+              return index % 12 === Number(this.selectedMonthOrSeason)
+            })
+          // Draw the sea ice concentration plot.
+          traces = [{
+            x: xrange,
+            y: y,
+            type: 'scatter'
+          }]
+          monthFragment = months[this.selectedMonthOrSeason]
+        } else {
+          // Add a series of traces for the season
+          traces = seasons[this.selectedMonthOrSeason].months.map(month => {
+            let y = this.timeseriesData.filter( (value, index) => {
+              return index % 12 === month
+            })
+            return {
+              x: xrange,
+              y: y,
+              type: 'scatter',
+              name: months[month]
+            }
+          })
+          monthFragment = seasons[this.selectedMonthOrSeason].title
+        }
+        this.concentrationPlotLayout = {
+          title: `Sea Ice Concentration at ${this.latDeg}ºN, ${this.lngDeg}ºE, ${monthFragment}, 1850-2018`,
+          yaxis: {
+            range: [0, 105],
+            fixedrange: true
+          }
+        }
+        this.concentrationPlotData = traces
+
+      }
+    },
+    updateThresholdPlot() {
+      if(this.timeseriesData) {
+        var x=[]
+        var y=[]
+        
+        let months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        xrange.forEach((year, index) => {
+          months.forEach(month => {
+            let dataIndex = ((year - 1850) * 12) + (month - 1)
+            // Loop as many times as the %conc to fake the "histogram!"
+            for(let i = 1; i <= this.timeseriesData[dataIndex]; ++i) {
+              x.push(month)
+              y.push(year)
+            }  
+          })
+        })
+        this.thresholdChartData = [{
+          x: x,
+          y: y,
+          type: "histogram2d",
+          autocolorscale: false,
+          colorscale: 'YlGnBu',
+          zmin: 0,
+          zmax: 100
+        }]
+      }
+    },
     updateAtlas() {
       var dates = getDateFromInteger(this.selectedDate)
       this.displayDate = dates.display
@@ -328,76 +484,43 @@ export default {
       var query = "http://apollo.snap.uaf.edu:8080/rasdaman/ows?&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=hsia_arctic&SUBSET=X(" + coords[0] + ")&SUBSET=Y(" + coords[1] + ")&FORMAT=application/json&RANGESUBSET=Gray"
 
       return new Promise((resolve) => {
-        this.$axios.get(query, { timeout: 120000 }).then(res => {
+        this.$axios.get(query, { timeout: 10000 })
+          .then(res => {
 
-          if (res) {
-            // Set the report as loaded.
-            // TODO, this will probably have some tricky
-            // additional functions to handle to let the user show
-            // the already-selected spot.
-            this.reportIsLoaded = true
+            if (res) {
+              // Set the report as loaded.
+              this.reportIsLoaded = true
+              this.timeseriesData = res.data
 
-            // If returned data are all 0's, it's an invalid pixel
-            // (or literally never sea ice).  Tell user, and don't
-            // show the graphs.
-            const reducer = (accumulator, currentValue) => accumulator + currentValue
-            let sum = res.data.reduce(reducer)
-            if (sum === 0) {
-              this.validMapPixel = false
+              // If returned data are all 0's, it's an invalid pixel
+              // (or literally never sea ice).  Tell user, and don't
+              // show the graphs.
+              const reducer = (accumulator, currentValue) => accumulator + currentValue
+              let sum = this.timeseriesData.reduce(reducer)
+              if (sum === 0) {
+                this.validMapPixel = false
+                resolve()
+                return
+              }
+
+              // Put a marker / popup on the map to show the
+              // sidebar again.
+              this.marker = this.$L.marker(event.latlng)
+              this.marker.addTo(this.$options.components['mv-map'].leaflet.map)
+
+              // Show the reports.
+              this.validMapPixel = true
+
+              // Maybe?  Draw a mini-map zoomed in around the point,
+              // with a place marker.
+
               resolve()
-              return
             }
-
-            // Put a marker / popup on the map to show the
-            // sidebar again.
-            this.marker = this.$L.marker(event.latlng)
-            this.marker.addTo(this.$options.components['mv-map'].leaflet.map)
-
-            // Show the reports.
-            this.validMapPixel = true
-
-            // Set the report title.
-
-            // Draw a mini-map zoomed in around the point,
-            // with a place marker.
-
-            // Draw the sea ice concentration plot.
-            this.concentrationPlotData = [{
-              x: xrange,
-              y: res.data.filter( (value, index) => {
-                return index % 12 === 0
-              }),
-              type: 'scatter'
-            }]
-
-            var x=[]
-            var y=[]
-            
-            let months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-            xrange.forEach((year, index) => {
-              months.forEach(month => {
-                let dataIndex = ((year - 1850) * 12) + month
-                // Loop as many times as the %conc to fake the "histogram!"
-                for(let i = 0; i <= res.data[dataIndex]; i++) {
-                  x.push(month)
-                  y.push(year)
-                }  
-              })
-            })
-            this.thresholdChartData = [{
-              x: x,
-              y: y,
-              type: "histogram2d",
-              autocolorscale: false,
-              colorscale: [['0', 'rgb(0,105,148)'], ['100', 'rgb(255, 255, 255)']],
-              zmin: 0,
-              zmax: 100
-            }]
-            resolve()
-          }
-
+        }).catch(error => {
           // TODO Something failed, show an error note.
-
+          this.validMapPixel = false
+          resolve()
+          return
         })
       })
     }
