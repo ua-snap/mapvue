@@ -7,22 +7,48 @@
       <div class="container">
         <div class="titles">
           <h1 class="title">Historical Sea Ice Atlas</h1>
-          <h2 class="subtitle">Alaska &amp; Arctic sea ice, mid&ndash;1800s to the present.</h2>
+          <h2 class="subtitle">
+            Alaska &amp; Arctic sea ice, mid&ndash;1800s to the present.
+          </h2>
         </div>
         <div class="content">
-          <p class="is-size-5"><strong>We can plan for the future by studying the past.</strong></p>
-          <p class="is-size-5">If you live in an Alaska coastal community, hunt or fish in a marine environment, work in shipping or oil and gas, serve with the US Coast Guard, research Arctic ecosystems or are otherwise interested in Arctic sea ice data and climate change, this atlas is for you.</p>
-          <p class="is-size-6">Now you can simultaneously view multiple sources of historical sea ice data from the seas off northern Alaska. Choose a region and time of interest and inspect a map of data collected between the mid-1800s and today, to discover how ice extent and concentration have changed over time.</p>
-          <p class="is-size-6">The Atlas shows “snapshots” in time, as well as historical trends in arctic sea ice cover and extent. It is not designed for forecasting or prediction, but can provide useful historical context for future planning efforts.</p>
+          <p class="is-size-5">
+            <strong>We can plan for the future by studying the past.</strong>
+          </p>
+          <p class="is-size-5">
+            If you live in an Alaska coastal community, hunt or fish in a marine
+            environment, work in shipping or oil and gas, serve with the US
+            Coast Guard, research Arctic ecosystems or are otherwise interested
+            in Arctic sea ice data and climate change, this atlas is for you.
+          </p>
+          <p class="is-size-6">
+            Now you can simultaneously view multiple sources of historical sea
+            ice data from the seas off northern Alaska. Choose a region and time
+            of interest and inspect a map of data collected between the
+            mid-1800s and today, to discover how ice extent and concentration
+            have changed over time.
+          </p>
+          <p class="is-size-6">
+            The Atlas shows “snapshots” in time, as well as historical trends in
+            arctic sea ice cover and extent. It is not designed for forecasting
+            or prediction, but can provide useful historical context for future
+            planning efforts.
+          </p>
         </div>
       </div>
     </section>
     <section class="section foldout">
-      <div class="map--section--wrapper" >
-        <div class="map--direct-wrapper" v-bind:class="{ sidelined: foldoutActive }" >
+      <div class="map--section--wrapper">
+        <div
+          class="map--direct-wrapper"
+          v-bind:class="{ sidelined: foldoutActive }"
+        >
           <div class="map--wrapper">
-
-            <div class="report--show-current-button button" v-on:click="foldoutActive = true" v-bind:class="{ hidden: !validMapPixel }">
+            <div
+              class="report--show-current-button button"
+              v-on:click="foldoutActive = true"
+              v-bind:class="{ hidden: !validMapPixel }"
+            >
               <span class="text">
                 Show report for selected location
               </span>
@@ -38,10 +64,20 @@
             </div>
             -->
 
-            <mv-map ref="map" :baseLayerOptions="baseLayerOptions" :baseLayer="baseLayer" :placeLayer="placeLayer" :crs="crs" :mapOptions="mapOptions"></mv-map>
+            <mv-map
+              ref="map"
+              :baseLayerOptions="baseLayerOptions"
+              :baseLayer="baseLayer"
+              :placeLayer="placeLayer"
+              :crs="crs"
+              :mapOptions="mapOptions"
+            ></mv-map>
           </div>
         </div>
-        <div v-bind:class="{ sidelined: foldoutActive }" class="report--section">
+        <div
+          v-bind:class="{ sidelined: foldoutActive }"
+          class="report--section"
+        >
           <!-- Go back to the map -->
           <div v-on:click="foldoutActive = false" class="button is-link back">
             <span class="icon is-large">
@@ -53,7 +89,10 @@
           </div>
 
           <!-- Loading spinner! -->
-          <div class="loading-spinner box" v-bind:class="{ hidden: reportIsLoaded }">
+          <div
+            class="loading-spinner box"
+            v-bind:class="{ hidden: reportIsLoaded }"
+          >
             <div class="loading-spinner--wrapper">
               <span class="icon is-large">
                 <i class="fas fa-spin fa-2x fa-spinner"></i>
@@ -67,20 +106,35 @@
           <!-- Show this section once the data are loaded,
             we'll know then if it's valid or not.
           -->
-          <div class="report--loaded" v-bind:class="{ hidden: !reportIsLoaded }">
-          
+          <div
+            class="report--loaded"
+            v-bind:class="{ hidden: !reportIsLoaded }"
+          >
             <!-- Notify user of invalid pixel, or hide if it's OK. -->
-            <div class="report--invalid" v-bind:class="{ hidden: validMapPixel }">
+            <div
+              class="report--invalid"
+              v-bind:class="{ hidden: validMapPixel }"
+            >
               <p class="content is-size-5">
-                Sorry, but the place you clicked on the map doesn&rsquo;t have any data!  This means it was either on land or otherwise outside of the dataset itself.  <a v-on:click.prevent.stop="foldoutActive = false" href="#">Go back and pick another place on the map</a>.
+                Sorry, but the place you clicked on the map doesn&rsquo;t have
+                any data! This means it was either on land or otherwise outside
+                of the dataset itself.
+                <a v-on:click.prevent.stop="foldoutActive = false" href="#"
+                  >Go back and pick another place on the map</a
+                >.
               </p>
             </div>
 
             <!-- Report wrapper; hide unless there's data. -->
-            <div class="report--charts" v-bind:class="{ hidden: !validMapPixel }">
+            <div
+              class="report--charts"
+              v-bind:class="{ hidden: !validMapPixel }"
+            >
+              <h3 class="title is-4">
+                Sea ice, January, 1850&ndash;2018 at {{ latDeg }}&deg;N,
+                {{ lngDeg }}&deg;E
+              </h3>
 
-              <h3 class="title is-4">Sea ice, January, 1850&ndash;2018 at {{ latDeg }}&deg;N, {{ lngDeg }}&deg;E</h3>
-              
               <div class="form--controls">
                 <form>
                   <div class="field">
@@ -115,29 +169,56 @@
                 </form>
               </div>
 
-              <Plotly :data="concentrationPlotData" :layout="concentrationPlotLayout" :display-mode-bar="false"></Plotly>
+              <Plotly
+                :data="concentrationPlotData"
+                :layout="concentrationPlotLayout"
+                :display-mode-bar="false"
+              ></Plotly>
 
-              <Plotly :data="thresholdChartData" :layout="thresholdChartLayout" :display-mode-bar="false"></Plotly>
-
+              <Plotly
+                :data="thresholdChartData"
+                :layout="thresholdChartLayout"
+                :display-mode-bar="false"
+              ></Plotly>
             </div>
           </div>
-
         </div>
       </div>
     </section>
     <section style="padding: 2rem 0;">
       <div class="container">
-        
         <div class="content">
-          <h2 class="title is-4">Challenges of data collection and interpretation</h2>
-          <p>Collecting sea ice data has always been difficult and dangerous work. Interpreting data is not dangerous, but remains difficult due to differences in historic interpretations of ice concentration from modern protocols as well as instrument calibrations and sensors (human observation, radar, satellites) over time.</p>
-          <p>Challenges faced by the Atlas data team included questions such as, Which hard copy maps to digitize? How do we interpret this handwriting? How do we fill gaps in the data record? Which time scale is best to use?</p>
+          <h2 class="title is-4">
+            Challenges of data collection and interpretation
+          </h2>
+          <p>
+            Collecting sea ice data has always been difficult and dangerous
+            work. Interpreting data is not dangerous, but remains difficult due
+            to differences in historic interpretations of ice concentration from
+            modern protocols as well as instrument calibrations and sensors
+            (human observation, radar, satellites) over time.
+          </p>
+          <p>
+            Challenges faced by the Atlas data team included questions such as,
+            Which hard copy maps to digitize? How do we interpret this
+            handwriting? How do we fill gaps in the data record? Which time
+            scale is best to use?
+          </p>
           <h2 class="title is-5">Data sources in this atlas</h2>
           <dl>
             <dt>Analog filling of spatial and temporal gaps</dt>
-            <dd>Spatial and temporal gaps in a given grid filled with best analog representations of the given month.</dd>
-            <dt>Arctic and Antarctic Research Institute (AARI) </dt>
-            <dd>Located in St. Petersburg, Russia, AARI produces sea ice charts for safety of navigation in the Eurasian Arctic and other operational and scientific purposes. Chart coverage focuses on the Northern Sea Route, although later charts extend into the central Arctic. Charts contain several categories of ice concentration.</dd>
+            <dd>
+              Spatial and temporal gaps in a given grid filled with best analog
+              representations of the given month.
+            </dd>
+            <dt>Arctic and Antarctic Research Institute (AARI)</dt>
+            <dd>
+              Located in St. Petersburg, Russia, AARI produces sea ice charts
+              for safety of navigation in the Eurasian Arctic and other
+              operational and scientific purposes. Chart coverage focuses on the
+              Northern Sea Route, although later charts extend into the central
+              Arctic. Charts contain several categories of ice concentration.
+            </dd>
           </dl>
           <p><a class="button">Show more...</a></p>
         </div>
@@ -150,87 +231,91 @@
 /* eslint new-cap: "off" */
 /* global process */
 /* eslint-disable */
-import _ from 'lodash'
-import MapInstance from '@/components/MapInstance'
-import VueSlider from 'vue-slider-component'
-import 'vue-slider-component/theme/default.css'
-import moment from 'moment'
-import proj4 from 'proj4'
-import { Plotly } from 'vue-plotly'
-import '@fortawesome/fontawesome-free/css/all.css'
+import _ from "lodash";
+import MapInstance from "@/components/MapInstance";
+import VueSlider from "vue-slider-component";
+import "vue-slider-component/theme/default.css";
+import moment from "moment";
+import proj4 from "proj4";
+import { Plotly } from "vue-plotly";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 // Convert an integer (0 - end of data series)
 // into two strings: one for display,
 // and the other for the WMS request.
 var getDateFromInteger = function(num) {
-  var dateObj = moment({ day: 1, month: num % 12, year: 1850 + (Math.floor(num / 12)) })
+  var dateObj = moment({
+    day: 1,
+    month: num % 12,
+    year: 1850 + Math.floor(num / 12),
+  });
   return {
-    display: dateObj.format('MMMM, YYYY'),
-    wms: '"' + dateObj.format('YYYY-MM-DDT00:00:00.000[Z]') + '"'
-  }
-}
+    display: dateObj.format("MMMM, YYYY"),
+    wms: '"' + dateObj.format("YYYY-MM-DDT00:00:00.000[Z]") + '"',
+  };
+};
 
 // Range of years
-var xrange = []
-for(let x = 1850; x <= 2018; x++) {
-  xrange.push(x)
+var xrange = [];
+for (let x = 1850; x <= 2018; x++) {
+  xrange.push(x);
 }
 
 var months = {
-  0: 'January',
-  1: 'February',
-  2: 'March',
-  3: 'April',
-  4: 'May',
-  5: 'June',
-  6: 'July',
-  7: 'August',
-  8: 'September',
-  9: 'October',
-  10: 'November',
-  11: 'December',
-}
+  0: "January",
+  1: "February",
+  2: "March",
+  3: "April",
+  4: "May",
+  5: "June",
+  6: "July",
+  7: "August",
+  8: "September",
+  9: "October",
+  10: "November",
+  11: "December",
+};
 
 // Mapping of seasons to month numbers
 var seasons = {
-  "winter": {
+  winter: {
     months: [11, 0, 1],
-    title: 'Winter (December, January, February)'
+    title: "Winter (December, January, February)",
   },
-  "spring": {
+  spring: {
     months: [2, 3, 4],
-    title: 'Spring (March, April, May)'
+    title: "Spring (March, April, May)",
   },
-  "summer": {
+  summer: {
     months: [5, 6, 7],
-    title: 'Summer (June, July, August)'
+    title: "Summer (June, July, August)",
   },
-  "fall": {
+  fall: {
     months: [8, 9, 10],
-    title: 'Fall (September, October, November)'
-  }
-}
+    title: "Fall (September, October, November)",
+  },
+};
 
 export default {
-  name: 'HSIAA',
+  name: "HSIAA",
   extends: MapInstance,
   components: {
     VueSlider,
-    Plotly
+    Plotly,
   },
   created() {
-    this.debouncedUpdateAtlas = _.debounce(this.updateAtlas, 500)
+    this.debouncedUpdateAtlas = _.debounce(this.updateAtlas, 500);
   },
   mounted() {
-    this.updateAtlas()
-    this.map = this.$options.components['mv-map'].leaflet.map
-    this.map.on('click', this.handleMapClick)
+    this.updateAtlas();
+    this.map = this.$options.components["mv-map"].leaflet.map;
+    this.map.on("click", this.handleMapClick);
     // Necessary to see the markers.
-    this.$L.Icon.Default.imagePath = 'static/'
+    this.$L.Icon.Default.imagePath = "static/";
   },
   data() {
     return {
-      title: 'Historical Sea Ice Atlas of Alaska & the Arctic',
+      title: "Historical Sea Ice Atlas of Alaska & the Arctic",
       abstract: `
 <h1>Historical Sea Ice Atlas of Alaska & the Arctic</h1>
 `,
@@ -239,14 +324,14 @@ export default {
         minZoom: 0,
         maxZoom: 5,
         center: [64, -155],
-        scrollWheelZoom: false
+        scrollWheelZoom: false,
       },
       baseLayerOptions: {
         transparent: true,
-        srs: 'EPSG:3572',
-        format: 'image/png',
-        version: '1.3.0',
-        continuousWorld: true // needed for non-3857 projs
+        srs: "EPSG:3572",
+        format: "image/png",
+        version: "1.3.0",
+        continuousWorld: true, // needed for non-3857 projs
       },
       selectedDate: 0,
       displayDate: "",
@@ -261,28 +346,42 @@ export default {
       // Plotly layout objects
       concentrationPlotData: [], // default empty
       concentrationPlotLayout: {
-        title: 'Sea Ice Concentration, 1850-2018, January',
+        title: "Sea Ice Concentration, 1850-2018, January",
         yaxis: {
           range: [0, 105],
-          fixedrange: true
-        }
+          fixedrange: true,
+        },
+        legend: { orientation: "h" },
       },
       thresholdChartData: [],
       thresholdChartLayout: {
-        title: 'Sea Ice Concentration, 1850-2018',
+        title: "Sea Ice Concentration, 1850-2018",
         height: 1000,
         yaxis: {
-          type: 'category',
+          type: "category",
           fixedrange: true,
-          range: xrange
+          range: xrange,
         },
         xaxis: {
-          tickmode: 'array',
+          tickmode: "array",
           tickvals: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-          ticktext: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        }
+          ticktext: [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ],
+        },
       },
-      
+
       // Lat, lng of current point in EPSG:3857
       latDeg: 0,
       lngDeg: 0,
@@ -306,231 +405,244 @@ export default {
       navbuttons: [
         {
           title: "Download data",
-          href: "http://ckan.snap.uaf.edu/dataset/historical-sea-ice-atlas-observed-estimates-of-sea-ice-concentration-in-alaska-waters",
-          class: "is-default"
-        }
-      ]
-    }
+          href:
+            "http://ckan.snap.uaf.edu/dataset/historical-sea-ice-atlas-observed-estimates-of-sea-ice-concentration-in-alaska-waters",
+          class: "is-default",
+        },
+      ],
+    };
   },
   computed: {
     crs() {
       // We need to modify the default pan-Arctic
       // projection to avoid a bug.
-      var proj = new this.$L.Proj.CRS('EPSG:3572',
-        '+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs', {
+      var proj = new this.$L.Proj.CRS(
+        "EPSG:3572",
+        "+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
+        {
           resolutions: [4096, 2048, 1024, 512, 256, 128, 64],
-          origin: [-4889334.802954878, -4889334.802954878]
+          origin: [-4889334.802954878, -4889334.802954878],
         }
-      )
+      );
 
       // trust me.
       // Without this (= pi/2), proj4js returns an undefined
       // value for tiles requested at the North Pole and
       // it causes a runtime exception.
-      proj.projection._proj.oProj.phi0 = 1.5708
-      return proj
+      proj.projection._proj.oProj.phi0 = 1.5708;
+      return proj;
     },
     baseLayer() {
       return new this.$L.tileLayer.wms(
         process.env.GEOSERVER_WMS_URL,
         _.extend(this.baseLayerOptions, {
-          layers: ['arctic_osm_3572']
+          layers: ["arctic_osm_3572"],
         })
-      )
+      );
     },
     placeLayer() {
       // Not needed for this map since it's ocean.
-      return
+      return;
     },
-    
   },
   watch: {
     selectedDate: function(prev, selected) {
-      this.debouncedUpdateAtlas()
+      this.debouncedUpdateAtlas();
     },
-    selectedMonthOrSeason (val) {
-      this.updateConcentrationPlot()
+    selectedMonthOrSeason(val) {
+      this.updateConcentrationPlot();
     },
-    timeseriesData (data) {
-      this.updateConcentrationPlot()
-      this.updateThresholdPlot()
-    }
+    timeseriesData(data) {
+      this.updateConcentrationPlot();
+      this.updateThresholdPlot();
+    },
   },
   methods: {
     updateConcentrationPlot() {
-      if(this.timeseriesData) {
+      if (this.timeseriesData) {
         let traces = [];
-        let monthFragment = '';
+        let monthFragment = "";
         // Month was selected
         if (!isNaN(Number(this.selectedMonthOrSeason))) {
-          let y = this.timeseriesData.filter( (value, index) => {
-              return index % 12 === Number(this.selectedMonthOrSeason)
-            })
+          let y = this.timeseriesData.filter((value, index) => {
+            return index % 12 === Number(this.selectedMonthOrSeason);
+          });
           // Draw the sea ice concentration plot.
-          traces = [{
-            x: xrange,
-            y: y,
-            type: 'scatter'
-          }]
-          monthFragment = months[this.selectedMonthOrSeason]
+          traces = [
+            {
+              x: xrange,
+              y: y,
+              type: "scatter",
+            },
+          ];
+          monthFragment = months[this.selectedMonthOrSeason];
         } else {
           // Add a series of traces for the season
-          traces = seasons[this.selectedMonthOrSeason].months.map(month => {
-            let y = this.timeseriesData.filter( (value, index) => {
-              return index % 12 === month
-            })
+          traces = seasons[this.selectedMonthOrSeason].months.map((month) => {
+            let y = this.timeseriesData.filter((value, index) => {
+              return index % 12 === month;
+            });
             return {
               x: xrange,
               y: y,
-              type: 'scatter',
-              name: months[month]
-            }
-          })
-          monthFragment = seasons[this.selectedMonthOrSeason].title
+              type: "scatter",
+              name: months[month],
+            };
+          });
+          monthFragment = seasons[this.selectedMonthOrSeason].title;
         }
         this.concentrationPlotLayout = {
           title: `Sea Ice Concentration at ${this.latDeg}ºN, ${this.lngDeg}ºE, ${monthFragment}, 1850-2018`,
           yaxis: {
             range: [0, 105],
-            fixedrange: true
-          }
-        }
-        this.concentrationPlotData = traces
-
+            fixedrange: true,
+          },
+          legend: { orientation: "h" },
+        };
+        this.concentrationPlotData = traces;
       }
     },
     updateThresholdPlot() {
-      if(this.timeseriesData) {
-        var x=[]
-        var y=[]
-        
-        let months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      if (this.timeseriesData) {
+        var x = [];
+        var y = [];
+
+        let months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
         xrange.forEach((year, index) => {
-          months.forEach(month => {
-            let dataIndex = ((year - 1850) * 12) + (month - 1)
+          months.forEach((month) => {
+            let dataIndex = (year - 1850) * 12 + (month - 1);
             // Loop as many times as the %conc to fake the "histogram!"
-            for(let i = 1; i <= this.timeseriesData[dataIndex]; ++i) {
-              x.push(month)
-              y.push(year)
-            }  
-          })
-        })
-        this.thresholdChartData = [{
-          x: x,
-          y: y,
-          type: "histogram2d",
-          autocolorscale: false,
-          colorscale: 'YlGnBu',
-          zmin: 0,
-          zmax: 100
-        }]
+            for (let i = 1; i <= this.timeseriesData[dataIndex]; ++i) {
+              x.push(month);
+              y.push(year);
+            }
+          });
+        });
+        this.thresholdChartData = [
+          {
+            x: x,
+            y: y,
+            type: "histogram2d",
+            autocolorscale: false,
+            colorscale: "YlGnBu",
+            zmin: 0,
+            zmax: 100,
+          },
+        ];
       }
     },
     updateAtlas() {
-      var dates = getDateFromInteger(this.selectedDate)
-      this.displayDate = dates.display
+      var dates = getDateFromInteger(this.selectedDate);
+      this.displayDate = dates.display;
       if (this.layer) {
-        this.$options.components['mv-map'].leaflet.map.removeLayer(this.layer)
+        this.$options.components["mv-map"].leaflet.map.removeLayer(this.layer);
       }
       this.layer = this.$L.tileLayer.wms(
-        'http://apollo.snap.uaf.edu:8080/rasdaman/ows?',
+        "http://apollo.snap.uaf.edu:8080/rasdaman/ows?",
         _.extend(this.baseLayerOptions, {
-          layers: ['hsia_arctic'],
-          styles: 'hsia',
-          version: '1.3.0',
-          time: dates.wms // need the
+          layers: ["hsia_arctic"],
+          styles: "hsia",
+          version: "1.3.0",
+          time: dates.wms,
         })
-      )
-
-      // TODO, this is a pretty grim way of interacting with the
-      // underlying Leaflet map... can this be fixed before merging this branch?
-      this.$options.components['mv-map'].leaflet.map.addLayer(
-        this.layer)
+      );
+      this.map.addLayer(this.layer);
     },
     dateFormatter(dateVal) {
-      return getDateFromInteger(dateVal).display
+      return getDateFromInteger(dateVal).display;
     },
     handleMapClick(event) {
       // If the foldout was active, then clicking on the exposed map
       // is the same as "go back" but won't fire a new load attempt.
-      if ( this.foldoutActive === true ) {
-        this.foldoutActive = false
-        return
+      if (this.foldoutActive === true) {
+        this.foldoutActive = false;
+        return;
       }
 
       // If the foldout was hidden, then this is an attempt to load new data.  Activate the foldout and try and load new stuff.
       // Setting reportIsLoaded to false ensures the spinner is shown.
-      this.foldoutActive = true
-      this.reportIsLoaded = false
+      this.foldoutActive = true;
+      this.reportIsLoaded = false;
 
       // Set the current latlng in the app context
-      this.latlng = event.latlng
-      
+      this.latlng = event.latlng;
+
       // If we've already got a point on the map, clear it out
       // until we know if this point is valid or not.
-      if(this.marker) {
-        this.$options.components['mv-map'].leaflet.map.removeLayer(this.marker)
-        this.marker = undefined
+      if (this.marker) {
+        this.$options.components["mv-map"].leaflet.map.removeLayer(this.marker);
+        this.marker = undefined;
       }
 
       // Set the current lat/lng (in EPSG:3857), for display.
-      this.latDeg = Number.parseFloat(event.latlng.lat).toFixed(2)
-      this.lngDeg = Number.parseFloat(event.latlng.lng).toFixed(2)
+      this.latDeg = Number.parseFloat(event.latlng.lat).toFixed(2);
+      this.lngDeg = Number.parseFloat(event.latlng.lng).toFixed(2);
 
       // var latlng = event.latlng // preserve context for promise below
 
       // Define and perform Rasdaman query to get the data
-      var coords = proj4('EPSG:4326', 'EPSG:3572', [event.latlng.lng, event.latlng.lat])
-      var query = "http://apollo.snap.uaf.edu:8080/rasdaman/ows?&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=hsia_arctic&SUBSET=X(" + coords[0] + ")&SUBSET=Y(" + coords[1] + ")&FORMAT=application/json&RANGESUBSET=Gray"
+      var coords = proj4("EPSG:4326", "EPSG:3572", [
+        event.latlng.lng,
+        event.latlng.lat,
+      ]);
+      var query =
+        "http://apollo.snap.uaf.edu:8080/rasdaman/ows?&SERVICE=WCS&VERSION=2.0.1&REQUEST=GetCoverage&COVERAGEID=hsia_arctic&SUBSET=X(" +
+        coords[0] +
+        ")&SUBSET=Y(" +
+        coords[1] +
+        ")&FORMAT=application/json&RANGESUBSET=Gray";
 
       return new Promise((resolve) => {
-        this.$axios.get(query, { timeout: 10000 })
-          .then(res => {
-
+        this.$axios
+          .get(query, { timeout: 10000 })
+          .then((res) => {
             if (res) {
               // Set the report as loaded.
-              this.reportIsLoaded = true
-              this.timeseriesData = res.data
+              this.reportIsLoaded = true;
+              this.timeseriesData = res.data;
 
               // If returned data are all 0's, it's an invalid pixel
               // (or literally never sea ice).  Tell user, and don't
               // show the graphs.
-              const reducer = (accumulator, currentValue) => accumulator + currentValue
-              let sum = this.timeseriesData.reduce(reducer)
+              const reducer = (accumulator, currentValue) =>
+                accumulator + currentValue;
+              let sum = this.timeseriesData.reduce(reducer);
               if (sum === 0) {
-                this.validMapPixel = false
-                resolve()
-                return
+                this.validMapPixel = false;
+                resolve();
+                return;
               }
 
               // Put a marker / popup on the map to show the
               // sidebar again.
-              this.marker = this.$L.marker(event.latlng)
-              this.marker.addTo(this.$options.components['mv-map'].leaflet.map)
+              this.marker = this.$L.marker(event.latlng);
+              this.marker.addTo(this.$options.components["mv-map"].leaflet.map);
 
               // Show the reports.
-              this.validMapPixel = true
+              this.validMapPixel = true;
 
               // Maybe?  Draw a mini-map zoomed in around the point,
               // with a place marker.
 
-              resolve()
+              resolve();
             }
-        }).catch(error => {
-          // TODO Something failed, show an error note.
-          this.validMapPixel = false
-          resolve()
-          return
-        })
-      })
-    }
-  }
-}
-
+          })
+          .catch((error) => {
+            // TODO Something failed, show an error note.
+            this.validMapPixel = false;
+            resolve();
+            return;
+          });
+      });
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
-
-.lead, .content, p, span {
+.lead,
+.content,
+p,
+span {
   font-family: "Open Sans", "Helvetica Neue", Calibri, Arial, sans-serif;
 }
 
@@ -542,9 +654,10 @@ export default {
 }
 
 section.lead {
-  background: no-repeat top left url("../../../static/ice_montage_1900_satellite_duo.jpg");
+  background: no-repeat top left
+    url("../../../static/ice_montage_1900_satellite_duo.jpg");
   .titles {
-      margin: -2rem 0 300px 6.5rem;
+    margin: -2rem 0 300px 6.5rem;
     h1 {
       text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
       color: rgb(255, 246, 229);
@@ -565,9 +678,8 @@ section.foldout {
 }
 
 .map--section--wrapper {
-  
   display: grid;
-  
+
   grid-template-columns: 100vw 85vw;
   grid-gap: 1.5rem;
 
@@ -577,7 +689,7 @@ section.foldout {
     position: relative;
     height: 100vh;
     opacity: 1;
-    transition: transform .5s ease;
+    transition: transform 0.5s ease;
 
     &.sidelined {
       opacity: 0.3;
@@ -640,7 +752,7 @@ section.foldout {
 
     &.sidelined {
       height: auto;
-      transition: transform .5s ease;
+      transition: transform 0.5s ease;
       transform: translateX(-95vw);
       -webkit-transform: translateX(-95vw);
     }
@@ -656,15 +768,15 @@ section.foldout {
         position: relative;
         span.icon {
           position: relative;
-          top: .4rem;
+          top: 0.4rem;
         }
       }
-
     }
 
     .report--loaded {
       margin: 2rem 0;
-      &.hidden, .hidden {
+      &.hidden,
+      .hidden {
         display: none;
       }
 
@@ -674,7 +786,6 @@ section.foldout {
       .report--invalid {
         margin: 3rem 0;
       }
-
     }
   }
 }
@@ -690,5 +801,4 @@ dt {
 dd {
   padding-bottom: 1rem;
 }
-
 </style>
