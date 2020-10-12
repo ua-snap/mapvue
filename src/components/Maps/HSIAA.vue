@@ -57,12 +57,17 @@
               </span>
             </div>
 
-            <!-- Disabling slider until I work on it in new PR
+            <!-- Slider wrapper! -->
             <div class="date--display">
               <p class="date--display--date">{{ displayDate }}</p>
-              <vue-slider v-model="selectedDate" :height="15" :tooltip-formatter="dateFormatter" :max="2016" :hide-label="true" />
+              <vue-slider v-model="selectedDate" :height="20" :min="1850" :max="2018" :hide-label="true" />
+              <span v-on:click="decrementMonth" class="button icon is-medium">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+              </span>
+              <span v-on:click="incrementMonth" class="button icon is-medium">
+                <i class="fas fa-arrow-alt-circle-right"></i>
+              </span>
             </div>
-            -->
 
             <mv-map
               ref="map"
@@ -243,12 +248,8 @@ import "@fortawesome/fontawesome-free/css/all.css";
 // Convert an integer (0 - end of data series)
 // into two strings: one for display,
 // and the other for the WMS request.
-var getDateFromInteger = function(num) {
-  var dateObj = moment({
-    day: 1,
-    month: num % 12,
-    year: 1850 + Math.floor(num / 12),
-  });
+var getDateFromInteger = function(year, month) {
+  var dateObj = moment({ day: 1, month: month, year: year })
   return {
     display: dateObj.format("MMMM, YYYY"),
     wms: '"' + dateObj.format("YYYY-MM-DDT00:00:00.000[Z]") + '"',
@@ -333,7 +334,14 @@ export default {
         version: "1.3.0",
         continuousWorld: true, // needed for non-3857 projs
       },
-      selectedDate: 0,
+
+      // What year?
+      selectedDate: 1850,
+
+      // Increments/decrements month.
+      monthOffset: 0,
+
+      // Date displayed on the map.
       displayDate: "",
 
       // Updated when we get a successful timeseries back.
@@ -456,8 +464,32 @@ export default {
       this.updateConcentrationPlot();
       this.updateThresholdPlot();
     },
+    monthOffset: function(prev, selected) {
+      this.debouncedUpdateAtlas()
+    },
+    selectedMonthOrSeason (val) {
+      this.updateConcentrationPlot()
+    },
   },
   methods: {
+    decrementMonth() {
+      this.monthOffset -= 1
+      if (this.monthOffset < 0) {
+        this.monthOffset = 11
+        var newDate = this.selectedDate - 1
+        if(newDate < 1850) { newDate = 1850; this.monthOffset = 0 }
+        this.selectedDate = newDate
+      }
+    },
+    incrementMonth() {
+      this.monthOffset += 1
+      if (this.monthOffset > 11) {
+        this.monthOffset = 0
+        var newDate = this.selectedDate + 1
+        if(newDate > 2018) { newDate = 2018; this.monthOffset = 11 }
+        this.selectedDate = newDate
+      }
+    },
     updateConcentrationPlot() {
       if (this.timeseriesData) {
         let traces = [];
@@ -532,8 +564,8 @@ export default {
       }
     },
     updateAtlas() {
-      var dates = getDateFromInteger(this.selectedDate);
-      this.displayDate = dates.display;
+      var dates = getDateFromInteger(this.selectedDate, this.monthOffset)
+      this.displayDate = dates.display
       if (this.layer) {
         this.$options.components["mv-map"].leaflet.map.removeLayer(this.layer);
       }
@@ -650,6 +682,14 @@ span {
   background-color: #ebebeb;
   /deep/ nav {
     background-color: #ebebeb;
+  }
+}
+
+.date--display {
+  /deep/ .vue-slider-dot-tooltip-inner {
+    font-family: "Open Sans", "Helvetica Neue", Calibri, Arial, sans-serif;
+    background-color: rgba(25, 25, 25, 0.50);
+    font-weight: 700;
   }
 }
 
