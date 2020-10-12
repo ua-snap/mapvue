@@ -136,7 +136,7 @@
               v-bind:class="{ hidden: !validMapPixel }"
             >
               <h3 class="title is-4">
-                Sea ice, January, 1850&ndash;2018 at {{ latDeg }}&deg;N,
+                Sea ice, 1850&ndash;2018 at {{ latDeg }}&deg;N,
                 {{ lngDeg }}&deg;E
               </h3>
 
