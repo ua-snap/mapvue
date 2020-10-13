@@ -13,6 +13,7 @@
     "lint": "eslint --ext .js,.vue src test/e2e/specs"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
     "bulma": "^0.9.1",
