@@ -61,11 +61,11 @@
             <div class="date--display">
               <p class="date--display--date">{{ displayDate }}</p>
               <vue-slider v-model="selectedDate" :height="20" :min="1850" :max="2018" :hide-label="true" />
-              <span v-on:click="decrementMonth" class="button icon is-medium">
-                <i class="fas fa-arrow-alt-circle-left"></i>
+              <span v-on:click="decrementMonth" class="button is-small">
+                <i class="fas fa-arrow-alt-circle-left"> Past Month</i>
               </span>
-              <span v-on:click="incrementMonth" class="button icon is-medium">
-                <i class="fas fa-arrow-alt-circle-right"></i>
+              <span v-on:click="incrementMonth" class="button is-small">
+                <i class="fas fa-arrow-alt-circle-right"> Next Month</i>
               </span>
             </div>
 
