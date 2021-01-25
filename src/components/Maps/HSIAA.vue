@@ -832,7 +832,7 @@ section.foldout {
 
 .content {
   padding: 0 10vw;
-  text-align: center;
+  text-align: justify;
 }
 
 dt {
