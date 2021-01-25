@@ -225,7 +225,6 @@
               Arctic. Charts contain several categories of ice concentration.
             </dd>
           </dl>
-          <p><a class="button">Show more...</a></p>
         </div>
       </div>
     </section>
