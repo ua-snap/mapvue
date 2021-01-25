@@ -426,7 +426,7 @@ export default {
       // projection to avoid a bug.
       var proj = new this.$L.Proj.CRS(
         "EPSG:3572",
-        "+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
+        "+proj=laea +lat_0=87 +lon_0=-155 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
         {
           resolutions: [4096, 2048, 1024, 512, 256, 128, 64],
           origin: [-4889334.802954878, -4889334.802954878],
@@ -831,7 +831,8 @@ section.foldout {
 }
 
 .content {
-  max-width: 50rem;
+  padding: 0 10vw;
+  text-align: center;
 }
 
 dt {
