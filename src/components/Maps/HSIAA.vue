@@ -12,27 +12,22 @@
           </h2>
         </div>
         <div class="content">
-          <p class="is-size-5">
-            <strong>We can plan for the future by studying the past.</strong>
-          </p>
-          <p class="is-size-5">
-            If you live in an Alaska coastal community, hunt or fish in a marine
-            environment, work in shipping or oil and gas, serve with the US
-            Coast Guard, research Arctic ecosystems or are otherwise interested
-            in Arctic sea ice data and climate change, this atlas is for you.
+          <h2 class="title is-4">
+            About the HSIA
+          </h2>
+          <p class="is-size-6">
+            <strong>If you live in an Arctic or sub-Arctic coastal community,
+            hunt or fish in a marine environment</strong>, work in shipping or
+            oil and gas, serve with the Coast Guard, research Arctic
+            ecosystems or are otherwise interested in Arctic sea ice data and
+            climate change, <strong>this atlas is for you.</strong>
           </p>
           <p class="is-size-6">
-            Now you can simultaneously view multiple sources of historical sea
-            ice data from the seas off northern Alaska. Choose a region and time
-            of interest and inspect a map of data collected between the
-            mid-1800s and today, to discover how ice extent and concentration
-            have changed over time.
-          </p>
-          <p class="is-size-6">
-            The Atlas shows “snapshots” in time, as well as historical trends in
-            arctic sea ice cover and extent. It is not designed for forecasting
-            or prediction, but can provide useful historical context for future
-            planning efforts.
+            View historical sea ice data from the seas around the circumpolar
+            north and discover how ice extent and concentration have changed
+            over time. This atlas shows snapshots in time as well as long term
+            patterns. It is not designed for forecasting or prediction, but can
+            provide useful historical context for future planning efforts.
           </p>
         </div>
       </div>
@@ -193,38 +188,80 @@
     <section style="padding: 2rem 0;">
       <div class="container">
         <div class="content">
-          <h2 class="title is-4">
-            Challenges of data collection and interpretation
+          <h2 class="title is-5">
+            Data animation
           </h2>
           <p>
-            Collecting sea ice data has always been difficult and dangerous
-            work. Interpreting data is not dangerous, but remains difficult due
-            to differences in historic interpretations of ice concentration from
-            modern protocols as well as instrument calibrations and sensors
-            (human observation, radar, satellites) over time.
+            View animations of sea ice extent below either across the entire
+            dataset &lpar;Every month from January 1850 to December 2019&rpar; or for
+            individual months.
+          </p>
+          <h2 class="title is-5">Data collection and interpretation</h2>
+          <p>
+            Collecting and interpreting sea ice data has always been difficult
+            work. Challenges stem from differences in historic interpretations
+            of ice concentration, different charting conventions, and especially
+            changes in available observing tools &lpar;ships, airplanes starting in
+            the early 1900s, satellites starting in the 1970s&rpar;
           </p>
           <p>
-            Challenges faced by the Atlas data team included questions such as,
-            Which hard copy maps to digitize? How do we interpret this
-            handwriting? How do we fill gaps in the data record? Which time
-            scale is best to use?
+            Data included in this atlas begins with sea ice observations
+            extrapolated from whaling ship log books in the Beaufort, Chukchi,
+            and Bering seas starting in 1850.
           </p>
-          <h2 class="title is-5">Data sources in this atlas</h2>
+          <p>
+            Data gaps from those logs are filled with analog-derived sea
+            ice coverage &lpar;longer gaps&rpar; or interpolation &lpar;short gaps&rpar;.
+            Other sea ice data sources are incorporated as they came into being
+            beginning with information from the Danish Meteorological Institute
+            sea ice charts dating back to 1893, through the satellite microwave
+            sensor products that became routine in 1978. Find more details on
+            the methodology involved in the synthesis of the various data
+            sources in this
+            <a href="https://www.tandfonline.com/doi/abs/10.1111/j.1931-0846.2016.12195.x" target="_blank">2017 paper in the Journal Arctic</a>.
+          </p>
+          <p>
+            In addition to historical sea ice data covering the seas around the
+            state of Alaska, the Atlas features the
+            <a href="https://nsidc.org/the-drift/data-update/gridded-monthly-arctic-sea-ice-back-to-1850-for-analysis-or-browsing/" target="_blank">Pan-Arctic SIBT1850 Sea Ice Dataset</a>.
+          </p>
+          <img src="../../assets/SourcesChart.jpg" width="1000px" height="500px" />
+          <p>
+            <br/>
+            <a href="https://nsidc.org/sites/nsidc.org/files/G10010_V002.0.pdf" target="_blank">See more information on the data sources comprising this atlas.</a>
+          </p>
+          <h2 class="title is-5">Download data</h2>
+          <p>
+            Your download will include the entire Historical Sea Ice dataset compiled from the sources listed here, not a subset of selected dates.
+          </p>
+          <p>
+            <a href="http://ckan.snap.uaf.edu/dataset/historical-sea-ice-atlas-observed-estimates-of-sea-ice-concentration-in-alaska-waters" target="_blank">Download this dataset</a>.
+          </p>
+          <h2 class="title is-5">This Atlas calculates and illustrates these sea ice measurements</h2>
           <dl>
-            <dt>Analog filling of spatial and temporal gaps</dt>
+            <dt>Sea ice concentration</dt>
             <dd>
-              Spatial and temporal gaps in a given grid filled with best analog
-              representations of the given month.
+              Amount of sea ice covering an area. Written as the ratio of sea
+              ice to water, either a fraction &lpar;8/10&rpar; or percentage &lpar;80&percnt;&rpar; of sea
+              ice coverage. &lt;30&percnt; sea ice concentration &equals; navigable by ship. >90&percnt;
+              is considered solid ice.
+
             </dd>
-            <dt>Arctic and Antarctic Research Institute (AARI)</dt>
+            <dt>Sea ice extent</dt>
             <dd>
-              Located in St. Petersburg, Russia, AARI produces sea ice charts
-              for safety of navigation in the Eurasian Arctic and other
-              operational and scientific purposes. Chart coverage focuses on the
-              Northern Sea Route, although later charts extend into the central
-              Arctic. Charts contain several categories of ice concentration.
+              Total area covered by some amount of sea ice at a given time,
+              including open water between floes. The Atlas considers sea ice
+              &quot;present&quot; if sea ice concentration is &gt;15&percnt;.
+              Thus, sea ice extent is the area of sea covered by at least
+              15&percnt; ice for a specific date. The Atlas reports monthly averages,
+              so the sea ice extent for a given month represents the measured
+              or interpolated sea ice extent closest to the middle of that month.
             </dd>
           </dl>
+          <p>
+            For information about other measurements of sea ice not covered in this atlas see
+            <a href="https://nsidc.org/cryosphere/glossary-terms/sea-ice" target="_blank">the National Snow and Ice Data Center’s glossary of terms</a>.
+          </p>
         </div>
       </div>
     </section>
@@ -691,6 +728,12 @@ span {
     font-weight: 700;
   }
 }
+
+// #hsia_sources {
+//     background: url("../../../static/HSIASourcesChart.svg") white bottom left / cover no-repeat;
+//     width: 50vw;
+//     height: 50vh;
+// }
 
 section.lead {
   background: no-repeat top left
