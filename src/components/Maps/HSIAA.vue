@@ -635,6 +635,9 @@ export default {
       // Set the current latlng in the app context
       this.latlng = event.latlng;
 
+      // Set the month shown via the map to be the concentration map's initial selection
+      this.selectedMonthOrSeason = this.monthOffset;
+
       // If we've already got a point on the map, clear it out
       // until we know if this point is valid or not.
       if (this.marker) {
@@ -728,12 +731,6 @@ span {
     font-weight: 700;
   }
 }
-
-// #hsia_sources {
-//     background: url("../../../static/HSIASourcesChart.svg") white bottom left / cover no-repeat;
-//     width: 50vw;
-//     height: 50vh;
-// }
 
 section.lead {
   background: no-repeat top left
