@@ -140,15 +140,8 @@
                   <div class="field">
                     <label class="label">Choose month or season</label>
                     <div class="control">
-                      <div class="select">
-                        <select v-model="selectedMonthOrSeason">
-                          <optgroup label="By season">
-                            <option value="winter">Winter</option>
-                            <option value="spring">Spring</option>
-                            <option value="summer">Summer</option>
-                            <option value="fall">Fall</option>
-                          </optgroup>
-                          <optgroup label="By month">
+                      <div class="select is-multiple">
+                        <select v-model="selectedMonthOrSeason" multiple>
                             <option value="0">January</option>
                             <option value="1">February</option>
                             <option value="2">March</option>
@@ -161,7 +154,6 @@
                             <option value="9">October</option>
                             <option value="10">November</option>
                             <option value="11">December</option>
-                          </optgroup>
                         </select>
                       </div>
                     </div>
@@ -503,9 +495,6 @@ export default {
     monthOffset: function(prev, selected) {
       this.debouncedUpdateAtlas()
     },
-    selectedMonthOrSeason (val) {
-      this.updateConcentrationPlot()
-    },
   },
   methods: {
     decrementMonth() {
@@ -546,9 +535,9 @@ export default {
           monthFragment = months[this.selectedMonthOrSeason];
         } else {
           // Add a series of traces for the season
-          traces = seasons[this.selectedMonthOrSeason].months.map((month) => {
+          traces = this.selectedMonthOrSeason.map((month) => {
             let y = this.timeseriesData.filter((value, index) => {
-              return index % 12 === month;
+              return index % 12 === Number(month);
             });
             return {
               x: xrange,
@@ -557,7 +546,7 @@ export default {
               name: months[month],
             };
           });
-          monthFragment = seasons[this.selectedMonthOrSeason].title;
+          monthFragment = "Testing"
         }
         this.concentrationPlotLayout = {
           title: `Sea Ice Concentration at ${this.latDeg}ºN, ${this.lngDeg}ºE, ${monthFragment}, 1850-2018`,
@@ -636,7 +625,7 @@ export default {
       this.latlng = event.latlng;
 
       // Set the month shown via the map to be the concentration map's initial selection
-      this.selectedMonthOrSeason = this.monthOffset;
+      this.selectedMonthOrSeason = [this.monthOffset];
 
       // If we've already got a point on the map, clear it out
       // until we know if this point is valid or not.
