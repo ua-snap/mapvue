@@ -305,26 +305,6 @@ var months = {
   11: "December",
 };
 
-// Mapping of seasons to month numbers
-var seasons = {
-  winter: {
-    months: [11, 0, 1],
-    title: "Winter (December, January, February)",
-  },
-  spring: {
-    months: [2, 3, 4],
-    title: "Spring (March, April, May)",
-  },
-  summer: {
-    months: [5, 6, 7],
-    title: "Summer (June, July, August)",
-  },
-  fall: {
-    months: [8, 9, 10],
-    title: "Fall (September, October, November)",
-  },
-};
-
 export default {
   name: "HSIAA",
   extends: MapInstance,
@@ -536,6 +516,7 @@ export default {
         } else {
           // Add a series of traces for the season
           traces = this.selectedMonthOrSeason.map((month) => {
+            monthFragment = monthFragment + months[month] + ", "
             let y = this.timeseriesData.filter((value, index) => {
               return index % 12 === Number(month);
             });
@@ -546,7 +527,8 @@ export default {
               name: months[month],
             };
           });
-          monthFragment = "Testing"
+          // Removes additional space and comma from title of month's chosen
+          monthFragment = monthFragment.substring(0, monthFragment.length - 2)
         }
         this.concentrationPlotLayout = {
           title: `Sea Ice Concentration at ${this.latDeg}ºN, ${this.lngDeg}ºE, ${monthFragment}, 1850-2018`,
