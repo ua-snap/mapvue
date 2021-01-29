@@ -164,7 +164,8 @@
               <Plotly
                 :data="concentrationPlotData"
                 :layout="concentrationPlotLayout"
-                :display-mode-bar="false"
+                :options="modeBarButtonsToRemove"
+                :display-mode-bar="true"
               ></Plotly>
 
               <Plotly
@@ -367,8 +368,44 @@ export default {
           range: [0, 105],
           fixedrange: true,
         },
+        modeBarButtonsToRemove: [
+            "zoom2d",
+            "pan2d",
+            "select2d",
+            "lasso2d",
+            "zoomIn2d",
+            "zoomOut2d",
+            "autoScale2d",
+            "resetScale2d",
+            "hoverClosestCartesian",
+            "hoverCompareCartesian",
+            "hoverClosestPie",
+            "hoverClosest3d",
+            "hoverClosestGl2d",
+            "hoverClosestGeo",
+            "toggleHover",
+            "toggleSpikelines",
+        ],
         legend: { orientation: "h" },
       },
+      modeBarButtonsToRemove: [
+          "zoom2d",
+          "pan2d",
+          "select2d",
+          "lasso2d",
+          "zoomIn2d",
+          "zoomOut2d",
+          "autoScale2d",
+          "resetScale2d",
+          "hoverClosestCartesian",
+          "hoverCompareCartesian",
+          "hoverClosestPie",
+          "hoverClosest3d",
+          "hoverClosestGl2d",
+          "hoverClosestGeo",
+          "toggleHover",
+          "toggleSpikelines",
+      ],
       thresholdChartData: [],
       thresholdChartLayout: {
         title: "Sea Ice Concentration, 1850-2018",
@@ -550,6 +587,7 @@ export default {
         xrange.forEach((year, index) => {
           months.forEach((month) => {
             let dataIndex = (year - 1850) * 12 + (month - 1);
+            console.log(dataIndex);
             // Loop as many times as the %conc to fake the "histogram!"
             for (let i = 1; i <= this.timeseriesData[dataIndex]; ++i) {
               x.push(month);
@@ -557,6 +595,7 @@ export default {
             }
           });
         });
+        console.log(y);
         this.thresholdChartData = [
           {
             x: x,
