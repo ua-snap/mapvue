@@ -1,23 +1,41 @@
+/* eslint-disable no-unused-vars */
+
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
 Vue.use(Router)
 
-// Lazy load the map wrapper
-const MapInstanceWrapper = () => import('@/components/MapInstanceWrapper')
-
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Hello',
-      component: Hello
+      path: '/map/fires',
+      beforeEnter(to, from, next) {
+        window.location.href = 'https://snap.uaf.edu/tools/alaska-wildfires'
+      }
     },
     {
-      path: '/map/:slug',
-      name: 'map',
-      component: MapInstanceWrapper,
-      props: true
+      path: '/map/aaokh',
+      beforeEnter(to, from, next) {
+        window.location.href = 'https://arctic-aok.org'
+      }
+    },
+    {
+      path: '/map/snap-data-intro',
+      beforeEnter(to, from, next) {
+        window.location.href = 'https://uaf-snap.org/tools-overview/'
+      }
+    },
+    {
+      path: '/map/iam',
+      beforeEnter(to, from, next) {
+        window.location.href = 'https://uaf-snap.org/tools-overview/'
+      }
+    },
+    {
+      path: '/environmental-impacts-access/index.html',
+      beforeEnter(to, from, next) {
+        window.location.href = 'https://snap.uaf.edu/tools/living-off-the-land'
+      }
     }
   ]
 })
