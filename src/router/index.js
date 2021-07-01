@@ -7,6 +7,12 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/',
+      beforeEnter(to, from, next) {
+        window.location.href = 'https://uaf-snap.org/tools-overview/'
+      }
+    },
+    {
       path: '/map/fires',
       beforeEnter(to, from, next) {
         window.location.href = 'https://snap.uaf.edu/tools/alaska-wildfires'
